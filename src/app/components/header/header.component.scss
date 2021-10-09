@@ -1,0 +1,31 @@
+@import '../../styles/colors';
+
+.header {
+  padding: 21px 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: $white;
+  border-bottom: 1px solid $lightGray;
+  z-index: 2;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.header__name {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.5;
+
+  span {
+    color: $blue;
+  }
+}

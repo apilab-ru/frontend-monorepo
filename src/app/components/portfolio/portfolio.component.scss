@@ -1,0 +1,38 @@
+@import '../../styles/colors';
+
+.block-portfolio {
+  padding: 40px 0;
+  border-bottom: 1px solid $lightGray;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.filter {
+  display: flex;
+}
+
+.filter__item {
+  text-decoration: none;
+  cursor: pointer;
+  color: $black;
+  margin-right: 25px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: $blue;
+  }
+}
+
+.block-projects {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+

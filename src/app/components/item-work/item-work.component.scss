@@ -1,0 +1,33 @@
+@import '../../styles/colors';
+
+.work {
+  padding-bottom: 20px;
+}
+
+.work__name {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3px;
+}
+
+.position {
+  margin: 0 15px 0 0;
+}
+
+.work__dates {
+  display: flex;
+}
+
+.separator {
+  margin: 0 5px;
+}
+
+.work__function {
+  color: $gray;
+  margin-top: 10px;
+}
+
+.line {
+  border-bottom: 1px solid $backgroundFooter;
+  margin-top: 20px;
+}

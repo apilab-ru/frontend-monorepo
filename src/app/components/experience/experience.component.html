@@ -1,0 +1,23 @@
+<section class="block-experience">
+  <div class="container">
+    <div class="flex__row-left">
+      <div>
+        <app-title>Опыт {{ experience }} лет</app-title>
+        <p class="text">
+          Я имею большой опыт в построении CRM, разрабатывал свою CMS.
+          <br>
+          Я обладаю навыками и знаниями для построения любых приложений: от серверной до клиентской стороны.
+          <br>
+          Помимо соновной работы, я занимаюсь сложными и интересными frontend и backend кейсами, которые есть в моём портфолио.
+        </p>
+      </div>
+      <app-svg-zigzag></app-svg-zigzag>
+    </div>
+    <div class="flex__row-right">
+      <app-item-work
+        *ngFor="let work of works"
+        [work]="work"
+      ></app-item-work>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,61 @@
+@import '../../styles/colors';
+
+.block-about {
+  margin-top: 78px;
+  padding: 40px 0;
+  border-bottom: 1px solid $lightGray;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.item {
+  display: flex;
+  margin-top: 16px;
+}
+
+.item__subtitle {
+  font-size: 12px;
+  font-weight: 700;
+  margin: 0;
+  width: 90px;
+}
+
+.item__text {
+  font-size: 14px;
+  color: $gray;
+  margin: 0;
+
+  &:hover {
+    color: $black;
+  }
+}
+
+.button {
+  background-color: $blue;
+  border: none;
+  border-radius: 2px;
+  color: $white;
+  min-width: 200px;
+  font-size: 12px;
+  padding: 15px 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 25px;
+  cursor: pointer;
+  transition: all .3s ease;
+
+  &:hover {
+    box-shadow: 10px 10px 20px rgb(51 51 255 / 20%);
+  }
+}
+
+.img {
+  max-width: 585px;
+  max-height: 100%;
+}

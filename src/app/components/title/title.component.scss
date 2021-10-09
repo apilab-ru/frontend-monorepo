@@ -1,0 +1,12 @@
+@import '../../styles/colors';
+
+.title {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.5;
+
+  span {
+    color: $blue;
+  }
+}

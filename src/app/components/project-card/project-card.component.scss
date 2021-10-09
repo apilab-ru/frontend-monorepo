@@ -1,0 +1,22 @@
+.container {
+  width: 270px;
+  margin: 15px;
+  cursor: pointer;
+  display: block;
+  z-index: 1;
+}
+
+.container-img {
+  overflow: hidden;
+}
+
+.img {
+  width: 270px;
+  height: 270px;
+  border-radius: 2px;
+  transition: all .3s ease;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}

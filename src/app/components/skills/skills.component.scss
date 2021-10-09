@@ -1,0 +1,35 @@
+@import '../../styles/colors';
+
+.block-skills {
+  padding: 40px 0;
+  border-bottom: 1px solid $lightGray;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.flex__row-left {
+  flex: 1;
+}
+
+.flex__row-right {
+  flex: 2;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 15px;
+}
+
+.skill-card {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 15px;
+}
+
+.line {
+  border-bottom: 1px solid $backgroundFooter;
+}

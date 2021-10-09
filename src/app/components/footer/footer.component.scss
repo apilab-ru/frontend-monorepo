@@ -1,0 +1,15 @@
+@import '../../styles/colors';
+
+.footer {
+  background-color: $backgroundFooter;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 0;
+}
+
+.text {
+  font-size: 14px;
+  line-height: 1.5em;
+  margin: 0;
+}

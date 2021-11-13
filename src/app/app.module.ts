@@ -17,6 +17,8 @@ import { ItemWorkComponent } from './components/item-work/item-work.component';
 import { ProjectCardComponent } from './components/project-card/project-card.component';
 import { ItemFeedbackComponent } from './components/item-feedback/item-feedback.component';
 import { ModalProjectComponent } from './components/modal-project/modal-project.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { ModalProjectComponent } from './components/modal-project/modal-project.
     ModalProjectComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

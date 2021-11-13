@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { ProjectCardComponent } from '../project-card/project-card.component';
 
 @Component({
   selector: 'app-modal-project',
@@ -6,11 +8,13 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./modal-project.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ModalProjectComponent implements OnInit {
+export class ModalProjectComponent {
 
-  constructor() { }
+  constructor(
+    public dialogRef: MatDialogRef<ProjectCardComponent>) {}
 
-  ngOnInit(): void {
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

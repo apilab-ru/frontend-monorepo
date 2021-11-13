@@ -2,14 +2,23 @@
   <div class="container">
     <app-title>Портфолио</app-title>
     <div class="filter">
-      <a class="filter__item">Все проекты</a>
-      <a class="filter__item">Frontend</a>
-      <a class="filter__item">FullStack</a>
-      <a class="filter__item">Вебсайты</a>
+      <a class="filter__item"
+         [class.-active]="(filter$ | async) === null"
+         (click)="setFilter(null)"
+      >
+        Все проекты
+      </a>
+      <a *ngFor="let item of projectTypes"
+         class="filter__item"
+         (click)="setFilter(item)"
+         [class.-active]="(filter$ | async) === item"
+      >
+        {{ item }}
+      </a>
     </div>
     <div class="block-projects">
       <app-project-card
-        *ngFor="let project of projects"
+        *ngFor="let project of (projects$ | async); trackBy:trackById"
         [project]="project"
       ></app-project-card>
     </div>

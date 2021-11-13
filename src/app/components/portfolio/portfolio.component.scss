@@ -28,6 +28,10 @@
   &:hover {
     color: $blue;
   }
+
+  &.-active {
+    color: $blue;
+  }
 }
 
 .block-projects {

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProjectCardComponent } from '../project-card/project-card.component';
 import { ProjectDetails } from '../interfaces/project';
-import { PROJECT_DETAILS } from '../portfolio/const';
+import { PROJECT_DETAILS } from '../../portfolio';
 
 @Component({
   selector: 'app-modal-project',

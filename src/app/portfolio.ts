@@ -1,4 +1,4 @@
-import { Project, ProjectDetails } from '../interfaces/project';
+import { Project, ProjectDetails } from './components/interfaces/project';
 
 export enum ProjectType {
   frontend = 'Frontend',

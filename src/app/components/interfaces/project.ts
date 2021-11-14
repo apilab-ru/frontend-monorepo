@@ -1,4 +1,4 @@
-import { ProjectType } from '../portfolio/const';
+import { ProjectType } from '../../portfolio';
 
 export interface Project {
   id: string;

@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
-import { PROJECTS_PREVIEW, ProjectType } from './const';
+import { PROJECTS_PREVIEW, ProjectType } from '../../portfolio';
 import { BehaviorSubject } from 'rxjs';
 import { Project } from '../interfaces/project';
 // @ts-ignore

@@ -16,4 +16,9 @@
   &:active {
     color: $blue;
   }
+
+  &.-selected {
+    color: $blue;
+    text-decoration: underline;
+  }
 }

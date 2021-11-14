@@ -1,7 +1,10 @@
 <nav class="menu">
-  <a class="menu__link">обо мне</a>
-  <a class="menu__link">навыки</a>
-  <a class="menu__link">опыт</a>
-  <a class="menu__link">портфолио</a>
-  <a class="menu__link">отзывы</a>
+  <a
+    *ngFor="let item of menuList"
+    class="menu__link"
+    [class.-selected]="(sectionId$ | async) === item.id"
+    (click)="scrollTo(item.id)"
+  >
+    {{ item.name }}
+  </a>
 </nav>

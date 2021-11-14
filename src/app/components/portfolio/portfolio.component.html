@@ -21,6 +21,7 @@
         *ngFor="let project of projects; trackBy:trackById"
         class="card"
         [project]="project"
+        (click)="openDialog(project)"
       ></app-project-card>
     </div>
   </div>

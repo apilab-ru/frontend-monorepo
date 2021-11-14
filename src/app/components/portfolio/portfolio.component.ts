@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Project } from '../interfaces/project';
 // @ts-ignore
 import * as mixitup from 'mixitup/dist/mixitup.js';
+import { Router } from '@angular/router';
 
 interface Item<T> extends Element {
   data: T;
@@ -22,6 +23,11 @@ export class PortfolioComponent implements AfterViewInit {
   projects = PROJECTS_PREVIEW;
 
   @ViewChild('box', { static: true }) box: ElementRef<HTMLElement>;
+
+  constructor(
+    private router: Router,
+  ) {
+  }
 
   ngAfterViewInit(): void {
     const mixer = mixitup(this.box.nativeElement, {
@@ -51,11 +57,19 @@ export class PortfolioComponent implements AfterViewInit {
     });
   }
 
+  openDialog(project: Project): void {
+    this.router.navigate([], {
+      queryParams: { project: project.id },
+      queryParamsHandling: 'merge',
+      preserveFragment: true,
+    });
+  }
+
   setFilter(value: ProjectType | null): void {
     this.filter$.next(value);
   }
 
-  trackById(index: number, project: Project): number {
+  trackById(index: number, project: Project): string {
     return project.id;
   }
 }

@@ -1,6 +1,45 @@
-<div mat-dialog-content>
-  <p>What's your favorite animal?</p>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
+<div mat-dialog-content class="modal">
+  <app-title>{{ detail.title }}</app-title>
+  <button class="close" (click)="onNoClick()">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z"></path>
+    </svg>
+  </button>
+
+  <div class="details">
+    <div class="line">
+      <span class="key">Стек:</span>
+      <span class="value">{{ detail.stack }}</span>
+    </div>
+    <div class="line">
+      <span class="key">Дата:</span>
+      <span class="value">{{ detail.date }}</span>
+    </div>
+    <div *ngIf="detail.link" class="line">
+      <span class="key"></span>
+      <span class="value">
+        <a
+          *ngIf="detail.link.href"
+          class="link"
+          [href]="detail.link.href"
+        >
+          {{ detail.link.name || 'Ссылка' }}
+        </a>
+
+        <a
+          *ngIf="detail?.link?.github"
+          class="link"
+          [href]="detail.link.github"
+        >
+          <span class="icon-github"></span>
+          <span class="link-name">Github</span>
+        </a>
+      </span>
+    </div>
+  </div>
+
+  <section *ngFor="let item of detail.details" class="detail-item">
+    <div *ngIf="item.text" class="text">{{ item.text }}</div>
+    <img *ngIf="item.image" class="image" [src]="item.image"/>
+  </section>
 </div>

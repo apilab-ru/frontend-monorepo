@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Project } from '../interfaces/project';
-import { MatDialog } from '@angular/material/dialog';
-import { ModalProjectComponent } from '../modal-project/modal-project.component';
 
 @Component({
   selector: 'app-project-card',
@@ -11,10 +9,4 @@ import { ModalProjectComponent } from '../modal-project/modal-project.component'
 })
 export class ProjectCardComponent {
   @Input() project: Project;
-
-  constructor(public dialog: MatDialog) {}
-
-  openDialog(): void {
-    const dialogRef = this.dialog.open(ModalProjectComponent);
-  }
 }

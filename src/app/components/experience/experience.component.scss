@@ -28,3 +28,13 @@
   flex-wrap: wrap;
   margin-left: 22px;
 }
+
+.item-work {
+  display: block;
+  border-bottom: 1px solid $backgroundFooter;
+  margin-top: 20px;
+
+  &:last-of-type {
+    border: none;
+  }
+}

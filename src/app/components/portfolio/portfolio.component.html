@@ -16,9 +16,10 @@
         {{ item }}
       </a>
     </div>
-    <div class="block-projects">
+    <div class="block-projects" #box>
       <app-project-card
-        *ngFor="let project of (projects$ | async); trackBy:trackById"
+        *ngFor="let project of projects; trackBy:trackById"
+        class="card"
         [project]="project"
       ></app-project-card>
     </div>

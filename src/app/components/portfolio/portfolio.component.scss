@@ -16,6 +16,7 @@
 
 .filter {
   display: flex;
+  margin-top: 24px;
 }
 
 .filter__item {
@@ -35,8 +36,10 @@
 }
 
 .block-projects {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  -webkit-backface-visibility: hidden;
 }
 
+.card {
+  display: inline-block;
+  width: 23.5%;
+}

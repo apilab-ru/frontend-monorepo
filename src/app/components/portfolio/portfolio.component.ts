@@ -1,29 +1,57 @@
-import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
 import { PROJECTS_PREVIEW, ProjectType } from './const';
-import { BehaviorSubject, fromEvent, Observable, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Project } from '../interfaces/project';
-import { map } from 'rxjs/operators';
-import { ANIMATION } from './animation';
+// @ts-ignore
+import * as mixitup from 'mixitup/dist/mixitup.js';
+
+interface Item<T> extends Element {
+  data: T;
+}
 
 @Component({
   selector: 'app-portfolio',
   templateUrl: './portfolio.component.html',
   styleUrls: ['./portfolio.component.scss'],
-  animations: [ANIMATION],
+  animations: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PortfolioComponent implements OnInit {
+export class PortfolioComponent implements AfterViewInit {
   projectTypes = Object.values(ProjectType) as ProjectType[];
+  filter$ = new BehaviorSubject<ProjectType | null>(ProjectType.frontend);
+  projects = PROJECTS_PREVIEW;
 
-  filter$ = new BehaviorSubject<ProjectType | null>(null);
-  projects$: Observable<Project[]>;
+  @ViewChild('box', { static: true }) box: ElementRef<HTMLElement>;
 
-  ngOnInit(): void {
-    this.projects$ = this.filter$.pipe(map(filter => PROJECTS_PREVIEW
-      .filter(item => filter ? item?.types.includes(filter) : true )));
+  ngAfterViewInit(): void {
+    const mixer = mixitup(this.box.nativeElement, {
+      selectors: {
+        target: '.card',
+      },
+      animation: {
+        duration: 300,
+      },
+    });
+
+    // @ts-ignore
+    const collection: Item<Project>[] = Array.from(
+      this.box.nativeElement.querySelectorAll('.card'),
+    ).map((item, index) => {
+      // @ts-ignore
+      item['data'] = this.projects[index];
+      return item;
+    });
+
+    this.filter$.subscribe(filter => {
+      const filteredList = collection.filter(item => {
+        return !filter || item.data.types.includes(filter);
+      });
+
+      mixer.filter(filteredList);
+    });
   }
 
-  setFilter(value: ProjectType | null) {
+  setFilter(value: ProjectType | null): void {
     this.filter$.next(value);
   }
 

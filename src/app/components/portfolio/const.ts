@@ -50,18 +50,18 @@ export const PROJECTS_PREVIEW: Project[] = [
     types: [ProjectType.frontend],
   },
   {
-    id: 7,
-    img: './assets/img/projects/preview/ambar.jpg',
-    title: 'CRM Склад',
-    date: 'Май, 2017',
-    types: [ProjectType.fullStack],
-  },
-  {
     id: 8,
     img: './assets/img/projects/preview/bouquet-editor.jpg',
     title: 'Редактор Букетов',
     date: 'Август, 2017',
     types: [ProjectType.frontend],
+  },
+  {
+    id: 7,
+    img: './assets/img/projects/preview/ambar.jpg',
+    title: 'CRM Склад',
+    date: 'Май, 2017',
+    types: [ProjectType.fullStack],
   },
   {
     id: 9,

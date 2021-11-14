@@ -9,10 +9,9 @@ import { WORKS } from './const';
 })
 export class ExperienceComponent  {
   works = WORKS;
-
   experience = this.getYearExperience();
 
-  getYearExperience() {
+  private getYearExperience(): number {
     return new Date().getFullYear() - 2013
   }
 }

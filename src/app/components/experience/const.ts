@@ -1,6 +1,6 @@
 export const WORKS = [
   {
-    position: 'Senior Developer',
+    position: 'Senior/Lead Developer',
     company: 'Skyeng',
     dateFrom: 'Октябрь 2019',
     dateTo: 'По настоящее время',

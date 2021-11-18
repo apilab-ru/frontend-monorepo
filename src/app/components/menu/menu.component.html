@@ -5,6 +5,9 @@
     [class.-selected]="(sectionId$ | async) === item.id"
     (click)="scrollTo(item.id)"
   >
-    {{ item.name }}
+    <span class="name">
+      {{ item.name }}
+    </span>
+    <span class="icon {{ item.icon }}"></span>
   </a>
 </nav>

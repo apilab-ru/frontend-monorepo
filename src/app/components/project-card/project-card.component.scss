@@ -1,4 +1,5 @@
 @import '../../styles/colors';
+@import '../../styles/breakpoints';
 
 .container {
   display: flex;
@@ -12,6 +13,12 @@
   z-index: 1;
   background-color: $white;
   border: none;
+
+  @include isMobile() {
+    width: 100%;
+    margin: 0;
+    min-height: 0;
+  }
 }
 
 .container-img {
@@ -27,12 +34,25 @@
   &:hover {
     transform: scale(1.2);
   }
+
+  @include isMobile() {
+    height: auto;
+    width: 100%;
+
+    &:hover {
+      transform: none !important;
+    }
+  }
 }
 
 .title {
   text-align: left;
   font-size: 16px;
   margin: 10px 0;
+
+  @include isMobile() {
+    margin: 0;
+  }
 }
 
 .date {

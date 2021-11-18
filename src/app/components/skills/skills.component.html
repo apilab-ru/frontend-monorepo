@@ -2,27 +2,29 @@
   <div class="container">
     <div class="flex__row-left">
       <app-title>Навыки</app-title>
-      <p class="text">Я считаю, что разработка - моё призвание.
-        Разработка в команде таких же увлечённых людей - мечта.
-        <br>
-        Разработка приложений, которые решают проблемы клиента и радуют пользователей - цель.
-      </p>
-      <app-svg-zigzag></app-svg-zigzag>
+      <div class="text -first">Я считаю, что:
+        <ul class="list">
+          <li class="list-item">Разработка - моё призвание</li>
+          <li class="list-item">Разработка в команде таких же увлечённых людей - мечта</li>
+          <li class="list-item">Разработка приложений, которые решают проблемы клиента и радуют пользователей - цель</li>
+        </ul>
+      </div>
+      <app-svg-zigzag class="zig-zag"></app-svg-zigzag>
     </div>
     <div class="flex__row-right">
       <div class="skill-card line">
-        <h3 class="card__subtitle">Frontend разработка</h3>
+        <h3 class="card__subtitle">Frontend</h3>
         <p class="card__text">
           Angular2+, HTML5, Javascript, TypeScript, ES6,
           SCSS, Webpack, NPM, NGRX
         </p>
       </div>
       <div class="skill-card line">
-        <h3 class="card__subtitle">Backend разработка</h3>
+        <h3 class="card__subtitle">Backend</h3>
         <p class="card__text">Nodejs (NextJs), PHP, MySql, Java</p>
       </div>
       <div class="skill-card">
-        <h3 class="card__subtitle">Разработка</h3>
+        <h3 class="card__subtitle">Архитектура</h3>
         <p class="card__text">Leading, Git, Командный CodeStyle, ООП, GoF, Redux</p>
       </div>
       <!--div class="skill-card">

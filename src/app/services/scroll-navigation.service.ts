@@ -14,6 +14,7 @@ export class ScrollNavigationService {
   private lastBreakpoint: number;
   private scrollTop$: Observable<number>;
   private headerHeight = 70;
+  private isMobile = false;
 
   constructor(
     private router: Router,
@@ -22,6 +23,9 @@ export class ScrollNavigationService {
   }
 
   initListener(): void {
+    this.isMobile = screen.availWidth < 721;
+    this.headerHeight = this.isMobile ? 0 : 70;
+
     this.sections = Array.from(document.querySelectorAll('.section'));
     const element = document.querySelector('html')!;
 
@@ -59,7 +63,7 @@ export class ScrollNavigationService {
   scrollTo(sectionId: string): void {
     document.querySelector('#' + sectionId)?.scrollIntoView({
       behavior: 'smooth',
-      block: 'center',
+      block: this.isMobile ? 'start' : 'center',
     });
   }
 

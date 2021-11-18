@@ -1,8 +1,13 @@
 @import '../../styles/colors';
+@import '../../styles/breakpoints';
 
 .block-portfolio {
   padding: 40px 0;
   border-bottom: 1px solid $lightGray;
+
+  @include isMobile() {
+    padding: 15px;
+  }
 }
 
 .container {
@@ -17,6 +22,10 @@
 .filter {
   display: flex;
   margin-top: 24px;
+
+  @include isMobile() {
+    display: none;
+  }
 }
 
 .filter__item {
@@ -42,4 +51,19 @@
 .card {
   display: inline-block;
   width: 25%;
+
+  @include isMobile() {
+    width: 100%;
+    display: block;
+    border-bottom: 1px solid #e3e3e3;
+    padding-bottom: 20px;
+
+    & + & {
+      margin-top: 30px;
+    }
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+  }
 }

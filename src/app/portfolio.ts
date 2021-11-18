@@ -84,6 +84,10 @@ export const PROJECT_DETAILS: Record<string, ProjectDetails> = {
     title: 'Chrome extension - Library',
     stack: 'Angular 12, Typescript, NodeJs(NestJS)',
     date: findProject('file-cabinet').date,
+    link: {
+      name: 'Ссылка в store',
+      href: 'https://chrome.google.com/webstore/detail/file-cabinet/poiackckjbminlmppejhfkmjkfpfegkd'
+    },
     details: [
       {
         text: 'Chrome extension для создания и управления списка фильмов и сериалов для просмотра. ' +

@@ -1,8 +1,13 @@
 @import '../../styles/colors';
+@import '../../styles/breakpoints';
 
 .block-experience {
   padding: 40px 0;
   border-bottom: 1px solid $lightGray;
+
+  @include isMobile() {
+    padding: 15px;
+  }
 }
 
 .container {
@@ -11,6 +16,10 @@
   flex-wrap: wrap;
   max-width: 1200px;
   margin: 0 auto;
+
+  @include isMobile() {
+    display: block;
+  }
 }
 
 .flex__row-left {
@@ -19,6 +28,17 @@
   flex-direction: column;
   justify-content: space-between;
   margin-right: 15px;
+
+  @include isMobile() {
+    margin-right: 0;
+    border-bottom: 1px solid $backgroundFooter;
+  }
+}
+
+.about {
+  @include isMobile() {
+    margin: 12px 0 12px;
+  }
 }
 
 .flex__row-right {
@@ -27,6 +47,10 @@
   flex-direction: column;
   flex-wrap: wrap;
   margin-left: 22px;
+
+  @include isMobile() {
+    margin-left: 0;
+  }
 }
 
 .item-work {
@@ -36,5 +60,11 @@
 
   &:last-of-type {
     border: none;
+  }
+}
+
+.zig-zag {
+  @include isMobile() {
+    display: none;
   }
 }

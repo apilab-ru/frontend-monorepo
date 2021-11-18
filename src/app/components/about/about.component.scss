@@ -1,9 +1,15 @@
 @import '../../styles/colors';
+@import '../../styles/breakpoints';
 
 .block-about {
   margin-top: 78px;
   padding: 40px 0;
   border-bottom: 1px solid $lightGray;
+
+  @include isMobile() {
+    margin-top: 0;
+    padding: 15px;
+  }
 }
 
 .container {
@@ -12,6 +18,10 @@
   flex-wrap: wrap;
   max-width: 1200px;
   margin: 0 auto;
+
+  @include isMobile() {
+    flex-direction: column;
+  }
 }
 
 .block-contacts {
@@ -22,6 +32,10 @@
   display: flex;
   margin-top: 16px;
   align-items: center;
+
+  @include isMobile() {
+    margin-top: 12px;
+  }
 }
 
 .item__subtitle {
@@ -29,6 +43,10 @@
   font-weight: 700;
   margin: 0;
   width: 90px;
+
+  @include isMobile() {
+    font-size: 14px
+  }
 }
 
 .item__text {
@@ -38,6 +56,10 @@
 
   &:hover {
     color: $black;
+  }
+
+  @include isMobile() {
+    font-size: 16px
   }
 }
 
@@ -75,8 +97,40 @@
   &:hover {
     box-shadow: 10px 10px 20px rgb(51 51 255 / 20%);
   }
+
+  @include isMobile() {
+    width: 100%;
+  }
 }
 
+.mobile-title {
+  display: none;
+  order: 1;
+  border-bottom: 1px solid #e3e3e3;
+
+  @include isMobile() {
+    display: block;
+  }
+}
+
+.desktop-title {
+  @include isMobile() {
+    display: none;
+  }
+}
+
+.photo-section {
+  @include isMobile() {
+    order: 2;
+    margin-top: 10px;
+  }
+}
+
+.text-section {
+  @include isMobile() {
+    order: 3;
+  }
+}
 
 .my-photo {
   box-shadow: 0 0 12px 8px white inset;
@@ -85,4 +139,25 @@
   background: url(/assets/img/me-postered.jpg);
   background-size: contain;
   border-radius: 2px;
+
+  @include isMobile() {
+    display: none;
+  }
+}
+
+.my-photo-img {
+  display: none;
+  width: 100%;
+
+  @include isMobile() {
+    display: block;
+  }
+}
+
+.text {
+  @include isMobile() {
+    br {
+      display: none;
+    }
+  }
 }

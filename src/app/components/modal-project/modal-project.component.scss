@@ -1,3 +1,6 @@
+@import '../../styles/colors';
+@import '../../styles/breakpoints';
+
 .modal {
   max-width: 760px;
 }
@@ -12,11 +15,12 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  background-color: #2385e7;
+  background-color: $blue;
   border: none;
-  color: #ffffff;
-  fill: #ffffff;
+  color: $white;
+  fill: $white;
   border-radius: 3px;
+  outline: none;
 
   &:hover {
     box-shadow: 10px 10px 20px rgb(51 51 255 / 20%);
@@ -42,16 +46,29 @@
 .key {
   width: 90px;
   font-weight: 700;
+
+  @include isMobile() {
+    display: none;
+  }
+}
+
+.value.-date {
+  @include isMobile() {
+    font-size: 14px;
+    color: $gray;
+    display: flex;
+    margin-left: auto;
+  }
 }
 
 .link {
-  color: #252525;
+  color: $black;
   transition: all .3s ease;
   text-decoration: underline;
   display: block;
 
   &:hover {
-    color: #2385e7;
+    color: $blue;
   }
 }
 

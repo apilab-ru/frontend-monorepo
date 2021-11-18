@@ -1,18 +1,24 @@
-export const MENU: { name: string, id: string }[] = [
+import { Menu } from './interface';
+
+export const MENU: Menu[] = [
   {
     name: 'обо мне',
-    id: 'about'
+    id: 'about',
+    icon: 'icon-user'
   },
   {
     name: 'навыки',
-    id: 'skills'
+    id: 'skills',
+    icon: 'icon-stats'
   },
   {
     name: 'опыт',
-    id: 'experience'
+    id: 'experience',
+    icon: 'icon-trophy'
   },
   {
     name: 'портфолио',
-    id: 'portfolio'
+    id: 'portfolio',
+    icon: 'icon-briefcase'
   },
 ];

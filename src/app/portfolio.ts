@@ -218,7 +218,7 @@ export const PROJECT_DETAILS: Record<string, ProjectDetails> = {
           'С адаптацией под мобильные устройства.',
       },
       {
-        image: '/assets/img/projects/details/cinema/cinema.png',
+        image: '/assets/img/projects/details/cinema/cinema.jpg',
       },
       {
         image: '/assets/img/projects/details/cinema/mobile.png',

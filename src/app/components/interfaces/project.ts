@@ -17,6 +17,10 @@ export interface ProjectDetails {
     href: string,
     github?: string,
   },
+  link2?: {
+    name?: string,
+    href: string,
+  },
   details: {
     text?: string;
     image?: string;

@@ -1,5 +1,7 @@
 <div mat-dialog-content class="modal">
-  <app-title>{{ detail.title }}</app-title>
+  <app-title>
+    <span [innerHTML]="detail.title"></span>
+  </app-title>
   <button class="close" (click)="onNoClick()">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z"></path>
@@ -9,7 +11,7 @@
   <div class="details">
     <div class="line">
       <span class="key">Стек:</span>
-      <span class="value">{{ detail.stack }}</span>
+      <span class="value" [innerHTML]="detail.stack"></span>
     </div>
     <div class="line">
       <span class="key">Дата:</span>
@@ -36,10 +38,22 @@
         </a>
       </span>
     </div>
+    <div *ngIf="detail.link2" class="line">
+      <span class="key"></span>
+      <span class="value">
+        <a
+          *ngIf="detail.link2.href"
+          class="link"
+          [href]="detail.link2.href"
+        >
+          {{ detail.link2.name || 'Ссылка' }}
+        </a>
+      </span>
+    </div>
   </div>
 
   <section *ngFor="let item of detail.details" class="detail-item">
-    <div *ngIf="item.text" class="text">{{ item.text }}</div>
+    <div *ngIf="item.text" class="text" [innerHTML]="item.text"></div>
     <img *ngIf="item.image" class="image" [src]="item.image"/>
   </section>
 </div>

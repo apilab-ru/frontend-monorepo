@@ -12,7 +12,14 @@ export const PROJECTS_PREVIEW: Project[] = [
     img: './assets/img/projects/details/file-cabinet/preview.jpg',
     title: 'Chrome extension - Library',
     date: 'Ноябрь, 2021',
-    types: [ProjectType.frontend],
+    types: [ProjectType.frontend, ProjectType.fullStack],
+  },
+  {
+    id: 'leads',
+    img: './assets/img/projects/details/leads/preview.jpg',
+    title: 'Realtime CRM',
+    date: 'Сентябрь, 2019',
+    types: [ProjectType.frontend, ProjectType.fullStack],
   },
   {
     id: 'vue-calc',
@@ -88,6 +95,10 @@ export const PROJECT_DETAILS: Record<string, ProjectDetails> = {
       name: 'Ссылка в store',
       href: 'https://chrome.google.com/webstore/detail/file-cabinet/poiackckjbminlmppejhfkmjkfpfegkd'
     },
+    link2: {
+      name: 'Swagger',
+      href: 'http://filecabinet.enotolyb.ru/swagger/#/'
+    },
     details: [
       {
         text: 'Chrome extension для создания и управления списка фильмов и сериалов для просмотра. ' +
@@ -111,6 +122,34 @@ export const PROJECT_DETAILS: Record<string, ProjectDetails> = {
         image: '/assets/img/projects/details/file-cabinet/popup.jpg',
       },
     ],
+  },
+  ['leads']: {
+    title: 'Chrome extension - Library',
+    stack: 'Angular 7, Typescript, <s>PHP7.1</s>, NodeJs(NestJS), MySql, Firebase',
+    date: findProject('leads').date,
+    link: {
+      name: 'Фронт',
+      href: 'https://leads.apilab.ru/login'
+    },
+    link2: {
+      name: 'Swagger',
+      href: 'http://leads-api.enotolyb.ru/swagger/#/'
+    },
+    details: [
+      {
+        text: 'Авторизация A001 / admin',
+      },
+      {
+        text: 'CRM система для управления списками обзвона с обновлением данных в реальном времени и модулем статистики.',
+      },
+      {
+        text: 'Реалтайм обновление данных осуществляется на основе firebase. ' +
+          'Бэкенд изначально был написан на php, но затем мигрирован на nodejs для ускорения работы.',
+      },
+      {
+        image: '/assets/img/projects/details/leads/screen-users.jpg',
+      },
+    ]
   },
   ['vue-calc']: {
     title: 'Web Component калькулятор на VueJs',

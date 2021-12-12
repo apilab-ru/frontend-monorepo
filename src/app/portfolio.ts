@@ -15,6 +15,13 @@ export const PROJECTS_PREVIEW: Project[] = [
     types: [ProjectType.frontend, ProjectType.fullStack],
   },
   {
+    id: 'record',
+    img: './assets/img/projects/details/record/preview.jpg',
+    title: 'Learn Songs Lyric',
+    date: 'Декабрь, 2020',
+    types: [ProjectType.frontend],
+  },
+  {
     id: 'leads',
     img: './assets/img/projects/details/leads/preview.jpg',
     title: 'Realtime CRM',
@@ -120,6 +127,28 @@ export const PROJECT_DETAILS: Record<string, ProjectDetails> = {
       {
         text: 'Поап добавления с редактированием мета-данных',
         image: '/assets/img/projects/details/file-cabinet/popup.jpg',
+      },
+    ],
+  },
+  ['record']: {
+    title: 'Chrome extension - Library',
+    stack: 'Angular 10, SpeechRecognition',
+    date: findProject('record').date,
+    link: {
+      href: 'https://record.apilab.ru/intro',
+      github: 'https://github.com/apilab-ru/audio-record',
+    },
+    details: [
+      {
+        text: 'Проект для изучения песен на английском.',
+      },
+      {
+        image: '/assets/img/projects/details/record/main.jpg',
+      },
+      {
+        text: 'С помощью браузерного апи: SpeechSynthesisUtterance произносится перевод строки из песни и вариант прочтения на английском.\n' +
+          'Затем пользователю предоставляется возможность повторить английский вариант.\n' +
+          'И с помощью SpeechRecognition и метода расстояния Левенштейна анализируется точность сказанного с текстом песни.\n',
       },
     ],
   },

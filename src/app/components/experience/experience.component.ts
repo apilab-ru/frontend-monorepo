@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { WORKS } from './const';
+import { WORKS } from '../../experience';
+import differenceInYears from 'date-fns/differenceInYears';
 
 @Component({
   selector: 'app-experience',
@@ -12,6 +13,9 @@ export class ExperienceComponent  {
   experience = this.getYearExperience();
 
   private getYearExperience(): number {
-    return new Date().getFullYear() - 2013
+    return differenceInYears(
+      new Date(),
+      new Date('2013-12-01'),
+    );
   }
 }

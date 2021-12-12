@@ -1,10 +1,11 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PROJECTS_PREVIEW, ProjectType } from '../../portfolio';
 import { BehaviorSubject } from 'rxjs';
 import { Project } from '../interfaces/project';
 // @ts-ignore
 import * as mixitup from 'mixitup/dist/mixitup.js';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { filter, map, take } from 'rxjs/operators';
 
 interface Item<T> extends Element {
   data: T;
@@ -17,16 +18,28 @@ interface Item<T> extends Element {
   animations: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PortfolioComponent implements AfterViewInit {
+export class PortfolioComponent implements OnInit, AfterViewInit {
   projectTypes = Object.values(ProjectType) as ProjectType[];
-  filter$ = new BehaviorSubject<ProjectType | null>(ProjectType.frontend);
+  filter$ = new BehaviorSubject<ProjectType | null>(null);
   projects = PROJECTS_PREVIEW;
 
   @ViewChild('box', { static: true }) box: ElementRef<HTMLElement>;
 
   constructor(
     private router: Router,
+    private activatedRoute: ActivatedRoute,
   ) {
+  }
+
+  ngOnInit(): void {
+    this.activatedRoute
+      .queryParams
+      .pipe(
+        map(data => data?.type),
+        filter(type => !!type),
+        take(1),
+      )
+      .subscribe(type => this.filter$.next(type));
   }
 
   ngAfterViewInit(): void {

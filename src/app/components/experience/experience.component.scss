@@ -41,6 +41,18 @@
   }
 }
 
+.link {
+  color: #2385e7;
+}
+
+.about-line {
+  display: block;
+
+  & + & {
+    margin-top: 10px;
+  }
+}
+
 .flex__row-right {
   flex: 2;
   display: flex;

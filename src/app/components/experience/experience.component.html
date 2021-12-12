@@ -4,11 +4,27 @@
       <div>
         <app-title>Опыт {{ experience }} лет</app-title>
         <p class="about">
-          Я имею большой опыт в построении CRM, разрабатывал свою CMS.
-          <br>
-          Я обладаю навыками и знаниями для построения любых приложений: от серверной до клиентской стороны.
-          <br>
-          Помимо соновной работы, я занимаюсь сложными и интересными frontend и backend кейсами, которые есть в моём портфолио.
+          <span class="about-line">
+            Умею <b>понимать</b> цели бизнеса и находить <b>эффективные</b> способы их решения.
+          </span>
+
+          <span class="about-line">
+            Специализируюсь на фронтенде, но по необходимости занимаюсь и серверной частью (node js).
+            В портфолио есть несколько pet / фриланс
+            <a
+              class="link"
+              routerLink="/"
+              [queryParams]="{type: 'FullStack'}"
+              fragment="portfolio"
+              (click)="scrollToPortfolio()"
+            >реализованных проектов</a>
+            и production опыт в роли fullstack разработчика ~4 года.
+          </span>
+
+          <span class="about-line">
+            Помимо основной работы, я занимаюсь сложными и интересными кейсами, часть которых есть в
+            <a class="link" routerLink="/" fragment="portfolio" (click)="scrollToPortfolio()">моём портфолио</a>.
+          </span>
         </p>
       </div>
       <app-svg-zigzag class="zig-zag"></app-svg-zigzag>

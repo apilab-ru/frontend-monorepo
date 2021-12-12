@@ -3,7 +3,7 @@ import { Project, ProjectDetails } from './components/interfaces/project';
 export enum ProjectType {
   frontend = 'Frontend',
   fullStack = 'FullStack',
-  websites = 'Вебсайты'
+  websites = 'Suites'
 }
 
 export const PROJECTS_PREVIEW: Project[] = [

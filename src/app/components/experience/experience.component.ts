@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { WORKS } from '../../experience';
 import differenceInYears from 'date-fns/differenceInYears';
+import { ScrollNavigationService } from '../../services/scroll-navigation.service';
 
 @Component({
   selector: 'app-experience',
@@ -11,6 +12,15 @@ import differenceInYears from 'date-fns/differenceInYears';
 export class ExperienceComponent  {
   works = WORKS;
   experience = this.getYearExperience();
+
+  constructor(
+    private scrollNavigationService: ScrollNavigationService,
+  ) {
+  }
+
+  scrollToPortfolio(): void {
+    this.scrollNavigationService.scrollTo('portfolio');
+  }
 
   private getYearExperience(): number {
     return differenceInYears(

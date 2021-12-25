@@ -9,4 +9,5 @@ import { Project } from '../interfaces/project';
 })
 export class ProjectCardComponent {
   @Input() project: Project;
+
 }

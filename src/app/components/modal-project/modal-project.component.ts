@@ -1,23 +1,21 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProjectCardComponent } from '../project-card/project-card.component';
-import { ProjectDetails } from '../interfaces/project';
-import { PROJECT_DETAILS } from '../../portfolio';
+import { Project } from '../interfaces/project';
+import { provideTranslation } from '../../libs/translate';
 
 @Component({
   selector: 'app-modal-project',
   templateUrl: './modal-project.component.html',
   styleUrls: ['./modal-project.component.scss'],
+  providers: [provideTranslation('modalProject', () => require.context('./translation'))],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalProjectComponent {
-  detail: ProjectDetails;
-
   constructor(
     public dialogRef: MatDialogRef<ProjectCardComponent>,
-    @Inject(MAT_DIALOG_DATA) projectId: string,
+    @Inject(MAT_DIALOG_DATA) public detail: Project,
   ) {
-    this.detail = PROJECT_DETAILS[projectId];
   }
 
   onNoClick(): void {

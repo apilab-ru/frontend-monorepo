@@ -1,17 +1,13 @@
-import { ProjectType } from '../../portfolio';
+import { ProjectType } from '../../portfolio/portfolio';
 
 export interface Project {
   id: string;
   img: string;
-  title: string;
+  titleShort: string;
   date: string;
   types: ProjectType[];
-}
-
-export interface ProjectDetails {
   title: string;
   stack: string;
-  date: string;
   link?: {
     name?: string,
     href: string,

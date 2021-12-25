@@ -1,0 +1,4 @@
+{
+  "untilNow": "По настоящее время",
+  "duration": "{duration, plural, one {# месяц} few {# месяца} other {# месяцев}}"
+}

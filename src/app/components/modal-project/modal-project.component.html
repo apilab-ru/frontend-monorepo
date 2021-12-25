@@ -10,12 +10,12 @@
 
   <div class="details">
     <div class="line">
-      <span class="key">Стек:</span>
+      <span class="key">{{ 'modalProject.stack' | transloco }}</span>
       <span class="value" [innerHTML]="detail.stack"></span>
     </div>
     <div class="line">
-      <span class="key">Дата:</span>
-      <span class="value -date">{{ detail.date }}</span>
+      <span class="key">{{ 'modalProject.date' | transloco }}</span>
+      <span class="value -date">{{ detail.date | appDate | async }}</span>
     </div>
     <div *ngIf="detail.link" class="line">
       <span class="key"></span>
@@ -25,7 +25,7 @@
           class="link"
           [href]="detail.link.href"
         >
-          {{ detail.link.name || 'Ссылка' }}
+          {{ detail.link.name || 'modalProject.link' | transloco }}
         </a>
 
         <a
@@ -46,7 +46,7 @@
           class="link"
           [href]="detail.link2.href"
         >
-          {{ detail.link2.name || 'Ссылка' }}
+          {{ detail.link2.name || 'modalProject.link' | transloco }}
         </a>
       </span>
     </div>

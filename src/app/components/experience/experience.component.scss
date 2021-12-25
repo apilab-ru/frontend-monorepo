@@ -51,6 +51,12 @@
   & + & {
     margin-top: 10px;
   }
+
+  ::ng-deep {
+    a {
+      color: #2385e7;
+    }
+  }
 }
 
 .flex__row-right {

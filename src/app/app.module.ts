@@ -19,7 +19,32 @@ import { ItemFeedbackComponent } from './components/item-feedback/item-feedback.
 import { ModalProjectComponent } from './components/modal-project/modal-project.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { TRANSLOCO_CONFIG, TranslocoModule } from '@ngneat/transloco';
+import { TranslocoMessageFormatModule } from '@ngneat/transloco-messageformat';
+import { LinkDirective } from './directives/link.directive';
+import localeRu from '@angular/common/locales/ru';
+import { DatePipe, registerLocaleData } from '@angular/common';
+import { AppDatePipe } from './pipes/date.pipe';
+
+registerLocaleData(localeRu, 'ru-RU');
+
+const ROUTES: Routes = [
+  {
+    path: 'ru',
+    component: PageComponent,
+    data: { lang: 'ru' },
+  },
+  {
+    path: 'en',
+    component: PageComponent,
+    data: { lang: 'en' }
+  },
+  {
+    path: '**',
+    redirectTo: 'ru',
+  },
+];
 
 @NgModule({
   declarations: [
@@ -38,15 +63,34 @@ import { RouterModule } from '@angular/router';
     ItemWorkComponent,
     ProjectCardComponent,
     ItemFeedbackComponent,
-    ModalProjectComponent
+    ModalProjectComponent,
+    LinkDirective,
+    AppDatePipe,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    RouterModule.forRoot([]),
+    RouterModule.forRoot(ROUTES),
+    TranslocoModule,
+    TranslocoMessageFormatModule.forRoot(),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: TRANSLOCO_CONFIG,
+      useValue: {
+        availableLangs: ['en', 'ru'],
+        prodMode: false,
+        defaultLang: 'en',
+        reRenderOnLangChange: true,
+        missingHandler: {
+          logMissingKey: false,
+        },
+      },
+    },
+    DatePipe,
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+}

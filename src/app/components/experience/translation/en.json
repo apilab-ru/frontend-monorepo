@@ -1,0 +1,33 @@
+{
+  "title": "Experience {{ experience }} years",
+  "about": "I can <b> understand </b> business goals and find <b> effective </b> ways to solve them.",
+  "aboutFullstack": "I specialize in frontend, but if necessary, I also deal with the server side (js-node). The portfolio includes several home / freelance <a>completed projects</a> and production experience as a fullstack developer for 4 years.",
+  "aboutCases": "In addition to my main job, I deal with complex and interesting cases, some of which are in <a> my portfolio.</a>",
+  "works": {
+    "skyeng": {
+      "position": "Senior/Lead Developer",
+      "company": "Skyeng",
+      "function": "Development of new products. Support for existing ones. Architectural design and preparation of technical solutions to problems. Codereview. and mentoring. Implementation of complex features. Interviewing and onboarding. Clarification of business requirements."
+    },
+    "simbirSoft": {
+      "position": "Senior Developer",
+      "company": "SimbirSoft",
+      "function": "CRM project work."
+    },
+    "haulmont": {
+      "position": "Web Developer",
+      "company": "Haulmont",
+      "function": "Working as a Frontend developer."
+    },
+    "intrum": {
+      "position": "Fullstack Web developer",
+      "company": "Intrum CRM",
+      "function": "CRM system development Intrum. Development of WEB-applications and new functionality for CRM, as well as maintenance and refinement of the current functionality. Web applications inside the system. Creation of microservices. Integration with third party api."
+    },
+    "parusMedia": {
+      "position": "Software Engineer",
+      "company": "Media Idea",
+      "function": "Development of new, revision and support of existing projects. Layout and 'pulling' on a corporate CMS, creating modules for a corporate CMS, integration with third-party services. Software development for terminals."
+    }
+  }
+}

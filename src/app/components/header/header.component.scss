@@ -22,6 +22,8 @@
 }
 
 .menu {
+  margin-left: auto;
+
   @include isMobile() {
     width: 100%;
   }
@@ -30,7 +32,7 @@
 .container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 1200px;
   max-width: 100%;
   margin: 0 auto;
@@ -50,3 +52,37 @@
     display: none;
   }
 }
+
+.lang-switcher {
+  margin-left: 10px;
+  display: flex;
+}
+
+.lang {
+  width: 30px;
+  height: 18px;
+  background-size: contain;
+  border: 1px solid #2385e7;
+  border-radius: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  opacity: 0.4;
+
+  & + & {
+    margin-left: 2px;
+  }
+
+  &.-ru {
+    background: url('./icons/ru.svg');
+  }
+
+  &.-en {
+    background: url('./icons/en.svg');
+  }
+
+  &.-active {
+    cursor: initial;
+    opacity: 1;
+  }
+}
+

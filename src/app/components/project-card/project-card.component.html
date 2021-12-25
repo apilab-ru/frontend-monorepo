@@ -2,6 +2,8 @@
   <div class="container-img">
     <img class="img" [src]="project.img">
   </div>
-  <h3 class="title">{{ project.title }}</h3>
-  <p class="date">{{ project.date }}</p>
+  <h3 class="title">{{ project.titleShort }}</h3>
+  <p class="date">
+    {{ project.date | appDate | async }}
+  </p>
 </div>

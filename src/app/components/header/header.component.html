@@ -1,4 +1,14 @@
 <div class="container">
-  <h1 class="header__name">Виктор<span>.</span></h1>
+  <h1 class="header__name">{{ 'header.name' | transloco }}<span>.</span></h1>
   <app-menu class="menu"></app-menu>
+
+  <div class="lang-switcher">
+    <a
+      *ngFor="let lang of langs"
+      [title]="lang.title"
+      class="lang -{{ lang.key }}"
+      [class.-active]="(lang$ | async) === lang.key"
+      [routerLink]="['/', lang.key]"
+    ></a>
+  </div>
 </div>

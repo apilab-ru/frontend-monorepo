@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, fromEvent, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, shareReplay, startWith } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,7 @@ export class ScrollNavigationService {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private translocoService: TranslocoService,
   ) {
   }
 
@@ -65,6 +67,12 @@ export class ScrollNavigationService {
       behavior: 'smooth',
       block: this.isMobile ? 'start' : 'center',
     });
+  }
+
+  getLink(): Observable<string> {
+    return this.translocoService.langChanges$.pipe(
+      map(lang => `/${lang}`)
+    );
   }
 
   private getActiveSection(scrollTop: number): string {

@@ -6,7 +6,7 @@
     (click)="scrollTo(item.id)"
   >
     <span class="name">
-      {{ item.name }}
+      {{ 'menu.' + item.id | transloco }}
     </span>
     <span class="icon {{ item.icon }}"></span>
   </a>

@@ -30,7 +30,7 @@
 
 .item {
   display: flex;
-  margin-top: 16px;
+  margin-top: 8px;
   align-items: center;
 
   @include isMobile() {
@@ -43,6 +43,7 @@
   font-weight: 700;
   margin: 0;
   width: 90px;
+  text-transform: uppercase;
 
   @include isMobile() {
     font-size: 14px
@@ -127,7 +128,12 @@
 }
 
 .text-section {
+  max-width: 572px;
+  min-height: 400px; // for fix navigation in en version
+
   @include isMobile() {
+    max-width: none;
+    min-height: auto;
     order: 3;
   }
 }

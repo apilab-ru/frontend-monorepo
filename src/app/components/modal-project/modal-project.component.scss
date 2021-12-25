@@ -53,6 +53,8 @@
 }
 
 .value.-date {
+  text-transform: capitalize;
+
   @include isMobile() {
     font-size: 14px;
     color: $gray;

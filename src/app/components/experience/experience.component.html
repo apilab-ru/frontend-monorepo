@@ -2,36 +2,32 @@
   <div class="container">
     <div class="flex__row-left">
       <div>
-        <app-title>Опыт {{ experience }} лет</app-title>
+        <app-title>{{ 'experience.title' | transloco : { experience: experience } }}</app-title>
         <p class="about">
-          <span class="about-line">
-            Умею <b>понимать</b> цели бизнеса и находить <b>эффективные</b> способы их решения.
-          </span>
+          <span class="about-line" [innerHTML]="'experience.about' | transloco"></span>
 
-          <span class="about-line">
-            Специализируюсь на фронтенде, но по необходимости занимаюсь и серверной частью (node js).
-            В портфолио есть несколько pet / фриланс
-            <a
-              class="link"
-              routerLink="/"
-              [queryParams]="{type: 'FullStack'}"
-              fragment="portfolio"
-              (click)="scrollToPortfolio()"
-            >реализованных проектов</a>
-            и production опыт в роли fullstack разработчика ~4 года.
-          </span>
+          <span
+            *ngIf="link$ | async as link"
+            class="about-line"
+            [innerHTML]="'experience.aboutFullstack' | transloco"
+            [appLink]="link + '?type=FullStack#portfolio'"
+            (linkClick)="scrollToPortfolio(link, 'FullStack')"
+          ></span>
 
-          <span class="about-line">
-            Помимо основной работы, я занимаюсь сложными и интересными кейсами, часть которых есть в
-            <a class="link" routerLink="/" fragment="portfolio" (click)="scrollToPortfolio()">моём портфолио</a>.
-          </span>
+          <span
+            *ngIf="link$ | async as link"
+            class="about-line"
+            [innerHTML]="'experience.aboutCases' | transloco"
+            [appLink]="link + '#portfolio'"
+            (linkClick)="scrollToPortfolio(link)"
+          ></span>
         </p>
       </div>
       <app-svg-zigzag class="zig-zag"></app-svg-zigzag>
     </div>
     <div class="flex__row-right">
       <app-item-work
-        *ngFor="let work of works"
+        *ngFor="let work of works$ | async"
         class="item-work"
         [work]="work"
       ></app-item-work>

@@ -1,12 +1,19 @@
 <div class="work">
-  <div class="work__name">
+  <div class="work__name" [title]="'itemWork.duration' | transloco : { duration : durationsInMonths }">
     <h4 class="position">{{ work.position }}</h4>
     <div class="company">{{ work.company }}</div>
   </div>
-  <div class="work__dates">
-    <div class="date">{{ work.dateFrom }}</div>
+  <div class="work__dates" [title]="'itemWork.duration' | transloco : { duration : durationsInMonths }">
+    <div class="date">{{ work.dateFrom | appDate | async }}</div>
     <div class="separator">-</div>
-    <div class="date">{{ work.dateTo }}</div>
+    <div class="date">
+      <ng-container *ngIf="work.dateTo; else untilNow">
+        {{ work.dateTo | appDate | async }}
+      </ng-container>
+      <ng-template #untilNow>
+        {{ 'itemWork.untilNow' | transloco }}
+      </ng-template>
+    </div>
   </div>
   <div class="work__function">{{ work.function }}</div>
   <div class="line"></div>

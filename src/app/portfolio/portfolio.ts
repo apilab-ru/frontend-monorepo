@@ -8,6 +8,19 @@ export enum ProjectType {
 
 export const PROJECTS: Partial<Project>[] = [
   {
+    id: 'worklog-analyze',
+    img: './assets/img/projects/details/worklog-analyze/preview.jpg',
+    titleShort: 'Worklog analyze',
+    date: '2022-04-03',
+    types: [ProjectType.frontend],
+    title: 'Worklog analyze',
+    stack: 'Angular 12, chart.js',
+    link: {
+      href: 'https://apilab-ru.github.io/worklog-analize/',
+      github: 'https://github.com/apilab-ru/worklog-analize',
+    },
+  },
+  {
     id: 'file-cabinet',
     img: './assets/img/projects/details/file-cabinet/preview.jpg',
     titleShort: 'Chrome extension - Library',

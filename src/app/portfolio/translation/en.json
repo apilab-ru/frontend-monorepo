@@ -1,5 +1,20 @@
 {
   "list": {
+    "worklog-analyze": {
+      "details": [
+        {
+          "text": "Worklog analysis app"
+        },
+        {
+          "text": "An example of setting up export from Jira, and a script for importing a worklog into the desired format",
+          "image": "/assets/img/projects/details/worklog-analyze/help.jpg"
+        },
+        {
+          "text": "The worklog analysis page, where you need to insert json with the worklog, and you can experiment with the worklog grouping rules.",
+          "image": "/assets/img/projects/details/worklog-analyze/main.jpg"
+        }
+      ]
+    },
     "file-cabinet": {
       "details": [
         {

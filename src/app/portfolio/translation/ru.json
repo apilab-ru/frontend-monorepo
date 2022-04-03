@@ -1,5 +1,20 @@
 {
   "list": {
+    "worklog-analyze": {
+      "details": [
+        {
+          "text": "Приложение для анализа ворклога"
+        },
+        {
+          "text": "Пример настройки экспорта из Jira, и скрипт импорта ворклога в нужный формат",
+          "image": "/assets/img/projects/details/worklog-analyze/help.jpg"
+        },
+        {
+          "text": "Страница анализа ворклога, куда нужно вставить json с ворклогом, и можно экспериментировать с правилами группировки ворклога.",
+          "image": "/assets/img/projects/details/worklog-analyze/main.jpg"
+        }
+      ]
+    },
     "file-cabinet": {
       "details": [
         {

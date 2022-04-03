@@ -142,21 +142,17 @@
   box-shadow: 0 0 12px 8px white inset;
   width: 582px;
   height: 370px;
-  background: url(/assets/img/me-postered.jpg);
-  background-size: contain;
+  display: block;
   border-radius: 2px;
 
-  @include isMobile() {
-    display: none;
+  img {
+    width: 100%;
   }
-}
-
-.my-photo-img {
-  display: none;
-  width: 100%;
 
   @include isMobile() {
-    display: block;
+    width: 100%;
+    height: auto;
+    box-shadow: none;
   }
 }
 

@@ -7,24 +7,16 @@
       <p class="text" [innerHTML]="'about.deals' | transloco"></p>
       <p class="text" [innerHTML]="'about.mission' | transloco"></p>
       <div class="block-contacts">
-        <!--section class="item">
-          <h3 class="item__subtitle">ТЕЛЕФОН</h3>
-          <p class="item__text">+7 (927) 901 47-16</p>
-        </section-->
         <section class="item">
           <h3 class="item__subtitle">{{ 'about.email' | transloco }}</h3>
           <p class="item__text">viktor@apilab.ru</p>
         </section>
-        <!--section class="item">
-          <h3 class="item__subtitle">АДРЕСС</h3>
-          <p class="item__text">Россия, Самара</p>
-        </section-->
         <section class="item">
           <h3 class="item__subtitle">{{ 'about.links' | transloco }}</h3>
           <p class="item__text">
-            <a class="about__link" href="https://www.facebook.com/apilabru">
+            <!--a class="about__link" href="https://www.facebook.com/apilabru">
               <span class="icon-facebook"></span>
-            </a>
+            </a-->
             <a class="about__link" href="https://vk.com/yoxai">
               <span class="icon-vk"></span>
             </a>
@@ -45,8 +37,11 @@
       </a>
     </div>
     <div class="photo-section">
-      <div class="my-photo"></div>
-      <img class="my-photo-img" src="./assets/img/me-postered.jpg" alt="Мое фото">
+      <picture class="my-photo">
+        <source srcset="/assets/img/me-postered.avif" type="image/avif" >
+        <source srcset="/assets/img/me-postered.webp" type="image/webp" >
+        <img src="/assets/img/me-postered.jpg" alt="My photo" loading="lazy">
+      </picture>
     </div>
   </div>
 </section>

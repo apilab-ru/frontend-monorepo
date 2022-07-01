@@ -1,38 +1,15 @@
 <div class="container">
-  <h2 class="subtitle">Чек лист для начала техревью</h2>
-  <section class="checkbox">
-    <mat-checkbox class="checkbox__item">На всех ли раскатываем?</mat-checkbox>
-    <mat-checkbox class="checkbox__item">Можем ли мы решить проблему по другому?</mat-checkbox>
-    <mat-checkbox class="checkbox__item">
-      Понятно ли, как поднять инфраструктуру для разработки.
-      Представляю ли я как воспроизводить/дебажить проблему?
-      <div class="description">
-        (что нажимать, в какие разделы системы переходить)
-      </div>
-    </mat-checkbox>
-    <mat-checkbox class="checkbox__item">Это код на выброс?
-      <div class="description">
-        (эксперимент, временное решение проблемы)
-      </div>
-    </mat-checkbox>
-    <mat-checkbox class="checkbox__item">Знаком ли разработчик с кодовой базой?</mat-checkbox>
-    <mat-checkbox class="checkbox__item">Будет ли это делаться на основе ветки, которая сейчас в разработке?
-      <div class="description">
-        (заложить время на разрешение конфликтов)
-      </div>
-    </mat-checkbox>
-  </section>
-
-  <h2 class="subtitle">Чек лист для конца техевью</h2>
-  <section class="checkbox">
-    <mat-checkbox class="checkbox__item">Пройтись ещё раз по описанию от заказчика - убедиться, что не потеряли какое-нибудь требование.</mat-checkbox>
-    <mat-checkbox class="checkbox__item">Нужно ли отнести на ревью техрешенье другой команде?</mat-checkbox>
-    <mat-checkbox class="checkbox__item">
-      Проверили ли макет интерфейса?
-      <div class="description">
-        (учтены граничные значения, в макете есть всё, что нужно для задачи)
-      </div>
-    </mat-checkbox>
-    <mat-checkbox class="checkbox__item">Нужно ли после деплоя сделать какие-то действия?</mat-checkbox>
-  </section>
+  <ng-container *ngFor="let group of (points$ | async)">
+    <h2 class="subtitle">{{ group.title }}</h2>
+    <section class="checkbox">
+      <mat-checkbox
+        *ngFor="let item of group.list"
+        class="checkbox__item"
+      >{{ item.text }}
+        <div *ngIf="item.description" class="description">
+          ( {{ item.description }} )
+        </div>
+      </mat-checkbox>
+    </section>
+  </ng-container>
 </div>

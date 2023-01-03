@@ -7,12 +7,6 @@ import { ChromeApiService } from './chrome-api.service';
 import { Library } from '@shared/models/library';
 import { FileCabService } from '@shared/services/file-cab.service';
 
-export interface ItemParams {
-  tags?: string[];
-  status?: string;
-  comment?: string;
-}
-
 @Injectable({
   providedIn: 'root',
 })
@@ -28,19 +22,19 @@ export class LibraryService {
   ) {
   }
 
-  addItem(path: string, item: LibraryItem): Observable<any> {
-    return this.fileCabService.addItemLibToStore(path, item);
+  addItem(path: string, item: LibraryItem): Observable<LibraryItem> {
+    return this.fileCabService.addItem(path, item);
   }
 
   deleteItem(path: string, item: MediaItem): void {
-    this.fileCabService.deleteItem(path, item);
+    this.fileCabService.deleteItem(path, item).subscribe();
   }
 
   updateItem(path: string, item: LibraryItem): void {
-    this.fileCabService.updateItem(path, item);
+    this.fileCabService.updateItem(path, item).subscribe();
   }
 
   updateStore(store: Library): void {
-    this.fileCabService.updateStore(store);
+    this.fileCabService.updateStore(store).subscribe();
   }
 }

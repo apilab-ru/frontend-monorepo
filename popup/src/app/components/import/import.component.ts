@@ -123,7 +123,7 @@ export class PopupImportComponent implements OnInit {
     if (parserResponse.smotretId) {
       return this.fileCabService.loadById(parserResponse.type, parserResponse.smotretId).pipe(
         map(item => {
-          this.fileCabService.addItemLibToStore(parserResponse.type, {
+          this.fileCabService.addItem(parserResponse.type, {
             ...parserResponse.meta,
             item,
           });
@@ -156,7 +156,7 @@ export class PopupImportComponent implements OnInit {
     );
   }
 
-  private addItem(parserResponse: ParserResponse): Observable<void> {
+  private addItem(parserResponse: ParserResponse): Observable<void | LibraryItem> {
     return combineLatest([
       this.selectedItem$,
       this.meta$.pipe(skip(1)),
@@ -164,7 +164,7 @@ export class PopupImportComponent implements OnInit {
       filter(([item]) => !!item),
       switchMap(([item, meta]) => {
         const { type } = this.form.getRawValue();
-        return this.fileCabService.addItemLibToStore(type || parserResponse.type, {
+        return this.fileCabService.addItem(type || parserResponse.type, {
           ...parserResponse.meta,
           ...meta,
           item,

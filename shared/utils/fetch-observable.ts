@@ -1,10 +1,6 @@
-import { environment } from '../../../environments/environment';
-import { Observable, throwError, timer } from 'rxjs';
-import { delayWhen, retryWhen, tap } from 'rxjs/operators';
-import { captureException } from '@sentry/angular';
+import { Observable } from 'rxjs';
 import { CustomError } from '@shared/utils/custom-error';
 
-const apiUrl = environment.apiUrl;
 type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 export function fetchObservable<T>(
@@ -16,7 +12,7 @@ export function fetchObservable<T>(
   return new Observable<T>((observer) => {
     const controller = new AbortController();
 
-    fetch(new URL(apiUrl + path).href, {
+    fetch(new URL(path).href, {
       signal: controller.signal,
       method,
       ...(body ? { body: JSON.stringify(body) } : {}),

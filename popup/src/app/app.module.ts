@@ -6,6 +6,9 @@ import { PopupAddItemModule } from '@shared/popup-add-item/popup-add-item.module
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PopupImportComponent } from './components/import/import.component';
+import { Environment } from '../../../../environments';
+import { environment } from '../environments/environment';
+
 
 @NgModule({
   declarations: [
@@ -18,6 +21,12 @@ import { PopupImportComponent } from './components/import/import.component';
     PopupAddItemModule,
     MatButtonModule,
     MatSnackBarModule,
+  ],
+  providers: [
+    {
+      provide: Environment,
+      useValue: environment,
+    },
   ],
   bootstrap: [AppComponent],
 })

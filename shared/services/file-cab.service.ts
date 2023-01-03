@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
-import { FileCab, ItemParam } from '@shared/services/file-cab';
-import { from, Observable, of } from 'rxjs';
-import { map, pluck, take } from 'rxjs/operators';
+import { ItemParam } from '@shared/services/file-cab';
+import { combineLatest, from, Observable, of, switchMap } from 'rxjs';
+import { map, pluck, shareReplay, take, tap } from 'rxjs/operators';
 import { ISchema, Library, LibrarySettings } from '@shared/models/library';
 import { runInZone } from '@shared/utils/run-in-zone';
 import { NavigationItem } from '@shared/models/navigation';
@@ -11,6 +11,8 @@ import { Tag } from '@shared/models/tag';
 import { LibraryItem, MediaItem } from '@server/models';
 import { Genre } from '@server/models/genre';
 import { GenreKind } from '../../../../server/src/genres/const';
+import { BackgroundService } from 'background';
+import { mediaCompare } from '@shared/utils/item-compare';
 
 interface FlatLibraryItem extends LibraryItem {
   type: string;
@@ -35,42 +37,47 @@ export class FileCabService {
   store$: Observable<Library>;
   settings$: Observable<LibrarySettings>;
 
-  private fileCab: FileCab;
-
   constructor(
-    private ngZone: NgZone,
+    private backgroundService: BackgroundService,
   ) {
-    this.fileCab = window.chrome.extension.getBackgroundPage()['fileCab'];
-
-    this.schemas$ = this.fileCab.config$.pipe(
+    this.schemas$ = this.backgroundService.select('config').pipe(
       map(({ schemas }) => schemas),
-      runInZone(this.ngZone),
+      shareReplay({ refCount: true, bufferSize: 1 }),
     );
-    this.types$ = this.fileCab.config$.pipe(
+    this.types$ = this.backgroundService.select('config').pipe(
       map(({ types }) => types),
-      runInZone(this.ngZone),
+      shareReplay({ refCount: true, bufferSize: 1 }),
     );
-    this.genres$ = this.fileCab.genres$;
-
-    this.data$ = this.fileCab.store$.pipe(
-      pluck('data'),
-      runInZone(this.ngZone),
-    );
-    this.tags$ = this.fileCab.store$.pipe(
-      pluck('tags'),
-      runInZone(this.ngZone),
+    this.genres$ = this.backgroundService.select('genres').pipe(
+      shareReplay({ refCount: true, bufferSize: 1 }),
     );
 
-    this.store$ = this.fileCab.store$.pipe(
-      runInZone(this.ngZone),
+    this.data$ = this.backgroundService.select('data').pipe(
+      shareReplay({ refCount: true, bufferSize: 1 }),
     );
-    this.settings$ = this.fileCab.settings$.pipe(
-      runInZone(this.ngZone),
+    this.tags$ = this.backgroundService.select('tags').pipe(
+      shareReplay({ refCount: true, bufferSize: 1 }),
+    );
+
+    this.store$ = combineLatest([
+      this.tags$,
+      this.data$,
+      this.backgroundService.select('lastTimeUpdate'),
+    ]).pipe(
+      map(([tags, data, lastTimeUpdate]) => ({
+        tags, data, lastTimeUpdate,
+      })),
+      shareReplay({ refCount: true, bufferSize: 1 }),
+    );
+    this.settings$ = this.backgroundService.select('settings').pipe(
+      shareReplay({ refCount: true, bufferSize: 1 }),
     );
   }
 
   updateSettings(settings: LibrarySettings): void {
-    return this.fileCab.updateSettings(settings);
+    // todo test update
+    this.backgroundService.reduce('user', 'updateSettings')(settings)
+      .subscribe();
   }
 
   searchByName(name: string, type?: string): Observable<SearchResult | null> {
@@ -117,9 +124,8 @@ export class FileCabService {
   }
 
   selectGenres(type: string): Observable<Genre[]> {
-    return this.fileCab.genres$.pipe(
+    return this.genres$.pipe(
       map(list => list.filter(genre => genre.kind.includes(type as GenreKind))),
-      runInZone(this.ngZone),
     );
   }
 
@@ -127,15 +133,30 @@ export class FileCabService {
     path: string,
     item: ItemParam,
   ): Observable<LibraryItem | null> {
-    return this.fileCab.searchInStore(path, item).pipe(
-      runInZone(this.ngZone),
+    return this.data$.pipe(
+      take(1),
+      pluck(path),
+      map(list => list?.find(
+        it => it.item.title === item.name
+          || it.url === item.url
+          || it.name === item.name,
+      ) || null),
     );
   }
 
   checkExisted(path: string, item: ItemParam): Observable<boolean> {
-    return this.fileCab.checkExisted(path, item).pipe(
+    return this.data$.pipe(
       take(1),
-      runInZone(this.ngZone),
+      map(store => this.syncCheckExisted(store, path, item)),
+    );
+  }
+
+  private syncCheckExisted(data: Record<string, LibraryItem[]> | undefined, path: string, item: ItemParam): boolean {
+    if (!data || !data[path]) {
+      return false;
+    }
+
+    return !!data[path].find(it => mediaCompare(it.item, item) || (item.url && item.url === it.url),
     );
   }
 
@@ -148,14 +169,19 @@ export class FileCabService {
   }
 
   addOrUpdate(path: string, item: MediaItem, metaData: MetaData): Observable<LibraryItem> {
-    return this.fileCab.addOrUpdate(path, item, metaData).pipe(
-      runInZone(this.ngZone),
+    const libraryItem = {
+      ...metaData,
+      item,
+    };
+
+    return this.checkExisted(path, item).pipe(
+      switchMap(isExisted => isExisted ? this.updateItem(path, libraryItem) : this.addItem(path, libraryItem)),
     );
   }
 
-  addItemLibToStore(path: string, item: LibraryItem): Observable<void> {
-    return from(this.fileCab.addItemLibToStore(path, item)).pipe(
-      runInZone(this.ngZone),
+  addItem(path: string, item: LibraryItem): Observable<LibraryItem> {
+    return this.backgroundService.reduce('library', 'addItem')({ path, item }).pipe(
+      map(() => item),
     );
   }
 
@@ -165,34 +191,25 @@ export class FileCabService {
       total_pages: 1,
       total_results: 0,
       results: [],
-    }) : this.fileCab.searchApi(path, name).pipe(
-      runInZone(this.ngZone),
-    );
+    }) : this.backgroundService.fetch('fileCabApi', 'searchApi')([path, name]);
   }
 
   loadById(path: string, id: number): Observable<MediaItem> {
-    return this.fileCab.loadById(path, id).pipe(
-      runInZone(this.ngZone),
+    return this.backgroundService.fetch('fileCabApi', 'loadById')([path, id]).pipe(
     );
   }
 
-  deleteItem(path: string, item: MediaItem): void {
-    return this.fileCab.deleteItem(path, item);
+  deleteItem(path: string, item: MediaItem): Observable<void> {
+    return this.backgroundService.reduce('library', 'deleteItem')({ path, item });
   }
 
-  updateItem(path: string, item: LibraryItem): LibraryItem {
-    return this.fileCab.updateItem(path, item);
+  updateItem(path: string, item: LibraryItem): Observable<LibraryItem> {
+    return this.backgroundService.reduce('library', 'updateItem')({ path, item }).pipe(
+      map(() => item),
+    );
   }
 
-  updateStore(store: Library): void {
-    return this.fileCab.updateStore(store);
-  }
-
-  sendUpdateStoreEvent(): void {
-    this.fileCab.sendUpdate();
-  }
-
-  sendLoadStoreEvent(): void {
-    this.fileCab.sendLoadStore();
+  updateStore(store: Library): Observable<void> {
+    return this.backgroundService.reduce('library', 'update')(store);
   }
 }

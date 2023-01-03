@@ -9,7 +9,7 @@ import { DataSourceFormService } from './data-source-form.service';
 import { makeStore } from '@shared/store';
 import { DataSourceState } from '../models/interface';
 import { OrderType } from '../models/order-type';
-import orderBy from 'lodash/orderBy';
+import orderBy from 'lodash-es/orderBy';
 import { ORDER_DEFAULT } from '../models/const';
 
 @Injectable()
@@ -66,6 +66,7 @@ export class LocalDataSourceService extends DataSourceService<LibraryItem> {
       this.searchService.path$,
       this.libraryService.data$,
     ]).pipe(
+      tap(res => console.log('xxx local data', res)),
       map(([path, data]) => data[path] || []),
     );
   }

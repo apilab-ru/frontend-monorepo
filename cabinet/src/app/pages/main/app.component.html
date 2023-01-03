@@ -1,5 +1,5 @@
 <div class="navigations">
-  <nav mat-tab-nav-bar backgroundColor="primary">
+  <nav mat-tab-nav-bar backgroundColor="primary" [tabPanel]="tabPanel">
     <a
       *ngFor="let link of navLinks"
       mat-tab-link
@@ -12,6 +12,7 @@
       <span class="link_name">{{ link.name }}</span>
     </a>
   </nav>
+  <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
 
   <ng-container *ngIf="!(isMobile$ | async)">
     <div class="search-box" *ngIf="template$ | async as template">

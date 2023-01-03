@@ -8,7 +8,6 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { NavigationItem } from '@shared/models/navigation';
 import { checkIsShowStar } from '@shared/utils/check-is-show-star';
 import { FormControl, FormGroup } from '@angular/forms';
 import { combineLatest, Observable } from 'rxjs';
@@ -19,6 +18,7 @@ import { STATUS_LIST } from '@shared/const/const';
 import { SearchData } from '@shared/popup-add-item/models/search-data';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { LibraryItem } from '@server/models';
+
 
 @UntilDestroy()
 @Component({
@@ -46,8 +46,8 @@ export class CardEditComponent implements OnChanges, OnInit {
     status: new FormControl(''),
     type: new FormControl(''),
     comment: new FormControl(''),
-    star: new FormControl(''),
-    progress: new FormControl(''),
+    star: new FormControl<number>(0),
+    progress: new FormControl<number>(0),
   });
 
   ngOnInit(): void {
@@ -74,11 +74,13 @@ export class CardEditComponent implements OnChanges, OnInit {
     if (changes.item) {
       this.formGroup.patchValue(this.item);
     }
+
     if (changes.selectedType) {
       this.formGroup.patchValue({
         type: this.selectedType,
       });
     }
+
     if (changes.name) {
       this.formGroup.patchValue({
         name: this.name,

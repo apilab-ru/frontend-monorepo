@@ -13,7 +13,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { debounceTime, filter, map, switchMap, tap } from 'rxjs/operators';
+import { debounceTime, filter, map } from 'rxjs/operators';
 import {
   BASE_CLEVER_SEARCH_KEYS,
   ICleverSearchKey,
@@ -23,7 +23,7 @@ import {
 } from '../../../../../models';
 import { KeyListenerService } from '../../../../services/key-listener.service';
 import { MatFormField } from '@angular/material/form-field';
-import * as isEqual from 'lodash/isEqual';
+import isEqual from 'lodash-es/isEqual';
 import { toggleAnimation } from './toggle-animation';
 import { BehaviorSubject, fromEvent } from 'rxjs';
 import { BreakpointsService } from '../../../../services/breakpoints.service';

@@ -72,9 +72,6 @@ export class UserService {
     );
   }
 
-  loadLibrary() {
-  }
-
   private loginApi(params: AuthParams): Observable<UserResponse> {
     return userApiService.login(params).pipe(
       runInZone(this.ngZone),

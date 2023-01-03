@@ -3,7 +3,7 @@ import { MetaData } from '@server/models/meta-data';
 import { Anime } from '@server/models/anime';
 import { Film } from '@server/models/films';
 import { Tag } from './tag';
-import { LibraryItem } from '../../../../server/src/library/interface';
+import { LibraryItem } from '@server/models';
 
 export interface LibraryItemOld<T extends Item> extends MetaData {
   item: T;

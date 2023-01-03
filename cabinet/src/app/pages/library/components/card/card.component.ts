@@ -8,7 +8,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { deepCopy, LibraryItem } from '../../../../../models';
-import * as isEqual from 'lodash/isEqual';
+import isEqual from 'lodash-es/isEqual';
 import { Genre } from '@server/models/genre';
 
 @Component({

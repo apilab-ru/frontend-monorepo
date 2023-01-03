@@ -1,5 +1,5 @@
 import { FormGroup } from '@angular/forms';
-import * as isEqual from 'lodash/isEqual';
+import * as isEqual from 'lodash-es/isEqual';
 import { ERROR_MESSAGES, FORM_LIBRARY_FIELDS } from '@shared/const/form-library';
 import { CustomError } from '@shared/utils/custom-error';
 

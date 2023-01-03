@@ -69,13 +69,13 @@ export class AuthBlockComponent {
   }
 
   sync(): void {
-    this.fileCabService.sendUpdateStoreEvent();
-    this.notification('Обновление поставлено в очередь');
+    // this.fileCabService.sendUpdateStoreEvent();
+    // this.notification('Обновление поставлено в очередь');
   }
 
   load(): void {
-    this.fileCabService.sendLoadStoreEvent();
-    this.notification('Запущенно обновление');
+    // this.fileCabService.sendLoadStoreEvent();
+    // this.notification('Запущенно обновление');
   }
 
   resetPassword(): void {

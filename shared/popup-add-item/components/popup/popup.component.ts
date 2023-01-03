@@ -26,7 +26,7 @@ import {
 import { BaseInfo } from '@shared/popup-add-item/models/base-info';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FileCabService } from '@shared/services/file-cab.service';
-import * as isEqual from 'lodash/isEqual';
+import isEqual from 'lodash-es/isEqual';
 import { LibraryItem, MediaItem } from '@server/models';
 import { Genre } from '@server/models/genre';
 

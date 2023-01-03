@@ -1,16 +1,15 @@
 import { Observable } from 'rxjs';
-import { FirebaseApp, initializeApp } from '@firebase/app';
+import { FirebaseApp, FirebaseOptions, initializeApp } from '@firebase/app';
 import { Database, getDatabase, ref, onValue, off } from '@firebase/database';
 import { map, shareReplay, switchMap } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
 
 export class FirebaseService {
   private app$: Observable<FirebaseApp>;
   private db$: Observable<Database>;
 
-  constructor() {
+  constructor(options: FirebaseOptions) {
     this.app$ = new Observable<FirebaseApp>(subject => {
-      const app = initializeApp(environment.firebase);
+      const app = initializeApp(options);
       subject.next(app);
     }).pipe(
       shareReplay(1),

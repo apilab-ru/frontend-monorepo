@@ -7,22 +7,27 @@ import * as Sentry from '@sentry/angular';
 import { Integrations } from '@sentry/tracing';
 import { captureException } from '@sentry/angular';
 
-Sentry.init({
-  integrations: [
-    new Integrations.BrowserTracing({
-      tracingOrigins: ['*'],
-      routingInstrumentation: Sentry.routingInstrumentation,
-    }),
-  ],
-  ...environment.sentry,
-});
-
 if (environment.production) {
   enableProdMode();
+}
+
+if (environment.sentry.dsn) {
+  Sentry.init({
+    integrations: [
+      new Integrations.BrowserTracing({
+        tracingOrigins: ['*'],
+        routingInstrumentation: Sentry.routingInstrumentation,
+      }),
+    ],
+    ...environment.sentry,
+  });
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => {
     console.error(err);
-    captureException(err);
+
+    if (environment.sentry.dsn) {
+      captureException(err);
+    }
   });

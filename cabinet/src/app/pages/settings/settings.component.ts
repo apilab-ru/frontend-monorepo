@@ -1,14 +1,13 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { LibraryService } from '../../services/library.service';
-import { first, map, mergeMap, take } from 'rxjs/operators';
-import { forkJoin, Observable, of } from 'rxjs';
+import { first, map, take } from 'rxjs/operators';
 import { LibraryItem } from '../../../models';
 import { AnimeService } from '../../services/anime.service';
 import { saveAsFile } from '../../helpers/save-as-file';
 import { Library } from '@shared/models/library';
 import { FileCabService } from '@shared/services/file-cab.service';
 import * as exampleJson from './format.json';
-import * as isArray from 'lodash/isArray';
+import isArray from 'lodash-es/isArray';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({

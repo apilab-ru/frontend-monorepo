@@ -63,7 +63,8 @@ export class LibraryComponent implements OnInit {
       });
 
     this.list$ = this.dataFactoryService.list$.pipe(
-      shareReplay({ refCount: true, bufferSize: 1 }),
+      // tofo fix problem with refCount
+      shareReplay({ refCount: false, bufferSize: 1 }),
     );
   }
 

@@ -43,19 +43,5 @@ export function fetchObservable<T>(
       controller.abort();
       observer.complete();
     };
-  }).pipe(
-    /*retryWhen(errors => errors.pipe(
-      tap(error => {
-        console.log('xxx error', error);
-        // captureException(error)
-      }),
-      delayWhen((error, i) => {
-        if (error.message !== 'Failed to fetch' && i < 3) {
-          return timer(3000);
-        }
-
-        return throwError(error);
-      }),
-    )),*/
-  );
+  });
 }

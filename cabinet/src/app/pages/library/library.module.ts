@@ -60,6 +60,9 @@ import { MatSelectModule } from '@angular/material/select';
     StarsModule,
     MatSelectModule,
   ],
+  exports: [
+    CleverSearchComponent,
+  ],
 })
 export class LibraryModule {
 }

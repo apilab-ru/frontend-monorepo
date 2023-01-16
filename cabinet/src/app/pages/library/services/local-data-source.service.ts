@@ -3,7 +3,7 @@ import { DataSourceService } from './data-source.service';
 import { LibraryItem } from '../../../../models';
 import { LibraryService } from '../../../services/library.service';
 import { combineLatest, Observable } from 'rxjs';
-import { map, shareReplay, tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { SearchService } from './search.service';
 import { DataSourceFormService } from './data-source-form.service';
 import { makeStore } from '@shared/store';
@@ -66,7 +66,6 @@ export class LocalDataSourceService extends DataSourceService<LibraryItem> {
       this.searchService.path$,
       this.libraryService.data$,
     ]).pipe(
-      tap(res => console.log('xxx local data', res)),
       map(([path, data]) => data[path] || []),
     );
   }

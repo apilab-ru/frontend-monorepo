@@ -74,7 +74,13 @@
       "unitTestRunner": "jest"
     },
     "@nrwl/angular:component": {
-      "style": "scss"
+      "style": "scss",
+      "skipImport": true,
+      "skipTests": true,
+      "changeDetection": "OnPush"
+    },
+    "@nrwl/angular:services": {
+      "skipTests": true
     }
   }
 }

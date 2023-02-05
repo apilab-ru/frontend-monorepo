@@ -2,7 +2,7 @@ export type JsonData = Record<string, unknown>;
 
 export interface JsonFile {
   name: string;
-  data: string;
+  data: JsonData;
   id?: number;
 }
 
@@ -18,4 +18,11 @@ export interface Tab {
 export interface MenuItem {
   name: string;
   path: string;
+}
+
+export type Value = string | number;
+
+export interface UpdateValueEvent {
+  key: string;
+  value: Value;
 }

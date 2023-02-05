@@ -3,6 +3,16 @@
     <a *ngFor="let path of paths$ | async; let index = index" class="path" (click)="goToPath(path)">
       {{ path.key }}
     </a>
+
+    <button
+      *ngIf="isChanged"
+      class="button-save"
+      mat-raised-button
+      color="primary"
+      (click)="saveJson()"
+    >
+      Save changes
+    </button>
   </div>
 
   <div class="rows-box">
@@ -10,7 +20,7 @@
       <je-json-row
         class="row"
         key="root"
-        [data]="data"
+        [data]="tempData"
         [selected]="getSelectedDeepKey(0) | async"
         (selectKey)="selectPath($event)"
       ></je-json-row>
@@ -19,9 +29,10 @@
         *ngFor="let path of paths$ | async; let index = index; trackBy: trackByPath"
         class="row"
         [key]="path.key"
-        [data]="pickData(data, path)"
+        [data]="pickData(tempData, path)"
         [selected]="getSelectedDeepKey(index + 1) | async"
         (selectKey)="selectPath($event, path)"
+        (updateValue)="onUpdateValue($event, path)"
       ></je-json-row>
     </div>
   </div>

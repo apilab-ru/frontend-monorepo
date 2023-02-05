@@ -26,6 +26,7 @@
 .paths {
   display: flex;
   padding: 5px 0;
+  align-items: center;
 }
 
 .path {
@@ -39,6 +40,10 @@
       display: inline-block;
     }
   }
+}
+
+.button-save {
+  margin: -8px 20px -8px auto;
 }
 
 .row {

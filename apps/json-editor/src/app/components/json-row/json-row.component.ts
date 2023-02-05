@@ -3,7 +3,7 @@ import {
   Component, EventEmitter,
   Input, OnChanges, OnInit, Output, SimpleChanges,
 } from '@angular/core';
-import { JsonData } from "../../interface";
+import { JsonData, UpdateValueEvent, Value } from "../../interface";
 import { FormControl, FormGroup } from "@angular/forms";
 import { combineLatest, map, Observable, ReplaySubject, startWith } from "rxjs";
 
@@ -11,8 +11,6 @@ enum FieldType {
   object = 'object',
   simple = 'simple',
 }
-
-type Value = string | number;
 
 interface Field {
   key: string;
@@ -35,6 +33,7 @@ export class JsonRowComponent implements OnChanges, OnInit {
   @Input() selected: string;
 
   @Output() selectKey = new EventEmitter<string>();
+  @Output() updateValue = new EventEmitter<UpdateValueEvent>();
 
   FieldType = FieldType;
   formGroup = this.initForm();
@@ -71,6 +70,13 @@ export class JsonRowComponent implements OnChanges, OnInit {
     }
 
     this.selectKey.emit(key);
+  }
+
+  onUpdateValue(field: Field, value: Value): void {
+    this.updateValue.emit({
+      key: field.key,
+      value: value,
+    })
   }
 
   private prepareFields(): Field[] {

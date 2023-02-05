@@ -9,7 +9,8 @@ import { MenuComponent } from "./components/menu/menu.component";
 import { JsonRowComponent } from "./components/json-row/json-row.component";
 import { MatInputModule } from "@angular/material/input";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -25,6 +26,8 @@ import { ReactiveFormsModule } from "@angular/forms";
     MatInputModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    FormsModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

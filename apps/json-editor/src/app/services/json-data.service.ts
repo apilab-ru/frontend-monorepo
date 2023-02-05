@@ -15,8 +15,8 @@ const STORE = {
 export class JsonDataService {
   private dbService = new IDbStoreService<DBStore>(DB_STORE_CONFIG);
   private store = makeStore(STORE);
-  private files$: Observable<JsonFile[]>;
 
+  files$: Observable<JsonFile[]>;
   fileNames$: Observable<Tab[]>;
 
   constructor(
@@ -48,7 +48,21 @@ export class JsonDataService {
     )
   }
 
-  addFile(data: string, name: string): Promise<void> {
+  updateFile(file: JsonFile): Promise<void> {
+    return this.dbService.updateItem('jsonFiles', file).then(() => {
+      const list = this.store.files.getValue();
+      const index = list.findIndex(it => it.id === file.id);
+      const newList = [
+        ...list.slice(0, index),
+        file,
+        ...list.slice(index + 1)
+      ];
+      console.log('xxx newList', newList);
+      this.store.files.next(newList);
+    });
+  }
+
+  addFile(data: JsonData, name: string): Promise<void> {
     return this.dbService
       .addItem('jsonFiles', {
         data,

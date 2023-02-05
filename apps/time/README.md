@@ -1,7 +1,7 @@
 # Time
+Небольшой проект на angularN для учёта времени.
 
-Небольшой проект на angular12 для учёта времени.
-Демо <a href='http://time.apilab.ru'>тут</a>
+[Демо](http://time.apilab.ru)
 
-#Архитектура
-NgRx https://ngrx.io/docs
+## Архитектура
+[NgRx](https://ngrx.io/docs)

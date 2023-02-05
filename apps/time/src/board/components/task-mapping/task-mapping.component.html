@@ -1,0 +1,13 @@
+<div class="root">
+  <h2>Task Mapping</h2>
+  <app-task-map-item
+    *ngFor="let item of (taskMapList$ | async); let index = index; trackBy:trackByIndex"
+    class="line"
+    [item]="item"
+    (deleteItem)="deleteItem(index)"
+    (updateItem)="updateItem($event, index)"
+  ></app-task-map-item>
+  <button mat-raised-button color="primary" (click)="addMapItem()">
+    + Add
+  </button>
+</div>

@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+}
+
+@mixin smallButton($color, $backgroundColor) {
+  align-items: center;
+  background-color: $backgroundColor;
+  border-radius: 100%;
+  border: none;
+  box-shadow: none;
+  box-sizing: border-box;
+  color: $color;
+  cursor: pointer;
+  display: flex;
+  height: 25px;
+  justify-content: center;
+  outline: none;
+  width: 25px;
+}
+
+.btn-del {
+  @include smallButton(#fff, #ff4081);
+}
+
+.btn-copy {
+  @include smallButton(#fff, #3f51b5);
+}

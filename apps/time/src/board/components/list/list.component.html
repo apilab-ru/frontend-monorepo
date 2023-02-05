@@ -1,0 +1,7 @@
+<app-time-item
+  *ngFor="let item of list;let i = index; trackBy: trackByIndex"
+  class="item"
+  [item]="item"
+  (deleteItem)="onDeleteItem(i)"
+  (updateItem)="onUpdateItem(i, $event)"
+></app-time-item>

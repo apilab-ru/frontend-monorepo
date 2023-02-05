@@ -1,0 +1,60 @@
+@import "~src/styles/breakpoints";
+
+.root {
+  display: flex;
+  align-items: center;
+
+  .task {
+    margin-left: 20px;
+    font-size: 16px;
+    line-height: 30px;
+    padding: 0 10px;
+    border: 1px solid #3f51b5;
+    border-radius: 2px;
+    width: 150px;
+  }
+
+  .description {
+    border: 1px solid #3f51b5;
+    line-height: 30px;
+    padding: 0 10px;
+    border-radius: 3px;
+    min-width: 230px;
+  }
+
+  .calc {
+    color: #293366;
+    margin-left: 10px;
+    width: 30px;
+  }
+
+  .btn-del {
+    margin-left: 25px;
+  }
+
+  .separator {
+    display: inline-block;
+    padding: 5px 10px;
+  }
+
+  @include mobile {
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+
+    .task {
+      margin-left: 0;
+      width: calc(100% - 115px);
+    }
+
+    .description {
+      margin-top: 10px;
+      min-width: 0;
+      width: calc(100% - 115px);
+    }
+
+    .mobile-separator {
+      width: 100%;
+      height: 8px;
+    }
+  }
+}

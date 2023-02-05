@@ -1,0 +1,57 @@
+@import "~src/styles/breakpoints";
+
+:host {
+  padding: 20px;
+  margin: 20px 100px;
+  display: table;
+
+  @include tablet() {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  @include mobile {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .total-line {
+    margin-bottom: 15px;
+    margin-top: 10px;
+  }
+
+  .buttons {
+    button {
+      margin-right: 15px;
+    }
+  }
+
+  .note {
+    font-size: 14px;
+    margin-top: 20px;
+  }
+
+  .calculated-line {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #f1f1f1;
+    padding: 5px;
+
+    .name, .description {
+      margin-right: 10px;
+    }
+  }
+
+  .cell-delete {
+    padding-left: 20px;
+  }
+
+  .copy-elem {
+    cursor: pointer;
+  }
+
+  .set {
+    margin: 0 10px;
+  }
+}

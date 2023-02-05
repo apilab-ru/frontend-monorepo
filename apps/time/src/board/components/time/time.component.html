@@ -1,0 +1,12 @@
+<input
+  name="time"
+  class="time-input"
+  type="tel"
+  [mask]="mask"
+  [ngModel]="valueString$ | async"
+  (ngModelChange)="updateValue($event)"
+>
+<span class="icon" mat-icon-button color="accent" (click)="setNow()">
+  <mat-icon>input</mat-icon>
+</span>
+

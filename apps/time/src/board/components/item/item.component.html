@@ -1,0 +1,17 @@
+<div *ngIf="item" class="root">
+  <app-time [(ngModel)]="item.from" (ngModelChange)="onChange()"></app-time>
+
+  <span class="separator">-</span>
+
+  <app-time [(ngModel)]="item.to" (ngModelChange)="onChange()"></app-time>
+
+  <div class="mobile-separator"></div>
+
+  <input type="text" class="task"  [(ngModel)]="item.task" (ngModelChange)="onChange()">
+
+  <span class="calc">{{ getTime() }}</span>
+
+  <textarea class="description" rows="1" [(ngModel)]="item.description" (ngModelChange)="onChange()"></textarea>
+
+  <button (click)="delete()" class="btn-del">X</button>
+</div>

@@ -1,0 +1,82 @@
+<button mat-raised-button (click)="clear()">
+  Clear data
+</button>
+<button class="btn-with-icon" mat-icon-button label="Reload" (click)="reload()">
+  <mat-icon>assignment return</mat-icon>
+</button>
+<br>
+<br>
+
+<app-time-board-list
+  [list]="list$ | async"
+  (updateItem)="onUpdateItem($event)"
+  (deleteItem)="onDeleteItem($event)"
+></app-time-board-list>
+
+<div class="total-line">
+  Total <span class="total">{{ totalTime$ | async }}</span>
+  <span> / {{ totalHours$ | async }}</span>
+</div>
+
+<div class="buttons">
+  <button mat-raised-button color="primary" (click)="addItem()">
+    + Add
+  </button>
+  <button mat-raised-button color="accent" (click)="reCalc()">
+    Calc (Ctrl + Q)
+  </button>
+  <mat-checkbox
+    class="set"
+    (change)="changeSort($event)"
+    [ngModel]="setting.sort"
+  >
+    Order
+  </mat-checkbox>
+  <mat-checkbox
+    class="set"
+    (change)="changeGroup($event)"
+    [ngModel]="setting.groupByDescription"
+  >
+    Group by description
+  </mat-checkbox>
+  <!--mat-checkbox
+    class="set"
+    (change)="changeTimeReorder($event)"
+    [ngModel]="setting.timeReorder"
+  >
+    Уплотнить
+  </mat-checkbox-->
+</div>
+
+<ng-container *ngIf="(calculated$ | async)?.length">
+  <h3>Calculated</h3>
+  <table>
+    <tr class="calculated-line" *ngFor="let item of (calculated$ | async); let i=index">
+      <td class="copy-elem name" [appCopyClick]="item.timeStart | timeDto">
+        {{ item.timeStart | timeDto }}
+      </td>
+      <td class="copy-elem name" [appCopyClick]="item.task">
+        {{ item.task }}
+      </td>
+      <td class="copy-elem description" [appCopyClick]="item.description">
+        {{ item.description }}
+      </td>
+      <td class="copy-elem" [appCopyClick]="getHourAndMinutes(item.time)">
+        {{ getHourAndMinutes(item.time) }}
+      </td>
+      <td class="cell-copy-all">
+        <button [appCopyClick]="item.task + ' - ' + item.description + ' : ' + getHourAndMinutes(item.time)"
+                class="btn-copy">
+          C
+        </button>
+      </td>
+      <td class="cell-delete">
+        <button (click)="delete(i)" class="btn-del">X</button>
+      </td>
+    </tr>
+  </table>
+</ng-container>
+
+<div class="note">
+  <b><a (click)="undo()">CtrlZ + Z</a></b> - undo the last operation<br>
+</div>

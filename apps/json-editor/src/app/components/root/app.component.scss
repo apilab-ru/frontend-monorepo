@@ -1,3 +1,11 @@
+.root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
 .content {
-  margin: 20px auto;
+  flex: 1;
+  overflow: hidden;
 }

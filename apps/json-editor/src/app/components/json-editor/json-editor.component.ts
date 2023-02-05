@@ -8,6 +8,7 @@ import lodashGet from 'lodash-es/get';
 interface Path {
   key: string;
   full: string[];
+  fullSt: string;
 }
 
 @Component({
@@ -43,7 +44,7 @@ export class JsonEditorComponent implements OnInit {
   }
 
   goToPath(path: Path): void {
-    this.setPath(path.full.join('.'));
+    this.setPath(path.fullSt);
   }
 
   getSelectedDeepKey(index: number): Observable<string | null> {
@@ -68,15 +69,21 @@ export class JsonEditorComponent implements OnInit {
     return lodashGet(data, path.full);
   }
 
+  trackByPath(_index: number, path: Path): string {
+    return path.fullSt;
+  }
+
   private parserPath(path: string): Path[] {
     const keys = path.split('.');
     const list: Path[] = [];
 
     keys.forEach(key => {
       const prev = list.map(({ key }) => key);
+      const full = [...prev, key];
       list.push({
         key,
-        full: [...prev, key]
+        full,
+        fullSt: full.join('.')
       })
     })
 

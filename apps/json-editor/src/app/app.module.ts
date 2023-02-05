@@ -7,6 +7,9 @@ import { RouterModule } from "@angular/router";
 import { ROOT_ROUTES } from "./routes";
 import { MenuComponent } from "./components/menu/menu.component";
 import { JsonRowComponent } from "./components/json-row/json-row.component";
+import { MatInputModule } from "@angular/material/input";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { JsonRowComponent } from "./components/json-row/json-row.component";
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(ROOT_ROUTES)
+    RouterModule.forRoot(ROOT_ROUTES),
+    MatInputModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

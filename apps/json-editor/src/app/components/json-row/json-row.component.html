@@ -1,11 +1,16 @@
-<div class="root">
+<div class="root" [formGroup]="formGroup">
   <div class="title">
     {{ key }}
   </div>
 
+  <mat-form-field class="example-full-width">
+    <mat-label>Search by value</mat-label>
+    <input matInput placeholder="" formControlName="search">
+  </mat-form-field>
+
   <div class="fields-container">
     <div class="fields">
-      <ng-container *ngFor="let item of fields">
+      <ng-container *ngFor="let item of fields$ | async">
         <div class="key" [class.-selected]="selected === item.key">
           {{ item.key }}
         </div>

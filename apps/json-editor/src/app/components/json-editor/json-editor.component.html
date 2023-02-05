@@ -16,7 +16,7 @@
       ></je-json-row>
 
       <je-json-row
-        *ngFor="let path of paths$ | async; let index = index"
+        *ngFor="let path of paths$ | async; let index = index; trackBy: trackByPath"
         class="row"
         [key]="path.key"
         [data]="pickData(data, path)"

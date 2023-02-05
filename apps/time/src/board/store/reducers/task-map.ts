@@ -1,6 +1,6 @@
 import * as taskMapAction from '../actions/task-map';
 import { INITIAL_STATE } from '../state';
-import cloneDeep from 'lodash/cloneDeep';
+import cloneDeep from 'lodash-es/cloneDeep';
 
 export function reducer(state = INITIAL_STATE.taskMap, action: taskMapAction.TaskMapAction) {
   switch (action.type) {

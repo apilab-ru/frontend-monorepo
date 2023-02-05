@@ -1,7 +1,7 @@
 import * as timesAction from '../actions/times';
 import { TimeItem } from '../../models/time-item';
 import { INITIAL_STATE, State } from '../state';
-import cloneDeep from 'lodash/cloneDeep';
+import cloneDeep from 'lodash-es/cloneDeep';
 
 
 export function reducer(state = INITIAL_STATE.times, action: timesAction.TimesAction) {

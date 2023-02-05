@@ -7,9 +7,10 @@
 Для запуска использовать `nx serve --project` 
 
 ## Приложения
-| Проект      | Описание      | Демо                                      |
-|-------------|---------------|-------------------------------------------|
-| json-editor | Редактор JSON | [json.apilab.ru](https://json.apilab.ru/) |
+| Проект      | Описание       | Демо                                      | Директория                        |
+|-------------|----------------|-------------------------------------------|-----------------------------------|
+| json-editor | Редактор JSON  | [json.apilab.ru](https://json.apilab.ru/) | [json-editor](./apps/json-editor) |
+| time        | Time recording | [time.apilab.ru](https://time.apilab.ru/) | [time](./apps/time)               |
 
 ## Библиотеки
 | Проект | Описание                                                  |

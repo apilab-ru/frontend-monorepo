@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxMaskModule } from 'ngx-mask';
+import { NgxMaskDirective, provideEnvironmentNgxMask } from 'ngx-mask';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -25,10 +25,8 @@ import { TaskMapItemComponent } from './components/task-map-item/task-map-item.c
 
 export function getMetaReducers(
   historyService: HistoryService
-): MetaReducer<State>[] {
-  return [
-    history(historyService)
-  ];
+): MetaReducer<State> {
+  return history(historyService);
 }
 
 @NgModule({
@@ -39,7 +37,7 @@ export function getMetaReducers(
     MatCheckboxModule,
     MatIconModule,
     MatSnackBarModule,
-    NgxMaskModule.forRoot(),
+    NgxMaskDirective,
     ReactiveFormsModule,
     RouterModule,
     StoreModule.forRoot(reducers),
@@ -57,10 +55,12 @@ export function getMetaReducers(
     TotalTimePipe,
   ],
   providers: [
+    provideEnvironmentNgxMask(),
     {
       provide: META_REDUCERS,
       deps: [HistoryService],
-      useFactory: getMetaReducers
+      useFactory: getMetaReducers,
+      multi: true,
     }
   ],
   exports: [

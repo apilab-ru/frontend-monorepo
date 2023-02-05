@@ -25,8 +25,12 @@ export class ItemComponent {
     return this.timeService.getTime(this.item);
   }
 
-  onChange(): void {
-    this.updateItem.emit(this.item);
+  onChange<Key extends keyof TimeItem>(value: TimeItem[Key], field: Key): void {
+    const result = {
+      ...this.item,
+      [field]: value
+    }
+    this.updateItem.emit(result);
   }
 
 }

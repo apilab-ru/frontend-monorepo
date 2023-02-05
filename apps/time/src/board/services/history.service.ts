@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HistoryEvent } from '../models/history-event';
 import { State } from '../store/state';
-import cloneDeep from 'lodash/cloneDeep';
-import isEqual from 'lodash/isEqual';
+import cloneDeep from 'lodash-es/cloneDeep';
+import isEqual from 'lodash-es/isEqual';
 
 const KEY_STORE = 'time-history';
 

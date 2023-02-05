@@ -11,6 +11,7 @@ import { MatInputModule } from "@angular/material/input";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
+import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { MatButtonModule } from "@angular/material/button";
     ReactiveFormsModule,
     FormsModule,
     MatButtonModule,
+    NgxPageScrollCoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

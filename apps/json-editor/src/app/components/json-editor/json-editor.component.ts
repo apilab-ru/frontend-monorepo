@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Inject, OnInit, ViewChild, } from '@angular/core';
 import { JsonDataService } from "../../services/json-data.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { map, Observable, switchMap, take, tap } from "rxjs";
@@ -7,13 +7,14 @@ import lodashGet from 'lodash-es/get';
 import lodashSet from 'lodash-es/set';
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 import { saveAsFile } from "@utils-monorep/store";
+import { PageScrollService } from 'ngx-page-scroll-core';
+import { DOCUMENT } from "@angular/common";
 
 interface Path {
   key: string;
   full: string[];
   fullSt: string;
 }
-
 
 @UntilDestroy()
 @Component({
@@ -23,18 +24,22 @@ interface Path {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JsonEditorComponent implements OnInit {
-  private fileId$ = this.activatedRoute.params.pipe(map(({ id }) => +id));
-  private fileId: number;
-
   isChanged = false;
   paths$: Observable<Path[]>;
   data$: Observable<JsonData>;
   tempData: JsonData;
 
+  private fileId$ = this.activatedRoute.params.pipe(map(({ id }) => +id));
+  private fileId: number;
+
+  @ViewChild('rowsBox') private rowsBox: ElementRef<HTMLElement>;
+
   constructor(
     private jsonDataService: JsonDataService,
     private activatedRoute: ActivatedRoute,
+    private pageScrollService: PageScrollService,
     private router: Router,
+    @Inject(DOCUMENT) private document: Document
   ) {
   }
 
@@ -79,6 +84,17 @@ export class JsonEditorComponent implements OnInit {
     const path = prev ? prev.full : [];
     path.push(child);
     this.setPath(path.join('.'));
+
+    setTimeout(() => {
+      this.pageScrollService.scroll({
+        document: this.document,
+        scrollViews: [
+          this.rowsBox.nativeElement
+        ],
+        scrollTarget: '.-last',
+        verticalScrolling: false,
+      })
+    })
   }
 
   pickData(data: JsonData, path: Path): JsonData {
@@ -100,7 +116,7 @@ export class JsonEditorComponent implements OnInit {
       take(1),
       map(list => {
         const file = list.find(it => it.id === this.fileId)!;
-        return  {
+        return {
           ...file,
           data: this.tempData,
         }
@@ -111,7 +127,17 @@ export class JsonEditorComponent implements OnInit {
     });
   }
 
-  private parserPath(path: string): Path[] {
+  deleteFile(): void {
+    this.jsonDataService.deleteFile(this.fileId).then(() => {
+      this.router.navigate(['/'])
+    });
+  }
+
+  private parserPath(path?: string): Path[] {
+    if (!path) {
+      return [];
+    }
+
     const keys = path.split('.');
     const list: Path[] = [];
 

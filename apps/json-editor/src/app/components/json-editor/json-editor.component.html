@@ -4,19 +4,29 @@
       {{ path.key }}
     </a>
 
-    <button
-      *ngIf="isChanged"
-      class="button-save"
-      mat-raised-button
-      color="primary"
-      (click)="saveJson()"
-    >
-      Save changes
-    </button>
+    <div class="buttons">
+      <button
+        *ngIf="isChanged"
+        class="button"
+        mat-raised-button
+        color="primary"
+        (click)="saveJson()"
+      >
+        Save changes
+      </button>
+      <button
+        class="button"
+        mat-raised-button
+        color="warn"
+        (click)="deleteFile()"
+      >
+        Delete file
+      </button>
+    </div>
   </div>
 
   <div class="rows-box">
-    <div *ngIf="data$ | async as data" class="rows">
+    <div *ngIf="data$ | async as data" class="rows" #rowsBox>
       <je-json-row
         class="row"
         key="root"
@@ -26,8 +36,9 @@
       ></je-json-row>
 
       <je-json-row
-        *ngFor="let path of paths$ | async; let index = index; trackBy: trackByPath"
+        *ngFor="let path of paths$ | async; let index = index; trackBy: trackByPath; let last = last"
         class="row"
+        [class.-last]="last"
         [key]="path.key"
         [data]="pickData(tempData, path)"
         [selected]="getSelectedDeepKey(index + 1) | async"

@@ -57,8 +57,15 @@ export class JsonDataService {
         file,
         ...list.slice(index + 1)
       ];
-      console.log('xxx newList', newList);
       this.store.files.next(newList);
+    });
+  }
+
+  deleteFile(id: number): Promise<void> {
+    return this.dbService.deleteItem('jsonFiles', id).then(() => {
+      this.store.files.next(
+        this.store.files.getValue().filter(it => it.id !== id)
+      );
     });
   }
 

@@ -42,8 +42,16 @@
   }
 }
 
-.button-save {
+.buttons {
+  display: flex;
+  align-items: center;
   margin: -8px 20px -8px auto;
+}
+
+.button {
+  & + & {
+    margin-left: 12px;
+  }
 }
 
 .row {

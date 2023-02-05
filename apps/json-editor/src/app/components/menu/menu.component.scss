@@ -1,0 +1,27 @@
+.root {
+  padding: 8px 16px;
+  background: var(--color-primary);
+  display: flex;
+}
+
+.link {
+  padding: 8px;
+  color: var(--color-primary-inverted);
+  font-size: 14px;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 3px;
+
+  & + & {
+    margin-left: 5px;
+  }
+
+  &:hover:not(.-active) {
+    background: #000;
+  }
+
+  &.-active {
+    cursor: initial;
+    background: rgba(0, 0, 0, .2);
+  }
+}

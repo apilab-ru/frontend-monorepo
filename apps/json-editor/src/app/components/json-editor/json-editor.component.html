@@ -1,26 +1,28 @@
 <div class="root">
   <div class="paths">
-    <a *ngFor="let path of paths; let index = index" class="path" (click)="goToPath(index)">
+    <a *ngFor="let path of paths$ | async; let index = index" class="path" (click)="goToPath(path)">
       {{ path.key }}
     </a>
   </div>
 
-  <div *ngIf="data$ | async as data" class="rows">
-    <je-json-row
-      class="row"
-      key="root"
-      [data]="data"
-      [selected]="getSelectedDeepKey(0)"
-      (selectKey)="selectPath($event)"
-    ></je-json-row>
+  <div class="rows-box">
+    <div *ngIf="data$ | async as data" class="rows">
+      <je-json-row
+        class="row"
+        key="root"
+        [data]="data"
+        [selected]="getSelectedDeepKey(0) | async"
+        (selectKey)="selectPath($event)"
+      ></je-json-row>
 
-    <je-json-row
-      *ngFor="let path of paths; let index = index"
-      class="row"
-      [key]="path.key"
-      [data]="pickData(data, path)"
-      [selected]="getSelectedDeepKey(index + 1)"
-      (selectKey)="selectPath($event, path)"
-    ></je-json-row>
+      <je-json-row
+        *ngFor="let path of paths$ | async; let index = index"
+        class="row"
+        [key]="path.key"
+        [data]="pickData(data, path)"
+        [selected]="getSelectedDeepKey(index + 1) | async"
+        (selectKey)="selectPath($event, path)"
+      ></je-json-row>
+    </div>
   </div>
 </div>

@@ -1,14 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit, } from '@angular/core';
 import { JsonDataService } from "../../services/json-data.service";
-import { ActivatedRoute } from "@angular/router";
-import { map, Observable, switchMap, tap } from "rxjs";
+import { ActivatedRoute, Router } from "@angular/router";
+import { map, Observable, switchMap } from "rxjs";
 import { JsonData } from "../../interface";
 import lodashGet from 'lodash-es/get';
 
 interface Path {
   key: string;
   full: string[];
-  dept: number;
 }
 
 @Component({
@@ -20,52 +19,75 @@ interface Path {
 export class JsonEditorComponent implements OnInit {
   private fileId$ = this.activatedRoute.params.pipe(map(({ id }) => +id));
 
-  paths: Path[] = [];
+  paths$: Observable<Path[]>;
   data$: Observable<JsonData>;
 
   constructor(
     private jsonDataService: JsonDataService,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
   ) {
   }
 
   ngOnInit(): void {
     this.data$ = this.fileId$.pipe(
       switchMap(id => this.jsonDataService.loadFileData(id)),
-      tap(() => {
-        this.paths = [];
-      }),
+    )
+
+    this.paths$ = this.activatedRoute.queryParams.pipe(
+      map(params => {
+        const path = params?.path;
+        return this.parserPath(path);
+      })
+    );
+  }
+
+  goToPath(path: Path): void {
+    this.setPath(path.full.join('.'));
+  }
+
+  getSelectedDeepKey(index: number): Observable<string | null> {
+    return this.paths$.pipe(
+      map(paths => {
+        if (paths.length > index) {
+          return paths[index].key;
+        }
+
+        return null;
+      })
     )
   }
 
-  goToPath(index: number): void {
-    const paths = this.paths.slice(0, index);
-    this.paths = paths;
-  }
-
-  getSelectedDeepKey(index: number): string | null {
-    if (this.paths.length > index) {
-      return this.paths[index].key;
-    }
-
-    return null;
-  }
-
   selectPath(child: string, prev?: Path): void {
-    const dept = (prev?.dept || 0) + 1;
-    const path = !prev ? [] : this.paths.slice(0, prev.dept);
-    const full = (prev ? [...prev.full, child] : [child]);
-
-    path.push({
-      key: child,
-      dept,
-      full,
-    })
-
-    this.paths = path;
+    const path = prev ? prev.full : [];
+    path.push(child);
+    this.setPath(path.join('.'));
   }
 
   pickData(data: JsonData, path: Path): JsonData {
     return lodashGet(data, path.full);
+  }
+
+  private parserPath(path: string): Path[] {
+    const keys = path.split('.');
+    const list: Path[] = [];
+
+    keys.forEach(key => {
+      const prev = list.map(({ key }) => key);
+      list.push({
+        key,
+        full: [...prev, key]
+      })
+    })
+
+    return list;
+  }
+
+  private setPath(path: string): void {
+    this.router.navigate([], {
+      queryParams: {
+        path
+      }
+    })
   }
 }

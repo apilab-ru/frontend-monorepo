@@ -3,6 +3,10 @@
   padding: 0 10px;
 }
 
+.rows-box {
+  overflow: auto;
+}
+
 .rows {
   display: flex;
 }

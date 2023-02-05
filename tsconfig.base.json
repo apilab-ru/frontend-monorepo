@@ -16,9 +16,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@ui-kit": ["libs/ui-kit/src/*"],
       "@utils-monorep/angular-shared": ["libs/angular-shared/src/index.ts"],
-      "@utils-monorep/store": ["libs/store/src/index.ts"],
-      "@ui-kit": ["libs/ui-kit/src/*"]
+      "@utils-monorep/server": ["libs/server/src/index.ts"],
+      "@utils-monorep/store": ["libs/store/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

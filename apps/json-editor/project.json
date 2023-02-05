@@ -21,7 +21,8 @@
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/json-editor/src/favicon.ico",
-          "apps/json-editor/src/assets"
+          "apps/json-editor/src/assets",
+          "apps/json-editor/src/.htaccess"
         ],
         "styles": [
           "apps/json-editor/src/styles.scss"

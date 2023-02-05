@@ -9,7 +9,7 @@ import { JsonDataService } from "../../services/json-data.service";
 })
 export class JsonInputComponent {
   constructor(
-    private jsonDataService: JsonDataService<unknown>,
+    private jsonDataService: JsonDataService,
   ) {
   }
 
@@ -26,7 +26,7 @@ export class JsonInputComponent {
     const reader = new FileReader();
     reader.onload = (event: ProgressEvent) => {
       const res = JSON.parse((event as any).target['result']);
-      this.jsonDataService.setData(res, file.name);
+      this.jsonDataService.addFile(res, file.name);
     }
     reader.readAsText(file);
   }

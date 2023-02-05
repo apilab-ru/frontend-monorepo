@@ -1,0 +1,38 @@
+.root {
+  font-size: 16px;
+  padding: 0 10px;
+}
+
+.rows {
+  display: flex;
+}
+
+.paths {
+  display: flex;
+}
+
+.path {
+  cursor: pointer;
+  padding: 1px 2px;
+
+  & + & {
+    &:before {
+      content: '/';
+      padding: 0 2px;
+      display: inline-block;
+    }
+  }
+}
+
+.row {
+  max-width: 500px;
+  display: block;
+
+  & + & {
+    margin-left: 20px;
+  }
+
+  &:last-of-type {
+    padding-right: 50px;
+  }
+}

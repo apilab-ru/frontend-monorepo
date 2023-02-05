@@ -1,0 +1,22 @@
+<div class="root">
+  <div class="title">
+    {{ key }}
+  </div>
+
+  <div class="fields-container">
+    <div class="fields">
+      <ng-container *ngFor="let item of fields">
+        <div class="key" [class.-selected]="selected === item.key">
+          {{ item.key }}
+        </div>
+        <div
+          class="value -{{ item.type }}"
+          [class.-selected]="selected === item.key"
+          (click)="onValueClick(item.key, item.type)"
+        >
+          {{ item.value }}
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

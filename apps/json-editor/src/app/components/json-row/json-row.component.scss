@@ -1,0 +1,37 @@
+.root {
+  padding: 3px;
+}
+
+.fields-container {
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+.fields {
+  display: grid;
+  grid-row-gap: 4px;
+  grid-template-columns: max-content max-content;
+}
+
+.key {
+  padding: 2px;
+
+  &.-selected {
+    background: var(--color-secondary-inverted);
+  }
+}
+
+.value {
+  padding: 2px 2px 2px 16px;
+  font-family: monospace;
+
+  &.-selected {
+    background: var(--color-secondary-inverted);
+  }
+
+  &.-object {
+    cursor: pointer;
+    text-decoration: underline;
+    color: var(--color-primary-light);
+  }
+}

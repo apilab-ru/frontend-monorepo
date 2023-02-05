@@ -1,0 +1,11 @@
+@mixin colors() {
+  --color-primary-text: #000000de;
+  --color-primary: #3f51b5;
+  --color-primary-light: #6573c3;
+  --color-primary-inverted: #fff;
+  --color-background: #fafafa;
+  --color-secondary-dark: #ab003c;
+  --color-secondary: #f50057;
+  --color-secondary-light: #f73378;
+  --color-secondary-inverted: rgba(0,0,0,.03);
+}

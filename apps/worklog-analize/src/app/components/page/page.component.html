@@ -1,0 +1,6 @@
+<div class="root">
+  <app-controls></app-controls>
+
+  <app-chart class="chart" [items]="(logs$ | async) || []"></app-chart>
+</div>
+

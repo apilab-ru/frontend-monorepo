@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { GroupConfig, ImportLog, LogsUserRawData } from "../interfaces";
-import { makeStore, RecordSubject } from "./store";
+
 import { Observable } from "rxjs";
 import { map, shareReplay } from 'rxjs/operators';
 import { DEFAULT_DATA } from "../const";
+import { makeStore, RecordSubject } from "@utils-monorep/store";
 
 const STORAGE_KEY = 'workLogAnalyzeForm-v2';
 

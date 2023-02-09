@@ -1,0 +1,82 @@
+{
+  "name": "worklog-analize",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/worklog-analize/src",
+  "prefix": "utils-monorep",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/worklog-analize",
+        "index": "apps/worklog-analize/src/index.html",
+        "main": "apps/worklog-analize/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/worklog-analize/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/worklog-analize/src/favicon.ico",
+          "apps/worklog-analize/src/assets"
+        ],
+        "styles": ["apps/worklog-analize/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "worklog-analize:build:production"
+        },
+        "development": {
+          "browserTarget": "worklog-analize:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "worklog-analize:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/worklog-analize/**/*.ts",
+          "apps/worklog-analize/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

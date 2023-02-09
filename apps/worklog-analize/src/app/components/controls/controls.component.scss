@@ -20,6 +20,7 @@
 .control-item {
   display: flex;
   flex-direction: column;
+  --mdc-checkbox-state-layer-size: 24px;
 
   & + & {
     margin-left: 20px;

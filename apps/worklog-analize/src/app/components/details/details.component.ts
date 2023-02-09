@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { Item } from "../chart/interface";
-import { Log, LogDetail } from "../../interfaces";
+import { Log } from "../../interfaces";
 
 interface ViewItem extends Log {
   percentLocal: number;

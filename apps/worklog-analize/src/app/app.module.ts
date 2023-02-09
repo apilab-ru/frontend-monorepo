@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { PageComponent } from './components/page/page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material/button';
+import { MatLegacyButtonModule } from '@angular/material/legacy-button';
 import { HelpComponent } from './components/help/help.component';
 import { RouterModule } from "@angular/router";
 import { ROUTES } from "./routes";
@@ -28,7 +28,7 @@ import { DetailsComponent } from './components/details/details.component';
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
-    MatButtonModule,
+    MatLegacyButtonModule,
     MatCheckboxModule,
     MatSnackBarModule,
     ReactiveFormsModule,

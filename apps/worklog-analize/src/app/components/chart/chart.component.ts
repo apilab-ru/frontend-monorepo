@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import Chart from 'chart.js/auto'
 import { LogDetail } from "../../interfaces";
-import { Observable, ReplaySubject } from "rxjs";
+import { ReplaySubject } from "rxjs";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 import { PREPARED_COLORS } from "./const";
 import { MatDialog } from "@angular/material/dialog";
@@ -92,8 +92,8 @@ export class ChartComponent implements OnInit, OnChanges {
     return {
       ...item,
       color: this.generateColor(item.key),
-      percent: Math.round(item.time / total  * 10000) / 100,
-      hours: Math.round(item.time / 60  * 100) / 100
+      percent: Math.round(item.time / total * 10000) / 100,
+      hours: Math.round(item.time / 60 * 100) / 100
     }
   }
 

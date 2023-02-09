@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from "@angular/forms";
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { UserDataService } from "../../services/user-data.service";
+import { LogsUserRawData } from "../../interfaces";
 
 @UntilDestroy()
 @Component({
@@ -31,7 +32,7 @@ export class ControlsComponent implements OnInit {
     this.formGroup.valueChanges.pipe(
       untilDestroyed(this),
     ).subscribe(form => {
-      this.userDataService.saveData(form);
+      this.userDataService.saveData(form as LogsUserRawData);
     });
 
     const formData = this.userDataService.loadData();

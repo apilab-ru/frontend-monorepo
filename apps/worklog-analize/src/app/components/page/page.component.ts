@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AnalyzerService } from '../../services/analyzer.service';
-import { combineLatest, Observable, of } from 'rxjs';
+import { combineLatest, Observable, of, switchMap } from 'rxjs';
 import { LogDetail } from '../../interfaces';
 import { catchError, map } from 'rxjs/operators';
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -46,7 +46,7 @@ export class PageComponent implements OnInit {
       rules$,
       this.userDataService.groupConfig$,
     ]).pipe(
-      map(([logs, rules, groupConfig]) => this.analyzerService.groupLogs(logs, rules, groupConfig)),
+      switchMap(([logs, rules, groupConfig]) => this.analyzerService.groupLogs(logs, rules, groupConfig)),
       catchError(error => {
         this.snackBar.open(error.toString());
         console.error(error);

@@ -20,7 +20,8 @@
           "apps/worklog-analize/src/assets"
         ],
         "styles": ["apps/worklog-analize/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "webWorkerTsConfig": "apps/worklog-analize/tsconfig.worker.json"
       },
       "configurations": {
         "production": {
@@ -51,6 +52,9 @@
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "disableHostCheck": true
+      },
       "configurations": {
         "production": {
           "browserTarget": "worklog-analize:build:production"

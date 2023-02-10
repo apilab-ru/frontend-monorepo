@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { UserDataService } from "../../services/user-data.service";
 import { LogsUserRawData } from "../../interfaces";
+import { debounceTime, combineLatest } from "rxjs";
 
 @UntilDestroy()
 @Component({
@@ -29,10 +30,18 @@ export class ControlsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.formGroup.valueChanges.pipe(
+    combineLatest([
+      this.formGroup.controls.groupConfig.valueChanges,
+      this.formGroup.controls.logs.valueChanges,
+      this.formGroup.controls.rules.valueChanges.pipe(
+        debounceTime(200),
+      ),
+    ]).pipe(
       untilDestroyed(this),
-    ).subscribe(form => {
-      this.userDataService.saveData(form as LogsUserRawData);
+    ).subscribe(([groupConfig, logs, rules]) => {
+      this.userDataService.saveData({
+        groupConfig, logs, rules
+      } as LogsUserRawData);
     });
 
     const formData = this.userDataService.loadData();

@@ -1,12 +1,13 @@
-# WorklogAnalize
-Анализатор ворклогов
-[Demo](https://apilab-ru.github.io/worklog-analize/)
+# WorklogAnalize / Анализатор рабочих логов
+[worklog-analyze.apilab.ru](https://worklog-analyze.apilab.ru/)
+
+Сервис для группировки, агрегации и визуализации рабочих логов
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `nx serve worklog-analyze` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Github publish
+### Github publish
 
 Use token 
 git remote set-url origin https://[USERNAME]:[TOKEN]@git.mycompany.com/[ORGANIZATION]/[REPO].git

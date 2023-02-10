@@ -17,7 +17,8 @@
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/worklog-analize/src/favicon.ico",
-          "apps/worklog-analize/src/assets"
+          "apps/worklog-analize/src/assets",
+          "apps/worklog-analize/src/.htaccess"
         ],
         "styles": ["apps/worklog-analize/src/styles.scss"],
         "scripts": [],

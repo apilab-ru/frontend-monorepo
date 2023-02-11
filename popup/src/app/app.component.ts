@@ -1,16 +1,15 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { catchError, map, shareReplay, switchMap } from 'rxjs/operators';
-import { Types } from '@shared/const/const';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { BrowserApiService } from './services/browser-api.service';
-import { combineLatest, forkJoin, from, Observable, of } from 'rxjs';
-import { trimTitle } from '@shared/utils/trim-title';
+import { forkJoin, from, Observable, of } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BaseInfo } from '@shared/popup-add-item/models/base-info';
 import { FileCabService } from '@shared/services/file-cab.service';
 import { ParserFounded } from './interface';
 import { parserPresets } from '@shared/parser/const';
 import { captureException } from '@sentry/angular';
+import { ParserSchemas, SchemaFuncRes } from '@shared/parser/schemas';
 
 @UntilDestroy()
 @Component({
@@ -21,8 +20,9 @@ import { captureException } from '@sentry/angular';
 })
 export class AppComponent implements OnInit {
   baseInfo$: Observable<BaseInfo | null>;
-  schemas$ = this.fileCabService.schemas$;
   parserPreset$: Observable<ParserFounded | null>;
+
+  private parserSchemas = new ParserSchemas();
 
   constructor(
     private browserApiService: BrowserApiService,
@@ -56,25 +56,33 @@ export class AppComponent implements OnInit {
   }
 
   private createBaseInfo(): Observable<BaseInfo | null> {
-    return this.schemas$.pipe(
-      switchMap(schemas => combineLatest([
-        of(schemas),
-        from(this.browserApiService.getActiveTabTitle(schemas)),
-        from(this.browserApiService.getActiveTabLinks()),
-      ])),
-      map(([schemas, title, { url, domain }]) => ({ schemas, title, url, domain })),
-      switchMap(({ schemas, title, url, domain }) => {
-        const currentScheme = schemas[domain];
-        const name = trimTitle(title, currentScheme?.func).trim();
+    return from(this.browserApiService.getActiveTab()).pipe(
+      switchMap(tab => {
+        const { url, domain } = this.browserApiService.getTabLinks(tab);
+        const schema = this.parserSchemas.getSchema(domain);
 
+        return from(this.browserApiService.executeScriptOnTab<SchemaFuncRes>(
+          tab.id,
+          schema.func,
+        )).pipe(
+          map(result => ({
+            result,
+            type: result?.type || schema.type,
+            url,
+            domain,
+          })),
+        );
+      }),
+    ).pipe(
+      switchMap(({ type, result, url, domain }) => {
         return forkJoin([
-          this.fileCabService.searchByUrl(url, currentScheme?.type),
-          this.fileCabService.searchByName(name, currentScheme?.type),
+          this.fileCabService.searchByUrl(url, type),
+          this.fileCabService.searchByName(result?.title, type),
         ]).pipe(
           map(([itemByUrl, itemByName]) => {
             return {
-              schemas,
-              title,
+              type,
+              title: result?.title,
               url,
               domain,
               localItem: itemByUrl || itemByName,
@@ -82,15 +90,11 @@ export class AppComponent implements OnInit {
           }),
         );
       }),
-      map(({ schemas, title, url, domain, localItem }) => {
-        const currentScheme = schemas[domain];
-        const name = localItem ? localItem.name
-          : trimTitle(title, currentScheme?.func);
-        const type = localItem ? localItem.type
-          : currentScheme?.type || Types.films;
+      map(({ title, url, domain, localItem, type }) => {
+        const name = localItem ? localItem.name : title;
 
         return {
-          type,
+          type: localItem?.type || type,
           name,
           url,
           domain,

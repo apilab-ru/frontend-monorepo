@@ -1,65 +1,44 @@
 import { Injectable } from '@angular/core';
-import { ISchema } from '@shared/models/library';
-import { ParserActions } from '@shared/parser/const';
+import { Tab } from '../interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BrowserApiService {
-  sendMessage<R>(key: ParserActions, data = {}): Promise<R> {
-    return new Promise<R>(resolve => {
-      chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, { key, data }, function(response) {
-          resolve(response);
-        });
-      });
-    });
-  }
-
-  getActiveTabTitle(schemas: Record<string, ISchema>): Promise<string> {
-    return this.getActiveTab()
-      .then(tab => {
-        if (tab.url.includes('chrome://extensions')) {
-          return Promise.reject('permissions');
-        }
-
-        const host = this.getTabDomain(tab);
-        const code = this.getCodeGetterTitle(host, schemas);
-
-        return this.executeScriptOnTab<string>(tab, code);
-      });
-  }
-
-  getActiveTab(): Promise<chrome.tabs.Tab> {
-    return new Promise((resolve) => {
+  getActiveTab(): Promise<Tab> {
+    return new Promise((resolve, reject) => {
       chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-        resolve(tabs[0]);
+        const tab = tabs[0];
+
+        if (!tab.url || tab.url.indexOf('chrome://') === 0) {
+          reject('notSupportTab');
+        } else {
+          resolve(tabs[0]);
+        }
       });
     });
+  }
+
+  getTabLinks(tab: Tab): { url: string, domain: string } {
+    return {
+      url: tab.url,
+      domain: this.getTabDomain(tab),
+    };
   }
 
   getActiveTabLinks(): Promise<{ url: string, domain: string }> {
-    return this.getActiveTab().then(tab => ({
-      url: tab.url,
-      domain: this.getTabDomain(tab),
-    }));
+    return this.getActiveTab().then(tab => this.getTabLinks(tab));
   }
 
-  executeScriptOnTab<T>(tab: chrome.tabs.Tab, code: string): Promise<T> {
-    return new Promise((resolve) => {
-      chrome.tabs.executeScript({ code }, ([title]) => resolve(title));
-    });
+  executeScriptOnTab<R>(tabId: number, func: () => R, args: unknown[] = []): Promise<R> {
+    return chrome.scripting.executeScript({
+      target: { tabId },
+      func,
+      args: (args || []) as [],
+    }).then(([res]) => res.result as R);
   }
 
   private getTabDomain(tab: chrome.tabs.Tab): string {
     return tab.url.split('/')[2].replace('www.', '');
-  }
-
-  private getCodeGetterTitle(host: string, schemas: Record<string, ISchema>): string {
-    if (schemas[host]?.title) {
-      return schemas[host].title;
-    }
-
-    return 'document.title';
   }
 }

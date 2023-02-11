@@ -72,14 +72,8 @@ export class PopupImportComponent implements OnInit {
   }
 
   startImport(preset: ParserPreset): void {
-    const prependFunc = '(function() {';
-    const afterFunc = '})()';
-    const code = prependFunc + preset.func.toString()
-      .replace(/function [a-zA-z]*\(\) {/, '')
-      .slice(0, -1) + afterFunc;
-
     const list = this.browserApiService.getActiveTab()
-      .then(tab => this.browserApiService.executeScriptOnTab(tab, code));
+      .then(tab => this.browserApiService.executeScriptOnTab(tab.id, preset.func));
 
     from(list).pipe(
       switchMap((list: ParserResponse[]) => this.filterExisted(list)),

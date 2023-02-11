@@ -73,7 +73,7 @@ export class AnalyzeComponent implements OnInit {
       take(1),
       switchMap(schemas => {
         const domain = getDomain(url);
-        const name = trimTitle(title, schemas[url]?.func);
+        const name = trimTitle(title);
 
         const baseInfo: BaseInfo = {
           url,

@@ -1,0 +1,32 @@
+:host {
+  display: block;
+  width: 300px;
+}
+
+.root {
+  overflow-y: auto;
+}
+
+.list {
+  display: flex;
+}
+
+.item {
+  min-width: 200px;
+  width: 200px;
+  height: 270px;
+
+  &.-founded {
+    width: 100%;
+    height: 250px;
+  }
+}
+
+.empty {
+  padding: 10px;
+  text-align: center;
+  color: #ff4081;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 14px;
+}

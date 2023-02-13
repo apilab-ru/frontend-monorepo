@@ -1,0 +1,25 @@
+<div appHorizontalScroll [isEnabled]="!foundedItem && !!list?.length" class="root">
+  <div class="list">
+    <ng-container *ngIf="!foundedItem">
+      <app-founded-item
+        *ngFor="let item of list; trackBy:trackBy"
+        class="item"
+        [item]="item"
+        [genres]="genres"
+        (selectedChange)="select(item)"
+      ></app-founded-item>
+    </ng-container>
+
+    <app-founded-item
+      *ngIf="foundedItem"
+      class="item -founded"
+      [item]="foundedItem"
+      [genres]="genres"
+      [withoutEmitter]="true"
+    ></app-founded-item>
+
+    <div *ngIf="!list?.length && !foundedItem" class="empty">
+      Не найдено, уточните запрос
+    </div>
+  </div>
+</div>

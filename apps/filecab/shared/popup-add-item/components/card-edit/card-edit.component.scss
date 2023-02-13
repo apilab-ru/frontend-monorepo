@@ -1,0 +1,34 @@
+@import "projects/shared/styles/breakpoint";
+
+:host {
+  display: block;
+  min-width: 300px;
+  background: #ffffff;
+
+  @include isMobile() {
+    width: 100%;
+  }
+}
+
+.status-box {
+  width: 100%;
+  margin: 15px 0 -10px;
+}
+
+.controls {
+  margin-top: 10px;
+  display: flex;
+}
+
+.progress {
+  margin-top: 10px;
+}
+
+.save-btn {
+  margin-left: auto;
+}
+
+.textarea-box {
+  width: 100%;
+  margin: 10px 0 -10px;
+}

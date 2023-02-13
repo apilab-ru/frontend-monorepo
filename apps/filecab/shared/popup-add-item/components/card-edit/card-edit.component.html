@@ -1,0 +1,52 @@
+<div class="root" [formGroup]="formGroup">
+  <div class="load-box">
+    <app-search-box *ngIf="isSearchMode" [form]="formGroup"></app-search-box>
+
+    <mat-form-field class="status-box">
+      <mat-label>Статус</mat-label>
+      <mat-select formControlName="status">
+        <mat-option *ngFor="let status of statuses" [value]="status.status">
+          {{ status.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <app-stars
+      *ngIf="isShowStar$ | async"
+      class="app-stars"
+      formControlName="star"
+    ></app-stars>
+
+    <app-progress
+      *ngIf="isShowProgress$ | async"
+      class="progress"
+      [item]="item?.item"
+      formControlName="progress"
+    ></app-progress>
+  </div>
+  <div class="controls">
+    <a
+      *ngIf="isShowLibrary"
+      mat-raised-button
+      color="primary"
+      [href]="'/cabinet/index.html?/#/' + formGroup.get('type')?.value"
+      target="_blank"
+    >
+      Библиотека
+    </a>
+
+    <button
+      class="save-btn"
+      mat-raised-button
+      color="primary"
+      (click)="save()"
+    >
+      Сохранить
+    </button>
+  </div>
+
+  <mat-form-field class="textarea-box">
+    <mat-label>Комментарий</mat-label>
+    <textarea matInput formControlName="comment"></textarea>
+  </mat-form-field>
+</div>

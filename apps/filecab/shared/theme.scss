@@ -1,0 +1,8 @@
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+@import "@angular/material/theming";
+
+:root {
+  --mdc-typography-button-letter-spacing: 1;
+  --mdc-typography-body1-letter-spacing: 1;
+  --mdc-typography-body1-font-size: 14px;
+}

@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "WatchList",
+  "version": "1.5",
+  "description": "This extension allows you control your library",
+  "icons": {
+    "48": "wish-list-icon.png"
+  },
+  "action": {
+    "default_title": "File cabinet",
+    "default_icon": "wish-list-icon.png",
+    "default_popup": "popup/index.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "storage",
+    "bookmarks"
+  ]
+}

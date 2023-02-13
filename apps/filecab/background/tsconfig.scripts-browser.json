@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "paths": {
+      "@server/models": [
+        "../server/src/models"
+      ],
+      "@server/models/*": [
+        "../server/src/models/*"
+      ],
+      "@environments": [
+        "projects/background/environments/environment.browser.ts"
+      ],
+      "@shared/*": [
+        "projects/shared/*"
+      ]
+    }
+  }
+}

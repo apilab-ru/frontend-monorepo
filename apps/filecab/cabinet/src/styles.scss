@@ -1,0 +1,14 @@
+@import "projects/shared/styles/font-genres/font";
+@import "../resources/icomoon/style";
+@import "../../shared/theme";
+
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  font-size: 75%;
+}

@@ -1,0 +1,16 @@
+@import "projects/shared/styles/colors";
+
+.genres {
+  background: $tooltip;
+  color: $inverted;
+  padding: 2px 5px;
+  border-radius: 2px;
+}
+
+.genre {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}

@@ -22,6 +22,7 @@ import { reducers } from './store/reducers';
 import { history } from './store/reducers/history';
 import { State } from './store/state';
 import { TaskMapItemComponent } from './components/task-map-item/task-map-item.component';
+import { IntegrationsModule } from "../integrations/integrations.module";
 
 export function getMetaReducers(
   historyService: HistoryService
@@ -41,6 +42,7 @@ export function getMetaReducers(
     ReactiveFormsModule,
     RouterModule,
     StoreModule.forRoot(reducers),
+    IntegrationsModule,
   ],
   declarations: [
     BoardPageComponent,

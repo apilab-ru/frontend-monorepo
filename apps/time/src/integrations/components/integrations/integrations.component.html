@@ -1,0 +1,18 @@
+<div class="root">
+  <app-integration-item
+    *ngFor="let item of integrations$ | async; let index = index"
+    [integration]="item"
+    [disabled]="!calc || !calc.length"
+    (remove)="removeIntegration(index)"
+    (export)="export(item)"
+  ></app-integration-item>
+
+  <button
+    class="button"
+    mat-raised-button
+    color="primary"
+    (click)="addIntegration()"
+  >
+    + New integration
+  </button>
+</div>

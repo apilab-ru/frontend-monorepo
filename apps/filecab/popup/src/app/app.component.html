@@ -1,24 +1,12 @@
-<ng-container *ngIf="!(parserPreset$ | async)?.founded">
-  <app-popup
-    *ngIf="baseInfo$ | async as baseInfo; else empty"
-    [baseInfo]="baseInfo"
-    (onSaveEvent)="onSave()"
-  ></app-popup>
-</ng-container>
+<div class="root">
+    <p-selectButton
+        class="menu"
+        [options]="menu"
+        [ngModel]="path"
+        (ngModelChange)="onNavigate($event)"
+        optionLabel="name"
+        optionValue="path"
+    ></p-selectButton>
 
-<ng-template #empty>
-  <a
-    mat-raised-button
-    color="primary"
-    [href]="'/cabinet/index.html?/'"
-    target="_blank"
-  >
-    Библиотека
-  </a>
-</ng-template>
-
-<app-popup-import
-  *ngIf="parserPreset$ | async as parserPreset"
-  class="popup-import"
-  [parserPreset]="parserPreset"
-></app-popup-import>
+    <router-outlet></router-outlet>
+</div>

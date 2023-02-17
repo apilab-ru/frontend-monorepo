@@ -1,6 +1,6 @@
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const path = require('path');
-const getEnvTsConfig = require('../../scripts/webpack-env.plugin');
+const getEnvTsConfig = require('./scripts/webpack-env.plugin');
 
 module.exports = {
   mode: 'development',
@@ -11,7 +11,7 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    path: __dirname + '/../../../extension',
+    path: __dirname + '../../dist',
   },
   target: 'webworker',
   resolve: {

@@ -1,5 +1,5 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
   "name": "WatchList",
   "version": "1.5",
   "description": "This extension allows you control your library",

@@ -1,7 +1,7 @@
 import { Reducer } from './reducer';
 import { Store } from '../store';
 import { Library } from '@shared/models/library';
-import { LibraryItem, MediaItem } from '@server/models';
+import { LibraryItem, MediaItem } from '@filecab/models';
 import { deepCopy } from '@shared/utils/utils';
 import { allApi } from '../api';
 import { from, Observable, of, throwError } from 'rxjs';

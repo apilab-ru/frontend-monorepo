@@ -1,24 +1,10 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
     "sourceMap": false,
     "module": "commonjs",
     "target": "es5",
-    "paths": {
-      "@server/models": [
-        "../server/src/models"
-      ],
-      "@server/models/*": [
-        "../server/src/models/*"
-      ],
-      "@environments": [
-        "projects/background/environments/environment.production.ts"
-      ],
-      "@shared/*": [
-        "projects/shared/*"
-      ]
-    }
   },
   "files": [
     "./src/background.ts"

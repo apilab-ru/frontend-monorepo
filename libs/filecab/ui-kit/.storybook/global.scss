@@ -1,0 +1,6 @@
+@import "libs/filecab/ui-kit/src/theme/main";
+@import "libs/filecab/ui-kit/src/theme/prime-ng";
+
+body {
+  @include initTheme();
+}

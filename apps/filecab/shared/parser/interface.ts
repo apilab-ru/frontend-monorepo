@@ -1,4 +1,4 @@
-import { MetaData } from '@server/models/meta-data';
+import { MetaData } from '@filecab/models/meta-data';
 import { MediaCompareData } from '@shared/models/media-compare';
 
 export interface ParserSendRequest<T> {

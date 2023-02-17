@@ -1,8 +1,8 @@
 import { Tag } from '@shared/models/tag';
 import { parserSchemas } from '@shared/parser/const';
 import { TYPES } from '@shared/models/const';
-import { LibraryItem } from '@server/models';
-import { Genre } from '@server/models/genre';
+import { LibraryItem } from '@filecab/models';
+import { Genre } from '@filecab/models/genre';
 import { LibrarySettings } from '@shared/models/library';
 
 type Optional<T> = T | undefined;

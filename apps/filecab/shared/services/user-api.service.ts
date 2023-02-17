@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { fetchObservable } from '@shared/utils/fetch-observable';
-import { AuthParams, UserResponse } from '@server/models';
+import { AuthParams, UserResponse } from '@filecab/models/user';
 import { Library } from '@shared/models/library';
 
 @Injectable({

@@ -1,0 +1,3 @@
+[submodule "libs/filecab/models"]
+	path = libs/filecab/models
+	url = https://github.com/apilab-ru/filecab-models.git

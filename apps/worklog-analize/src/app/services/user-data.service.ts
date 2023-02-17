@@ -4,7 +4,7 @@ import { GroupConfig, ImportLog, LogsUserRawData } from "../interfaces";
 import { Observable } from "rxjs";
 import { map, shareReplay } from 'rxjs/operators';
 import { DEFAULT_DATA } from "../const";
-import { makeStore, RecordSubject } from "@utils-monorep/store";
+import { makeStore, RecordSubject } from "@store";
 
 const STORAGE_KEY = 'workLogAnalyzeForm-v2';
 

@@ -1,0 +1,22 @@
+<div class="root">
+  <div class="rows">
+    <div class="row">
+       <span class="p-float-label input-box">
+          <textarea
+            class="textarea"
+            [ngModel]="rawData"
+            (ngModelChange)="onInput($event)"
+            id="float-input"
+            pInputTextarea
+          ></textarea>
+          <label for="float-input">Old list</label>
+      </span>
+
+      <p>
+        {{ parsedList?.length | json }}
+      </p>
+
+      <p-button label="Send"></p-button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,6 @@
+<filecab-edit-item
+    [type]="type$ | async"
+    [name]="name$ | async"
+    (typeChange)="onTypeChange($event)"
+    (nameChanges)="onNameChange($event)"
+></filecab-edit-item>

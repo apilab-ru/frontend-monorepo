@@ -2,7 +2,7 @@ import { Observable, of } from 'rxjs';
 import { Library } from '@shared/models/library';
 import { catchError, map, pluck, tap } from 'rxjs/operators';
 import { chromeStoreApi } from './chrome-store.api';
-import { LibraryItem } from '@server/models';
+import { LibraryItem } from '@filecab/models';
 import { Tag } from '@shared/models/tag';
 
 class LibraryApi {

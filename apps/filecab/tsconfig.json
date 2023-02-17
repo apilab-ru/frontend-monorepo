@@ -1,0 +1,63 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "esModuleInterop": true,
+    "useDefineForClassFields": false,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "strictNullChecks": false,
+    "noImplicitOverride": false,
+    "noPropertyAccessFromIndexSignature": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "types": [
+      "node",
+      "chrome"
+    ],
+    "resolveJsonModule": true,
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "paths": {
+      "@shared/*": ["apps/filecab/shared/*"],
+      "@filecab/models": ["libs/filecab/models/src/index.ts"],
+      "@filecab/models/*": ["libs/filecab/models/src/*"],
+      "@filecab/parser/*": ["libs/filecab/parser/src/*"],
+      "@environments/model": ["apps/filecab/environments/index.ts"],
+      "@environments": ["apps/filecab/environments/environment.production.ts"],
+      "@filecab/background": ["apps/filecab/background/index.ts"],
+      "@filecab/ui-kit/*": ["libs/filecab/ui-kit/src/*"],
+      "@angular-shared": ["libs/angular-shared/src/index.ts"],
+      "@ui-kit": ["libs/ui-kit/src/*"],
+      "@store/*": ["libs/store/src/*"],
+      "@store": ["libs/store/src/index.ts"]
+    }
+  },
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.editor.json"
+    }
+  ],
+  "extends": "../../tsconfig.base.json",
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": false
+  },
+}

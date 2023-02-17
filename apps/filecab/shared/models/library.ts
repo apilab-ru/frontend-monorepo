@@ -1,9 +1,9 @@
-import { Item } from '@server/models/base';
-import { MetaData } from '@server/models/meta-data';
-import { Anime } from '@server/models/anime';
-import { Film } from '@server/models/films';
+import { Item } from '@filecab/models/base';
+import { MetaData } from '@filecab/models/meta-data';
+import { Anime } from '@filecab/models/anime';
+import { Film } from '@filecab/models/films';
 import { Tag } from './tag';
-import { LibraryItem } from '@server/models';
+import { LibraryItem } from '@filecab/models';
 
 export interface LibraryItemOld<T extends Item> extends MetaData {
   item: T;

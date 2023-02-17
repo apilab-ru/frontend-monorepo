@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { MediaItem } from '@server/models';
-import { Genre } from '@server/models/genre';
+import { MediaItem } from '@filecab/models';
+import { Genre } from '@filecab/models/genre';
 
 @Component({
   selector: 'app-founded-list',

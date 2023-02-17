@@ -1,4 +1,4 @@
-import { IDbConfig } from '@utils-monorep/store';
+import { IDbConfig } from '@store';
 
 export const DB_STORE_CONFIG: IDbConfig = {
   name: 'jsonEditor',

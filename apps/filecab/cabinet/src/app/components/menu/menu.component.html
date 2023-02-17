@@ -1,0 +1,11 @@
+<div class="root">
+    <a
+       *ngFor="let item of menu; let index = index"
+       class="link"
+       [routerLink]="item.path"
+       routerLinkActive="-selected"
+    >
+        <span class="link_icon {{ item.icon }}"></span>
+        <span class="link_name">{{ item.name }}</span>
+    </a>
+</div>

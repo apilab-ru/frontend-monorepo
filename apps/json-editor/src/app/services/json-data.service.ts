@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { IDbStoreService, makeStore } from '@utils-monorep/store';
+import { IDbStoreService, makeStore } from '@store';
 import { DBStore, JsonData, JsonFile, Tab } from '../interface';
 import { DB_STORE_CONFIG } from '../const';
 import { from, map, Observable, shareReplay, switchMap, tap } from "rxjs";

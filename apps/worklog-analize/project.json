@@ -7,12 +7,16 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/worklog-analize",
         "index": "apps/worklog-analize/src/index.html",
         "main": "apps/worklog-analize/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/worklog-analize/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -20,7 +24,12 @@
           "apps/worklog-analize/src/assets",
           "apps/worklog-analize/src/.htaccess"
         ],
-        "styles": ["apps/worklog-analize/src/styles.scss"],
+        "styles": [
+          "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
+          "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
+          "node_modules/@taiga-ui/styles/taiga-ui-global.less",
+          "apps/worklog-analize/src/styles.scss"
+        ],
         "scripts": [],
         "webWorkerTsConfig": "apps/worklog-analize/tsconfig.worker.json"
       },
@@ -74,7 +83,9 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
         "lintFilePatterns": [
           "apps/worklog-analize/**/*.ts",

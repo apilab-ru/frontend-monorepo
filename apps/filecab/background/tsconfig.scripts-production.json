@@ -2,18 +2,11 @@
   "extends": "./tsconfig.app.json",
   "compilerOptions": {
     "paths": {
-      "@server/models": [
-        "../server/src/models"
-      ],
-      "@server/models/*": [
-        "../server/src/models/*"
-      ],
-      "@environments": [
-        "projects/background/environments/environment.production.ts"
-      ],
-      "@shared/*": [
-        "projects/shared/*"
-      ]
+      "@shared/*": ["apps/filecab/shared/*"],
+      "@filecab/models": ["libs/filecab/models/src/index.ts"],
+      "@filecab/models/*": ["libs/filecab/models/src/*"],
+      "@environments/model": ["apps/filecab/environments/index.ts"],
+      "@environments": ["apps/filecab/background/environments/environment.production.ts"],
     }
   }
 }

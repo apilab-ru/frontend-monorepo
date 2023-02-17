@@ -1,6 +1,5 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '@environments';
-import * as backupJson from './backup.json';
 
 class ChromeStoreApi {
 
@@ -33,6 +32,7 @@ class ChromeStoreApi {
 
   getGlobalStorage<T>(): Observable<T> {
     return new Observable<T>((resolve) => {
+      // @ts-ignore
       chrome.storage.sync.get(null, (result: T) => {
         resolve.next(result);
       });
@@ -44,16 +44,25 @@ class ChromeStoreApiMock implements ChromeStoreApi {
   private storeLocal = new BehaviorSubject({});
   private storeGlobal = new BehaviorSubject({});
 
-  constructor() {
-    const data = backupJson['default'];
-    this.storeLocal.next(data);
+  constructor(private backgroundUrl: string) {
+    fetch(this.backgroundUrl + '/backup.json', {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }).then(res => {
+      return res.json();
+    }).then(data => {
+      this.storeLocal.next(data);
+    })
   }
 
   onStoreChanges<T>(): Observable<Partial<T>> {
+    // @ts-ignore
     return this.storeLocal.asObservable();
   }
 
   setStore<T>(store: T): Promise<void> {
+    // @ts-ignore
     this.storeLocal.next(store);
     return Promise.resolve();
   }
@@ -73,5 +82,5 @@ class ChromeStoreApiMock implements ChromeStoreApi {
 }
 
 export const chromeStoreApi = (environment.useBrowser)
-  ? new ChromeStoreApiMock()
+  ? new ChromeStoreApiMock(environment.backgroundUrl)
   : new ChromeStoreApi();

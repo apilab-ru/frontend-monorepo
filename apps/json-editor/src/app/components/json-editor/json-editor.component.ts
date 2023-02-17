@@ -6,7 +6,7 @@ import { JsonData, UpdateValueEvent } from "../../interface";
 import lodashGet from 'lodash-es/get';
 import lodashSet from 'lodash-es/set';
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
-import { saveAsFile } from "@utils-monorep/store";
+import { saveAsFile } from "@store";
 import { PageScrollService } from 'ngx-page-scroll-core';
 import { DOCUMENT } from "@angular/common";
 

@@ -1,0 +1,17 @@
+<div class="root">
+    <p-inputNumber
+        [showButtons]="true"
+        buttonLayout="horizontal"
+        inputId="horizontal"
+        spinnerMode="horizontal"
+        [ngModel]="value"
+        [min]="0"
+        (ngModelChange)="onUpdate($event)"
+        [step]="1"
+        [suffix]="' /' + (total || 'N')"
+        decrementButtonClass="p-button-primary"
+        incrementButtonClass="p-button-primary"
+        incrementButtonIcon="pi pi-plus"
+        decrementButtonIcon="pi pi-minus"
+    ></p-inputNumber>
+</div>

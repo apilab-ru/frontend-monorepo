@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
-import { AuthParams, UserResponse } from '@server/models';
+import { AuthParams, UserResponse } from '@filecab/models/user';
 import { runInZone } from '@shared/utils/run-in-zone';
 import { userApiService } from '@shared/services/user-api.service';
 import { FileCabService } from '@shared/services/file-cab.service';

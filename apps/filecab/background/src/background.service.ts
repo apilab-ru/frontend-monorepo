@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Environment } from '../../../environments';
+import { Environment } from '@environments/model';
 import { allApi } from './api';
 import { WorkerAction } from './const';
 import { FetchEventData, ReducerEventData, WorkerEvent, WorkerEventData } from './interface';
@@ -11,6 +11,8 @@ import { Reducers } from './reducers';
 type AllApiTypes = typeof allApi;
 type Parameters<T> = T extends (...args: infer T) => any ? T : never;
 type ReturnType<T> = T extends (...args: any[]) => infer T ? T : never;
+
+function log(...messages: any[]): void {}
 
 @Injectable({ providedIn: 'root' })
 export class BackgroundService {
@@ -100,6 +102,7 @@ export class BackgroundService {
 
   private listenEvents<T>(id: string): Observable<WorkerEvent<T>> {
     return this.responseQuery$.pipe(
+      tap(event => log('listen event', event)),
       map(list => list.find(event => event.id === id) as WorkerEvent<T>),
       filter(event => !!event),
       tap(event => {
@@ -119,7 +122,6 @@ export class BackgroundService {
   }
 
   private handleMessage(event: WorkerEvent): void {
-    //console.log('xxx handle message', event);
     const allList = this.responseQuery$.value;
     this.responseQuery$.next([...allList, event]);
   }

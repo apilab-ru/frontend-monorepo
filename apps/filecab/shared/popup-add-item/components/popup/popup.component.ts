@@ -11,7 +11,7 @@ import {
 import { CardData } from '@shared/popup-add-item/models/card-data';
 import { BehaviorSubject, combineLatest, Observable, of, ReplaySubject, Subject } from 'rxjs';
 import { SearchData } from '@shared/popup-add-item/models/search-data';
-import { MetaData } from '@server/models/meta-data';
+import { MetaData } from '@filecab/models/meta-data';
 import {
   distinctUntilChanged,
   filter,
@@ -27,8 +27,8 @@ import { BaseInfo } from '@shared/popup-add-item/models/base-info';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FileCabService } from '@shared/services/file-cab.service';
 import isEqual from 'lodash-es/isEqual';
-import { LibraryItem, MediaItem } from '@server/models';
-import { Genre } from '@server/models/genre';
+import { LibraryItem, MediaItem } from '@filecab/models';
+import { Genre } from '@filecab/models/genre';
 
 @UntilDestroy()
 @Component({

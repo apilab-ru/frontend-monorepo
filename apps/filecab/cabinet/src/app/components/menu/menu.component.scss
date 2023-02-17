@@ -1,0 +1,44 @@
+.root {
+  padding: 0.25rem;
+  background: var(--surface-b);
+  color: var(--text-color);
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: normal;
+  display: flex;
+}
+
+.link {
+  padding: 0.5rem 1rem;
+  color: var(--text-color);
+  border-radius: 6px;
+  transition: 0.3s;
+  user-select: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+
+  &:hover {
+    background: var(--surface-c);
+  }
+
+  &:active {
+    background: var(--surface-ground);
+  }
+
+  &.-selected {
+    background: var(--primary-700);
+    color: var(--primary-color-text);
+  }
+}
+
+.link_icon {
+  width: 16px;
+  height: 16px;
+}
+
+.link_name {
+  margin-left: 5px;
+}

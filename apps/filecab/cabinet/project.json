@@ -1,0 +1,180 @@
+{
+  "name": "filecab-cabinet",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/filecab/cabinet/src",
+  "prefix": "cabinet",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "apps/filecab/dist/cabinet",
+        "index": "apps/filecab/cabinet/src/index.html",
+        "main": "apps/filecab/cabinet/src/main.ts",
+        "polyfills": [
+          "zone.js"
+        ],
+        "tsConfig": "apps/filecab/cabinet/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/filecab/cabinet/src/wish-list-icon.png",
+          "apps/filecab/cabinet/src/assets"
+        ],
+        "styles": [
+          "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
+          "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
+          "node_modules/@taiga-ui/styles/taiga-ui-global.less",
+          "apps/filecab/cabinet/src/styles.scss"
+        ],
+        "optimization": {
+          "scripts": true,
+          "styles": {
+            "minify": false,
+            "inlineCritical": false
+          },
+          "fonts": true
+        },
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "baseHref": "./index.html?/",
+          "fileReplacements": [
+            {
+              "replace": "apps/filecab/cabinet/src/environments/environment.ts",
+              "with": "apps/filecab/cabinet/src/environments/environment.production.ts"
+            }
+          ],
+          "optimization": {
+            "scripts": true,
+            "styles": {
+              "minify": true,
+              "inlineCritical": false
+            },
+            "fonts": true
+          },
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "none",
+          "sourceMap": false,
+          "namedChunks": false,
+          "aot": true,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true
+        },
+        "development": {
+          "baseHref": "./index.html?/",
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        },
+        "browser": {
+          "baseHref": "",
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/filecab/cabinet/src/environments/environment.ts",
+              "with": "apps/filecab/cabinet/src/environments/environment.browser.ts"
+            }
+          ]
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "filecab-cabinet:build:production"
+        },
+        "development": {
+          "browserTarget": "filecab-cabinet:build:development",
+          "watch": true
+        },
+        "browser": {
+          "browserTarget": "filecab-cabinet:build:browser",
+          "proxyConfig": "apps/filecab/cabinet/src/proxy.conf.json",
+          "ssl": true,
+          "disableHostCheck": true
+        }
+      },
+      "defaultConfiguration": "browser"
+    },
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "browserTarget": "cabinet:build-storybook",
+        "port": 6006,
+        "configDir": "apps/filecab/cabinet/.storybook",
+        "tsConfig": "apps/filecab/cabinet/.storybook/tsconfig.json",
+        "styles": [
+          "apps/filecab/cabinet/.storybook/global.scss"
+        ],
+        "compodoc": false
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "options": {
+        "browserTarget": "filecab-cabinet:production",
+        "configDir": "apps/filecab/cabinet/.storybook",
+        "tsConfig": "apps/filecab/cabinet/.storybook/tsconfig.json",
+        "styles": [
+          "apps/filecab/shared/.storybook/global.scss"
+        ],
+        "compodoc": false
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "apps/filecab-cabinet/**/*.ts",
+          "apps/filecab-cabinet/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
+      "options": {
+        "jestConfig": "apps/filecab-cabinet/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

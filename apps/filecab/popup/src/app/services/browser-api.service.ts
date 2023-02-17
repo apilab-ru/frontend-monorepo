@@ -1,22 +1,27 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Tab } from '../interface';
+import { from, map, Observable } from 'rxjs';
+import { runInZone } from '@angular-shared';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BrowserApiService {
-  getActiveTab(): Promise<Tab> {
-    return new Promise((resolve, reject) => {
+  constructor(private ngZone: NgZone) {
+  }
+
+  getActiveTab(): Observable<Tab> {
+    return new Observable<Tab>((subject) => {
       chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
         const tab = tabs[0];
 
         if (!tab.url || tab.url.indexOf('chrome://') === 0) {
-          reject('notSupportTab');
+          subject.error('notSupportTab');
         } else {
-          resolve(tabs[0]);
+          subject.next(tabs[0]);
         }
       });
-    });
+    }).pipe(runInZone(this.ngZone));
   }
 
   getTabLinks(tab: Tab): { url: string, domain: string } {
@@ -26,16 +31,19 @@ export class BrowserApiService {
     };
   }
 
-  getActiveTabLinks(): Promise<{ url: string, domain: string }> {
-    return this.getActiveTab().then(tab => this.getTabLinks(tab));
+  getActiveTabLinks(): Observable<{ url: string, domain: string }> {
+    return this.getActiveTab().pipe(
+      map(tab => this.getTabLinks(tab))
+    );
   }
 
-  executeScriptOnTab<R>(tabId: number, func: () => R, args: unknown[] = []): Promise<R> {
-    return chrome.scripting.executeScript({
+  executeScriptOnTab<R>(tabId: number, func: () => R, args: unknown[] = []): Observable<R> {
+    return from(chrome.scripting.executeScript({
       target: { tabId },
       func,
       args: (args || []) as [],
-    }).then(([res]) => res.result as R);
+    }).then(([res]) => res.result as R))
+      .pipe(runInZone(this.ngZone));
   }
 
   private getTabDomain(tab: chrome.tabs.Tab): string {

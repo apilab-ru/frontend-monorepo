@@ -28,7 +28,7 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 import { fileCabApi } from './file-cab.api';
-import { MetaData } from '@server/models/meta-data';
+import { MetaData } from '@filecab/models/meta-data';
 import {
   ISchema,
   ItemType,
@@ -44,7 +44,7 @@ import { ChromeStoreApi } from '@shared/services/chrome-store.api';
 import { parserSchemas } from '@shared/parser/const';
 import { captureException } from '@sentry/angular';
 import { FirebaseService } from '@shared/services/firebase.service';
-import { Genre } from '@server/models/genre';
+import { Genre } from '@filecab/models/genre';
 import { userApiService } from './user-api.service';
 import { notificationsService } from './notifications.service';
 import { mediaCompare } from '@shared/utils/item-compare';

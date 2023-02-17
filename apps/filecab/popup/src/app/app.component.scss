@@ -1,16 +1,23 @@
-@import "projects/shared/styles/breakpoint";
-
-:host {
-  display: block;
+.root {
+  min-width: 320px;
   padding: 5px;
-  min-height: 350px;
-  min-width: 300px;
-
-  @include isMobile() {
-    width: calc(100% - 8px);
-  }
 }
 
-.popup-import {
-  display: block;
+.menu {
+  display: flex;
+  margin-bottom: 10px;
+
+  ::ng-deep {
+    .p-selectbutton {
+      display: flex;
+      width: 100%;
+    }
+
+    .p-button {
+      padding-top: 8px;
+      padding-bottom: 8px;
+      flex: 1;
+      font-size: 13px;
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import { LibraryItem } from '../../../../server/src/models';
+import { LibraryItem } from '@filecab/models/library';
 import { MediaCompareData } from '@shared/models/media-compare';
 
 export function itemCompare(first: LibraryItem, second: LibraryItem): boolean {

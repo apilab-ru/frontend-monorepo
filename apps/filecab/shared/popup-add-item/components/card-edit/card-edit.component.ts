@@ -17,7 +17,7 @@ import { checkIsShowProgress } from '@shared/utils/check-is-show-progress';
 import { STATUS_LIST } from '@shared/const/const';
 import { SearchData } from '@shared/popup-add-item/models/search-data';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { LibraryItem } from '@server/models';
+import { LibraryItem } from '@filecab/models';
 
 
 @UntilDestroy()

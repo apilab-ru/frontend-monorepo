@@ -1,0 +1,12 @@
+.root {
+  ::ng-deep {
+    .p-button.p-button-icon-only {
+      width: 2rem;
+      padding: 0.5rem 0;
+    }
+
+    .p-inputtext {
+      width: 60px;
+    }
+  }
+}

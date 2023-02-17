@@ -1,4 +1,4 @@
-import { ParserResponse } from '@shared/parser/interface';
+import { ParserResponse } from '../interface';
 import { StatusList } from '@shared/const/const';
 
 const statusCast = {
@@ -10,14 +10,17 @@ const statusCast = {
 };
 
 export function parserAnimeOnline(): ParserResponse[] {
-  const list = [];
+  const list: ParserResponse[] = [];
 
   document.querySelectorAll('.m-animelist-card').forEach(card$ => {
+    // @ts-ignore
     const statusRaw = card$.querySelector('.card-title')['innerText'];
+    // @ts-ignore
     const status = statusCast[statusRaw];
 
     card$.querySelectorAll('.m-animelist-item').forEach(item$ => {
-      const id = +item$['dataset']['id'];
+      // @ts-ignore
+      const smotretId = +item$['dataset']['id'];
       const tdList = item$.querySelectorAll('td');
 
       const name = tdList[1].innerText.split('/')[0].trim();
@@ -26,7 +29,7 @@ export function parserAnimeOnline(): ParserResponse[] {
       const star = scoreRaw === '-' ? 0 : +scoreRaw;
 
       list.push({
-        id,
+        smotretId,
         name,
         type: 'anime',
         meta: {

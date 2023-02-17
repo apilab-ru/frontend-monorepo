@@ -1,12 +1,13 @@
-import { MediaItem, SearchRequest, SearchRequestResult } from '@server/models/index';
+import { MediaItem, SearchRequest, SearchRequestResult } from '@filecab/models';
 import { Observable, throwError } from 'rxjs';
 import { environment } from '@environments';
 import { fetchObservable } from '@shared/utils/fetch-observable';
-import { Genre } from '@server/models/genre';
+import { Genre } from '@filecab/models/genre';
 
 class FileCabApi {
   private api = environment.apiUrl;
 
+  // @ts-ignore
   loadById(path: string, id: number): Observable<MediaItem> {
     switch (path) {
       case 'anime':

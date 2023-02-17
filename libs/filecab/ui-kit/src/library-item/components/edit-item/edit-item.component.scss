@@ -1,0 +1,70 @@
+.types {
+  display: flex;
+
+  ::ng-deep {
+    .p-button {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+  }
+}
+
+.name {
+  padding-left: 5px;
+  padding-bottom: 1px;
+  color: var(--text-color);
+}
+
+.input {
+  padding: 0.5rem 0.5rem;
+  width: 100%;
+}
+
+.text-box {
+  margin-top: 24px;
+}
+
+.status-list {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.progress {
+  margin-left: auto;
+}
+
+.status-name {
+  padding-right: 20px;
+}
+
+.comment-box {
+  margin-top: 24px;
+}
+
+.stars {
+  margin-top: 16px;
+}
+
+.comment {
+  display: block;
+  width: 100%;
+}
+
+.card {
+  background: #ffffff;
+  color: #495057;
+  box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+  border-radius: 6px;
+  padding: 0.5rem;
+
+  & + & {
+    margin-top: 12px;
+  }
+}
+
+.save-button-box {
+  margin-top: 6px;
+  display: flex;
+  justify-content: flex-end;
+}

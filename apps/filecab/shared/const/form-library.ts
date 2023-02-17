@@ -1,4 +1,4 @@
-export const FORM_LIBRARY_FIELDS = {
+export const FORM_LIBRARY_FIELDS: Record<string, () => string> = {
   required: () => 'нужно заполнить',
 };
 

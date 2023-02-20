@@ -90,10 +90,6 @@ export class TimeBoardComponent implements OnInit {
     this.store.dispatch(new actions.Clear());
   }
 
-  reload(): void {
-    this.store.dispatch(new actions.Reload());
-  }
-
   genItem(): TimeItem {
     return TimeService.genItem();
   }

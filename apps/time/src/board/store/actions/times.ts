@@ -50,13 +50,6 @@ export class Clear implements Action {
   }
 }
 
-export class Reload implements Action {
-  readonly type = RELOAD;
-
-  constructor() {
-  }
-}
-
 export class SetCalculationList implements Action {
   readonly type = SET_CALCULATION_LIST;
 
@@ -71,4 +64,4 @@ export class DeleteCalculationItem implements Action {
   }
 }
 
-export type TimesAction = Delete | Add | Update | Clear | Reload | SetCalculationList | DeleteCalculationItem | SetList;
+export type TimesAction = Delete | Add | Update | Clear | SetCalculationList | DeleteCalculationItem | SetList;

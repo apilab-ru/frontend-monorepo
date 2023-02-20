@@ -3,6 +3,7 @@
 
 body {
   margin: 0;
+  --mdc-typography-button-letter-spacing: normal;
 }
 
 @mixin smallButton($color, $backgroundColor) {

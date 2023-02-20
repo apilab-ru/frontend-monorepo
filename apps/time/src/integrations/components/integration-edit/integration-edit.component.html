@@ -1,0 +1,16 @@
+<div class="root" [formGroup]="formGroup">
+  <h2 class="title">Edit clockify integration</h2>
+  <div class="help">
+    Make api key <a href="https://app.clockify.me/user/settings" target="_blank">on page</a>
+  </div>
+
+  <div class="line">
+    <span class="name">Api key</span> <input class="input" formControlName="apiKey"/>
+  </div>
+
+  <div class="line">
+    <button class="save" mat-raised-button color="primary" (click)="save()">
+      Save
+    </button>
+  </div>
+</div>

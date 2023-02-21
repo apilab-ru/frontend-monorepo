@@ -11,7 +11,6 @@ export interface IntegrationClockify extends IntegrationBase {
 
 export interface IntegrationJira extends IntegrationBase {
   type: IntegrationType.jira;
-  token: string;
   domain: string;
 }
 

@@ -5,11 +5,11 @@ import {
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { IntegrationData } from "./interface";
 import { ProviderAbstract } from "../../services/povider-abstract";
-import { ProviderClockify } from "../../services/provider-clockify";
 import { BehaviorSubject, finalize } from "rxjs";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { INTEGRATION_MAP_CONFIG } from "../../const";
+import { filter } from "rxjs/operators";
 
 @UntilDestroy()
 @Component({
@@ -51,12 +51,13 @@ export class IntegrationProcessComponent implements OnInit {
   start(): void {
     this.process$.next(true);
     this.provider.export(this.data.calc, this.date).pipe(
+      filter(Boolean),
       finalize(() => {
         this.process$.next(false);
       }),
       untilDestroyed(this)
     ).subscribe({
-      complete: () => {
+      next: () => {
         this.snackBar.open('Complete');
         this.dialogRef.close({ done: true });
       },

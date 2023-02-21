@@ -6,7 +6,7 @@
   <span class="icon -type-{{ integration.type }}"></span>
 
   <button
-    class="delete-button"
+    class="button"
     mat-raised-button
     color="primary"
     [disabled]="disabled"
@@ -15,7 +15,7 @@
     Export
   </button>
 
-  <button class="delete-button" mat-raised-button color="warn" (click)="remove.emit()">
+  <button class="button" mat-raised-button color="warn" (click)="remove.emit()">
     Delete
   </button>
 </div>

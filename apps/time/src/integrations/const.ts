@@ -4,7 +4,7 @@ import { Type } from '@angular/core';
 import { ProviderJira } from "./services/provider-jira";
 
 export enum IntegrationType {
-  // jira = 'jira',
+  jira = 'jira',
   clockify = 'clockify',
 }
 
@@ -37,7 +37,7 @@ export const INTEGRATION_MAP_CONFIG: Record<IntegrationType, IntegrationConfig> 
     ]
   },
 
-  /*[IntegrationType.jira]: {
+  [IntegrationType.jira]: {
     provider: ProviderJira,
     message: `For work integration please allow cors in browser, for <a href="${ corsLink }" target="_blank">example</a>`,
     fields: [
@@ -54,5 +54,5 @@ export const INTEGRATION_MAP_CONFIG: Record<IntegrationType, IntegrationConfig> 
             href='${ jiraLink(domain || 'dev.jira.com') }'>page</a>`
       },
     ]
-  }*/
+  }
 }

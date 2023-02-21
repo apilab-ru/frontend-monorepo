@@ -72,7 +72,9 @@ export class ProviderJira implements ProviderAbstract<IntegrationJira> {
     console.log('code', code);
     this.clipboard.copy(code);
 
-    this.snackBar.open('Code copied!', 'OpenPage').onAction().pipe(
+    this.snackBar.open('Code copied!', 'OpenPage', {
+      duration: 30_000
+    }).onAction().pipe(
       untilDestroyed(this)
     ).subscribe(() => {
       const url = `https://${ this.domain }/secure/WorklogsAction!show.jspa`;

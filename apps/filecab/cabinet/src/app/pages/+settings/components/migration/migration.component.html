@@ -1,7 +1,9 @@
 <div class="root">
-  <div class="rows">
-    <div class="row">
-       <span class="p-float-label input-box">
+  <p-toast></p-toast>
+
+  <div class="row">
+    <div class="rows">
+        <span class="p-float-label input-box">
           <textarea
             class="textarea"
             [ngModel]="rawData"
@@ -12,11 +14,32 @@
           <label for="float-input">Old list</label>
       </span>
 
-      <p>
-        {{ parsedList?.length | json }}
-      </p>
+      <div class="p-float-label chunk-box">
+        <input class="input-chunk" id="chunk" type="text" pInputText [(ngModel)]="chunkSize">
+        <label for="chunk">Chunk</label>
+      </div>
 
-      <p-button label="Send"></p-button>
+      <div class="controls">
+        <p-button
+          label="Process"
+          [loading]="process$ | async"
+          (click)="startMigration()"
+        ></p-button>
+      </div>
+    </div>
+
+    <p>
+      Parsed: {{ parsedList?.length | json }}, Completed: {{ readyItems?.length | json }}
+    </p>
+  </div>
+
+  <div class="migrated-box">
+    <div *ngIf="readyItems?.length" class="migrated">
+      <filecab-media-item
+        *ngFor="let item of readyItems"
+        [mediaItem]="item.item"
+        [genres]="genres$ | async"
+      ></filecab-media-item>
     </div>
   </div>
 </div>

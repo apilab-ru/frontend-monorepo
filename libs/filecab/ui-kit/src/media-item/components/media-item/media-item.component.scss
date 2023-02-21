@@ -1,0 +1,32 @@
+.root {
+  width: 10em;
+  height: 13.5em;
+  border: 1px solid var(--primary-dark);
+  color: var(--color-primary-text);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+
+  border-radius: var(--border-radius);
+}
+
+.container {
+  overflow: hidden;
+  border-radius: var(--border-radius);
+}
+
+.panel {
+  background: var(--primary-dark-opacity);
+  color: var(--primary-color-text);
+  padding: 0.1em;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  font-size: 0.75em;
+  line-height: 1.1em;
+  text-align: center;
+
+  &.-top {
+    top: 0;
+  }
+

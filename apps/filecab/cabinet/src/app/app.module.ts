@@ -7,6 +7,7 @@ import { environment } from '../environments/environment';
 import { MenuComponent } from './components/menu/menu.component';
 import { RouterModule } from "@angular/router";
 import { MENU } from "./routes";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { MENU } from "./routes";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     RouterModule.forRoot([
       ...MENU,
       {

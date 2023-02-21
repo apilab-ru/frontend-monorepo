@@ -1,6 +1,7 @@
 @mixin initTheme() {
-
   font-family: BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, sans-serif;
+  --primary-dark: var(--primary-700);
+  --primary-dark-opacity: #295bacb0;
 
   .p-component {
     font-size: 14px;

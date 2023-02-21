@@ -2,6 +2,9 @@
 @import "libs/filecab/ui-kit/src/theme/prime-ng";
 @import "../src/resources/icomoon/style";
 
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+@import "@angular/material/theming";
+
 body {
   @include initTheme();
   color: var(--text-color);

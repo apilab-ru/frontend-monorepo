@@ -1,11 +1,15 @@
 import { MediaItem, SearchRequest, SearchRequestResult } from '@filecab/models';
 import { Observable, throwError } from 'rxjs';
-import { environment } from '@environments';
 import { fetchObservable } from '@shared/utils/fetch-observable';
 import { Genre } from '@filecab/models/genre';
+import { Environment } from "@environments/model";
 
-class FileCabApi {
-  private api = environment.apiUrl;
+export class FileCabApi {
+  constructor(
+    private env: Environment,
+  ) {
+  }
+  private api = this.env.apiUrl;
 
   // @ts-ignore
   loadById(path: string, id: number): Observable<MediaItem> {
@@ -15,16 +19,16 @@ class FileCabApi {
     }
   }
 
-  searchApi(path: string, name: string): Observable<SearchRequestResult<MediaItem>> {
+  searchApi(path: string, name: string, limit = 50): Observable<SearchRequestResult<MediaItem>> {
     switch (path) {
       case 'anime':
-        return this.searchAnime({ name });
+        return this.searchAnime({ name, limit });
 
       case 'films':
-        return this.searchFilm({ name });
+        return this.searchFilm({ name, limit });
 
       case 'tv':
-        return this.searchTv({ name });
+        return this.searchTv({ name, limit });
 
       default:
         return throwError(() => `Path ${name} not support`);
@@ -42,12 +46,12 @@ class FileCabApi {
 
   searchFilm(param: SearchRequest): Observable<SearchRequestResult<MediaItem>> {
     const queryParam = this.prepareParams(param);
-    return fetchObservable<SearchRequestResult<MediaItem>>(this.api + 'films/v2/movie?name=' + queryParam.toString());
+    return fetchObservable<SearchRequestResult<MediaItem>>(this.api + 'films/v2/movie?' + queryParam.toString());
   }
 
   searchTv(param: SearchRequest): Observable<SearchRequestResult<MediaItem>> {
     const queryParam = this.prepareParams(param);
-    return fetchObservable<SearchRequestResult<MediaItem>>(this.api + 'films/v2/tv?name=' + queryParam.toString());
+    return fetchObservable<SearchRequestResult<MediaItem>>(this.api + 'films/v2/tv?' + queryParam.toString());
   }
 
   loadGenres(): Observable<Genre[]> {
@@ -64,5 +68,3 @@ class FileCabApi {
     );
   }
 }
-
-export const fileCabApi = new FileCabApi();

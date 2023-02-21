@@ -1,0 +1,42 @@
+<div class="root">
+  <ng-container
+    *ngIf="currentItem$ | async as currentItem"
+  >
+    <div class="edit-item">
+      <filecab-edit-item
+        [meta]="currentItem.item"
+        [name]="form.controls.name.value"
+        [type]="form.controls.type.value"
+        (nameChange)="form.controls.name.patchValue($event)"
+        (typeChange)="form.controls.type.patchValue($event)"
+        (metaChange)="updateMeta($event)"
+      ></filecab-edit-item>
+
+      <p-button
+        label="Пропустить"
+        (click)="skip()"
+      ></p-button>
+    </div>
+
+    <div class="list-result">
+      <div class="list-content">
+        <ng-container *ngIf="isLoading$ | async; else responseList">
+          <p-skeleton *ngFor="let item of preloaderItems" width="180px" height="243px"></p-skeleton>
+        </ng-container>
+
+        <ng-template #responseList>
+          <filecab-media-item
+            *ngFor="let item of items$ | async"
+            class="media-item"
+            [mediaItem]="item"
+            (click)="select(item, currentItem.item)"
+          ></filecab-media-item>
+
+          <div *ngIf="!(items$ | async)?.length" class="message">
+            Нет результатов
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </ng-container>
+</div>

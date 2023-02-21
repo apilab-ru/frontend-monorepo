@@ -56,7 +56,7 @@ export class EditItemComponent implements OnChanges, OnInit {
 
   ngOnInit(): void {
     this.nameControl.valueChanges.pipe(
-      debounceTime(200),
+      debounceTime(300),
       untilDestroyed(this),
     ).subscribe(name => {
       this.nameChange.emit(name || '');

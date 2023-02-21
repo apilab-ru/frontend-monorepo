@@ -2,7 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component, EventEmitter, Input, Output,
 } from '@angular/core';
-import { Integration } from "../../interfase";
+import { IntegrationClockify } from "../../interfase";
 
 
 @Component({
@@ -12,7 +12,7 @@ import { Integration } from "../../interfase";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IntegrationItemComponent {
-  @Input() integration: Integration;
+  @Input() integration: IntegrationClockify;
   @Input() disabled = false;
 
   @Output() remove = new EventEmitter<void>();

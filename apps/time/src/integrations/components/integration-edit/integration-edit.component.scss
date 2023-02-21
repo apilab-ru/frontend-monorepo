@@ -1,5 +1,5 @@
 .root {
-  min-width: 300px;
+  min-width: 600px;
   box-sizing: border-box;
   padding: 12px;
 }
@@ -25,8 +25,25 @@
 
 .name {
   padding-right: 10px;
+  min-width: 120px;
+  display: inline-block;
 }
 
 .save {
   margin-left: auto;
+}
+
+.field {
+  padding: 10px 10px 0 10px;
+}
+
+.help {
+  padding: 10px;
+  background: #cccccc3b;
+}
+
+.card {
+  border-radius: 6px;
+  border: 1px solid #3f51b5;
+  margin-top: 12px;
 }

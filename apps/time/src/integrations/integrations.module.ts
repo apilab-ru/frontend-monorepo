@@ -11,6 +11,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { NgxMaskDirective } from "ngx-mask";
+import { MatTabsModule } from "@angular/material/tabs";
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { NgxMaskDirective } from "ngx-mask";
     MatTooltipModule,
     FormsModule,
     NgxMaskDirective,
+    MatTabsModule,
   ],
   exports: [
     IntegrationsComponent,

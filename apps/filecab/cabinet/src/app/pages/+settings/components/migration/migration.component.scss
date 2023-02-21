@@ -36,4 +36,7 @@
   flex-wrap: wrap;
 }
 
-.migrate
+.migrated-box {
+  flex: 1;
+  overflow: auto;
+}

@@ -7,7 +7,6 @@ import { map } from "rxjs/operators";
 import { Calc } from "../../board/models/calc";
 import { TimeService } from "../../board/services/time.service";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import format from "date-fns/format";
 
 interface Entity {
   id: string;
@@ -114,11 +113,11 @@ export class ProviderClockify implements ProviderAbstract<IntegrationClockify> {
   private mapSlots(calc: Calc[], date: string): Record<string, ClockifyItem[]> | never {
     const record:Record<string, ClockifyItem[]> = {};
 
-    const clearDate = new Date(date);
-    const timeZone = format(clearDate, 'xx');
-
-    const formatMinutes = (minutes: number) => date + 'T' + this.timeService.getStringHourMinute(minutes) + ':00.000' + timeZone;
-
+    const formatMinutes = (minutes: number) => {
+      const localDate = new Date(date + 'T' + this.timeService.getStringHourMinute(minutes) + ':00Z');
+      const utcHours = localDate.getUTCHours();
+      return new Date(localDate.setHours(utcHours)).toISOString()
+    };
 
     calc.forEach(item => {
 

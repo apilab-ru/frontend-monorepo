@@ -58,11 +58,13 @@ export class IntegrationProcessComponent implements OnInit {
       untilDestroyed(this)
     ).subscribe({
       next: () => {
-        this.snackBar.open('Complete');
+        this.snackBar.open('Complete', 'Close', {
+          duration: 20_000
+        });
         this.dialogRef.close({ done: true });
       },
       error: (error) => {
-        this.snackBar.open(error.toString());
+        this.snackBar.open(error.toString(), 'Hide');
       }
     })
   }

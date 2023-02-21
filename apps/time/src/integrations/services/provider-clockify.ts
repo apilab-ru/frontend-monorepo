@@ -1,11 +1,13 @@
 import { ProviderAbstract } from "./povider-abstract";
-import { Observable, switchMap, combineLatest, tap, concat, catchError, throwError } from "rxjs";
-import { ClockifyItem, Integration } from "../interfase";
+import { Observable, switchMap, combineLatest, tap, concat, catchError, throwError, of } from "rxjs";
+import { ClockifyItem, IntegrationClockify } from "../interfase";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map } from "rxjs/operators";
 import { Calc } from "../../board/models/calc";
 import { TimeService } from "../../board/services/time.service";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import format from "date-fns/format";
 
 interface Entity {
   id: string;
@@ -24,10 +26,14 @@ interface Task {
   workspaceId: string;
 }
 
+interface Form {
+  apiKey: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
-export class ProviderClockify implements ProviderAbstract {
+export class ProviderClockify implements ProviderAbstract<IntegrationClockify> {
   private apiKey: string;
   private endpoint = 'https://api.clockify.me/api/v1';
 
@@ -37,13 +43,28 @@ export class ProviderClockify implements ProviderAbstract {
   constructor(
     private http: HttpClient,
     private timeService: TimeService,
+    private fb: FormBuilder,
   ) {
   }
 
-  init(integration: Integration): Observable<boolean> {
+  buildForm(): FormGroup {
+    return this.fb.group({
+      apiKey: ''
+    });
+  }
+
+  init(integration: IntegrationClockify): Observable<boolean> {
     this.apiKey = integration.apiKey;
 
     return this.prepareData();
+  }
+
+  validate(form: Form): Observable<boolean> {
+    if (!form.apiKey) {
+      return throwError(() => new Error('Fill ApiKey'))
+    }
+
+    return of(true);
   }
 
   fetch<T>(url: string): Observable<T> {
@@ -92,7 +113,10 @@ export class ProviderClockify implements ProviderAbstract {
   private mapSlots(calc: Calc[], date: string): Record<string, ClockifyItem[]> | never {
     const record:Record<string, ClockifyItem[]> = {};
 
-    const formatMinutes = (minutes: number) => date + 'T' + this.timeService.getStringHourMinute(minutes) + ':00.000Z';
+    const clearDate = new Date(date);
+    const timeZone = format(clearDate, 'xx');
+
+    const formatMinutes = (minutes: number) => date + 'T' + this.timeService.getStringHourMinute(minutes) + ':00.000' + timeZone;
 
 
     calc.forEach(item => {

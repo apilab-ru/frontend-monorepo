@@ -6,10 +6,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { IntegrationData } from "./interface";
 import { ProviderAbstract } from "../../services/povider-abstract";
 import { ProviderClockify } from "../../services/provider-clockify";
-import { BehaviorSubject, finalize, Observable, shareReplay, startWith, switchMap } from "rxjs";
-import { map } from "rxjs/operators";
+import { BehaviorSubject, finalize } from "rxjs";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { INTEGRATION_MAP_CONFIG } from "../../const";
 
 @UntilDestroy()
 @Component({
@@ -37,7 +37,10 @@ export class IntegrationProcessComponent implements OnInit {
     const [date] = new Date().toISOString().split('T');
     this.date = date;
 
-    this.provider = this.injector.get(ProviderClockify);
+    const integration = this.data.integration;
+    const config = INTEGRATION_MAP_CONFIG[integration.type];
+
+    this.provider = this.injector.get(config.provider);
     this.provider.init(this.data.integration).pipe(
       untilDestroyed(this)
     ).subscribe(() => {

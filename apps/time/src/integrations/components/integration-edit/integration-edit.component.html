@@ -1,15 +1,31 @@
 <div class="root" [formGroup]="formGroup">
-  <h2 class="title">Edit clockify integration</h2>
-  <div class="help">
-    Make api key <a href="https://app.clockify.me/user/settings" target="_blank">on page</a>
+  <h2 class="title">Edit integration</h2>
+
+  <mat-tab-group (selectedTabChange)="onTabChange($event)">
+    <mat-tab *ngFor="let type of types" [label]="type"></mat-tab>
+  </mat-tab-group>
+
+  <div class="card" *ngFor="let item of fields$ | async">
+    <div class="field">
+      <span class="name">{{ item.title }}</span> <input class="input" [formControlName]="item.field"/>
+    </div>
+
+    <div class="help" [innerHTML]="makeHelp(item.help) | async"></div>
   </div>
 
   <div class="line">
-    <span class="name">Api key</span> <input class="input" formControlName="apiKey"/>
-  </div>
+    <div *ngIf="loading$ | async" class="message">
+      <h2>Checking</h2>
+      <mat-spinner></mat-spinner>
+    </div>
 
-  <div class="line">
-    <button class="save" mat-raised-button color="primary" (click)="save()">
+    <button
+      class="save"
+      mat-raised-button
+      color="primary"
+      [disabled]="loading$ | async"
+      (click)="save()"
+    >
       Save
     </button>
   </div>

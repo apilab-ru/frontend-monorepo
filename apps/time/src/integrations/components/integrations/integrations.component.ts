@@ -8,7 +8,7 @@ import { IntegrationEditComponent } from "../integration-edit/integration-edit.c
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter, take } from "rxjs/operators";
 import { Calc } from "../../../board/models/calc";
-import { Integration } from "../../interfase";
+import { IntegrationClockify } from "../../interfase";
 import { IntegrationProcessComponent } from "../integration-process/integration-process.component";
 
 @UntilDestroy()
@@ -43,7 +43,7 @@ export class IntegrationsComponent {
     this.integrationsService.removeIntegrations(index);
   }
 
-  export(integration: Integration): void {
+  export(integration: IntegrationClockify): void {
     this.matDialog.open(IntegrationProcessComponent, {
       data: {
         integration,

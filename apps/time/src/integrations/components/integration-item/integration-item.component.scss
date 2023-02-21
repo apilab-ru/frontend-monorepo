@@ -16,5 +16,12 @@
   &.-type-clockify {
     width: 80px;
     background: url('./images/clockify.svg') no-repeat;
+    background-size: contain;
+  }
+
+  &.-type-jira {
+    width: 52px;
+    background: url('./images/jira.png') no-repeat;
+    background-size: contain;
   }
 }

@@ -30,9 +30,9 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 })
 export class IntegrationEditComponent implements OnInit {
   formGroup = new FormGroup({});
-  types = Object.values(IntegrationType);
+  types = [IntegrationType.clockify];
 
-  type$ = new BehaviorSubject<IntegrationType>(IntegrationType.jira);
+  type$ = new BehaviorSubject<IntegrationType>(this.types[0]);
   fields$: Observable<IntegrationConfigField[]>;
   loading$ = new BehaviorSubject(false);
 

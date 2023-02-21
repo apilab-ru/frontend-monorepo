@@ -1,5 +1,5 @@
 import { ProviderAbstract } from "./povider-abstract";
-import { Observable, switchMap, combineLatest, tap, concat, catchError, throwError, of } from "rxjs";
+import { Observable, switchMap, combineLatest, tap, concat, catchError, throwError, of, toArray } from "rxjs";
 import { ClockifyItem, IntegrationClockify } from "../interfase";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
@@ -101,6 +101,7 @@ export class ProviderClockify implements ProviderAbstract<IntegrationClockify> {
     return combineLatest(
       ...workspaces$,
     ).pipe(
+      toArray(),
       map(() => true),
       catchError(error => {
         const message = error?.error?.message || error;
@@ -163,7 +164,6 @@ export class ProviderClockify implements ProviderAbstract<IntegrationClockify> {
       map(list => list.flat()),
       tap(projects => {
         this.projects = projects;
-        console.log('xxx projects', projects);
       }),
       switchMap(projects => combineLatest(
         ...projects.map(({ id, workspaceId }) => this.fetch<Task[]>(`/workspaces/${workspaceId}/projects/${id}/tasks`))
@@ -176,7 +176,6 @@ export class ProviderClockify implements ProviderAbstract<IntegrationClockify> {
           projectId: item.projectId,
           workspaceId: this.projects.find(it => it.id === item.projectId)?.workspaceId || '',
         }))
-        console.log('xxx tasks', this.tasks);
       }),
       map(() => true),
     )

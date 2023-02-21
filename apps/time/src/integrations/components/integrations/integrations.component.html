@@ -1,6 +1,7 @@
 <div class="root">
   <app-integration-item
     *ngFor="let item of integrations$ | async; let index = index"
+    class="item"
     [integration]="item"
     [disabled]="!calc || !calc.length"
     (remove)="removeIntegration(index)"

@@ -12,6 +12,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { NgxMaskDirective } from "ngx-mask";
 import { MatTabsModule } from "@angular/material/tabs";
+import { ClipboardModule } from '@angular/cdk/clipboard'
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { MatTabsModule } from "@angular/material/tabs";
     FormsModule,
     NgxMaskDirective,
     MatTabsModule,
+    ClipboardModule,
   ],
   exports: [
     IntegrationsComponent,

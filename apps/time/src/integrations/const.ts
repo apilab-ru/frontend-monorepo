@@ -22,9 +22,6 @@ export type IntegrationConfig = {
   fields: IntegrationConfigField[];
 };
 
-const jiraLink = (domain: string) => `https://${ domain }/secure/ViewProfile.jspa?selectedTab=com.atlassian.pats.pats-plugin:jira-user-personal-access-tokens`
-const corsLink = 'https://alfilatov.com/posts/run-chrome-without-cors/';
-
 export const INTEGRATION_MAP_CONFIG: Record<IntegrationType, IntegrationConfig> = {
   [IntegrationType.clockify]: {
     provider: ProviderClockify,
@@ -39,20 +36,13 @@ export const INTEGRATION_MAP_CONFIG: Record<IntegrationType, IntegrationConfig> 
 
   [IntegrationType.jira]: {
     provider: ProviderJira,
-    message: `For work integration please allow cors in browser, for <a href="${ corsLink }" target="_blank">example</a>`,
+    message: `Right now integration work without api. App generate javascript code. You can copy code and paste on jira suite console abd run. `,
     fields: [
       {
         field: 'domain',
         title: 'Domain',
         help: `For example dev.jira.com`
-      },
-      {
-        field: 'token',
-        title: 'Token',
-        help: ({ domain }: { domain: string }) => `Make token on <a
-            target="_blank"
-            href='${ jiraLink(domain || 'dev.jira.com') }'>page</a>`
-      },
+      }
     ]
   }
 }

@@ -1,7 +1,7 @@
 <div class="root">
-  <input class="input -mini" [(ngModel)]="item.key" (ngModelChange)="onChange()">
+  <input class="input -mini" [ngModel]="item.key" (ngModelChange)="onChange('key', $event)">
   =>
-  <input class="input" [(ngModel)]="item.value" (ngModelChange)="onChange()">
+  <input class="input" [ngModel]="item.value" (ngModelChange)="onChange('value', $event)">
   <button class="btn-del" (click)="deleteItem.emit()">X</button>
 </div>
 

@@ -13,7 +13,12 @@ export class TaskMapItemComponent {
   @Output() deleteItem = new EventEmitter<void>();
   @Output() updateItem = new EventEmitter<TaskMapItem>();
 
-  public onChange(): void {
+  public onChange(key: keyof TaskMapItem, value: string): void {
+    this.item = {
+      ...this.item,
+      [key]: value
+    };
+
     this.updateItem.emit(this.item);
   }
 }

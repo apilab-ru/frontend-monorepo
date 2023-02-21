@@ -12,8 +12,8 @@ export class CopyClickDirective {
     event.preventDefault();
     event.stopPropagation();
     this.copy(this.appCopyClick);
-    this.snackBar.open(`Copped: ${this.appCopyClick}`, null, {
-      duration: 20000
+    this.snackBar.open(`Copped: ${this.appCopyClick}`, 'Hide', {
+      duration: 20_000
     });
   }
 

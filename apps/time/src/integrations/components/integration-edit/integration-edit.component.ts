@@ -89,14 +89,16 @@ export class IntegrationEditComponent implements OnInit {
       untilDestroyed(this)
     ).subscribe({
       next: () => {
-        this.snackBar.open('Sucess');
+        this.snackBar.open('Sucess', 'Hide', {
+          duration: 15_000
+        });
         this.dialogRef.close({
           type: this.type$.getValue(),
           ...form
         } as Integration);
       },
       error: (error) => {
-        this.snackBar.open(error.toString());
+        this.snackBar.open(error.toString(), 'Hide');
       }
     })
   }

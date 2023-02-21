@@ -10,6 +10,7 @@ import format from 'date-fns/format'
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 import { jiraFetch } from './fetch.js';
+import { map } from "rxjs/operators";
 
 interface Cred {
   domain: string;
@@ -72,16 +73,16 @@ export class ProviderJira implements ProviderAbstract<IntegrationJira> {
     console.log('code', code);
     this.clipboard.copy(code);
 
-    this.snackBar.open('Code copied!', 'OpenPage', {
+    return this.snackBar.open('Code copied! Past in console on jira Page.', 'OpenPage', {
       duration: 30_000
     }).onAction().pipe(
-      untilDestroyed(this)
-    ).subscribe(() => {
-      const url = `https://${ this.domain }/secure/WorklogsAction!show.jspa`;
-      window.open(url,'_blank');
-    });
+      map(() => {
+        const url = `https://${ this.domain }/secure/WorklogsAction!show.jspa`;
+        window.open(url,'_blank');
 
-    return of(false);
+        return true;
+      }),
+    );
   }
 
   private prepareCode(list: (JiraItem & { task: string })[] ) {

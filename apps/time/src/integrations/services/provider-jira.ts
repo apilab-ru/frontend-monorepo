@@ -8,7 +8,6 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { Clipboard } from '@angular/cdk/clipboard';
 import format from 'date-fns/format'
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 import { jiraFetch } from './fetch.js';
 import { map } from "rxjs/operators";
 
@@ -16,7 +15,6 @@ interface Cred {
   domain: string;
 }
 
-@UntilDestroy()
 @Injectable({
   providedIn: 'root'
 })
@@ -93,7 +91,7 @@ export class ProviderJira implements ProviderAbstract<IntegrationJira> {
 
       ${ jiraFetch.toString() };
 
-      jiraFetch(list, domain);
+      ${ jiraFetch.name }(list, domain);
   })();`
   }
 }

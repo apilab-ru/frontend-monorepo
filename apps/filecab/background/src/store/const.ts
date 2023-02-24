@@ -1,22 +1,8 @@
-import { Tag } from '@shared/models/tag';
-import { parserSchemas } from '@shared/parser/const';
-import { TYPES } from '@shared/models/const';
-import { LibraryItem } from '@filecab/models';
 import { Genre } from '@filecab/models/genre';
-import { LibrarySettings } from '@shared/models/library';
-
-type Optional<T> = T | undefined;
-
-const configDefault = {
-  schemas: parserSchemas,
-  types: TYPES,
-};
+import { LibraryItemV2 } from "@filecab/models/library";
 
 export const STORE_DATA = {
-  tags: [] as Tag[],
-  data: {} as Record<string, LibraryItem[]>,
+  data: [] as LibraryItemV2[],
   lastTimeUpdate: 0,
-  config: configDefault,
   genres: [] as Genre[],
-  settings: undefined as Optional<LibrarySettings>,
 };

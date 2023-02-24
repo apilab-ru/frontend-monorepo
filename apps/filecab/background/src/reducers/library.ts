@@ -5,6 +5,7 @@ import { LibraryItem, MediaItem } from '@filecab/models';
 import { deepCopy } from '@shared/utils/utils';
 import { allApi } from '../api';
 import { from, Observable, of, throwError } from 'rxjs';
+import { chromeStoreApi } from "../api/chrome-store.api";
 
 interface CRUDItem {
   path: string;
@@ -13,15 +14,22 @@ interface CRUDItem {
 
 export class LibraryReducer extends Reducer<Store> {
 
-  update(store: Library): Observable<void> {
-    this.store.data.next(store.data);
-    this.store.lastTimeUpdate.next(store.lastTimeUpdate);
-    this.store.tags.next(store.tags);
+  update(store: Partial<Library>): Observable<void> {
+    if (store.data !== undefined) {
+      this.store.data.next(store.data);
+    }
 
-    return of();
+    if (store.lastTimeUpdate !== undefined) {
+      this.store.lastTimeUpdate.next(store.lastTimeUpdate);
+    }
+
+    return from(chromeStoreApi.setStore<Library>({
+      data: this.store.data.value,
+      lastTimeUpdate: this.store.lastTimeUpdate.value
+    }).then(() => undefined))
   }
 
-  addItem({ path, item }: CRUDItem): Observable<void> {
+  /*addItem({ path, item }: CRUDItem): Observable<void> {
     const data = deepCopy(this.store.data.getValue());
 
     if (!data[path]) {
@@ -79,6 +87,6 @@ export class LibraryReducer extends Reducer<Store> {
 
     this.store.data.next(data);
     return from(allApi.chromeStoreApi.setStore(store));
-  }
+  }*/
 
 }

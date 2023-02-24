@@ -11,7 +11,7 @@ abstract class StoreMethods<T> {
 type StoreFields<T> = { [key in keyof T]: BehaviorSubject<T[key]> };
 export type RecordSubject<T> = StoreFields<T> & StoreMethods<T>;
 
-export function makeStore<T extends Object, C extends Object>(data: T): RecordSubject<T> {
+export function makeStore<T extends Object, A extends Object>(data: T): RecordSubject<T> {
   const store = {} as StoreFields<T>;
   for (let key in data) {
     // @ts-ignore

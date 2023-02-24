@@ -1,9 +1,11 @@
 import { Observable, of } from 'rxjs';
 import { Library } from '@shared/models/library';
-import { catchError, map, pluck, tap } from 'rxjs/operators';
+import { catchError, map, pluck } from 'rxjs/operators';
 import { chromeStoreApi } from './chrome-store.api';
-import { LibraryItem } from '@filecab/models';
-import { Tag } from '@shared/models/tag';
+import { isArray } from "lodash-es";
+import { LibraryItemV2 } from "@filecab/models/library";
+
+const KEY_OLD_DATA = 'filecabOldData';
 
 class LibraryApi {
   load(): Observable<Library> {
@@ -11,44 +13,36 @@ class LibraryApi {
       map(store => {
 
         if (!store) {
-          store = {
+          return {
             tags: [],
-            data: {},
+            data: [],
             lastTimeUpdate: 0,
           };
         }
 
-        if (!store.data) {
-          store.data = {};
-        }
+        if(store.data && !isArray(store.data)) {
+          store.oldData = store.data;
 
-        if (!store.tags) {
-          store.tags = [];
+          localStorage.setItem(KEY_OLD_DATA, JSON.stringify(store.oldData));
+
+          store.data = [];
         }
 
         return store;
       }),
       catchError((error) => {
-        // captureException(error);
-
         return of({
           tags: [],
-          data: {},
+          data: [],
           lastTimeUpdate: 0,
         });
       }),
     );
   }
 
-  loadData(): Observable<Record<string, LibraryItem[]>> {
+  loadData(): Observable<LibraryItemV2[]> {
     return this.load().pipe(
       pluck('data'),
-    );
-  }
-
-  loadTags(): Observable<Tag[]> {
-    return this.load().pipe(
-      pluck('tags'),
     );
   }
 

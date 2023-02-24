@@ -2,7 +2,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '@environments';
 
 class ChromeStoreApi {
-
   onStoreChanges<T>(): Observable<Partial<T>> {
     return new Observable<Partial<T>>((resolve) => {
       chrome.storage.onChanged.addListener(result => {

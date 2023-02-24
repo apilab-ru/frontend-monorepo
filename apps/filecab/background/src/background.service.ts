@@ -7,6 +7,7 @@ import { BehaviorSubject, filter, finalize, map, Observable, of, switchMap, take
 import { Store } from './store';
 import { runInZone } from '@shared/helpers/rxjs-ng-zone';
 import { Reducers } from './reducers';
+import { ChromeMessage, makeChromeApi } from "./api/chrome-message.api";
 
 type AllApiTypes = typeof allApi;
 type Parameters<T> = T extends (...args: infer T) => any ? T : never;
@@ -17,17 +18,15 @@ function log(...messages: any[]): void {}
 @Injectable({ providedIn: 'root' })
 export class BackgroundService {
   private id = Math.random();
-  private worker: SharedWorker;
   private responseQuery$ = new BehaviorSubject<WorkerEvent[]>([]);
+  private chromeApi: ChromeMessage;
 
   constructor(
     private environment: Environment,
     private ngZone: NgZone,
   ) {
-    this.worker = new SharedWorker(environment.backgroundUrl);
-    this.worker.port.start();
-
-    this.worker.port.onmessage = ({ data }: MessageEvent) => this.handleMessage(data);
+    this.chromeApi = makeChromeApi(environment);
+    this.chromeApi.connectToWorker((event: WorkerEvent) => this.handleMessage(event));
   }
 
   select<S extends keyof Store>(selector: S): Observable<Store[S]> {
@@ -107,18 +106,18 @@ export class BackgroundService {
       filter(event => !!event),
       tap(event => {
         const allList = this.responseQuery$.value;
-        const filtered = allList.filter(item => item !== event);
+        const filtered = allList.filter(item => item.id !== id);
         this.responseQuery$.next(filtered);
       }),
     );
   }
 
   private sendMessage(action: WorkerAction, data: WorkerEventData, id?: string): void {
-    this.worker.port.postMessage({
+    this.chromeApi.postMessage({
       action,
       data,
       id,
-    });
+    })
   }
 
   private handleMessage(event: WorkerEvent): void {

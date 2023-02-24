@@ -1,17 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ItemParam } from '@shared/services/file-cab';
-import { combineLatest, Observable, of, switchMap } from 'rxjs';
-import { map, pluck, shareReplay, take, tap } from 'rxjs/operators';
-import { ISchema, Library, LibrarySettings } from '@shared/models/library';
-import { NavigationItem } from '@shared/models/navigation';
-import { SearchRequestResult } from '@filecab/models/base';
-import { MetaData } from '@filecab/models/meta-data';
-import { Tag } from '@shared/models/tag';
-import { LibraryItem, MediaItem } from '@filecab/models/library';
+import { Observable } from 'rxjs';
+import { map, shareReplay, take } from 'rxjs/operators';
+import { Library, LibrarySettings } from '@shared/models/library';
+import { LibraryItem, LibraryItemV2 } from '@filecab/models/library';
 import { Genre } from '@filecab/models/genre';
-import { GenreKind } from '@filecab/models/genre';
 import { BackgroundService } from '@filecab/background';
-import { mediaCompare } from '@shared/utils/item-compare';
 
 interface FlatLibraryItem extends LibraryItem {
   type: string;
@@ -27,26 +21,15 @@ interface SearchResult {
   providedIn: 'root'
 })
 export class FileCabService {
-  schemas$: Observable<Record<string, ISchema>>;
-  types$: Observable<NavigationItem[]>;
   genres$: Observable<Genre[]>;
 
-  data$: Observable<Record<string, LibraryItem[]>>;
-  tags$: Observable<Tag[]>;
-  store$: Observable<Library>;
-  settings$: Observable<LibrarySettings>;
+  data$: Observable<LibraryItemV2[]>;
+  // store$: Observable<Library>;
+  // settings$: Observable<LibrarySettings>;
 
   constructor(
     private backgroundService: BackgroundService
   ) {
-    this.schemas$ = this.backgroundService.select('config').pipe(
-      map(({ schemas }) => schemas),
-      shareReplay({ refCount: true, bufferSize: 1 })
-    );
-    this.types$ = this.backgroundService.select('config').pipe(
-      map(({ types }) => types),
-      shareReplay({ refCount: true, bufferSize: 1 })
-    );
     this.genres$ = this.backgroundService.select('genres').pipe(
       shareReplay({ refCount: true, bufferSize: 1 })
     );
@@ -54,12 +37,8 @@ export class FileCabService {
     this.data$ = this.backgroundService.select('data').pipe(
       shareReplay({ refCount: true, bufferSize: 1 })
     );
-    this.tags$ = this.backgroundService.select('tags').pipe(
-      shareReplay({ refCount: true, bufferSize: 1 })
-    );
 
-    this.store$ = combineLatest([
-      this.tags$,
+    /*this.store$ = combineLatest([
       this.data$,
       this.backgroundService.select('lastTimeUpdate')
     ]).pipe(
@@ -70,7 +49,7 @@ export class FileCabService {
     );
     this.settings$ = this.backgroundService.select('settings').pipe(
       shareReplay({ refCount: true, bufferSize: 1 })
-    );
+    );*/
   }
 
   updateSettings(settings: LibrarySettings): void {
@@ -79,22 +58,26 @@ export class FileCabService {
       .subscribe();
   }
 
-  searchByName(name: string, type?: string): Observable<SearchResult | null> {
+  searchByName(name: string, type?: string): Observable<LibraryItemV2 | null> {
     return this.data$.pipe(
       take(1),
-      map(store => {
-        const list = this.flatStore(store, type);
-        const item = list.find(it => it.name?.includes(name)
+      map(list => {
+        console.log('xxx search', name, type, list);
+
+        const results = list.filter(it => it.name?.includes(name)
           || it.item.originalTitle?.includes(name)
           || it.item.title?.includes(name)
         );
 
-        if (item) {
-          return {
-            type: item.type,
-            id: item.item.id,
-            name: item.name || item.item.title
-          };
+        if (results.length === 1) {
+          return results[0];
+        }
+
+        if (results.length) {
+          const filteredByType = results.filter(it => it.type === type);
+          if (filteredByType.length === 1) {
+            return filteredByType[0];
+          }
         }
 
         return null;
@@ -102,25 +85,18 @@ export class FileCabService {
     );
   }
 
-  searchByUrl(url: string, type?: string): Observable<SearchResult | null> {
+  searchByUrl(url: string): Observable<LibraryItemV2 | null> {
     return this.data$.pipe(
       take(1),
-      map(store => {
-        const list = this.flatStore(store, type);
+      map(list => {
         const item = list.find(it => it.url === url);
 
-        if (item) {
-          return {
-            type: item.type,
-            id: item.item.id,
-            name: item.name || item.item.title
-          };
-        }
-
-        return null;
+        return item || null;
       })
     );
   }
+
+  /*
 
   selectGenres(type: string): Observable<Genre[]> {
     return this.genres$.pipe(
@@ -206,7 +182,7 @@ export class FileCabService {
     return this.backgroundService.reduce('library', 'updateItem')({ path, item }).pipe(
       map(() => item)
     );
-  }
+  }*/
 
   updateStore(store: Library): Observable<void> {
     return this.backgroundService.reduce('library', 'update')(store);

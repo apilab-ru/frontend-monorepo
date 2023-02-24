@@ -23,6 +23,12 @@
   margin-left: 20px;
 }
 
+.button {
+  & + & {
+    margin-left: 12px;
+  }
+}
+
 .chunk-box {
   margin: 12px 0 0 12px;
 }

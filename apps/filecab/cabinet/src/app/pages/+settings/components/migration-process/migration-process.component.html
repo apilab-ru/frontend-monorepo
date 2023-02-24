@@ -4,7 +4,7 @@
   >
     <div class="edit-item">
       <filecab-edit-item
-        [meta]="currentItem.item"
+        [meta]="meta$ | async"
         [name]="form.controls.name.value"
         [type]="form.controls.type.value"
         (nameChange)="form.controls.name.patchValue($event)"
@@ -12,10 +12,16 @@
         (metaChange)="updateMeta($event)"
       ></filecab-edit-item>
 
-      <p-button
-        label="Пропустить"
-        (click)="skip()"
-      ></p-button>
+      <div class="controls">
+        <p-button
+          label="Пропустить"
+          (click)="skip()"
+        ></p-button>
+
+        <span class="counter">
+          / {{ process?.length }}
+        </span>
+      </div>
     </div>
 
     <div class="list-result">

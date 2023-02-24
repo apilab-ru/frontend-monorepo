@@ -3,7 +3,7 @@ import { MetaData } from '@filecab/models/meta-data';
 import { Anime } from '@filecab/models/anime';
 import { Film } from '@filecab/models/films';
 import { Tag } from './tag';
-import { LibraryItem } from '@filecab/models';
+import { LibraryItemV2 } from "@filecab/models/library";
 
 export interface LibraryItemOld<T extends Item> extends MetaData {
   item: T;
@@ -29,9 +29,10 @@ export interface LibrarySettings {
 }
 
 export interface Library {
-  tags: Tag[];
-  data: Record<string, LibraryItem[]>;
+  // tags: Tag[];
+  data: LibraryItemV2[];
   lastTimeUpdate: number;
+  oldData?: Record<string, LibraryItemOld<ItemType>[]>;
 }
 
 export interface LibraryOld {

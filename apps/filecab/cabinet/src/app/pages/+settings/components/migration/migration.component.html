@@ -21,9 +21,23 @@
 
       <div class="controls">
         <p-button
+          class="button"
           label="Process"
           [loading]="process$ | async"
           (click)="startMigration()"
+        ></p-button>
+
+        <p-button
+          class="button"
+          label="Recheck"
+          [loading]="process$ | async"
+          (click)="reCheckLibrary()"
+        ></p-button>
+
+        <p-button
+          class="button"
+          label="Save to library"
+          (click)="saveToLibrary()"
         ></p-button>
       </div>
     </div>

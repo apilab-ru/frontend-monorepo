@@ -3,26 +3,25 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MigrationProcessData } from "./interface";
 import { LibraryItemV2, ManyResultItem, MediaItemV2, PreparedItem } from "@filecab/models/library";
 import {
-  BehaviorSubject, catchError,
-  finalize,
+  BehaviorSubject,
+  catchError,
   map,
   merge,
   Observable,
   of,
   ReplaySubject,
   shareReplay,
-  skip,
   switchMap,
   tap
 } from "rxjs";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Types } from "@filecab/models/types";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
-import { BackgroundService } from "@filecab/background";
+import { BackgroundService, FileCabApi } from "@filecab/background";
 import { Environment } from "@environments/model";
 import format from 'date-fns/format'
-import { FileCabApi } from "../../../../../../../background/src/api/file-cab.api";
 import { MetaData } from "@filecab/models/meta-data";
+import { makeStore } from "@store";
 
 @UntilDestroy()
 @Component({
@@ -35,7 +34,6 @@ import { MetaData } from "@filecab/models/meta-data";
 export class MigrationProcessComponent implements OnInit {
   process: ManyResultItem[];
   results: LibraryItemV2[] = [];
-  lastMeta: MetaData;
 
   currentItem$ = new ReplaySubject<ManyResultItem>(1);
   isLoading$ = new BehaviorSubject(false);
@@ -46,6 +44,11 @@ export class MigrationProcessComponent implements OnInit {
 
   private itemsSubject = new ReplaySubject<MediaItemV2[]>(1);
   private fileCabApi: FileCabApi;
+  private store = makeStore({
+    meta: null as null | MetaData,
+  })
+
+  meta$ = this.store.meta.asObservable();
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: MigrationProcessData,
@@ -71,7 +74,7 @@ export class MigrationProcessComponent implements OnInit {
         this.itemsSubject.next(list);
 
         const { item: _it, ...meta } = item;
-        this.lastMeta = meta;
+        this.store.meta.next(meta);
 
         this.form.patchValue({
           name: item.name || item.item.title || '',
@@ -92,10 +95,10 @@ export class MigrationProcessComponent implements OnInit {
   }
 
   updateMeta(meta: MetaData): void {
-    this.lastMeta = {
-      ...this.lastMeta,
+    this.store.meta.next({
+      ...this.store.meta.value,
       ...meta
-    };
+    });
   }
 
   skip(): void {
@@ -107,7 +110,7 @@ export class MigrationProcessComponent implements OnInit {
 
     const item = {
       ...oldItem,
-      ...this.lastMeta,
+      ...this.store.meta.value,
       type,
       name,
       dateAd: '',

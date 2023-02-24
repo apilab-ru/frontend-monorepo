@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Library } from "@shared/models/library";
+import { Library, LibraryOld } from "@shared/models/library";
 import { LibraryItemV2, ManyResultItem, PreparedItem } from "@filecab/models/library";
 import { Types } from "@filecab/models/types";
 import { MigrationService } from "../../services/mirgration.service";
@@ -10,6 +10,8 @@ import { MigrationProcessComponent } from "../migration-process/migration-proces
 import { MigrationProcessData } from "../migration-process/interface";
 import { Genre } from "@filecab/models/genre";
 import { BackgroundService } from "@filecab/background";
+import { orderBy } from "lodash-es";
+import { FileCabService } from "@shared/services/file-cab.service";
 
 const KEY_SAVE = 'filecab-migration-list';
 const KEY_MIGRATION_COMPLETED = 'filecabMigrationCompleted';
@@ -35,6 +37,7 @@ export class MigrationComponent implements OnInit {
     private messageService: MessageService,
     private backgroundService: BackgroundService,
     private dialog: MatDialog,
+    private fileCabService: FileCabService,
   ) {
   }
 
@@ -57,13 +60,14 @@ export class MigrationComponent implements OnInit {
   }
 
   onInput(data: string): void {
-    const parsedData: Library = JSON.parse(data);
+    const parsedData: LibraryOld = JSON.parse(data);
 
     const parsedList: PreparedItem[] = [];
     const keys = Object.keys(parsedData.data);
 
     keys.forEach(type => {
       parsedData.data[type].forEach(item => {
+        // @ts-ignore
         parsedList.push({
           ...item,
           type: type as Types,
@@ -116,6 +120,52 @@ export class MigrationComponent implements OnInit {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: error.toString() });
         }
       });
+  }
+
+  reCheckLibrary(): void {
+    this.process$.next(true);
+
+    this.migrationService.checkData(this.readyItems).pipe(
+      finalize(() => this.process$.next(false)),
+      switchMap(result => {
+        console.log('xxx result', result);
+
+        if (result.migrated.length && !result.manyResults.length) {
+          this.messageService.add({
+            severity: 'success',
+            detail: `Успешное обновление ${result.migrated.length}`
+          })
+
+          return of(result.migrated)
+        } else {
+          return this.manualMigrate(result.manyResults).pipe(
+            map(list => ([...result.migrated, ...list]))
+          )
+        }
+      })
+    ).subscribe(migrated => {
+      const sorted = orderBy(migrated, 'dateAdd');
+      console.log('xxx sorted', sorted);
+
+      this.messageService.add({
+        severity: 'success',
+        detail: `Сохранено`
+      })
+
+      this.saveMigrationProcess(this.parsedList, sorted);
+    })
+  }
+
+  saveToLibrary(): void {
+    this.fileCabService.updateStore({
+      data: this.readyItems,
+      lastTimeUpdate: new Date().getTime(),
+    }).subscribe(() => {
+      this.messageService.add({
+        severity: 'success',
+        detail: `Сохранено`
+      })
+    })
   }
 
   private manualMigrate(items: ManyResultItem[]): Observable<LibraryItemV2[]> {

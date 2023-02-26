@@ -1,3 +1,7 @@
+$uiKitScrollColorTrack: --ui-kit-scroll-color-track;
+$uiKitScrollColorThumb: --ui-kit-scroll-color-thumb;
+$uiKitScrollOutlineThumb: --ui-kit-scroll-outline-thumb;
+
 @mixin customScrollBar() {
   &::-webkit-scrollbar {
     width: 5px;
@@ -5,11 +9,12 @@
   }
 
   &::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 3px var(#{$uiKitScrollColorTrack}, rgba(0, 0, 0, 0.3));
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: darkgrey;
-    outline: 1px solid slategrey;
+    background-color: var(#{$uiKitScrollColorThumb}, darkgrey);
+    outline: 1px solid var(#{$uiKitScrollOutlineThumb}, slategrey);
+    border-radius: 2px;
   }
 }

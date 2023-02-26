@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, TemplateRef } from '@angular/core';
 import { UntilDestroy } from '@ngneat/until-destroy';
+import { LayoutService } from "./services/layout.service";
 
 @UntilDestroy()
 @Component({
@@ -9,9 +10,14 @@ import { UntilDestroy } from '@ngneat/until-destroy';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
+  subMenuTemplate$ = this.layoutService.subMenuTemplate$;
 
+  constructor(
+    private layoutService: LayoutService,
+  ) {
+  }
 
   ngOnInit(): void {
-
+    // this.subMenuTemplate$.subscribe(t => console.log('xxx t', t))
   }
 }

@@ -19,7 +19,9 @@ class ChromeMessageApi implements ChromeMessage {
   }
 
   postMessage(data: WorkerEvent): void {
-    chrome.runtime.sendMessage(data);
+    chrome.runtime.sendMessage(data).catch(error => {
+      console.log('error send message', error, data)
+    });
   }
 }
 

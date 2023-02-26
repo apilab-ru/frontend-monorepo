@@ -6,8 +6,9 @@ import { Environment } from '@environments/model';
 import { environment } from '../environments/environment';
 import { MenuComponent } from './components/menu/menu.component';
 import { RouterModule } from "@angular/router";
-import { MENU } from "./routes";
+import { ROUTES } from "./routes";
 import { HttpClientModule } from "@angular/common/http";
+import { CommonModule } from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -15,16 +16,11 @@ import { HttpClientModule } from "@angular/common/http";
     MenuComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    RouterModule.forRoot([
-      ...MENU,
-      {
-        path: '**',
-        redirectTo: MENU[0].path,
-      },
-    ], { useHash: true }),
+    RouterModule.forRoot(ROUTES, { useHash: true }),
   ],
   providers: [
     {

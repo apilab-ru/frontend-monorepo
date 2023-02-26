@@ -1,8 +1,9 @@
-import { MediaItem, SearchRequest, SearchRequestResult } from '@filecab/models';
+import { AnimeSearchV2Query, FilmSearchParams, SearchRequest, SearchRequestResult } from '@filecab/models';
 import { Observable, throwError } from 'rxjs';
 import { fetchObservable } from '@shared/utils/fetch-observable';
 import { Genre } from '@filecab/models/genre';
 import { Environment } from "@environments/model";
+import { MediaItemV2 } from "@filecab/models/library";
 
 export class FileCabApi {
   constructor(
@@ -19,39 +20,43 @@ export class FileCabApi {
     }
   }
 
-  searchApi(path: string, name: string, limit = 50): Observable<SearchRequestResult<MediaItem>> {
-    switch (path) {
+  searchApi(param: AnimeSearchV2Query | FilmSearchParams, type: string): Observable<SearchRequestResult<MediaItemV2>> {
+    if (!param.limit) {
+      param.limit = 50;
+    }
+
+    switch (type) {
       case 'anime':
-        return this.searchAnime({ name, limit });
+        return this.searchAnime(param);
 
       case 'films':
-        return this.searchFilm({ name, limit });
+        return this.searchFilm(param);
 
       case 'tv':
-        return this.searchTv({ name, limit });
+        return this.searchTv(param);
 
       default:
-        return throwError(() => `Path ${name} not support`);
+        return throwError(() => `Path ${type} not support`);
     }
   }
 
-  searchAnime(param: SearchRequest): Observable<SearchRequestResult<MediaItem>> {
+  searchAnime(param: AnimeSearchV2Query): Observable<SearchRequestResult<MediaItemV2>> {
     const queryParam = this.prepareParams(param);
-    return fetchObservable<SearchRequestResult<MediaItem>>(this.api + 'anime/v2/search?' + queryParam.toString());
+    return fetchObservable<SearchRequestResult<MediaItemV2>>(this.api + 'anime/v2/search?' + queryParam.toString());
   }
 
-  getAnimeById(id: number): Observable<MediaItem> {
-    return fetchObservable<MediaItem>(this.api + 'anime/v2/' + id);
+  getAnimeById(id: number): Observable<MediaItemV2> {
+    return fetchObservable<MediaItemV2>(this.api + 'anime/v2/' + id);
   }
 
-  searchFilm(param: SearchRequest): Observable<SearchRequestResult<MediaItem>> {
+  searchFilm(param: FilmSearchParams): Observable<SearchRequestResult<MediaItemV2>> {
     const queryParam = this.prepareParams(param);
-    return fetchObservable<SearchRequestResult<MediaItem>>(this.api + 'films/v2/movie?' + queryParam.toString());
+    return fetchObservable<SearchRequestResult<MediaItemV2>>(this.api + 'films/v2/movie?' + queryParam.toString());
   }
 
-  searchTv(param: SearchRequest): Observable<SearchRequestResult<MediaItem>> {
+  searchTv(param: FilmSearchParams): Observable<SearchRequestResult<MediaItemV2>> {
     const queryParam = this.prepareParams(param);
-    return fetchObservable<SearchRequestResult<MediaItem>>(this.api + 'films/v2/tv?' + queryParam.toString());
+    return fetchObservable<SearchRequestResult<MediaItemV2>>(this.api + 'films/v2/tv?' + queryParam.toString());
   }
 
   loadGenres(): Observable<Genre[]> {

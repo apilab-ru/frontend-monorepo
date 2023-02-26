@@ -1,4 +1,9 @@
-<cabinet-menu></cabinet-menu>
+<cabinet-menu>
+   <ng-container *ngIf="(subMenuTemplate$ | async) as template">
+      <ng-container *ngTemplateOutlet="template"></ng-container>
+   </ng-container>
+</cabinet-menu>
+
 <div class="content">
   <router-outlet></router-outlet>
 </div>

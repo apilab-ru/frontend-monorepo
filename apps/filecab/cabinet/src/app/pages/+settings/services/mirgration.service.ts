@@ -4,6 +4,7 @@ import { Environment } from "@environments/model";
 import { LibraryItemV2, MigrationResult, PreparedItem } from "@filecab/models/library";
 import { Observable } from "rxjs";
 import { format, add } from "date-fns";
+import { uiDateISO } from "@ui-kit/time/date-iso";
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +25,6 @@ export class MigrationService {
   checkData(list: LibraryItemV2[]): Observable<MigrationResult> {
     const now = new Date();
 
-    const date = format(now, 'yyyy-MM-dd');
-
     let fakeTime = new Date(format(now, 'yyyy-MM-dd'));
 
     const preparedList = list.map(item => {
@@ -37,8 +36,8 @@ export class MigrationService {
 
       return {
         ...item,
-        dateAd: item.dateAd || format(fakeTime, 'yyyy-MM-dd HH:mm:ss'),
-        dateChange: item.dateChange || format(fakeTime, 'yyyy-MM-dd HH:mm:ss')
+        dateAd: item.dateAd || uiDateISO(fakeTime),
+        dateChange: item.dateChange || uiDateISO(fakeTime)
       }
     })
 

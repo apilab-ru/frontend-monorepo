@@ -1,0 +1,12 @@
+<ng-template filecabLayoutTopSlot>
+   <span>Test</span>
+</ng-template>
+
+<filecab-list
+   class="list"
+   [list]="list$ | async"
+>
+   <cabinet-card
+      *listIterator="let item of (list$ | async); trackBy: trackById"
+   ></cabinet-card>
+</filecab-list>

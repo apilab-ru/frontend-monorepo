@@ -1,0 +1,45 @@
+<div class="root">
+  <div *ngIf="isLoading" class="preloader">
+    <p-skeleton
+      class="preloader-item"
+      height="60px"
+    ></p-skeleton>
+  </div>
+
+  <div
+    *ngIf="!isLoading && isSearchMode"
+    class="list-box"
+    uiKitHorizontalScroll
+  >
+    <div class="list">
+      <filecab-media-item
+        *ngFor="let item of list"
+        class="list-item"
+        [mediaItem]="item"
+        [genres]="genres"
+        (click)="selectItem.emit(item)"
+      ></filecab-media-item>
+    </div>
+
+    <div *ngIf="!list.length" class="message">
+      Не найдено материалов
+    </div>
+  </div>
+
+  <div *ngIf="!isSearchMode && !isLoading && mediaItem" class="selected-box">
+    <button
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-pencil"
+      class="p-button-rounded p-button-outlined icon-edit"
+      (click)="setSearchMode()"
+    ></button>
+
+    <filecab-media-item
+      class="selected-item "
+      [mediaItem]="mediaItem"
+      [genres]="genres"
+    ></filecab-media-item>
+  </div>
+</div>

@@ -10,19 +10,33 @@ import { ROUTES } from './routes';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
 import { LibraryItemEditModule } from "@filecab/ui-kit/library-item-edit";
+import { MediaItemListComponent } from "./components/media-item-list/media-item-list.component";
+import { SkeletonModule } from 'primeng/skeleton';
+import { MediaItemModule } from "@filecab/ui-kit/media-item";
+import { ButtonModule } from "primeng/button";
+import { RippleModule } from "primeng/ripple";
+import { UiKitHorizontalScrollDirective } from "@ui-kit/scroll/horizontal-scroll.directive";
+import { UiMessagesModule } from "@ui-kit/messages/messages.module";
 
 @NgModule({
   declarations: [
     AppComponent,
     EditItemComponent,
+    MediaItemListComponent,
   ],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
     LibraryItemEditModule,
+    MediaItemModule,
     RouterModule.forRoot(ROUTES, { useHash: true }),
     SelectButtonModule,
+    ButtonModule,
     FormsModule,
+    SkeletonModule,
+    RippleModule,
+    UiKitHorizontalScrollDirective,
+    UiMessagesModule,
   ],
   providers: [
     {

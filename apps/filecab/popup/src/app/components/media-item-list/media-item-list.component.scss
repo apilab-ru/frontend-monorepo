@@ -1,0 +1,71 @@
+@import "libs/ui-kit/src/scroll/main";
+
+.root {
+  position: relative;
+}
+
+.icon-edit {
+  position: absolute;
+  cursor: pointer;
+  z-index: 2;
+  right: 0;
+  width: 40px;
+  height: 40px !important;
+}
+
+.preloader {
+  display: flex;
+  width: 100%;
+}
+
+.preloader-item {
+  flex: 1;
+
+  & + & {
+    margin-left: 12px;
+  }
+}
+
+.list-box {
+  overflow: auto;
+  max-width: 294px;
+  #{$uiKitScrollColorThumb}: var(--primary-color);
+  #{$uiKitScrollOutlineThumb}: var(--primary-dark);
+  @include customScrollBar();
+}
+
+.list {
+  display: flex;
+}
+
+.list-item {
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.selected-item {
+  font-size: 10px;
+  display: inline-block;
+  margin: -35px 10px;
+  transition: transform 0.3s;
+
+  .selected-box:hover & {
+    transform: scale(1.48) translateX(10px);
+  }
+}
+
+.selected-box {
+  overflow: hidden;
+  display: flex;
+  position: relative;
+  z-index: 3;
+
+  &:hover {
+    overflow: visible;
+  }
+}
+.message {
+  font-size: 14px;
+  text-align: center;
+  padding: 2px 0 4px;
+}

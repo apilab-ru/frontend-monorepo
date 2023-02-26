@@ -5,6 +5,12 @@ body {
   @include initTheme();
 }
 
+.p-toast {
+  width: calc(100vw - 20px) !important;
+  right: 10px !important;
+  top: auto !important;
+  bottom: 20px !important;
+}
 
 body {
   padding: 0;

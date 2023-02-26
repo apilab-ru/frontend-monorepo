@@ -2,6 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { Tab } from '../interface';
 import { from, map, Observable } from 'rxjs';
 import { runInZone } from '@angular-shared';
+import { checkNeedSkipDomain } from "@filecab/parser/skip-domains";
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ export class BrowserApiService {
       chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
         const tab = tabs[0];
 
-        if (!tab.url || tab.url.indexOf('chrome://') === 0) {
+        if (checkNeedSkipDomain(tab.url)) {
           subject.error('notSupportTab');
         } else {
           subject.next(tabs[0]);
@@ -31,11 +32,11 @@ export class BrowserApiService {
     };
   }
 
-  getActiveTabLinks(): Observable<{ url: string, domain: string }> {
+  /*getActiveTabLinks(): Observable<{ url: string, domain: string }> {
     return this.getActiveTab().pipe(
       map(tab => this.getTabLinks(tab))
     );
-  }
+  }*/
 
   executeScriptOnTab<R>(tabId: number, func: () => R, args: unknown[] = []): Observable<R> {
     return from(chrome.scripting.executeScript({

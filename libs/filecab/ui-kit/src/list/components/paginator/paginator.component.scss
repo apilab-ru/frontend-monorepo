@@ -1,0 +1,9 @@
+.root {
+  ::ng-deep {
+    .p-paginator, .p-paginator-element {
+      min-width: 30px !important;
+      height: 30px !important;
+      margin: 0.143rem;
+    }
+  }
+}

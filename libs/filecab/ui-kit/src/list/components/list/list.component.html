@@ -1,0 +1,17 @@
+<div class="root">
+   <div class="data" [class.-empty]="!list?.length">
+      <ng-template
+         *ngIf="list?.length; else emptyPlaceholder"
+         ngFor
+         [ngForOf]="list"
+         [ngForTrackBy]="trackBy"
+         [ngForTemplate]="rowTemplate"
+      ></ng-template>
+
+      <ng-template #emptyPlaceholder>
+         <div class="message">Нет данных</div>
+      </ng-template>
+   </div>
+
+   <filecab-paginator class="paginator"></filecab-paginator>
+</div>

@@ -1,0 +1,45 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.data {
+  flex: 1;
+  display: grid;
+  overflow: auto;
+  grid-template-columns: 1fr;
+  padding-bottom: 90px;
+
+  @media screen and (min-width: 1020px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  @media screen and (min-width: 1280px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  @media screen and (min-width: 1800px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+
+  &.-empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.message {
+  font-size: 18px;
+  margin-top: 160px;
+  margin-bottom: auto;
+}
+
+.paginator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: calc(100% - 24px);
+}

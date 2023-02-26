@@ -35,7 +35,7 @@
       "@filecab/background": ["apps/filecab/background/index.ts"],
       "@filecab/ui-kit/*": ["libs/filecab/ui-kit/src/*"],
       "@angular-shared": ["libs/angular-shared/src/index.ts"],
-      "@ui-kit": ["libs/ui-kit/src/*"],
+      "@ui-kit/*": ["libs/ui-kit/src/*"],
       "@store/*": ["libs/store/src/*"],
       "@store": ["libs/store/src/index.ts"]
     }

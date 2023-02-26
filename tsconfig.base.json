@@ -22,7 +22,7 @@
       "@filecab/models/*": ["libs/filecab/models/src/*"],
       "@store": ["libs/store/src/index.ts"],
       "@store/*": ["libs/store/src/*"],
-      "@ui-kit": ["libs/ui-kit/src/*"],
+      "@ui-kit/*": ["libs/ui-kit/src/*"],
       "@utils-monorep/server": ["libs/server/src/index.ts"]
     }
   },

@@ -1,25 +1,20 @@
 {
   "name": "ui-kit",
   "projectType": "library",
-  "sourceRoot": "ui-kit/src",
+  "sourceRoot": "libs/ui-kit/src",
   "prefix": "lib",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:ng-packagr",
       "options": {
-        "project": "ui-kit/ng-package.json",
-        "styles": [
-          "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
-          "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
-          "node_modules/@taiga-ui/styles/taiga-ui-global.less"
-        ]
+        "project": "libs/ui-kit/ng-package.json"
       },
       "configurations": {
         "production": {
-          "tsConfig": "ui-kit/tsconfig.lib.prod.json"
+          "tsConfig": "libs/ui-kit/tsconfig.lib.prod.json"
         },
         "development": {
-          "tsConfig": "ui-kit/tsconfig.lib.json"
+          "tsConfig": "libs/ui-kit/tsconfig.lib.json"
         }
       },
       "defaultConfiguration": "production"

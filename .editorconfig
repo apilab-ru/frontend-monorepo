@@ -15,7 +15,8 @@ ij_visual_guides = none
 ij_wrap_on_typing = false
 
 [*.html]
-insert_final_newline = false
+indent_size = 3
+tab_width = 3
 
 [*.md]
 insert_final_newline = false

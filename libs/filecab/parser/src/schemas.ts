@@ -1,9 +1,8 @@
 import { Types } from "@filecab/models/types";
+import { SearchId } from "@filecab/models";
 
-export interface SchemaFuncRes {
+export interface SchemaFuncRes extends SearchId {
   title: string;
-  id?: number;
-  idField?: string;
   type?: string | undefined;
 }
 

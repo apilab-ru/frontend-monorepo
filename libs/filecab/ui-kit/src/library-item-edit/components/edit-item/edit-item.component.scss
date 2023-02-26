@@ -61,6 +61,10 @@
   & + & {
     margin-top: 12px;
   }
+
+  &:empty {
+    display: none;
+  }
 }
 
 .save-button-box {

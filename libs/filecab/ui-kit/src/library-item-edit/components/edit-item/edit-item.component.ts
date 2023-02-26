@@ -10,8 +10,9 @@ import { Status, STATUS_LIST, STATUS_WITH_PROGRESS, STATUS_WITH_STARS } from '@f
 import { FormControl, FormGroup } from '@angular/forms';
 import { MetaData } from '@filecab/models/meta-data';
 import isEqual from 'lodash-es/isEqual';
-import { debounceTime } from 'rxjs';
+import { debounceTime, filter } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { MediaItem } from "@filecab/models";
 
 @UntilDestroy()
 @Component({
@@ -25,6 +26,8 @@ export class EditItemComponent implements OnChanges, OnInit {
   @Input() meta: MetaData;
   @Input() type: Types;
   @Input() name: string;
+  @Input() mediaItem?: MediaItem;
+  @Input() needShowSave = false;
 
   @Output() metaChange = new EventEmitter<MetaData>();
   @Output() typeChange = new EventEmitter<Types>();
@@ -57,6 +60,7 @@ export class EditItemComponent implements OnChanges, OnInit {
   ngOnInit(): void {
     this.nameControl.valueChanges.pipe(
       debounceTime(300),
+      filter(value => value !== this.name),
       untilDestroyed(this),
     ).subscribe(name => {
       this.nameChange.emit(name || '');
@@ -64,7 +68,9 @@ export class EditItemComponent implements OnChanges, OnInit {
   }
 
   onTypeUpdate(type: Types): void {
-    this.typeChange.emit(type);
+    if (type !== this.type) {
+      this.typeChange.emit(type);
+    }
   }
 
   isMetaChanged(value: MetaData): boolean {

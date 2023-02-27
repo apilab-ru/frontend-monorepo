@@ -1,0 +1,19 @@
+.palette {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 6px;
+}
+
+.color {
+  display: inline-flex;
+  padding: 10px;
+  cursor: pointer;
+  align-items: center;
+}
+
+.example {
+  width: 40px;
+  height: 40px;
+  margin-right: 12px;
+  border: 1px solid #ccc;
+}

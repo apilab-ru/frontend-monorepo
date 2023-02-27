@@ -1,0 +1,11 @@
+<div class="root">
+   <h2>Colors</h2>
+
+   <div class="palette">
+      <span *ngFor="let item of colors" class="color" [uiCopyClick]="'var(' + item.key + ')'">
+         <span class="example" [style.background]="'var(' + item.key + ')'"></span>
+
+         {{ item.key }}
+      </span>
+   </div>
+</div>

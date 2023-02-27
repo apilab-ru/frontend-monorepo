@@ -1,5 +1,6 @@
 import { LibraryItemV2 } from "@filecab/models/library";
 import { LibraryItemType } from "@filecab/models";
+import { Types } from "@filecab/models/types";
 
 export const MOCK_LIBRARY_ITEM: LibraryItemV2 = {
   "comment": "",
@@ -23,4 +24,8 @@ export const MOCK_LIBRARY_ITEM: LibraryItemV2 = {
   "progress": 0,
   "star": 10,
   "status": "complete",
-  "url": "https://shikimori.one/animes/z33674
+  "url": "https://shikimori.one/animes/z33674",
+  dateAd: '',
+  dateChange: '',
+  type: Types.anime,
+}

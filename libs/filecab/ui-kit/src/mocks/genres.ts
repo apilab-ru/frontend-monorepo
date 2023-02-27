@@ -605,7 +605,4 @@ export const GENRES = [
     "smotretId": 40,
     "kinopoiskId": null
   },
-  {
-    "id": 57,
-    "name": "Сейнен",
-    "key": "seinen",
+]

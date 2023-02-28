@@ -1,3 +1,86 @@
 <div class="root">
-   <p-paginator></p-paginator>
+   <div class="pages">
+      <button
+         pButton
+         pRipple
+         type="button"
+         icon="pi pi-angle-double-left"
+         [disabled]="(page$ | async) < 2"
+         (click)="setPage(1)"
+         class="p-button-rounded p-button-text p-button-secondary"
+      ></button>
+      <button
+         pButton
+         pRipple
+         type="button"
+         icon="pi pi-angle-left"
+         [disabled]="(page$ | async) < 2"
+         (click)="prevPage()"
+         class="p-button-rounded p-button-text p-button-secondary"
+      ></button>
+      <button
+         pButton
+         pRipple
+         type="button"
+         icon="pi pi-angle-right"
+         [disabled]="!(hasMore$ | async)"
+         (click)="nextPage()"
+         class="p-button-rounded p-button-text p-button-secondary"
+      ></button>
+      <button
+         pButton
+         pRipple
+         type="button"
+         icon="pi pi-angle-double-right"
+         [disabled]="!(canGoToLast$ | async)"
+         (click)="lastPage()"
+         class="p-button-rounded p-button-text p-button-secondary"
+      ></button>
+   </div>
+
+   <div class="info">
+      <div *ngIf="page$ | async as page" class="page">
+         {{ page }}
+      </div>
+
+      <div *ngIf="totalPages$ | async as totalPages" class="page -total">
+         &nbsp;/ {{ totalPages }}
+      </div>
+
+      <p-dropdown
+         class="limit"
+         [options]="limitViewList"
+         [ngModel]="limit$ | async"
+         optionLabel="name"
+         optionValue="key"
+      ></p-dropdown>
+   </div>
+
+   <div class="sort">
+      <span class="p-float-label">
+         <p-dropdown
+            inputId="orderField"
+            class="dropdown-field"
+            [options]="orderFields"
+            [ngModel]="orderField$ | async"
+            (ngModelChange)="setOrderField($event)"
+            optionLabel="name"
+            optionValue="key"
+         ></p-dropdown>
+         <label for="orderField" class="label">Сортировать по</label>
+      </span>
+
+      <span class="p-float-label">
+         <p-dropdown
+            inputId="orderType"
+            class="dropdown-order"
+            [ngModel]="orderType$ | async"
+            (ngModelChange)="setOrderType($event)"
+            [options]="orderTypeList"
+            optionLabel="name"
+            optionValue="key"
+         ></p-dropdown>
+         <label for="orderType" class="label">Направление</label>
+      </span>
+   </div>
 </div>

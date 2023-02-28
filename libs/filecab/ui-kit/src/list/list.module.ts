@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PaginatorModule } from 'primeng/paginator';
 import { UiListComponent } from "./components/list/list.component";
 import { UiListIteratorDirective } from "./list-iterator-directive";
 import { UiPaginatorComponent } from "./components/paginator/paginator.component";
+import { ButtonModule } from "primeng/button";
+import { RippleModule } from "primeng/ripple";
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -13,7 +16,10 @@ import { UiPaginatorComponent } from "./components/paginator/paginator.component
   ],
   imports: [
     CommonModule,
-    PaginatorModule,
+    ButtonModule,
+    RippleModule,
+    DropdownModule,
+    FormsModule,
   ],
   exports: [
     UiListComponent,

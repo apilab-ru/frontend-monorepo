@@ -1,9 +1,75 @@
 .root {
+  padding: 5px;
+  background: var(--surface-a);
+  display: flex;
+  align-items: center;
+  opacity: 0.5;
+  transition: .1s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.pages {
+  display: flex;
+  margin: 0 0 0 auto;
+}
+
+.page {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.info {
+  margin-left: 40px;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+}
+
+.limit {
+  margin-left: 16px;
+}
+
+.dropdown-field {
+  width: 200px;
+  display: flex;
+
   ::ng-deep {
-    .p-paginator, .p-paginator-element {
-      min-width: 30px !important;
-      height: 30px !important;
-      margin: 0.143rem;
+    .p-dropdown {
+      width: 100%;
     }
   }
+}
+
+.dropdown-order {
+  width: 90px;
+  display: flex;
+  margin-left: 12px;
+
+  ::ng-deep {
+    .p-dropdown {
+      width: 100%;
+    }
+
+    .p-dropdown .p-dropdown-trigger {
+      width: 2rem !important;
+    }
+  }
+}
+
+.label {
+  padding: 4px;
+  border-radius: 4px;
+  background: var(--surface-a);
+  font-size: 14px !important;
+  top: -14px !important;
+}
+
+.sort {
+  width: 300px;
+  margin-right: 40px;
+  display: flex;
+  align-items: center;
 }

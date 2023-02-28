@@ -9,20 +9,11 @@
   flex: 1;
   display: grid;
   overflow: auto;
-  grid-template-columns: 1fr;
   padding-bottom: 90px;
+  grid-template-columns: var(--ui-grid-columns);
+  grid-template-rows: max-content;
+  grid-gap: 12px;
 
-  @media screen and (min-width: 1020px) {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-
-  @media screen and (min-width: 1280px) {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
-
-  @media screen and (min-width: 1800px) {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  }
 
   &.-empty {
     display: flex;

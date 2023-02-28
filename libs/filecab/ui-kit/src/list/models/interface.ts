@@ -1,7 +1,6 @@
-export interface DataSourceState {
-  hasMore: boolean;
-  loading: boolean;
-  total?: number;
+export interface DropdownItem {
+  key: string | number;
+  name: string | number;
 }
 
 export interface OrderField {

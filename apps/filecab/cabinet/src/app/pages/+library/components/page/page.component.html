@@ -5,8 +5,11 @@
 <filecab-list
    class="list"
    [list]="list$ | async"
+   [limitList]="limitList"
+   [orderFields]="orderFields"
 >
    <cabinet-card
       *listIterator="let item of (list$ | async); trackBy: trackById"
+      [item]="item"
    ></cabinet-card>
 </filecab-list>

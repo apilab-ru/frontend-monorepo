@@ -5,6 +5,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { LayoutTopSlotDirective } from "../../shared/directives/layout-top-slot.directive";
 import { UiListModule } from "@filecab/ui-kit/list/list.module";
 import { CardComponent } from "./components/card/card.component";
+import { MediaItemModule } from "@filecab/ui-kit/media-item";
 
 const routes: Routes = [
   {
@@ -22,7 +23,8 @@ const routes: Routes = [
     CommonModule,
     LayoutTopSlotDirective,
     UiListModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MediaItemModule
   ]
 })
 export class LibraryModule {

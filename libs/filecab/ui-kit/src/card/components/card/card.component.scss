@@ -1,0 +1,213 @@
+@import "../../../stars/star";
+@import "libs/ui-kit/src/scroll/main";
+
+.card {
+  box-sizing: border-box;
+  position: relative;
+  font-size: 12px;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: 2px 2px 2px var(--surface-b);
+
+  &__genres {
+    position: absolute;
+    top: 4px;
+    border-radius: 4px;
+    left: 0;
+    width: 170px;
+  }
+
+  &__year {
+    font-weight: bold;
+  }
+
+  &__rating {
+    font-weight: bold;
+  }
+
+  &__submit {
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+  }
+}
+
+.status-list {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.progress {
+  margin-left: auto;
+}
+
+.card__save {
+  margin-top: 8px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card__delete {
+  display: none;
+  position: absolute;
+  top: 2px;
+  right: 62px;
+  color: var(--text-color-secondary);
+  border: none;
+  background: none;
+  font-size: 26px;
+  padding: 3px;
+  cursor: pointer;
+  transition: 0.3s;
+  line-height: 1em;
+
+  &:hover {
+    color: #f44336;
+  }
+
+  .card:hover & {
+    display: block;
+  }
+}
+
+.card__image {
+  width: 170px;
+  height: 250px;
+  object-fit: cover;
+  margin-top: 4px;
+  border-radius: 4px;
+}
+
+.card__info {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+}
+
+.card__link {
+  margin-top: 15px;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #616161e6;
+  color: var(--primary-color-text);
+  padding: 1px 5px 4px;
+  width: 170px;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.card__title {
+  font-size: 16px;
+  line-height: 1.3em;
+  display: flex;
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.title-text {
+  display: block;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card__description {
+  padding-left: 10px;
+  max-height: 255px;
+  overflow: hidden;
+  flex: 1;
+  font-size: 12px;
+
+  &:hover {
+    overflow: auto;
+    padding-right: 3px;
+  }
+
+  @include customScrollBar();
+}
+
+.card__subtitle {
+  display: flex;
+  margin-top: 4px;
+}
+
+.card__episodes {
+  margin-left: 20px;
+}
+
+.comment {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.meta-data-box {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  display: block;
+  padding: 10px;
+}
+
+.star-box {
+  display: flex;
+  margin-left: auto;
+  font-size: 12px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.star {
+  @include star;
+  --star-color: #0091ea;
+  --star-hover-color: #0091ea;
+  --star-selected-color: #0091ea;
+  --star-size: 9px;
+
+  margin-left: 3px;
+
+  &.-completed {
+    --star-color: #ffeb3b;
+  }
+
+  &.-edit-mode {
+    --star-color: #00c853;
+  }
+}
+
+.star-button {
+  border: none;
+  margin-left: 3px;
+  outline: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  position: relative;
+}
+
+.star-edit {
+  font-size: 10px;
+  color: var(--text-color-secondary);
+  position: absolute;
+  right: 5px;
+  bottom: 2px;
+  transition: 0.3s;
+  opacity: 0;
+
+  .star-button:hover & {
+    opacity: 0.7;
+  }
+
+
+  &.-hide {
+    opacity: 0;
+  }
+}

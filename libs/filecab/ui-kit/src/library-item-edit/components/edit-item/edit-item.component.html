@@ -1,61 +1,61 @@
 <div class="root">
-  <div class="card">
-    <p-selectButton
-      class="types"
-      [options]="types"
-      [ngModel]="type"
-      (ngModelChange)="onTypeUpdate($event)"
-      optionLabel="name"
-      optionValue="path"
-    ></p-selectButton>
+   <div class="card">
+      <p-selectButton
+         class="types"
+         [options]="types"
+         [ngModel]="type"
+         (ngModelChange)="onTypeUpdate($event)"
+         optionLabel="name"
+         optionValue="path"
+      ></p-selectButton>
 
-    <div class="p-float-label text-box">
-      <input class="input" id="float-input" type="text" pInputText [formControl]="nameControl">
-      <label for="float-input">Название материала</label>
-    </div>
-  </div>
+      <div class="p-float-label text-box">
+         <input class="input" id="float-input" type="text" pInputText [formControl]="nameControl">
+         <label for="float-input">Название материала</label>
+      </div>
+   </div>
 
-  <div class="card">
-    <ng-content></ng-content>
-  </div>
+   <div class="card">
+      <ng-content></ng-content>
+   </div>
 
-  <div class="card" [formGroup]="formMeta">
-    <div class="status-list">
-      <p-dropdown
-        formControlName="status"
-        [tooltip]="'Статус'"
-        [options]="statuses"
-        optionLabel="name"
-        optionValue="status"
-        scrollHeight="400px"
-      ></p-dropdown>
+   <div class="card" [formGroup]="formMeta">
+      <div class="status-list">
+         <p-dropdown
+            formControlName="status"
+            [tooltip]="'Статус'"
+            [options]="statuses"
+            optionLabel="name"
+            optionValue="status"
+            scrollHeight="400px"
+         ></p-dropdown>
 
-      <filecab-progress
-        *ngIf="statusWithProgress.includes(formMeta.value.status)"
-        class="progress"
-        formControlName="progress"
-        [total]="mediaItem?.episodes || 0"
-      ></filecab-progress>
-    </div>
+         <filecab-progress
+            *ngIf="statusWithProgress.includes(formMeta.value.status)"
+            class="progress"
+            formControlName="progress"
+            [total]="mediaItem?.episodes || 0"
+         ></filecab-progress>
+      </div>
 
-    <filecab-stars
-      *ngIf="statusWithStars.includes(formMeta.value.status)"
-      class="stars"
-      formControlName="star"
-    ></filecab-stars>
+      <filecab-stars
+         *ngIf="statusWithStars.includes(formMeta.value.status)"
+         class="stars"
+         formControlName="star"
+      ></filecab-stars>
 
-    <div class="comment-box p-float-label">
-            <textarea
-              formControlName="comment"
-              id="comment"
-              class="comment"
-              pInputTextarea
-            ></textarea>
-      <label for="comment">Комментарий</label>
-    </div>
+      <div class="comment-box p-float-label">
+         <textarea
+            formControlName="comment"
+            id="comment"
+            class="comment"
+            pInputTextarea
+         ></textarea>
+         <label for="comment">Комментарий</label>
+      </div>
 
-    <div *ngIf="isMetaChanged(formMeta.getRawValue()) || needShowSave" class="save-button-box">
-      <p-button label="Сохранить" icon="pi pi-check" styleClass="p-button-sm" (click)="saveMeta()"></p-button>
-    </div>
-  </div>
+      <div *ngIf="isMetaChanged(formMeta.getRawValue()) || needShowSave" class="save-button-box">
+         <p-button label="Сохранить" icon="pi pi-check" styleClass="p-button-sm" (click)="saveMeta()"></p-button>
+      </div>
+   </div>
 </div>

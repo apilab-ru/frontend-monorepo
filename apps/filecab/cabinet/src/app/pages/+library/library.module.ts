@@ -4,8 +4,9 @@ import { PageComponent } from "./components/page/page.component";
 import { RouterModule, Routes } from "@angular/router";
 import { LayoutTopSlotDirective } from "../../shared/directives/layout-top-slot.directive";
 import { UiListModule } from "@filecab/ui-kit/list/list.module";
-import { CardComponent } from "./components/card/card.component";
-import { MediaItemModule } from "@filecab/ui-kit/media-item";
+
+import { FormsModule } from "@angular/forms";
+import { FilecabCardModule } from "@filecab/ui-kit/card/card.module";
 
 const routes: Routes = [
   {
@@ -17,14 +18,14 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     PageComponent,
-    CardComponent,
   ],
   imports: [
     CommonModule,
     LayoutTopSlotDirective,
     UiListModule,
     RouterModule.forChild(routes),
-    MediaItemModule
+    FormsModule,
+    FilecabCardModule,
   ]
 })
 export class LibraryModule {

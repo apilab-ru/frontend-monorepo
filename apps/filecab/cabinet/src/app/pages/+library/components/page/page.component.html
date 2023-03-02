@@ -8,8 +8,9 @@
    [limitList]="limitList"
    [orderFields]="orderFields"
 >
-   <cabinet-card
+   <filecab-card
       *listIterator="let item of (list$ | async); trackBy: trackById"
       [item]="item"
-   ></cabinet-card>
+      [isLibraryMode]="true"
+   ></filecab-card>
 </filecab-list>

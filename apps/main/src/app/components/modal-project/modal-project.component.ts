@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_LEGACY_DIALOG_DATA, MatLegacyDialogRef } from '@angular/material/legacy-dialog';
 import { ProjectCardComponent } from '../project-card/project-card.component';
 import { Project } from '../interfaces/project';
 import { provideTranslation } from '../../libs/translate';
@@ -8,13 +8,14 @@ import { provideTranslation } from '../../libs/translate';
   selector: 'app-modal-project',
   templateUrl: './modal-project.component.html',
   styleUrls: ['./modal-project.component.scss'],
-  providers: [provideTranslation('modalProject', () => require.context('./translation'))],
+  // @ts-ignore
+  providers: [provideTranslation('modalProject', () => import.meta.webpackContext('./translation'))],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalProjectComponent {
   constructor(
-    public dialogRef: MatDialogRef<ProjectCardComponent>,
-    @Inject(MAT_DIALOG_DATA) public detail: Project,
+    public dialogRef: MatLegacyDialogRef<ProjectCardComponent>,
+    @Inject(MAT_LEGACY_DIALOG_DATA) public detail: Project,
   ) {
   }
 

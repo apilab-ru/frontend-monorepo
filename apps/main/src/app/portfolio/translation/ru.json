@@ -1,5 +1,24 @@
 {
   "list": {
+    "bsab": {
+      "details": [
+        {
+          "text": "Приложение для парсинга и поиска карт для BeatSaber с продвинутым фильтром"
+        },
+        {
+          "text": "Через отдельный локальный решает проблему с медленной загрузкой карт с помощью парсинга - скачивает локально все карты с сервера, и проксирует их загрузку.",
+          "image": "/assets/img/projects/details/bsab/list.jpg"
+        },
+        {
+          "text": "Само приложение, может работать через локальный прокси, так и без него",
+          "image": "/assets/img/projects/details/bsab/list.jpg"
+        },
+        {
+          "text": "Фильтры",
+          "image": "/assets/img/projects/details/bsab/filter.jpg"
+        }
+      ]
+    },
     "worklog-analyze": {
       "details": [
         {

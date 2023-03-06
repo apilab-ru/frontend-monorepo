@@ -7,7 +7,8 @@ import { provideTranslation } from '../../libs/translate';
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
-  providers: [provideTranslation('menu', () => require.context('./translation'))],
+  // @ts-ignore
+  providers: [provideTranslation('menu', () => import.meta.webpackContext('./translation'))],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuComponent {

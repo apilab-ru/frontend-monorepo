@@ -1,8 +1,11 @@
 @import '../../styles/colors';
 @import '../../styles/breakpoints';
+@import 'libs/ui-kit/src/scroll/main';
 
 .modal {
   max-width: 760px;
+  width: 100vw;
+  @include customScrollBar();
 }
 
 .close {
@@ -29,6 +32,9 @@
 
 .details {
   margin-top: 16px;
+  font-family: Open Sans,sans-serif;
+  color: #252525;
+  line-height: 1.5em;
 }
 
 .image {

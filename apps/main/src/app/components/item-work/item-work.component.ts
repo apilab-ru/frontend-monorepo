@@ -7,7 +7,8 @@ import differenceInDays from "date-fns/differenceInDays";
   selector: 'app-item-work',
   templateUrl: './item-work.component.html',
   styleUrls: ['./item-work.component.scss'],
-  providers: [provideTranslation('itemWork', () => require.context('./translation'))],
+  // @ts-ignore
+  providers: [provideTranslation('itemWork', () => import.meta.webpackContext('./translation'))],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ItemWorkComponent implements OnChanges {

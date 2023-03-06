@@ -6,7 +6,8 @@ import { provideTranslation } from '../../libs/translate';
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [provideTranslation('footer', () => require.context('./translation'))],
+  // @ts-ignore
+  providers: [provideTranslation('footer', () => import.meta.webpackContext('./translation'))],
 })
 export class FooterComponent {
   year = new Date();

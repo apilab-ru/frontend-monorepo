@@ -7,14 +7,9 @@
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/filecab/ui-kit/**/*.ts",
-          "libs/filecab/ui-kit/**/*.html"
-        ]
+        "lintFilePatterns": ["libs/filecab/ui-kit/**/*.ts", "libs/filecab/ui-kit/**/*.html"]
       }
     },
     "storybook": {
@@ -24,9 +19,7 @@
         "configDir": "libs/filecab/ui-kit/.storybook",
         "browserTarget": "filecab-ui-kit:build-storybook",
         "compodoc": false,
-        "styles": [
-          "libs/filecab/ui-kit/.storybook/global.scss"
-        ]
+        "styles": ["libs/filecab/ui-kit/.storybook/global.scss"]
       },
       "configurations": {
         "ci": {
@@ -36,9 +29,7 @@
     },
     "build-storybook": {
       "executor": "@storybook/angular:build-storybook",
-      "outputs": [
-        "{options.outputDir}"
-      ],
+      "outputs": ["{options.outputDir}"],
       "options": {
         "outputDir": "dist/storybook/filecab-ui-kit",
         "configDir": "libs/filecab/ui-kit/.storybook",

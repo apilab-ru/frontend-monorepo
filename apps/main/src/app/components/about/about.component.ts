@@ -5,7 +5,8 @@ import { provideTranslation } from '../../libs/translate';
   selector: 'app-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss'],
-  providers: [provideTranslation('about', () => require.context('./translation'))],
+  // @ts-ignore
+  providers: [provideTranslation('about', () => import.meta.webpackContext('./translation'))],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AboutComponent {

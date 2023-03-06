@@ -13,7 +13,8 @@ import { Work } from '../interfaces/work';
   selector: 'app-experience',
   templateUrl: './experience.component.html',
   styleUrls: ['./experience.component.scss'],
-  providers: [provideTranslation('experience', () => require.context('./translation'))],
+  // @ts-ignore
+  providers: [provideTranslation('experience', () => import.meta.webpackContext('./translation'))],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExperienceComponent implements OnInit  {

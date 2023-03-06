@@ -8,7 +8,8 @@ import { TranslocoService } from '@ngneat/transloco';
   selector: 'header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  providers: [provideTranslation('header', () => require.context('./translation'))],
+  // @ts-ignore
+  providers: [provideTranslation('header', () => import.meta.webpackContext('./translation'))],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {

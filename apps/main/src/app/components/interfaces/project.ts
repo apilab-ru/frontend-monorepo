@@ -1,5 +1,11 @@
 import { ProjectType } from '../../portfolio/portfolio';
 
+export interface ProjectLink {
+  name?: string,
+  icon?: 'github';
+  href: string;
+}
+
 export interface Project {
   id: string;
   img: string;
@@ -8,15 +14,7 @@ export interface Project {
   types: ProjectType[];
   title: string;
   stack: string;
-  link?: {
-    name?: string,
-    href: string,
-    github?: string,
-  },
-  link2?: {
-    name?: string,
-    href: string,
-  },
+  links: ProjectLink[];
   details: {
     text?: string;
     image?: string;

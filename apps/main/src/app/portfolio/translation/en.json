@@ -1,5 +1,24 @@
 {
   "list": {
+    "bsab": {
+      "details": [
+        {
+          "text": "Map parsing and searching app for BeatSaber with advanced filter"
+        },
+        {
+          "text": "Through a separate local server, it solves the problem with slow loading of maps using parsing - it downloads all maps locally from the server and proxies their download.",
+          "image": "/assets/img/projects/details/bsab/list.jpg"
+        },
+        {
+          "text": "The application itself can work through a local proxy, or without it",
+          "image": "/assets/img/projects/details/bsab/list.jpg"
+        },
+        {
+          "text": "Filters",
+          "image": "/assets/img/projects/details/bsab/filter.jpg"
+        }
+      ]
+    },
     "worklog-analyze": {
       "details": [
         {

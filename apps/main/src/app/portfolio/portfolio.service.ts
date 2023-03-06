@@ -17,7 +17,8 @@ export class PortfolioService {
   ) {
     registerTranslationManually(
       'portfolio',
-      () => require.context('./translation'),
+      // @ts-ignore
+      () => import.meta.webpackContext('./translation'),
       this.translocoService,
     );
 

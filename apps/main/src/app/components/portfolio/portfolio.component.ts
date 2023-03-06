@@ -17,7 +17,8 @@ interface Item<T> extends Element {
   selector: 'app-portfolio',
   templateUrl: './portfolio.component.html',
   styleUrls: ['./portfolio.component.scss'],
-  providers: [provideTranslation('portfolioPage', () => require.context('./translation'))],
+  // @ts-ignore
+  providers: [provideTranslation('portfolioPage', () => import.meta.webpackContext('./translation'))],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PortfolioComponent implements OnInit, AfterViewInit {

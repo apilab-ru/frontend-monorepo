@@ -1,4 +1,4 @@
-/// <reference path="../../../../../node_modules/@types/webpack-env/index.d.ts" />
+/// <reference path="../../../../../../../node_modules/@types/webpack-env/index.d.ts" />
 import { TRANSLOCO_SCOPE, TranslocoService } from '@ngneat/transloco';
 import { InjectionToken, Provider } from '@angular/core';
 import { IComponentTranslations } from './interface';

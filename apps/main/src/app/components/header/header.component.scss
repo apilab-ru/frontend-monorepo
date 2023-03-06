@@ -1,0 +1,88 @@
+@import '../../styles/colors';
+@import '../../styles/breakpoints';
+
+:host {
+  padding: 21px 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: $white;
+  border-bottom: 1px solid $lightGray;
+  z-index: 2;
+
+  @include isMobile() {
+    top: auto;
+    bottom: 0;
+    border-top: 1px solid #e3e3e3;
+    border-bottom: none;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+}
+
+.menu {
+  margin-left: auto;
+
+  @include isMobile() {
+    width: 100%;
+  }
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 1200px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.header__name {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.5;
+
+  span {
+    color: $blue;
+  }
+
+  @include isMobile() {
+    display: none;
+  }
+}
+
+.lang-switcher {
+  margin-left: 10px;
+  display: flex;
+}
+
+.lang {
+  width: 30px;
+  height: 18px;
+  background-size: contain;
+  border: 1px solid #2385e7;
+  border-radius: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  opacity: 0.4;
+
+  & + & {
+    margin-left: 2px;
+  }
+
+  &.-ru {
+    background: url('/assets/icons/ru.svg');
+  }
+
+  &.-en {
+    background: url('/assets/icons/en.svg');
+  }
+
+  &.-active {
+    cursor: initial;
+    opacity: 1;
+  }
+}
+

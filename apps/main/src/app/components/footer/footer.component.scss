@@ -1,0 +1,20 @@
+@import '../../styles/colors';
+@import '../../styles/breakpoints';
+
+.footer {
+  background-color: $backgroundFooter;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 0;
+
+  @include isMobile() {
+    padding-bottom: 55px;
+  }
+}
+
+.text {
+  font-size: 14px;
+  line-height: 1.5em;
+  margin: 0;
+}

@@ -1,0 +1,19 @@
+<section class="block-feedback">
+  <div class="container">
+    <div class="flex__row-left">
+      <div>
+        <app-title>Отзывы</app-title>
+        <p class="text">
+          Прочитайте отзывы моих клиентов, и убедитесь в успешности реализованных проектов.
+        </p>
+      </div>
+      <app-svg-zigzag></app-svg-zigzag>
+    </div>
+    <div class="flex__row-right">
+      <app-item-feedback
+        *ngFor="let feedback of feedback"
+        [feedback]="feedback"
+      ></app-item-feedback>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,28 @@
+<section class="block-portfolio">
+  <div class="container">
+    <app-title>{{ 'portfolioPage.title' | transloco }}</app-title>
+    <div class="filter">
+      <a class="filter__item"
+         [class.-active]="(filter$ | async) === null"
+         (click)="setFilter(null)"
+      >
+        {{ 'portfolioPage.allProjects' | transloco }}
+      </a>
+      <a *ngFor="let item of projectTypes"
+         class="filter__item"
+         (click)="setFilter(item)"
+         [class.-active]="(filter$ | async) === item"
+      >
+        {{ item }}
+      </a>
+    </div>
+    <div class="block-projects" #box>
+      <app-project-card
+        *ngFor="let project of projects$ | async; trackBy:trackById"
+        class="card"
+        [project]="project"
+        (click)="openDialog(project)"
+      ></app-project-card>
+    </div>
+  </div>
+</section>

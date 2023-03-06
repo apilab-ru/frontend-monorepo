@@ -1,0 +1,18 @@
+@import '../../styles/colors';
+@import '../../styles/breakpoints';
+
+.title {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.5;
+
+  span {
+    color: $blue;
+  }
+
+  @include isMobile() {
+    font-size: 25px;
+    line-height: 1.3;
+  }
+}

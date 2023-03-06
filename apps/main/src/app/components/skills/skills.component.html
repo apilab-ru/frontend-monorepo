@@ -1,0 +1,37 @@
+<section class="block-skills">
+  <div class="container">
+    <div class="flex__row-left">
+      <app-title>{{ 'skills.skills' | transloco }}</app-title>
+      <div class="text -first">
+        {{ 'skills.think.title' | transloco }}
+        <ul class="list">
+          <li class="list-item">{{ 'skills.think.myCalling' | transloco }}</li>
+          <li class="list-item">{{ 'skills.think.dream' | transloco }}</li>
+          <li class="list-item">{{ 'skills.think.goal' | transloco }}</li>
+        </ul>
+      </div>
+      <app-svg-zigzag class="zig-zag"></app-svg-zigzag>
+    </div>
+    <div class="flex__row-right">
+      <div class="skill-card line">
+        <h3 class="card__subtitle">Frontend</h3>
+        <p class="card__text">
+          Angular2+, HTML5, Javascript, TypeScript, ES6,
+          SCSS, Webpack, NPM, NGRX
+        </p>
+      </div>
+      <div class="skill-card line">
+        <h3 class="card__subtitle">Backend</h3>
+        <p class="card__text">Nodejs (NextJs), PHP, MySql, Java</p>
+      </div>
+      <div class="skill-card">
+        <h3 class="card__subtitle">Architecture</h3>
+        <p class="card__text">Team CodeStyle, OOP, GoF, Redux, Git</p>
+      </div>
+      <div class="skill-card">
+        <h3 class="card__subtitle">Team</h3>
+        <p class="card__text">Leading, Mentoring</p>
+      </div>
+    </div>
+  </div>
+</section>

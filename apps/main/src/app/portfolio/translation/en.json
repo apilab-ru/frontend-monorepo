@@ -1,0 +1,230 @@
+{
+  "list": {
+    "worklog-analyze": {
+      "details": [
+        {
+          "text": "Worklog analysis app"
+        },
+        {
+          "text": "An example of setting up export from Jira, and a script for importing a worklog into the desired format",
+          "image": "/assets/img/projects/details/worklog-analyze/help.jpg"
+        },
+        {
+          "text": "The worklog analysis page, where you need to insert json with the worklog, and you can experiment with the worklog grouping rules.",
+          "image": "/assets/img/projects/details/worklog-analyze/main.jpg"
+        }
+      ]
+    },
+    "file-cabinet": {
+      "details": [
+        {
+          "text": "Chrome extension for creating and managing a list of movies and TV shows to watch. Adding meta data to movies and advanced search. Api NodeJs (NestJS) with integration with smotret-anime.ru and api.themoviedb.org."
+        },
+        {
+          "text": "A page inside an extension, with a catalog and search",
+          "image": "/assets/img/projects/details/file-cabinet/full.jpg"
+        },
+        {
+          "text": "Movie search page from bookmarks",
+          "image": "/assets/img/projects/details/file-cabinet/analyze.jpg"
+        },
+        {
+          "text": "Opening a widget on a website with a movie to add a movie",
+          "image": "/assets/img/projects/details/file-cabinet/add.jpg"
+        },
+        {
+          "text": "Add popup with editing metadata",
+          "image": "/assets/img/projects/details/file-cabinet/popup.jpg"
+        }
+      ]
+    },
+    "record": {
+      "details": [
+        {
+          "text": "A project for learning songs in English."
+        },
+        {
+          "image": "/assets/img/projects/details/record/main.jpg"
+        },
+        {
+          "text": "Using the browser api: SpeechSynthesis, the translation of the line from the song and the English version of the reading are pronounced."
+        },
+        {
+          "text": "The user is then given the option to repeat the English version."
+        },
+        {
+          "text": "And with the help of SpeechRecognition and Levenshtein distance method, the accuracy of what is said with the lyrics is analyzed."
+        }
+      ]
+    },
+    "leads": {
+      "details": [
+        {
+          "text": "Authorization A001 / admin"
+        },
+        {
+          "text": "CRM system for managing call lists with real-time data update and statistics module."
+        },
+        {
+          "text": "Realtime data update is done based on firebase. The backend was originally written in php, but then migrated to nodejs to speed up work."
+        },
+        {
+          "image": "/assets/img/projects/details/leads/screen-users.jpg"
+        }
+      ]
+    },
+    "vue-calc": {
+      "titleShort": "Calculator on VueJs",
+      "title": "Web Component calculator on VueJs",
+      "details": [
+        {
+          "text": "A basket of goods, with the ability to edit the properties of items, with automatic price recalculation. Compiled into WebComponent for integration into any site."
+        },
+        {
+          "image": "/assets/img/projects/details/calc/main.png"
+        },
+        {
+          "image": "/assets/img/projects/details/calc/main-edit.png"
+        },
+        {
+          "image": "/assets/img/projects/details/calc/list.png"
+        },
+        {
+          "image": "/assets/img/projects/details/calc/order.png"
+        }
+      ]
+    },
+    "crm-lang": {
+      "titleShort": "CRM of foreign languages",
+      "title": "CRM schools for learning foreign languages",
+      "details": [
+        {
+          "text": "Frontend - angular. Backend on a self-written framework in php, with Swagger for api documentation."
+        },
+        {
+          "text": "Dashboard with statistics",
+          "image": "/assets/img/projects/details/crm-lang/dashboard.png"
+        },
+        {
+          "text": "Personal account for a student, teacher, group, corporate client.",
+          "image": "/assets/img/projects/details/crm-lang/student.png"
+        },
+        {
+          "text": "Add, remove and edit users.",
+          "image": "/assets/img/projects/details/crm-lang/users.png"
+        },
+        {
+          "text": "5 user roles, with different access and capabilities: Administrator, Manager, Corporate client, Educator, Student.",
+          "image": "/assets/img/projects/details/crm-lang/auth.png"
+        },
+        {
+          "text": "Teachers and managers have the opportunity to keep records of homework and assess the performance of the assignment for students, with a comment from the teacher and summary statistics."
+        },
+        {
+          "text": "Attendance log screen.",
+          "image": "/assets/img/projects/details/crm-lang/attendance.png"
+        },
+        {
+          "text": "Convenient timetable screens for groups, teacher and student.",
+          "image": "/assets/img/projects/details/crm-lang/schedule.png"
+        }
+      ]
+    },
+    "time": {
+      "titleShort": "Time tracking application",
+      "details": [
+        {
+          "text": "In our profession, it is important to estimate the time spent on a task and measure the actual time spent in order to make predictions more accurately. In addition, I must provide a report on how long which task took me.."
+        },
+        {
+          "text": "For this, I created for myself such a convenient tool for keeping track of time. I made it as simple and convenient as possible (and in a short time). With each user action, the data is saved in the localStorage of the browser (so that you do not accidentally close the tab without losing data)."
+        },
+        {
+          "image": "/assets/img/projects/details/time/time-main.jpg"
+        }
+      ]
+    },
+    "films": {
+      "titleShort": "List of films",
+      "title": "List of films",
+      "details": [
+        {
+          "text": "A small project, completed in 3 hours, for keeping a list of watched films. Adaptable for mobile devices."
+        },
+        {
+          "image": "/assets/img/projects/details/cinema/cinema.jpg"
+        },
+        {
+          "image": "/assets/img/projects/details/cinema/mobile.png"
+        }
+      ]
+    },
+    "pay-form": {
+      "titleShort": "Angular payment form",
+      "title": "Payment form with validation and adaptation for mobile, in angular 6.",
+      "details": [
+        {
+          "text": "Payment form with validation and adaptation for mobile, in angular 6."
+        },
+        {
+          "image": "/assets/img/projects/details/comepay/main.png"
+        },
+        {
+          "image": "/assets/img/projects/details/comepay/mobile.png"
+        }
+      ]
+    },
+    "slider": {
+      "titleShort": "Multilevel slider",
+      "title": "Multilevel slider",
+      "details": [
+        {
+          "text": "A circular multi-level slider with support for an unlimited number of levels and a very large number of elements (tested on 500,000 elements), with lazy loading of elements as needed."
+        },
+        {
+          "image": "/assets/img/projects/details/diagram/diagram.jpg"
+        },
+        {
+          "image": "/assets/img/projects/details/diagram/diagram.gif"
+        }
+      ]
+    },
+    "bouquet-editor": {
+      "titleShort": "Bouquet Editor",
+      "title": "Applications for Vkontakte, Bouquet Editor",
+      "details": [
+        {
+          "text": "A prototype of a bouquet editor application that allows you to select multiple flowers, group them into a bouquet, attach stickers to them, and write a note to the bouquet. As the bouquet is issued, the cost is automatically calculated, after registration, a photo of the received bouquet is sent to the administrator."
+        },
+        {
+          "image": "/assets/img/projects/details/bouquet/main.png"
+        },
+        {
+          "image": "/assets/img/projects/details/bouquet/stock.jpg"
+        }
+      ]
+    },
+    "crm-stock": {
+      "titleShort": "CRM Stock",
+      "title": "CRM Stock",
+      "details": [
+        {
+          "text": "Crm for accounting for sales and maintaining a balance of store goods."
+        },
+        {
+          "image": "/assets/img/projects/details/ambar/ambar.png"
+        },
+        {
+          "image": "/assets/img/projects/details/ambar/menu.png"
+        },
+        {
+          "image": "/assets/img/projects/details/ambar/filter.png"
+        }
+      ]
+    },
+    "portal": {
+      "titleShort": "Company Portal",
+      "title": "Company Portal"
+    }
+  }
+}

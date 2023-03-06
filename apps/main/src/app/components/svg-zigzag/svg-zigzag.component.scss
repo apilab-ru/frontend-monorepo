@@ -1,0 +1,22 @@
+.zig-zag__box {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.zig-zag {
+  fill: none;
+  width: 100px;
+  color: #efefef;
+}
+
+.zig-zag.primary {
+  color: #2385e7;
+}
+
+.zig-zag__polyline {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 7;
+  stroke-miterlimit: 10;
+}

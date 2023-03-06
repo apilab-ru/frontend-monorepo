@@ -1,0 +1,230 @@
+{
+  "list": {
+    "worklog-analyze": {
+      "details": [
+        {
+          "text": "Приложение для анализа ворклога"
+        },
+        {
+          "text": "Пример настройки экспорта из Jira, и скрипт импорта ворклога в нужный формат",
+          "image": "/assets/img/projects/details/worklog-analyze/help.jpg"
+        },
+        {
+          "text": "Страница анализа ворклога, куда нужно вставить json с ворклогом, и можно экспериментировать с правилами группировки ворклога.",
+          "image": "/assets/img/projects/details/worklog-analyze/main.jpg"
+        }
+      ]
+    },
+    "file-cabinet": {
+      "details": [
+        {
+          "text": "Chrome extension для создания и управления списка фильмов и сериалов для просмотра. Добавление мета данных к фильмам и расширенный поиск. Api NodeJs(NestJS) с интеграцией с smotret-anime.ru и api.themoviedb.org."
+        },
+        {
+          "text": "Страница внутри расширения, с каталогом и поиском",
+          "image": "/assets/img/projects/details/file-cabinet/full.jpg"
+        },
+        {
+          "text": "Страница поиска фильма из закладок",
+          "image": "/assets/img/projects/details/file-cabinet/analyze.jpg"
+        },
+        {
+          "text": "Открытие виджета на сайте с фильмом, для добавления фильма",
+          "image": "/assets/img/projects/details/file-cabinet/add.jpg"
+        },
+        {
+          "text": "Поап добавления с редактированием мета-данных",
+          "image": "/assets/img/projects/details/file-cabinet/popup.jpg"
+        }
+      ]
+    },
+    "record": {
+      "details": [
+        {
+          "text": "Проект для изучения песен на английском."
+        },
+        {
+          "image": "/assets/img/projects/details/record/main.jpg"
+        },
+        {
+          "text": "С помощью браузерного апи: SpeechSynthesis произносится перевод строки из песни и вариант прочтения на английском."
+        },
+        {
+          "text": "Затем пользователю предоставляется возможность повторить английский вариант."
+        },
+        {
+          "text": "И с помощью SpeechRecognition и метода расстояния Левенштейна анализируется точность сказанного с текстом песни."
+        }
+      ]
+    },
+    "leads": {
+      "details": [
+        {
+          "text": "Авторизация A001 / admin"
+        },
+        {
+          "text": "CRM система для управления списками обзвона с обновлением данных в реальном времени и модулем статистики."
+        },
+        {
+          "text": "Реалтайм обновление данных осуществляется на основе firebase. Бэкенд изначально был написан на php, но затем мигрирован на nodejs для ускорения работы."
+        },
+        {
+          "image": "/assets/img/projects/details/leads/screen-users.jpg"
+        }
+      ]
+    },
+    "vue-calc": {
+      "titleShort": "Калькулятор на VueJs",
+      "title": "Web Component калькулятор на VueJs",
+      "details": [
+        {
+          "text": "Корзина товаров, с возможностью редактирования свойств позиций, с авто перерасчётом цены. Скомпилировано в WebComponent для интеграции на любой сайт."
+        },
+        {
+          "image": "/assets/img/projects/details/calc/main.png"
+        },
+        {
+          "image": "/assets/img/projects/details/calc/main-edit.png"
+        },
+        {
+          "image": "/assets/img/projects/details/calc/list.png"
+        },
+        {
+          "image": "/assets/img/projects/details/calc/order.png"
+        }
+      ]
+    },
+    "crm-lang": {
+      "titleShort": "CRM иностранных языков",
+      "title": "CRM школы изучения иностранных языков",
+      "details": [
+        {
+          "text": "Фронтенд - angular. Бакенд на сампописном фреймворке на php, с использованием Swagger для документации апи."
+        },
+        {
+          "text": "Дашборд со статистикой",
+          "image": "/assets/img/projects/details/crm-lang/dashboard.png"
+        },
+        {
+          "text": "Личный кабинет для ученика, педагога, группы, корпоративного клиента.",
+          "image": "/assets/img/projects/details/crm-lang/student.png"
+        },
+        {
+          "text": "Добавление, удаление, редактирование пользователей.",
+          "image": "/assets/img/projects/details/crm-lang/users.png"
+        },
+        {
+          "text": "5 ролей пользователей, с разным доступом и возможностями: Администратор, Менеджер, Корпоративный клиент, Педагог, Ученик.",
+          "image": "/assets/img/projects/details/crm-lang/auth.png"
+        },
+        {
+          "text": "У педагогов и менеджеров есть возможность вести записи о домашнем задании и оценки выполнения задания для учеников, с комментарием от педагога и сводной статистикой."
+        },
+        {
+          "text": "Экран учёта посещений.",
+          "image": "/assets/img/projects/details/crm-lang/attendance.png"
+        },
+        {
+          "text": "Удобные экраны расписания для групп, педагога и ученика.",
+          "image": "/assets/img/projects/details/crm-lang/schedule.png"
+        }
+      ]
+    },
+    "time": {
+      "titleShort": "Приложение учёта времени",
+      "details": [
+        {
+          "text": "В нашей профессии важно оценивать время, затраченное на задачу, и замерять фактически потраченное время, чтобы делать прогнозы точнее. К тому же, я должен предоставить отчет, сколько времени какая задача у меня заняла."
+        },
+        {
+          "text": "Для этого я создал себе такой удобный инструмент для ведения учёта времени. Я делал его максимально простым и удобным (и в короткие сроки). При каждом действии пользователя данные сохраняются в localStorage браузера (чтобы случайно закрыв вкладку не потерять данные)."
+        },
+        {
+          "image": "/assets/img/projects/details/time/time-main.jpg"
+        }
+      ]
+    },
+    "films": {
+      "titleShort": "Список фильмов",
+      "title": "Список фильмов",
+      "details": [
+        {
+          "text": "Маленький проект, сделанный за 3 часа, для ведения списка просмотренных фильмов. С адаптацией под мобильные устройства."
+        },
+        {
+          "image": "/assets/img/projects/details/cinema/cinema.jpg"
+        },
+        {
+          "image": "/assets/img/projects/details/cinema/mobile.png"
+        }
+      ]
+    },
+    "pay-form": {
+      "titleShort": "Форма оплаты на angular6",
+      "title": "Форма оплаты с валидацией и адаптацией под мобильный, на angular 6.",
+      "details": [
+        {
+          "text": "Форма оплаты с валидацией и адаптацией под мобильный, на angular6."
+        },
+        {
+          "image": "/assets/img/projects/details/comepay/main.png"
+        },
+        {
+          "image": "/assets/img/projects/details/comepay/mobile.png"
+        }
+      ]
+    },
+    "slider": {
+      "titleShort": "Многоуровневый слайдер",
+      "title": "Многоуровневый Слайдер",
+      "details": [
+        {
+          "text": "Круговой многоуровневый слайдер с поддержкой неограниченного количества уровней и очень большого кол-ва элементов (тестировалось на 500 000 элементах), с ленивой загрузкой элементов по мере необходимости."
+        },
+        {
+          "image": "/assets/img/projects/details/diagram/diagram.jpg"
+        },
+        {
+          "image": "/assets/img/projects/details/diagram/diagram.gif"
+        }
+      ]
+    },
+    "bouquet-editor": {
+      "titleShort": "Редактор Букетов",
+      "title": "Приложения для Вконтакте, Редактор Букетов",
+      "details": [
+        {
+          "text": "Прототип приложения редактора букетов, позволяющее выбрать несколько цветов, сгруппировать их в букет, прикрепить к ним стикеры, и написать записку к букету. По мере оформлении букета автоматически подсчитывается стоимость, после оформления, фотография полученного букета отправляется администратору."
+        },
+        {
+          "image": "/assets/img/projects/details/bouquet/main.png"
+        },
+        {
+          "image": "/assets/img/projects/details/bouquet/stock.jpg"
+        }
+      ]
+    },
+    "crm-stock": {
+      "titleShort": "CRM Склад",
+      "title": "CRM Склад",
+      "details": [
+        {
+          "text": "Crm для учёта продаж и ведения баланса товаров магазина."
+        },
+        {
+          "image": "/assets/img/projects/details/ambar/ambar.png"
+        },
+        {
+          "image": "/assets/img/projects/details/ambar/menu.png"
+        },
+        {
+          "image": "/assets/img/projects/details/ambar/filter.png"
+        }
+      ]
+    },
+    "portal": {
+      "titleShort": "Портал компании",
+      "title": "Портал компании"
+    }
+  }
+}

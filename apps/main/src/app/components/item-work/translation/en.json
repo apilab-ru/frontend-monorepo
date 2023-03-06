@@ -1,0 +1,4 @@
+{
+  "untilNow": "Until now",
+  "duration": "{duration, plural, one {# month} other {# months}}"
+}

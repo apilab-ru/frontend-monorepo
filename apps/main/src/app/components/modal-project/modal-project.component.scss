@@ -1,0 +1,84 @@
+@import '../../styles/colors';
+@import '../../styles/breakpoints';
+
+.modal {
+  max-width: 760px;
+}
+
+.close {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  display: flex;
+  width: 30px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: $blue;
+  border: none;
+  color: $white;
+  fill: $white;
+  border-radius: 3px;
+  outline: none;
+
+  &:hover {
+    box-shadow: 10px 10px 20px rgb(51 51 255 / 20%);
+  }
+}
+
+.details {
+  margin-top: 16px;
+}
+
+.image {
+  max-width: 100%;
+}
+
+.line {
+  display: flex;
+
+  & + & {
+    margin-top: 3px;
+  }
+}
+
+.key {
+  width: 90px;
+  font-weight: 700;
+
+  @include isMobile() {
+    display: none;
+  }
+}
+
+.value.-date {
+  text-transform: capitalize;
+
+  @include isMobile() {
+    font-size: 14px;
+    color: $gray;
+    display: flex;
+    margin-left: auto;
+  }
+}
+
+.link {
+  color: $black;
+  transition: all .3s ease;
+  text-decoration: underline;
+  display: block;
+
+  &:hover {
+    color: $blue;
+  }
+}
+
+.detail-item {
+  margin-top: 16px;
+}
+
+.text + .image {
+  margin-top: 6px;
+  display: block;
+}

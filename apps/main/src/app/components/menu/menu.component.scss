@@ -1,0 +1,67 @@
+@import '../../styles/colors';
+@import '../../styles/breakpoints';
+
+.menu {
+  @include isMobile() {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.menu__link {
+  margin-left: 30px;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: $blue;
+    text-decoration: underline;
+  }
+
+  &:active {
+    color: $blue;
+  }
+
+  &.-selected {
+    color: $blue;
+    text-decoration: underline;
+  }
+
+  @include isMobile() {
+    margin-left: 15px;
+    padding: 0 10px;
+    outline: none;
+    text-decoration: none !important;
+
+    &:hover, &:active {
+      color: $black;
+    }
+
+    &.-selected {
+      color: $blue;
+    }
+
+    &:first-of-type {
+      margin-left: 0;
+    }
+  }
+}
+
+.name {
+  @include isMobile() {
+    display: none;
+  }
+}
+
+.icon {
+  font-size: 20px;
+  display: none;
+
+  @include isMobile() {
+    display: block;
+  }
+}

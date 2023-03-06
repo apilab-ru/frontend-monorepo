@@ -1,0 +1,59 @@
+<div mat-dialog-content class="modal">
+  <app-title>
+    <span [innerHTML]="detail.title"></span>
+  </app-title>
+  <button class="close" (click)="onNoClick()">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z"></path>
+    </svg>
+  </button>
+
+  <div class="details">
+    <div class="line">
+      <span class="key">{{ 'modalProject.stack' | transloco }}</span>
+      <span class="value" [innerHTML]="detail.stack"></span>
+    </div>
+    <div class="line">
+      <span class="key">{{ 'modalProject.date' | transloco }}</span>
+      <span class="value -date">{{ detail.date | appDate | async }}</span>
+    </div>
+    <div *ngIf="detail.link" class="line">
+      <span class="key"></span>
+      <span class="value">
+        <a
+          *ngIf="detail.link.href"
+          class="link"
+          [href]="detail.link.href"
+        >
+          {{ detail.link.name || 'modalProject.link' | transloco }}
+        </a>
+
+        <a
+          *ngIf="detail?.link?.github"
+          class="link"
+          [href]="detail.link.github"
+        >
+          <span class="icon-github"></span>
+          <span class="link-name">Github</span>
+        </a>
+      </span>
+    </div>
+    <div *ngIf="detail.link2" class="line">
+      <span class="key"></span>
+      <span class="value">
+        <a
+          *ngIf="detail.link2.href"
+          class="link"
+          [href]="detail.link2.href"
+        >
+          {{ detail.link2.name || 'modalProject.link' | transloco }}
+        </a>
+      </span>
+    </div>
+  </div>
+
+  <section *ngFor="let item of detail.details" class="detail-item">
+    <div *ngIf="item.text" class="text" [innerHTML]="item.text"></div>
+    <img *ngIf="item.image" class="image" [src]="item.image"/>
+  </section>
+</div>

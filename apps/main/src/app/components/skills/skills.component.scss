@@ -1,0 +1,92 @@
+@import '../../styles/colors';
+@import '../../styles/breakpoints';
+
+.block-skills {
+  padding: 40px 0;
+  border-bottom: 1px solid $lightGray;
+  line-height: 1.5em;
+
+  @include isMobile() {
+    padding: 15px;
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @include isMobile() {
+    display: block;
+  }
+}
+
+.flex__row-left {
+  flex: 1;
+
+  @include isMobile() {
+    border-bottom: 1px solid $lightGray;
+    padding-bottom: 10px;
+  }
+}
+
+.flex__row-right {
+  flex: 2;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 15px;
+
+  @include isMobile() {
+    margin-left: 0;
+  }
+}
+
+.skill-card {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 15px;
+
+  @include isMobile() {
+    margin: 0;
+    max-width: none;
+  }
+}
+
+.card__subtitle {
+  @include isMobile() {
+    margin: 12px 0 0;
+  }
+}
+
+.card__text {
+  @include isMobile() {
+    margin: 8px 0 10px;
+  }
+}
+
+.line {
+  border-bottom: 1px solid $backgroundFooter;
+}
+
+.list {
+  margin: 0;
+  padding: 5px 0 10px 15px;
+}
+
+.list-item {
+  margin-top: 5px;
+}
+
+.text.-first {
+  @include isMobile() {
+    margin-top: 15px;
+  }
+}
+
+.zig-zag {
+  @include isMobile() {
+    display: none;
+  }
+}

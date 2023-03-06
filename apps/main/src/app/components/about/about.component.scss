@@ -1,0 +1,165 @@
+@import '../../styles/colors';
+@import '../../styles/breakpoints';
+
+.block-about {
+  margin-top: 78px;
+  padding: 40px 0;
+  border-bottom: 1px solid $lightGray;
+
+  @include isMobile() {
+    margin-top: 0;
+    padding: 15px;
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @include isMobile() {
+    flex-direction: column;
+  }
+}
+
+.block-contacts {
+  margin-top: 20px;
+}
+
+.item {
+  display: flex;
+  margin-top: 8px;
+  align-items: center;
+
+  @include isMobile() {
+    margin-top: 12px;
+  }
+}
+
+.item__subtitle {
+  font-size: 12px;
+  font-weight: 700;
+  margin: 0;
+  width: 90px;
+  text-transform: uppercase;
+
+  @include isMobile() {
+    font-size: 14px
+  }
+}
+
+.item__text {
+  font-size: 14px;
+  color: $gray;
+  margin: 0;
+
+  &:hover {
+    color: $black;
+  }
+
+  @include isMobile() {
+    font-size: 16px
+  }
+}
+
+.about__link {
+  color: $black;
+  text-decoration: none;
+  display: inline-block;
+  padding: 3px;
+  margin-right: 5px;
+  transition: 0.3s;
+
+  &:hover {
+    color: $blue;
+  }
+}
+
+.button {
+  background-color: $blue;
+  border: none;
+  border-radius: 2px;
+  color: $white;
+  min-width: 200px;
+  font-size: 12px;
+  padding: 15px 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 25px;
+  cursor: pointer;
+  transition: all .3s ease;
+  display: inline-flex;
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    box-shadow: 10px 10px 20px rgb(51 51 255 / 20%);
+  }
+
+  @include isMobile() {
+    width: 100%;
+  }
+}
+
+.mobile-title {
+  display: none;
+  order: 1;
+  border-bottom: 1px solid #e3e3e3;
+
+  @include isMobile() {
+    display: block;
+  }
+}
+
+.desktop-title {
+  @include isMobile() {
+    display: none;
+  }
+}
+
+.photo-section {
+  @include isMobile() {
+    order: 2;
+    margin-top: 10px;
+  }
+}
+
+.text-section {
+  max-width: 572px;
+  min-height: 400px; // for fix navigation in en version
+
+  @include isMobile() {
+    max-width: none;
+    min-height: auto;
+    order: 3;
+  }
+}
+
+.my-photo {
+  box-shadow: 0 0 12px 8px white inset;
+  width: 582px;
+  height: 370px;
+  display: block;
+  border-radius: 2px;
+
+  img {
+    width: 100%;
+  }
+
+  @include isMobile() {
+    width: 100%;
+    height: auto;
+    box-shadow: none;
+  }
+}
+
+.text {
+  @include isMobile() {
+    br {
+      display: none;
+    }
+  }
+}

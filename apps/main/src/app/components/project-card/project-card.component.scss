@@ -1,0 +1,64 @@
+@import '../../styles/colors';
+@import '../../styles/breakpoints';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 270px;
+  min-height: 380px;
+  padding: 0;
+  margin: 15px 30px 15px 0;
+  cursor: pointer;
+  z-index: 1;
+  background-color: $white;
+  border: none;
+
+  @include isMobile() {
+    width: 100%;
+    margin: 0;
+    min-height: 0;
+  }
+}
+
+.container-img {
+  overflow: hidden;
+}
+
+.img {
+  width: 270px;
+  height: 270px;
+  border-radius: 2px;
+  transition: all .3s ease;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  @include isMobile() {
+    height: auto;
+    width: 100%;
+
+    &:hover {
+      transform: none !important;
+    }
+  }
+}
+
+.title {
+  text-align: left;
+  font-size: 16px;
+  margin: 10px 0 0;
+
+  @include isMobile() {
+    margin: 0;
+  }
+}
+
+.date {
+  font-size: 14px;
+  color: $gray;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+

@@ -1,0 +1,36 @@
+<section class="block-experience">
+  <div class="container">
+    <div class="flex__row-left">
+      <div>
+        <app-title>{{ 'experience.title' | transloco : { experience: experience } }}</app-title>
+        <p class="about">
+          <span class="about-line" [innerHTML]="'experience.about' | transloco"></span>
+
+          <span
+            *ngIf="link$ | async as link"
+            class="about-line"
+            [innerHTML]="'experience.aboutFullstack' | transloco"
+            [appLink]="link + '?type=FullStack#portfolio'"
+            (linkClick)="scrollToPortfolio(link, 'FullStack')"
+          ></span>
+
+          <span
+            *ngIf="link$ | async as link"
+            class="about-line"
+            [innerHTML]="'experience.aboutCases' | transloco"
+            [appLink]="link + '#portfolio'"
+            (linkClick)="scrollToPortfolio(link)"
+          ></span>
+        </p>
+      </div>
+      <app-svg-zigzag class="zig-zag"></app-svg-zigzag>
+    </div>
+    <div class="flex__row-right">
+      <app-item-work
+        *ngFor="let work of works$ | async"
+        class="item-work"
+        [work]="work"
+      ></app-item-work>
+    </div>
+  </div>
+</section>

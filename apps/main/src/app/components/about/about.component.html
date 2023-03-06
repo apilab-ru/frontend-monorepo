@@ -1,0 +1,47 @@
+<section class="block-about">
+  <div class="container">
+    <app-title class="mobile-title">{{ 'about.title' | transloco }}</app-title>
+    <div class="text-section">
+      <app-title class="desktop-title">{{ 'about.title' | transloco }}</app-title>
+      <p class="text">{{ 'about.actual' | transloco }}</p>
+      <p class="text" [innerHTML]="'about.deals' | transloco"></p>
+      <p class="text" [innerHTML]="'about.mission' | transloco"></p>
+      <div class="block-contacts">
+        <section class="item">
+          <h3 class="item__subtitle">{{ 'about.email' | transloco }}</h3>
+          <p class="item__text">viktor@apilab.ru</p>
+        </section>
+        <section class="item">
+          <h3 class="item__subtitle">{{ 'about.links' | transloco }}</h3>
+          <p class="item__text">
+            <!--a class="about__link" href="https://www.facebook.com/apilabru">
+              <span class="icon-facebook"></span>
+            </a-->
+            <a class="about__link" href="https://vk.com/yoxai">
+              <span class="icon-vk"></span>
+            </a>
+            <a class="about__link" href="https://github.com/apilab-ru/">
+              <span class="icon-github"></span>
+            </a>
+            <a class="about__link" href="https://t.me/apilab">
+              <span class="icon-telegram"></span>
+            </a>
+            <a  class="about__link" href="https://www.linkedin.com/in/apilab/">
+              <span class="icon-linkedin"></span>
+            </a>
+          </p>
+        </section>
+      </div>
+      <a class="button" href="mailto:viktor@apilab.ru">
+        {{ 'about.contact' | transloco }}
+      </a>
+    </div>
+    <div class="photo-section">
+      <picture class="my-photo">
+        <source srcset="/assets/img/me-postered.avif" type="image/avif" >
+        <source srcset="/assets/img/me-postered.webp" type="image/webp" >
+        <img src="/assets/img/me-postered.jpg" alt="My photo" loading="lazy">
+      </picture>
+    </div>
+  </div>
+</section>

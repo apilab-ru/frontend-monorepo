@@ -61,6 +61,13 @@ const schemas: Record<string, Schema> = {
       return { title };
     },
   },
+  'dreamerscast.com': {
+    type: Types.anime,
+    func: () => {
+      const [title] = document.title.split('/');
+      return { title: title.trim() }
+    }
+  },
   'kino.mail.ru': MAIL_RU_PRESET,
   'afisha.mail.ru': MAIL_RU_PRESET,
   'ivi.ru': {

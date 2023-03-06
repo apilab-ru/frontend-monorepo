@@ -25,9 +25,6 @@
           "apps/worklog-analize/src/.htaccess"
         ],
         "styles": [
-          "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
-          "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
-          "node_modules/@taiga-ui/styles/taiga-ui-global.less",
           "apps/worklog-analize/src/styles.scss"
         ],
         "scripts": [],

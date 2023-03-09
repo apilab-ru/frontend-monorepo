@@ -12,5 +12,7 @@
       *listIterator="let item of (list$ | async); trackBy: trackById"
       [item]="item"
       [isLibraryMode]="true"
+      (updateItem)="onUpdateItem($event)"
+      (deleteItem)="onDeleteItem(item.item.id)"
    ></filecab-card>
 </filecab-list>

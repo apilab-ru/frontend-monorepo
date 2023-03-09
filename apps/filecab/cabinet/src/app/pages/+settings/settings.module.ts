@@ -13,12 +13,14 @@ import { LibraryItemEditModule } from "@filecab/ui-kit/library-item-edit";
 import { InputTextModule } from "primeng/inputtext";
 import { SkeletonModule } from 'primeng/skeleton';
 import { ToastModule } from 'primeng/toast';
+import { ImportComponent } from "./components/import/import.component";
 
 @NgModule({
   declarations: [
     SettingsComponent,
     MigrationComponent,
     MigrationProcessComponent,
+    ImportComponent,
   ],
   imports: [
     CommonModule,

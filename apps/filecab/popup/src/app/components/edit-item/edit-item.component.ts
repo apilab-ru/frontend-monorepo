@@ -8,7 +8,8 @@ import { ParserSchemas } from '@filecab/parser/schemas';
 import {
   catchError,
   combineLatest,
-  debounceTime, distinctUntilChanged,
+  debounceTime,
+  distinctUntilChanged,
   filter,
   map,
   Observable,
@@ -88,7 +89,6 @@ export class EditItemComponent implements OnInit {
     this.libraryItem$.pipe(
       untilDestroyed(this)
     ).subscribe(libraryItem => {
-      console.log('xxx item', libraryItem);
 
       if (libraryItem && !this.store.manualMode.value) {
         this.store.type.next(libraryItem.type);
@@ -163,6 +163,7 @@ export class EditItemComponent implements OnInit {
       name: this.store.name.value,
       url: this.store.url.value,
       ...meta,
+      type: this.store.type.value,
     });
 
     if (this.store.mediaItem) {
@@ -236,7 +237,7 @@ export class EditItemComponent implements OnInit {
           this.store.update({
             type: (item?.type as Types) || type,
             url,
-            name: item.title,
+            name: (item?.title) || '',
             mediaSearchId
           });
         }

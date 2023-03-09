@@ -1,4 +1,5 @@
 import { OrderField } from "@filecab/ui-kit/list/models/interface";
+import { OrderType } from "@filecab/ui-kit/list/models/order-type";
 
 export const ORDER_DEFAULT = 'dateAd';
 
@@ -28,3 +29,9 @@ export const LOCAL_ORDER_FIELDS: OrderField[] = [
     name: 'Статус',
   },
 ];
+
+export interface OrderParams {
+  limit: number;
+  orderType: OrderType;
+  orderField: string;
+}

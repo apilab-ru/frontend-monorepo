@@ -7,53 +7,57 @@ import { FileCabService } from "@shared/services/file-cab.service";
 import { PaginatorService } from "@filecab/ui-kit/list/paginator.service";
 import { LibraryItemV2 } from "@filecab/models/library";
 import { SearchService } from "./search.service";
-import { ORDER_DEFAULT } from "../models/order";
+import { ORDER_DEFAULT, OrderParams } from "../models/order";
 import { OrderType } from "@filecab/ui-kit/list/models/order-type";
+import { ConfigService } from "./config-service";
+
+const KEY = 'localDataSource';
 
 @Injectable()
 export class LocalDataSourceService extends DataSourceService {
-  /*state = makeStore({
-    hasMore: false,
-    loading: true,
-    total: 0,
-  });
-  state$: Observable<DataSourceState> = this.state.select();*/
-
   constructor(
     private fileCabService: FileCabService,
     private paginatorService: PaginatorService,
     private searchService: SearchService,
+    private configService: ConfigService,
   ) {
     super();
   }
 
   loadList(): Observable<LibraryItemV2[]> {
-    this.paginatorService.setLimit(20);
-    this.paginatorService.setOrderField('createAt');
+    const lastData = this.configService.getData<OrderParams>(KEY);
+
+    const limit = lastData?.limit || 20;
+    const orderField = lastData?.orderField || ORDER_DEFAULT;
+    const orderType = lastData?.orderType || OrderType.desc;
+
+    this.paginatorService.setLimit(limit);
+    this.paginatorService.setOrderField(orderField);
+    this.paginatorService.setOrderType(orderType);
 
     return this.makeList();
   }
 
   private makeList(): Observable<LibraryItemV2[]> {
     return combineLatest([
-      this.getFromLibrary(),
-      this.paginatorService.page$,
       this.paginatorService.limit$,
       this.paginatorService.orderType$,
       this.paginatorService.orderField$,
+      this.getFromLibrary(),
+      this.paginatorService.page$,
     ]).pipe(
-      tap(() => {
+      tap(([limit, orderType, orderField]) => {
+        this.configService.setData<OrderParams>(KEY, { limit, orderField, orderType });
+
         this.state.loading.next(true);
       }),
-      map(([data, page, limit, orderType, orderField]) => {
+      map(([limit, orderType, orderField, data, page]) => {
         // let list = this.searchService.filterByState(data, status);
         const list = this.sort(data, orderField, orderType);
 
         const start = (page - 1) * limit;
         const end = page * limit;
         const pageList = list.slice(start, end);
-
-        console.log('xxx start', start, end, pageList);
 
         this.paginatorService.setTotal(list.length);
 

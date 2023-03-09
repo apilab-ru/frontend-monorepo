@@ -20,7 +20,7 @@ export class PaginatorService {
     total: undefined as number | null | undefined,
     hasMore: undefined as boolean | undefined,
     orderField: undefined as string | undefined,
-    orderType: OrderType.asc,
+    orderType: undefined as OrderType | undefined,
   })
 
   constructor() {
@@ -49,7 +49,7 @@ export class PaginatorService {
 
     this.limit$ = this.store.limit.pipe(filterUndefined());
 
-    this.orderType$ = this.store.orderType.asObservable();
+    this.orderType$ = this.store.orderType.asObservable().pipe(filterUndefined());
     this.orderField$ = this.store.orderField.pipe(filterUndefined());
 
     this.totalPages$ = combineLatest([

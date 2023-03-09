@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
-import { combineLatest, map, Observable, shareReplay, switchMap } from "rxjs";
-import { Types } from "@filecab/models/types";
+import { Observable, shareReplay } from "rxjs";
 import { LibraryItemV2 } from "@filecab/models/library";
-import { FileCabService } from "@shared/services/file-cab.service";
 import { PaginatorService } from "@filecab/ui-kit/list/paginator.service";
 import { LocalDataSourceService } from "../../services/local-data-source.service";
 import { SearchService } from "../../services/search.service";
 import { LOCAL_ORDER_FIELDS } from "../../models/order";
+import { FileCabService } from "@shared/services/file-cab.service";
+import { MessageService } from "primeng/api";
 
 @Component({
   selector: 'cabinet-page',
@@ -27,6 +26,8 @@ export class PageComponent implements OnInit {
 
   constructor(
     private localDataSourceService: LocalDataSourceService,
+    private filecabService: FileCabService,
+    private messageService: MessageService,
   ) {
   }
 
@@ -34,11 +35,27 @@ export class PageComponent implements OnInit {
     this.list$ = this.localDataSourceService.loadList().pipe(
       shareReplay({ refCount: true, bufferSize: 1 }),
     );
-
-    this.list$.subscribe(list => console.log('xxx list', list))
   }
 
   trackById(_index: number, item: LibraryItemV2): number {
     return item.item.id;
+  }
+
+  onUpdateItem(item: LibraryItemV2): void {
+    this.filecabService.updateItem(item).subscribe(() => {
+      this.messageService.add({
+        severity: 'success',
+        detail: 'Done!'
+      })
+    })
+  }
+
+  onDeleteItem(id: number): void {
+    this.filecabService.deleteItem(id).subscribe(() => {
+      this.messageService.add({
+        severity: 'success',
+        detail: 'Done!'
+      })
+    })
   }
 }

@@ -9,6 +9,7 @@ import { RouterModule } from "@angular/router";
 import { ROUTES } from "./routes";
 import { HttpClientModule } from "@angular/common/http";
 import { CommonModule } from "@angular/common";
+import { ToastModule } from "primeng/toast";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { CommonModule } from "@angular/common";
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot(ROUTES, { useHash: true }),
+    ToastModule,
   ],
   providers: [
     {

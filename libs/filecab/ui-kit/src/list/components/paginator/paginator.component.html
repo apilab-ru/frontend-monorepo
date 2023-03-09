@@ -51,6 +51,7 @@
          class="limit"
          [options]="limitViewList"
          [ngModel]="limit$ | async"
+         (ngModelChange)="updateLimit($event)"
          optionLabel="name"
          optionValue="key"
       ></p-dropdown>

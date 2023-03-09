@@ -22,7 +22,6 @@ const CHUNK_SIZE = 20;
   templateUrl: './migration.component.html',
   styleUrls: ['./migration.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [MessageService],
 })
 export class MigrationComponent implements OnInit {
   rawData = '';

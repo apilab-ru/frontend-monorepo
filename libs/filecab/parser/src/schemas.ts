@@ -43,7 +43,7 @@ const schemas: Record<string, Schema> = {
   'animestars.org': {
     type: Types.anime,
     func: () => {
-      const [title] = (document.querySelector('.short-t-or') as HTMLElement).innerText.split('/');
+      const [title] = document.title.split('— смотреть');
       return { title };
     },
   },

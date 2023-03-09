@@ -58,4 +58,8 @@ export class UiPaginatorComponent implements OnChanges {
   setOrderType(type: OrderType): void {
     this.paginatorService.setOrderType(type);
   }
+
+  updateLimit(limit: number): void {
+    this.paginatorService.setLimit(limit);
+  }
 }

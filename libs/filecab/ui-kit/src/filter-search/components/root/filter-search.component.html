@@ -1,0 +1,14 @@
+<div class="root">
+   <filecab-chip
+      *ngFor="let item of options$ | async"
+      class="chip"
+      [item]="item"
+      [preset]="preset[item.key]"
+   ></filecab-chip>
+
+   <filecab-input
+      class="input"
+      [list]="list"
+      (selectValue)="onAddValue($event)"
+   ></filecab-input>
+</div>

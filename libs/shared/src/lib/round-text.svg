@@ -1,0 +1,6 @@
+<svg class="label" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <path xmlns="http://www.w3.org/2000/svg" id="ellipse" fill="none" stroke="red" d="M10,34 Q20,5 100,28"/>
+  <text>
+    <textPath class="text" href="#ellipse" startOffset="5%">Проверка текст</textPath>
+  </text>
+</svg>

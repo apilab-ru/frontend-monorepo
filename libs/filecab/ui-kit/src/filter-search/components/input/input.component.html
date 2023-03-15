@@ -1,0 +1,37 @@
+<div class="root">
+   <label *ngIf="selected$ | async as selected" class="label">
+      {{ selected.name }}:
+   </label>
+   <input
+      class="input"
+      type="text"
+      [formControl]="inputControl"
+      cdkOverlayOrigin
+      tabindex="0"
+      (focusin)="focusIn()"
+      (focusout)="focusOut()"
+      (keydown.arrowDown)="onKeyDown()"
+      (keydown.arrowUp)="onKeyUp()"
+      (keydown.enter)="onSelect()"
+      (keydown.arrowLeft)="togglePositive()"
+      (keydown.arrowRight)="togglePositive()"
+      #trigger="cdkOverlayOrigin"
+   >
+</div>
+
+<ng-template
+   cdkConnectedOverlay
+   [cdkConnectedOverlayOrigin]="trigger"
+   [cdkConnectedOverlayOpen]="isOpen$ | async"
+>
+   <filecab-dropdown
+      class="dropdown"
+      tabindex="1"
+      [list]="list"
+      [search]="inputControl.value"
+      (focusin)=focusIn()
+      (focusout)="focusOut()"
+      (selectValue)="onSelectValue($event)"
+      (selectedChange)="onSelectedChange($event)"
+   ></filecab-dropdown>
+</ng-template>

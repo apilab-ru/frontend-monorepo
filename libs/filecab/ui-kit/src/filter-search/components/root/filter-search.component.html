@@ -1,13 +1,14 @@
 <div class="root">
    <filecab-chip
-      *ngFor="let item of options$ | async"
-      class="chip"
+      *ngFor="let item of options$ | async; index as index"
+      class="item"
       [item]="item"
       [preset]="preset[item.key]"
+      (removeChip)="onRemoveChip(index)"
    ></filecab-chip>
 
    <filecab-input
-      class="input"
+      class="input item"
       [list]="list"
       (selectValue)="onAddValue($event)"
    ></filecab-input>

@@ -3,7 +3,7 @@
       *ngFor="let item of list$ | async; index as index"
       class="line-item"
       [class.-focus]="(index$ | async) === index"
-      (click)="onSelectKey(item)"
+      (click)="onSelectKey(item, $event)"
       (mouseover)="setIndex(index)"
    >
       <span class="name">{{ item.name }}</span>
@@ -12,14 +12,14 @@
          <span
             class="button -plus"
             [class.-focus]="(index$ | async) === index && (positive$ | async)"
-            (click)="onSelectKey(item, false)"
+            (click)="onSelectKey(item, $event, false)"
          >
             +
          </span>
          <span
             class="button -minus"
             [class.-focus]="(index$ | async) === index && !(positive$ | async)"
-            (click)="onSelectKey(item, true)"
+            (click)="onSelectKey(item, $event, true)"
          >
             –
          </span>

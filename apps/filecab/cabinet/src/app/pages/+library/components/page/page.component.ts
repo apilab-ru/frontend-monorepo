@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Observable, shareReplay } from "rxjs";
+import { Observable } from "rxjs";
 import { LibraryItemV2 } from "@filecab/models/library";
 import { PaginatorService } from "@filecab/ui-kit/list/paginator.service";
 import { LocalDataSourceService } from "../../services/local-data-source.service";
@@ -7,6 +7,11 @@ import { SearchService } from "../../services/search.service";
 import { LOCAL_ORDER_FIELDS } from "../../models/order";
 import { FileCabService } from "@shared/services/file-cab.service";
 import { MessageService } from "primeng/api";
+import { LibraryMode } from "../../models/mode";
+import { ApiDataSourceService } from "../../services/api-data-source.service";
+import { LibrarySourceService } from "../../services/library-source.service";
+import { FilterSearchData } from "@filecab/ui-kit/filter-search/interface";
+import { BASE_SEARCH_VALUES } from "@filecab/ui-kit/filter-search/const";
 
 @Component({
   selector: 'cabinet-page',
@@ -17,24 +22,38 @@ import { MessageService } from "primeng/api";
     PaginatorService,
     SearchService,
     LocalDataSourceService,
+    ApiDataSourceService,
+    LibrarySourceService,
   ],
 })
 export class PageComponent implements OnInit {
   limitList = [12, 20, 50, 100];
   orderFields = LOCAL_ORDER_FIELDS;
+  LibraryMode = LibraryMode;
+  filterList = BASE_SEARCH_VALUES;
+
   list$: Observable<LibraryItemV2[]>;
+  mode$ = this.searchService.mode$;
+  searchData$: Observable<FilterSearchData>;
 
   constructor(
-    private localDataSourceService: LocalDataSourceService,
+    private librarySourceService: LibrarySourceService,
     private filecabService: FileCabService,
     private messageService: MessageService,
+    private searchService: SearchService,
   ) {
   }
 
   ngOnInit(): void {
-    this.list$ = this.localDataSourceService.loadList().pipe(
-      shareReplay({ refCount: true, bufferSize: 1 }),
-    );
+    this.list$ = this.librarySourceService.list$;
+  }
+
+  changeMode(mode: LibraryMode): void {
+    this.searchService.setMode(mode);
+  }
+
+  onUpdateSearch(data: FilterSearchData): void {
+    this.searchService.setData(data);
   }
 
   trackById(_index: number, item: LibraryItemV2): number {

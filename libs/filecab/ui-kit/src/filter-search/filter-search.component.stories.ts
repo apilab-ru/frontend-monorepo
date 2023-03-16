@@ -24,7 +24,7 @@ const Template: StoryFn = args => ({
     list: BASE_SEARCH_VALUES,
     value: [
       { key: 'search', value: '123' },
-      { key: 'status', value: StatusList.planned }
+      { key: 'status', value: StatusList.planned, negative: true }
     ],
   },
 });

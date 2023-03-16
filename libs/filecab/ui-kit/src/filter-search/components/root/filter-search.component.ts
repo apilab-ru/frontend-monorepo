@@ -46,13 +46,6 @@ export class FilterSearchComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    /*this.inputControl.valueChanges.pipe(
-      debounceTime(this.debounceInput),
-      untilDestroyed(this)
-    ).subscribe(value => {
-      this.store.search.next(value || '');
-    });*/
-
     this.store.pipe(
       filter(value => !isEqual(value, this.value)),
       untilDestroyed(this)
@@ -63,9 +56,13 @@ export class FilterSearchComponent implements OnInit, OnChanges {
     this.options$ = this.store.asObservable();
   }
 
-  onAddValue(item: FSEventSelectValue): void {
-    console.log('xxx item', item);
+  onRemoveChip(index: number): void {
+    this.store.next(
+      this.store.value.filter((_, i) => i !== index)
+    )
+  }
 
+  onAddValue(item: FSEventSelectValue): void {
     this.handleAddOption(item as SearchValue);
   }
 

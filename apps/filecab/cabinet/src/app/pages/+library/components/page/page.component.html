@@ -1,5 +1,31 @@
 <ng-template filecabLayoutTopSlot>
-   <span>Test</span>
+   <div class="search-box">
+      <div class="mode-select">
+         <button
+            class="mode"
+            [class.-checked]="(mode$ | async) === LibraryMode.library"
+            title="Библиотека"
+            (click)="changeMode(LibraryMode.library)"
+         >
+            <span class="icon-folder"></span>
+         </button>
+         <button
+            class="mode"
+            [class.-checked]="(mode$ | async) === LibraryMode.search"
+            title="Поиск"
+            (click)="changeMode(LibraryMode.search)"
+         >
+            <span class="icon-search"></span>
+         </button>
+      </div>
+
+      <lib-filter-search
+         class="filter-search"
+         [value]="searchData$ | async"
+         [list]="filterList"
+         (valueChanges)="onUpdateSearch($event)"
+      ></lib-filter-search>
+   </div>
 </ng-template>
 
 <filecab-list

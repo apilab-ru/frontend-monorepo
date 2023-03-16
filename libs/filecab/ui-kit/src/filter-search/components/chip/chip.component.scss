@@ -1,34 +1,49 @@
-:host {
-  background: var(--surface-b);
-  border-radius: 20px;
+.root {
+  --color-secondary-light: #f73378;
+  --color-secondary-dark: #ab003c;
+  --color-secondary-opposite: #b78698;
+
   display: flex;
-  align-items: stretch;
-  padding: 2px;
-  font-size: 14px;
-  position: relative;
-  min-width: 50px;
+  border-radius: 12px;
+  background-color: var(--color-secondary-light);
+  color: var(--primary-color-text);
+  overflow: hidden;
+  align-items: center;
+  padding-right: 2px;
+  cursor: pointer;
+
+  &.-not {
+    background-color: var(--color-secondary-opposite);
+  }
 }
 
-.label {
-  position: absolute;
-  width: 100px;
-  z-index: 2;
-  top: -12px;
-  left: -8px;
-  font-weight: bold;
+.key {
+  padding: 5px 10px 7px 12px;
+  background-color: var(--color-secondary-dark);
 }
 
-.text {
-  filter: drop-shadow(0px 7px 7px rgb(255 255 255 / 1));
+.remove {
+  padding: 4px;
+  font-size: 15px;
+  width: 22px;
+  height: 22px;
+  font-family: monospace;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color-text);
+  background: var(--color-secondary);
+  border: none;
+  cursor: pointer;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 100%;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
 }
 
 .value {
-  display: flex;
-  align-items: center;
-  padding: 0 4px 4px 4px;
-  border-radius: 20px;
-  background: var(--primary-color);
-  margin: 6px 0 0 7px;
-  flex: 1;
-  color: var(--primary-color-text);
+  padding: 4px 4px 6px 6px;
+  font-size: 16px;
 }

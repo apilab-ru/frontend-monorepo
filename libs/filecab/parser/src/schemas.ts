@@ -1,10 +1,7 @@
 import { Types } from "@filecab/models/types";
-import { SearchId } from "@filecab/models";
-
-export interface SchemaFuncRes extends SearchId {
-  title: string;
-  type?: string | undefined;
-}
+import { Injectable } from "@angular/core";
+import { PARSER_SCHEMAS, ParserSchema } from "./parser-schemas";
+import { SchemaFuncRes } from "./interface";
 
 export interface Schema {
   type: Types;
@@ -98,11 +95,24 @@ const schemas: Record<string, Schema> = {
   },
 };
 
+@Injectable({
+  providedIn: "root",
+})
 export class ParserSchemas {
   private schemas = schemas;
 
-  getSchema(domain: string): Schema {
+  getImportSchema(domain: string): Schema {
     const schema = this.schemas[domain] || this.schemas.default;
+
+    return schema;
+  }
+
+  getParserSchema(domain: string, url: string): undefined | ParserSchema {
+    const schema = PARSER_SCHEMAS[domain];
+
+    if (!schema || (schema.check && !schema.check(url))) {
+      return undefined;
+    }
 
     return schema;
   }

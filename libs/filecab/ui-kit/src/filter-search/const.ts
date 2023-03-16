@@ -22,6 +22,16 @@ import { FilterSearchData, FSDropdownValue, SearchValue } from "./interface";
 };*/
 
 
+export enum SearchKeys {
+  search = 'search',
+  genres = 'genres',
+  years = 'years',
+  tags = 'tags',
+  ratingFrom = 'ratingFrom',
+  ratingTo = 'ratingTo',
+  status = 'status'
+}
+
 export const BASE_SEARCH_DATA: FilterSearchData = [];
 
 export const BASE_SEARCH_VALUES: FSDropdownValue[] = [

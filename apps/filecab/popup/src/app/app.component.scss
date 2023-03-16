@@ -18,6 +18,10 @@
       padding-bottom: 8px;
       flex: 1;
       font-size: 13px;
+
+      &:nth-of-type(2) {
+        flex: 0.5;
+      }
     }
   }
 }

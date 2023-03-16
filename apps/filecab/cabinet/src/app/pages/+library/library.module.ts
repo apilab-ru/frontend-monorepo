@@ -7,6 +7,8 @@ import { UiListModule } from "@filecab/ui-kit/list/list.module";
 
 import { FormsModule } from "@angular/forms";
 import { FilecabCardModule } from "@filecab/ui-kit/card/card.module";
+import { FilterSearchModule } from "@filecab/ui-kit/filter-search/filter-search.module";
+import { SelectButtonModule } from "primeng/selectbutton";
 
 const routes: Routes = [
   {
@@ -26,6 +28,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     FormsModule,
     FilecabCardModule,
+    FilterSearchModule,
+    SelectButtonModule,
   ]
 })
 export class LibraryModule {

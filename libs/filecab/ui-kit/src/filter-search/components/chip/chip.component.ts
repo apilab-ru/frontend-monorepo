@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FSDropdownValue, SearchValue } from "../../interface";
 
 @Component({
@@ -11,11 +11,15 @@ export class ChipComponent {
   @Input() item: SearchValue;
   @Input() preset: FSDropdownValue;
 
+  @Output() removeChip = new EventEmitter<void>();
+
   getValue(item: SearchValue, preset: FSDropdownValue): string {
+    const prefix = item.negative ? '!' : ''
+
     if (preset.values) {
-      return preset.values.find(it => it.key === item.value)?.name || item.value as string;
+      return prefix + (preset.values.find(it => it.key === item.value)?.name || item.value as string);
     }
 
-    return item.value as string;
+    return prefix + item.value as string;
   }
 }

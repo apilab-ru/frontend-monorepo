@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Environment } from '@environments/model';
 import { environment } from '../environments/environment';
 import { EditItemComponent } from './components/edit-item/edit-item.component';
-import { RouterModule } from '@angular/router';
+import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { ROUTES } from './routes';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
@@ -17,6 +17,7 @@ import { ButtonModule } from "primeng/button";
 import { RippleModule } from "primeng/ripple";
 import { UiKitHorizontalScrollDirective } from "@ui-kit/scroll/horizontal-scroll.directive";
 import { UiMessagesModule } from "@ui-kit/messages/messages.module";
+import { DefaultRouteReuseStrategy } from "./services/stop-resuse.router-strategy";
 
 @NgModule({
   declarations: [
@@ -42,6 +43,10 @@ import { UiMessagesModule } from "@ui-kit/messages/messages.module";
     {
       provide: Environment,
       useValue: environment,
+    },
+    {
+      provide: RouteReuseStrategy,
+      useClass: DefaultRouteReuseStrategy,
     },
   ],
   bootstrap: [AppComponent],

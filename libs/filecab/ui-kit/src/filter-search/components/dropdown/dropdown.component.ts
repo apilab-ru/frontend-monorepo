@@ -104,7 +104,10 @@ export class DropdownComponent implements OnChanges, OnInit {
     this.positive$ = this.store.positive.asObservable();
   }
 
-  onSelectKey(item: FSDropdownValue, negative?: boolean): void {
+  onSelectKey(item: FSDropdownValue, event?: Event, negative?: boolean): void {
+    event?.stopPropagation();
+    event?.preventDefault();
+
     const key = item?.key || null;
 
     if (!key || item.values) {

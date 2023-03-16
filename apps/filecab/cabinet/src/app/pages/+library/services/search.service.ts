@@ -29,8 +29,6 @@ export class SearchService {
   }
 
   setData(data: FilterSearchData): void {
-    console.log('xxx set data', data);
-    console.trace();
     this.data.next(data);
   }
 }

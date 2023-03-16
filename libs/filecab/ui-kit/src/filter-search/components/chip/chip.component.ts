@@ -22,4 +22,10 @@ export class ChipComponent {
 
     return prefix + item.value as string;
   }
+
+  onRemoveChip(event: MouseEvent): void {
+    event.stopPropagation();
+    event.preventDefault();
+    this.removeChip.emit();
+  }
 }

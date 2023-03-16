@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, shareReplay } from "rxjs";
+import { BehaviorSubject, map, Observable, ReplaySubject, shareReplay } from "rxjs";
 import { Types } from "@filecab/models/types";
 import { ActivatedRoute } from "@angular/router";
 import { LibraryMode } from "../models/mode";
-import { BASE_SEARCH_DATA } from "@filecab/ui-kit/filter-search/const";
 import { FilterSearchData } from "@filecab/ui-kit/filter-search/interface";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
-  private data = new BehaviorSubject(BASE_SEARCH_DATA);
+  private data = new ReplaySubject<FilterSearchData>(1);
 
   data$ = this.data.asObservable();
   type$: Observable<Types>;
@@ -30,6 +29,8 @@ export class SearchService {
   }
 
   setData(data: FilterSearchData): void {
+    console.log('xxx set data', data);
+    console.trace();
     this.data.next(data);
   }
 }

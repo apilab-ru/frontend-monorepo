@@ -29,6 +29,7 @@
       tabindex="1"
       [list]="list"
       [search]="inputControl.value"
+      [selected]="(selected$ | async)?.key"
       (focusin)=focusIn()
       (focusout)="focusOut()"
       (selectValue)="onSelectValue($event)"

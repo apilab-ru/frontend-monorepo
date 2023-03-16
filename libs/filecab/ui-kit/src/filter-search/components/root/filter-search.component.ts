@@ -6,14 +6,15 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges, ViewChild
 } from '@angular/core';
 import { FilterSearchData, FSDropdownValue, SearchValue } from "../../interface";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
-import { BehaviorSubject, filter, Observable } from "rxjs";
+import { BehaviorSubject, filter, Observable, skip } from "rxjs";
 import isEqual from "lodash-es/isEqual";
 import { BASE_SEARCH_DATA } from "../../const";
 import { FSEventSelectValue } from "../../fs-event-select";
+import { InputComponent } from "../input/input.component";
 
 @UntilDestroy()
 @Component({
@@ -32,6 +33,8 @@ export class FilterSearchComponent implements OnInit, OnChanges {
   preset: Record<string, FSDropdownValue> = {};
   options$: Observable<SearchValue[]>;
 
+  @ViewChild(InputComponent, { static: true }) private inputComponent: InputComponent;
+
   ngOnChanges({ value, list }: SimpleChanges): void {
     if (value && this.value) {
       this.store.next(this.value);
@@ -47,6 +50,7 @@ export class FilterSearchComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.store.pipe(
+      skip(1),
       filter(value => !isEqual(value, this.value)),
       untilDestroyed(this)
     ).subscribe(value => {
@@ -60,6 +64,13 @@ export class FilterSearchComponent implements OnInit, OnChanges {
     this.store.next(
       this.store.value.filter((_, i) => i !== index)
     )
+  }
+
+  onEditChip(index: number, item: SearchValue): void {
+    this.onRemoveChip(index);
+
+    this.inputComponent.onSelectedChange(item.key);
+    this.inputComponent.focus();
   }
 
   onAddValue(item: FSEventSelectValue): void {

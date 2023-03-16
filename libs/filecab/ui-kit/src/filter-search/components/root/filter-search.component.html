@@ -5,6 +5,7 @@
       [item]="item"
       [preset]="preset[item.key]"
       (removeChip)="onRemoveChip(index)"
+      (click)="onEditChip(index, item)"
    ></filecab-chip>
 
    <filecab-input

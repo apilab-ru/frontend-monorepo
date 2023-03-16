@@ -1,5 +1,5 @@
 <div class="root" [class.-not]="item.negative">
    <span class="key">{{ preset.name }}</span>
    <span class="value">{{ getValue(item, preset) }}</span>
-   <button class="remove" (click)="removeChip.emit()">x</button>
+   <button class="remove" (click)="onRemoveChip($event)">x</button>
 </div>

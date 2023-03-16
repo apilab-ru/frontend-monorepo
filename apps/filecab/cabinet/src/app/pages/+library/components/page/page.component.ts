@@ -46,6 +46,7 @@ export class PageComponent implements OnInit {
 
   ngOnInit(): void {
     this.list$ = this.librarySourceService.list$;
+    this.searchData$ = this.searchService.data$;
   }
 
   changeMode(mode: LibraryMode): void {

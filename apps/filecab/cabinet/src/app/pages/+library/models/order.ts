@@ -1,5 +1,6 @@
 import { OrderField } from "@filecab/ui-kit/list/models/interface";
 import { OrderType } from "@filecab/ui-kit/list/models/order-type";
+import { SearchValue } from "@filecab/ui-kit/filter-search/interface";
 
 export const ORDER_DEFAULT = 'dateAd';
 
@@ -34,4 +35,5 @@ export interface OrderParams {
   limit: number;
   orderType: OrderType;
   orderField: string;
+  data: SearchValue[];
 }

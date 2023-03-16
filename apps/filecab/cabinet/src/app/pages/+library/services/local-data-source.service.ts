@@ -28,44 +28,32 @@ interface CompareList {
 
 @Injectable()
 export class LocalDataSourceService extends DataSourceService {
+  protected storeKey = KEY;
+
   constructor(
     private fileCabService: FileCabService,
-    private paginatorService: PaginatorService,
-    private searchService: SearchService,
-    private configService: ConfigService,
+    protected paginatorService: PaginatorService,
+    protected searchService: SearchService,
+    protected configService: ConfigService,
   ) {
-    super();
+    super(configService, paginatorService, searchService);
   }
 
-  loadList(): Observable<LibraryItemV2[]> {
-    const lastData = this.configService.getData<OrderParams>(KEY);
-
-    const limit = lastData?.limit || 20;
-    const orderField = lastData?.orderField || ORDER_DEFAULT;
-    const orderType = lastData?.orderType || OrderType.desc;
-
-    this.paginatorService.setLimit(limit);
-    this.paginatorService.setOrderField(orderField);
-    this.paginatorService.setOrderType(orderType);
-
-    return this.makeList();
-  }
-
-  private makeList(): Observable<LibraryItemV2[]> {
+  protected makeList(): Observable<LibraryItemV2[]> {
     return combineLatest([
       this.paginatorService.limit$,
       this.paginatorService.orderType$,
       this.paginatorService.orderField$,
+      this.searchService.data$,
       this.getFromLibrary(),
       this.paginatorService.page$,
-      this.searchService.data$,
     ]).pipe(
-      tap(([limit, orderType, orderField]) => {
-        this.configService.setData<OrderParams>(KEY, { limit, orderField, orderType });
+      tap(([limit, orderType, orderField, data]) => {
+        this.configService.setData<OrderParams>(this.storeKey, { limit, orderField, orderType, data });
 
         this.state.loading.next(true);
       }),
-      map(([limit, orderType, orderField, fullData, page, searchData]) => {
+      map(([limit, orderType, orderField, searchData, fullData, page ]) => {
         const filteredList = this.filterData(fullData, searchData);
         const list = this.sort(filteredList, orderField, orderType);
 
@@ -97,13 +85,13 @@ export class LocalDataSourceService extends DataSourceService {
   }
 
   private filterData(list: LibraryItemV2[], data: FilterSearchData): LibraryItemV2[] {
-    const search = data.find(it => it.key === 'search')?.value as string | undefined;
+    const search = (data.find(it => it.key === 'search')?.value as string)?.toLocaleLowerCase();
 
     const filteredList = !search ? list : list.filter(item => {
-      if (item.name?.includes(search)
-        || item.item.title.includes(search)
-        || item.item.originalTitle?.includes(search)
-        || item.item.description?.includes(search)
+      if (item.name?.toLocaleLowerCase().includes(search)
+        || item.item.title?.toLocaleLowerCase().includes(search)
+        || item.item.originalTitle?.toLocaleLowerCase().includes(search)
+        || item.item.description?.toLocaleLowerCase().includes(search)
       ) {
         return true;
       }

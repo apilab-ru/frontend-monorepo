@@ -1,6 +1,6 @@
 import {
   ChangeDetectionStrategy,
-  Component, EventEmitter,
+  Component, ElementRef, EventEmitter,
   Input,
   OnChanges,
   OnInit,
@@ -42,6 +42,7 @@ export class InputComponent implements OnInit, OnChanges {
   private forceClose = new Subject<void>();
 
   @ViewChild(DropdownComponent) private dropdown: DropdownComponent;
+  @ViewChild('trigger', { read: ElementRef }) protected inputRef: ElementRef<HTMLInputElement>;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.list) {
@@ -67,6 +68,10 @@ export class InputComponent implements OnInit, OnChanges {
     ]).pipe(
       map(([selected, list]) => !selected ? null : list.find(it => it.key === selected) || null)
     );
+  }
+
+  focus(): void {
+    this.inputRef.nativeElement.focus();
   }
 
   focusOut(): void {

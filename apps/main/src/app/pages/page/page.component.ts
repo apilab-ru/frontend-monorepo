@@ -7,7 +7,7 @@ import { ModalProjectComponent } from '../../components/modal-project/modal-proj
 import { Observable } from 'rxjs';
 import { TranslocoService } from '@ngneat/transloco';
 import { Title } from '@angular/platform-browser';
-import { provideTranslation, registerTranslationManually } from '../../libs/translate';
+import { provideTranslation, registerTranslationManually } from '@shared/translations';
 import { PortfolioService } from '../../portfolio/portfolio.service';
 import { Project } from '../../components/interfaces/project';
 

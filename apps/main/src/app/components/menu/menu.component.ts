@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ScrollNavigationService } from '../../services/scroll-navigation.service';
 import { MENU } from './menu';
-import { provideTranslation } from '../../libs/translate';
+import { provideTranslation } from '@shared/translations';
 
 @Component({
   selector: 'app-menu',

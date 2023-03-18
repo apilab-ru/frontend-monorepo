@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
-import { registerTranslationManually } from '../libs/translate';
+import { registerTranslationManually } from '@shared/translations';
 import { Observable } from 'rxjs';
 import { Project } from '../components/interfaces/project';
 import { map, take } from 'rxjs/operators';

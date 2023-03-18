@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Work } from '../interfaces/work';
-import { provideTranslation } from '../../libs/translate';
+import { provideTranslation } from '@shared/translations';
 import differenceInDays from "date-fns/differenceInDays";
 
 @Component({

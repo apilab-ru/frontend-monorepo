@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { provideTranslation } from '../../libs/translate';
+import { provideTranslation } from '@shared/translations';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { TranslocoService } from '@ngneat/transloco';

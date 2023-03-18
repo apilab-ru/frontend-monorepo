@@ -9,7 +9,7 @@
     "resolveJsonModule": true,
     "useDefineForClassFields": false,
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    "strict": false,
     "sourceMap": true,
     "downlevelIteration": true,
     "moduleResolution": "node",
@@ -19,7 +19,8 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "styles/*": ["apps/main/src/app/styles/*"]
+      "styles/*": ["apps/main/src/app/styles/*"],
+      "@shared/*": ["libs/angular-shared/src/lib/*"]
     }
   },
   "files": [],

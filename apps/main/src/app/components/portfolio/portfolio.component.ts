@@ -7,7 +7,7 @@ import * as mixitup from 'mixitup/dist/mixitup.js';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, take } from 'rxjs/operators';
 import { PortfolioService } from '../../portfolio/portfolio.service';
-import { provideTranslation } from '../../libs/translate';
+import { provideTranslation } from '@shared/translations';
 
 interface Item<T> extends Element {
   data: T;

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { JOB_LIST, START_WORK_DATE } from './experience';
 import differenceInYears from 'date-fns/differenceInYears';
 import { ScrollNavigationService } from '../../services/scroll-navigation.service';
-import { provideTranslation } from '../../libs/translate';
+import { provideTranslation } from '@shared/translations';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { Observable } from 'rxjs';

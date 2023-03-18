@@ -1,13 +1,13 @@
-/// <reference path="../../../../../../../node_modules/@types/webpack-env/index.d.ts" />
+/// <reference path="../../../../../../node_modules/@types/webpack-env/index.d.ts" />
 import { TRANSLOCO_SCOPE, TranslocoService } from '@ngneat/transloco';
 import { InjectionToken, Provider } from '@angular/core';
-import { IComponentTranslations } from './interface';
+import { IComponentTranslations, RequireContextFn } from './interface';
 import { TranslationLoaderService } from './service/translation-loader';
 
 // uglyhack tokens for plain values passing to factory function
 export const SCOPE_TOKEN = new InjectionToken('translate.scope');
 export const TRANSLATIONS_TOKEN = new InjectionToken('translate.translations');
-type RequireContextFn = () => __WebpackModuleApi.RequireContext;
+
 
 export function provideTranslationScope(scope: string, translations: IComponentTranslations): Provider[] {
   return [
@@ -43,7 +43,12 @@ export function registerTranslationManually(
   }
 }
 
-export function provideTranslation(scope: string, translationsContextFn: RequireContextFn): Provider[] {
+export function provideTranslation(scope: string, translationsContextFn: RequireContextFn | undefined): Provider[] {
+  if (!translationsContextFn) {
+    console.error('not found context fn')
+    return [];
+  }
+
   const translations = loadTranslations(translationsContextFn);
 
   return provideTranslationScope(scope, translations);

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { provideTranslation } from '../../libs/translate';
+import { provideTranslation } from '@shared/translations';
 
 @Component({
   selector: 'app-skills',

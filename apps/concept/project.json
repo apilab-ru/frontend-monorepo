@@ -58,6 +58,7 @@
       },
       "defaultConfiguration": "development"
     },
+
     "storybook": {
       "executor": "@storybook/angular:start-storybook",
       "options": {
@@ -73,16 +74,19 @@
     },
     "build-storybook": {
       "executor": "@storybook/angular:build-storybook",
+      "outputs": ["{options.outputPath}"],
       "options": {
-        "browserTarget": "concept:production",
+        "browserTarget": "concept:build",
         "configDir": "apps/concept/.storybook",
         "tsConfig": "apps/concept/.storybook/tsconfig.json",
         "styles": [
           "apps/concept/.storybook/global.scss"
         ],
+        "outputDir": "apps/concept/.storybook/dist",
         "compodoc": false
       }
     },
+
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],

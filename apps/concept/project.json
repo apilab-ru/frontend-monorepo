@@ -1,0 +1,109 @@
+{
+  "name": "concept",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/concept/src",
+  "prefix": "app",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/concept",
+        "index": "apps/concept/src/index.html",
+        "main": "apps/concept/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/concept/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": ["apps/concept/src/favicon.ico", "apps/concept/src/assets"],
+        "styles": ["apps/concept/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "concept:build:production"
+        },
+        "development": {
+          "browserTarget": "concept:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "browserTarget": "concept:build-storybook",
+        "port": 6006,
+        "configDir": "apps/concept/.storybook",
+        "tsConfig": "apps/concept/.storybook/tsconfig.json",
+        "styles": [
+          "apps/concept/.storybook/global.scss"
+        ],
+        "compodoc": false
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "options": {
+        "browserTarget": "concept:production",
+        "configDir": "apps/concept/.storybook",
+        "tsConfig": "apps/concept/.storybook/tsconfig.json",
+        "styles": [
+          "apps/concept/.storybook/global.scss"
+        ],
+        "compodoc": false
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/concept/**/*.ts", "apps/concept/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/concept/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

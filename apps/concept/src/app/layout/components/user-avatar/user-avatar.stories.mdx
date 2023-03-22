@@ -1,0 +1,38 @@
+import { Story, Meta, Preview } from '@storybook/addon-docs/blocks';
+import { moduleMetadata } from '@storybook/angular';
+import { LayoutModule } from "../../layout.module";
+
+<Meta
+  title="Layout / UserAvatar"
+  decorators={[
+    moduleMetadata({
+      imports: [LayoutModule],
+    }),
+    ]}
+/>
+
+# UserAvatar
+
+```
+<app-user-avatar [user]="user" (openProfile)="onOpenProfile()"></app-user-avatar>
+```
+
+export const Desktop = args => ({
+  template: `<app-user-avatar [user]="user"></app-user-avatar>`,
+  props: {
+    user: {
+      photo: args.photo,
+    }
+  }
+})
+
+<Preview>
+  <Story
+    name="Default"
+    args={{
+      photo: 'https://cataas.com/cat',
+    }}
+  >
+    {Desktop.bind({})}
+  </Story>
+</Preview>

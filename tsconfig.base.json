@@ -18,6 +18,7 @@
     "baseUrl": ".",
     "paths": {
       "@angular-shared": ["libs/angular-shared/src/index.ts"],
+      "@angular-shared/*": ["libs/angular-shared/src/lib/*"],
       "@filecab/models": ["libs/filecab/models/src/index.ts"],
       "@filecab/models/*": ["libs/filecab/models/src/*"],
       "@store": ["libs/store/src/index.ts"],

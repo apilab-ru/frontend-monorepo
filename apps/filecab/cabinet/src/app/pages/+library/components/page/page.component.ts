@@ -62,11 +62,20 @@ export class PageComponent implements OnInit {
   }
 
   onUpdateItem(item: LibraryItemV2): void {
-    this.filecabService.updateItem(item).subscribe(() => {
-      this.messageService.add({
-        severity: 'success',
-        detail: 'Done!'
-      })
+    this.filecabService.updateItem(item).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          detail: 'Done!'
+        })
+      },
+      error: (error) => {
+        console.log('xxx error', error);
+        this.messageService.add({
+          severity: 'error',
+          detail: error.toString()
+        })
+      }
     })
   }
 

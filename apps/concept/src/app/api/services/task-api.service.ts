@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Task, TaskDetail, TaskDetailRequest, TasksQuery } from "../models/interface";
+import { Task, TaskDetail, TaskDetailRequest, TasksQuery } from "../../board/models/tasks";
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
-import { Response } from "../../../core/request";
+import { Response } from "../../core/request";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class TaskApiService {
   private endpoint = '/tasks/';
 

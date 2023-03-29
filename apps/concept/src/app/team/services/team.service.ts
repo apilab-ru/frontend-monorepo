@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, shareReplay, startWith, switchMap, tap } from "rxjs";
 import { Team } from "../models/interface";
-import { TeamApiService } from "./team-api.service";
+import { TeamApiService } from "@api/services/team-api.service";
 import { User } from "../../users/models/interface";
 import { makeStore } from "@store";
 import { filterUndefined } from "@store/rxjs/filter-undefined";

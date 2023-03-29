@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { finalize, Observable, switchMap, tap } from "rxjs";
-import { TaskApiService } from "./task-api.service";
-import { Task, TaskDetail, TaskDetailRequest, TasksQuery } from "../models/interface";
+import { TaskApiService } from "@api/services/task-api.service";
+import { Task, TaskDetail, TaskDetailRequest, TasksQuery } from "../../models/interface";
 import { Response } from "../../../core/request";
 import { makeStore } from "@store";
 

@@ -33,4 +33,4 @@
 
 Приложение для разбиения задачи на пункты, и учёта выполненных пунктов. С лоцированием времени на пункт и анализом затраченного времени для прогнозирвоания.
 
-![Схема](./project/schema.svg)
+![Схема](https://github.com/apilab-ru/frontend-monorepo/raw/master/apps/concept/project/schema.svg)

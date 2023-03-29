@@ -1,6 +1,11 @@
-import { Mark } from "../../marks/models/interface";
-import { CreateRequest, RequestQuery } from "../../../core/request";
-import { TaskStatus } from "./const";
+import { Mark } from "./marks";
+import { CreateRequest, RequestQuery } from "../../core/request";
+
+export enum TaskStatus {
+  open = 'open',
+  progress = 'progress',
+  close = 'close',
+}
 
 export interface Task {
   id: string;

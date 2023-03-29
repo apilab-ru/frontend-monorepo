@@ -1,4 +1,5 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "target": "es2022",
     "useDefineForClassFields": false,
@@ -7,7 +8,15 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "experimentalDecorators": true,
+    "paths": {
+      "@module/*": ["apps/concept/src/app/*"],
+      "@ui-kit/*": ["libs/ui-kit/src/*"],
+      "@shared/*": ["libs/angular-shared/src/lib/*"],
+      "@store/*": ["libs/store/src/*"],
+      "@api/*": ["apps/concept/src/app/api/*"],
+    }
   },
   "files": [],
   "include": [],
@@ -19,7 +28,6 @@
       "path": "./tsconfig.spec.json"
     }
   ],
-  "extends": "../../tsconfig.base.json",
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,

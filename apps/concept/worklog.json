@@ -1,5 +1,9 @@
 [
   ["concepts", "docs", "2h"],
   ["concept", "implementation", "2h"],
-  ["concept", "readme", "0.25h"]
+  ["concept", "readme", "0.25h"],
+  ["concept", "publish", "0.5h"],
+  ["concept", "local api", "1.25h"],
+  ["concept", "refactoring api and auth", "1.5h"],
+  ["concept", "form", "0.33h"]
 ]

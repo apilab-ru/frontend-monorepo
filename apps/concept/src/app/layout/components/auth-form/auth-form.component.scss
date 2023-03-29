@@ -1,0 +1,16 @@
+.form {
+  width: 350px;
+  height: 300px;
+  box-sizing: border-box;
+  padding: 12px;
+}
+
+.variants {
+  width: 100%;
+}
+
+.line {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+}

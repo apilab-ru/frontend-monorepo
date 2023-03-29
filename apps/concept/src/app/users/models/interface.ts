@@ -7,4 +7,5 @@ export interface User {
 
 export interface CurrentUser extends User {
   token: string;
+  password?: string;
 }

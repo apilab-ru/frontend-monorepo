@@ -1,0 +1,30 @@
+<div class="form">
+   <ui-button-select
+      class="variants"
+      [options]="variants"
+      [(ngModel)]="mode"
+      optionLabel="label"
+      optionValue="value"
+   ></ui-button-select>
+
+   <div *ngIf="mode === Modes.demo" class="user-list">
+      <div *ngFor="let user of users" class="user">
+         {{ user | json }}
+      </div>
+   </div>
+
+   <form *ngIf="mode !== Modes.demo" [formGroup]="form">
+      <ui-input
+         class="line"
+         label="Email"
+         formControlName="email"
+      ></ui-input>
+
+      <ui-input
+         class="line"
+         label="Password"
+         formControlName="password"
+         type="password"
+      ></ui-input>
+   </form>
+</div>

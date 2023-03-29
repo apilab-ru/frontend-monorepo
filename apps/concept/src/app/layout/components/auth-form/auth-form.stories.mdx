@@ -1,0 +1,34 @@
+import { Story, Meta, Preview } from '@storybook/addon-docs/blocks';
+import { moduleMetadata } from '@storybook/angular';
+import { LayoutModule } from "../../layout.module";
+import { DEFAULT_USERS } from "@module/api/models/users";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+
+<Meta
+  title="Layout / AuthForm"
+  decorators={[
+    moduleMetadata({
+      imports: [LayoutModule, BrowserAnimationsModule],
+    }),
+    ]}
+/>
+
+# AuthForm
+
+export const Desktop = args => ({
+  template: `<app-auth-form [users]="users"></app-auth-form>`,
+  props: {
+    users: DEFAULT_USERS,
+  }
+})
+
+<Preview>
+  <Story
+    name="Default"
+    args={{
+      photo: 'https://cataas.com/cat',
+    }}
+  >
+    {Desktop.bind({})}
+  </Story>
+</Preview>

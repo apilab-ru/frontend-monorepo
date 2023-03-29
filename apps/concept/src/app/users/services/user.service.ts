@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { UserApiService } from "./user-api.service";
+import { UserApiService } from "@api/services/user-api.service";
 import { BehaviorSubject, map, Observable, of, shareReplay, switchMap, tap } from "rxjs";
 import { CurrentUser, User } from "../models/interface";
 import { filterUndefined } from "@store/rxjs/filter-undefined";
-import { LocalStorageService } from "@angular-shared/store/local-storage.service";
+import { LocalStorageService } from "@shared/store/local-storage.service";
 
 const storageKey = 'userStorage';
 
@@ -30,6 +30,10 @@ export class UserService {
     this.token$ = this.user$.pipe(
       map(user => user?.token || null)
     );
+  }
+
+  loadAvailableUsers(): Observable<CurrentUser[]> {
+    return this.userApiService.loadAvailableUsers();
   }
 
   auth(email: string, password: string): Observable<CurrentUser> {

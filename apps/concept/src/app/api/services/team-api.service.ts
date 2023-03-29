@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { Team } from "../models/interface";
+import { Team } from "../../team/models/interface";
 import { User } from "../../users/models/interface";
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class TeamApiService {
   private endpoint = '/team/';
 

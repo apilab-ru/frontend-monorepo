@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { TaskStatus } from "../models/const";
-import { TaskDetail } from "../models/interface";
+import { TaskStatus } from "../../models/const";
+import { TaskDetail } from "../../models/interface";
 import { makeStore } from "@store";
 
 @Injectable()

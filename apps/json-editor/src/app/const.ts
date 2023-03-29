@@ -1,6 +1,6 @@
-import { IDbConfig } from '@store';
+import { DbConfig } from '@store';
 
-export const DB_STORE_CONFIG: IDbConfig = {
+export const DB_STORE_CONFIG: DbConfig = {
   name: 'jsonEditor',
   version: 3,
   objects: [

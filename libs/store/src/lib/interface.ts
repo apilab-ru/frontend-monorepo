@@ -1,10 +1,11 @@
-export interface IDbConfig {
+export interface DbConfig {
   name: string;
   version: number;
-  objects: IDbObject[];
+  objects: DbObject[];
 }
 
-export interface IDbObject {
+export interface DbObject<T = object> {
   name: string;
   options?: IDBObjectStoreParameters;
+  values?: T[];
 }

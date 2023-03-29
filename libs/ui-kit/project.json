@@ -2,7 +2,7 @@
   "name": "ui-kit",
   "projectType": "library",
   "sourceRoot": "libs/ui-kit/src",
-  "prefix": "lib",
+  "prefix": "ui",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:ng-packagr",
@@ -27,6 +27,34 @@
           "zone.js",
           "zone.js/testing"
         ]
+      }
+    },
+
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "browserTarget": "ui-kit:build-storybook",
+        "port": 6010,
+        "configDir": "libs/ui-kit/.storybook",
+        "tsConfig": "libs/ui-kit/.storybook/tsconfig.json",
+        "styles": [
+          "libs/ui-kit/.storybook/global.scss"
+        ],
+        "compodoc": false
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "browserTarget": "ui-kit:build",
+        "configDir": "libs/ui-kit/.storybook",
+        "tsConfig": "libs/ui-kit/.storybook/tsconfig.json",
+        "styles": [
+          "libs/ui-kit/.storybook/global.scss"
+        ],
+        "outputDir": "libs/ui-kit/.storybook/dist",
+        "compodoc": false
       }
     }
   }

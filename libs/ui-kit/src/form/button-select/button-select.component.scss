@@ -1,0 +1,17 @@
+.button-select {
+  display: flex;
+
+  ::ng-deep {
+    .p-selectbutton {
+      display: flex;
+      width: 100%;
+    }
+
+    .p-button {
+      padding-top: 8px;
+      padding-bottom: 8px;
+      flex: 1;
+      font-size: 13px;
+    }
+  }
+}

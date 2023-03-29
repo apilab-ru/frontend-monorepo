@@ -1,0 +1,43 @@
+import { Story, Meta, Preview } from '@storybook/addon-docs/blocks';
+import { moduleMetadata } from '@storybook/angular';
+import { UiInputModule } from './input.module';
+import { FormControl, ReactiveFormsModule, Validators } from "@angular/forms";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+
+<Meta
+  title="Form / Input"
+  decorators={[
+      moduleMetadata({
+        imports: [UiInputModule, ReactiveFormsModule, BrowserAnimationsModule],
+      }),
+  ]}
+  argTypes={{
+    valueChange: { action: 'change' }
+  }}
+/>
+
+# Input
+
+export const Desktop = args => ({
+  template:
+    `<div style="max-width: 300px">
+        <ui-input [label]="label" [help]="help" [formControl]="formControl"></ui-input>
+     </div>`,
+  props: {
+    ...args,
+    name: 'input',
+    formControl: new FormControl('Test', [Validators.required, Validators.minLength(5)])
+  }
+})
+
+<Preview>
+  <Story
+    name="Default"
+    args={{
+      label: 'Username',
+      help: 'Enter your username to reset your password.'
+    }}
+  >
+  {Desktop.bind({})}
+  </Story>
+</Preview>

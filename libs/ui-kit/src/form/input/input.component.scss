@@ -1,0 +1,33 @@
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-bottom: 4px;
+}
+
+.error {
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+.password {
+  ::ng-deep {
+    .p-password {
+      width: 100%;
+    }
+
+    .p-password-input {
+      width: 100%;
+    }
+
+    .pi {
+      position: absolute;
+      height: 100%;
+      right: 0;
+      padding: 1em;
+      cursor: pointer;
+    }
+  }
+}

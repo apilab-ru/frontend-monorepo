@@ -1,0 +1,28 @@
+<label *ngIf="label" class="label" htmlFor="{{ id }}">
+   {{ label }}
+</label>
+<input
+   *ngIf="type === 'text'"
+   pInputText
+   [id]="id"
+   [attr.aria-describedby]="id + '-help'"
+   [class.ng-invalid]="error$ | async"
+   [ngModel]="value$ | async"
+   (ngModelChange)="updateValue($event)"
+   (focusout)="touch()"
+/>
+<p-password
+   *ngIf="type === 'password'"
+   class="password"
+   [id]="id"
+   [attr.aria-describedby]="id + '-help'"
+   [class.ng-invalid]="error$ | async"
+   [ngModel]="value$ | async"
+   (ngModelChange)="updateValue($event)"
+   (focusout)="touch()"
+   [toggleMask]="true"
+   [feedback]="false"
+></p-password>
+<small *ngIf="error$ | async as error" class="error" [id]="id + '-help'">
+   {{ error }}
+</small>

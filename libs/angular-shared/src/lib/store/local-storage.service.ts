@@ -18,11 +18,11 @@ export class LocalStorageService {
 
     try {
       return JSON.parse(value);
-    } catch (e) {
+    } catch (error: any) {
       if (defaultData !== undefined) {
         return defaultData;
       } else {
-        throw Error(`Error parse ${key}: ` + e.toString());
+        throw Error(`Error parse ${key}: ` + error.toString());
       }
     }
   }

@@ -6,7 +6,8 @@ import {
   filter,
   map,
   Observable,
-  of, shareReplay,
+  of,
+  shareReplay,
   switchMap,
   tap
 } from "rxjs";
@@ -112,6 +113,10 @@ export abstract class EditContext {
 
         if (libraryItem?.name && !this.store.name.value) {
           this.store.name.next(libraryItem.name);
+        }
+
+        if (libraryItem?.url !== this.store.url.value) {
+          this.store.hasChanges.next(true);
         }
       })
     )

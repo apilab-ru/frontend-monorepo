@@ -87,6 +87,13 @@ const schemas: Record<string, Schema> = {
       return { title, id: +id, idField: 'kinopoisk', type };
     },
   },
+  'jut-su.club': {
+    type: Types.anime,
+    func: () => {
+      const title = document.title.split('/')[0].trim();
+      return { title }
+    }
+  },
   default: {
     type: Types.films,
     func: () => ({

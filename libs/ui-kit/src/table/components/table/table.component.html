@@ -1,16 +1,18 @@
-<table class="ui-table">
-   <thead class="ui-table-head">
-      <td *ngFor="let item of headerQueryList.toArray()" class="ui-table-head-td {{ item.class }}">
-         <ng-container *ngTemplateOutlet="item.templateRef"></ng-container>
-      </td>
-   </thead>
+<div class="ui-table-box">
+   <table class="ui-table">
+      <thead class="ui-table-head">
+         <td *ngFor="let item of headerQueryList.toArray()" class="ui-table-td -head -{{ item.class }}">
+            <ng-container *ngTemplateOutlet="item.templateRef"></ng-container>
+         </td>
+      </thead>
 
-   <tbody>
+      <tbody>
       <ng-template
-          ngFor
-          [ngForOf]="list"
-          [ngForTrackBy]="trackBy"
-          [ngForTemplate]="rowTemplate"
+         ngFor
+         [ngForOf]="list"
+         [ngForTrackBy]="trackBy"
+         [ngForTemplate]="rowTemplate"
       ></ng-template>
-   </tbody>
-</table>
+      </tbody>
+   </table>
+</div>

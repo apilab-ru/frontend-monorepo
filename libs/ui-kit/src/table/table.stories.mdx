@@ -15,32 +15,64 @@ import { TABLE_MOCK_DATA } from './mock.data';
 
 # Таблица
 
-export const Desktop = args => ({
+## Использование
+Чтобы использовать достаточно импортировать модуль UiTableModule.
+
+Далее нужно использовать ui-table - компонент, который внутри себя оборачивает таблицу нужными дополнительными стилями и логикой.
+
+Таблице необходимо передать список для рендеринга.
+
+Ячейки заголовков необходимо задать через компонент ui-table-head
+
+Далее после них нужно вывести список строк, через директиву uiTableIterator, на tr нужно добавить директиву uiTableTr,
+на td - добавить директиву uiTableTd - чтобы добавились нужные таблице классы
+
+Полня демонстрация кода в show code
+
+export const Desktop = (style) => args => ({
   template:
-`<ui-table [list]="list">
-    <ui-table-head class='test'>#id</ui-table-head>
+`<ui-table [list]="list" style="{{ style }}">
+    <ui-table-head class='number'>#id</ui-table-head>
     <ui-table-head>Name</ui-table-head>
     <ui-table-head>Description</ui-table-head>
-    <ui-table-head>Controls</ui-table-head>
+    <ui-table-head class='controls'>Controls</ui-table-head>
     <!-- rows -->
     <tr *uiTableIterator="let item of list" uiTableTr>
-        <td uiTableTd>#{{ item.num }}</td>
+        <td uiTableTd class='-number'>#{{ item.num }}</td>
         <td uiTableTd>{{ item.name }}</td>
         <td uiTableTd>{{ item.description }}</td>
-        <td uiTableTd>
+        <td uiTableTd class='controls'>
             <button>Add Item</button>
         </td>
     </tr>
  </ui-table>`,
   props: {
+    style,
     list: TABLE_MOCK_DATA
   }
 })
+
+----------------------------
+## Поддерживаемые классы ячеек
+| Класс      | Описание     |
+|---------   |--------------|
+| number    | ширина 50px   |
+| controls  |  ширина 300px |
 
 <Preview>
   <Story
     name="Default"
   >
-    {Desktop.bind({})}
+    {Desktop('max-width: 800px; display: block;').bind({})}
+  </Story>
+</Preview>
+
+## Фиксированные первая и последняя ячейки
+
+<Preview>
+  <Story
+    name="Fixed blocks"
+  >
+    {Desktop('max-width: 600px; display: block;').bind({})}
   </Story>
 </Preview>

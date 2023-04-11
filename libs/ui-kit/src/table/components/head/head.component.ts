@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, TemplateRef, ViewChild } from '@angular/core';
 
+type UiTdClass = 'number' | 'controls'
+
 @Component({
   selector: 'ui-table-head',
   templateUrl: './head.component.html',
@@ -7,7 +9,7 @@ import { ChangeDetectionStrategy, Component, Input, TemplateRef, ViewChild } fro
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UiHeadComponent {
-  @Input() class: string;
+  @Input() class?: UiTdClass;
 
   @ViewChild('templateRef', { static: true }) templateRef: TemplateRef<HTMLElement>;
 }

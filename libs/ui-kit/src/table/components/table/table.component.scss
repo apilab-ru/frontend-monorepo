@@ -1,0 +1,28 @@
+.ui-table {
+  border: 1px solid #efefef;
+  font-size: 14px;
+  border-collapse: collapse;
+}
+
+.ui-table-head-td {
+  border-bottom: 1px solid #efefef;
+  border-left: 1px solid #efefef;
+  padding: 8px;
+}
+
+.ui-table-td {
+  padding: 8px;
+  border-left: 1px solid #efefef;
+}
+
+.ui-table-tr {
+  transition: 0.3s;
+
+  &:nth-of-type(2n) {
+    background: #efefef54;
+  }
+
+  &:hover {
+    background: #25d9f0;
+  }
+}

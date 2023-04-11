@@ -7,7 +7,6 @@ import {
   TemplateRef,
   TrackByFunction
 } from '@angular/core';
-import { RowContext } from "@angular/cdk/table";
 import { UiListIteratorDirective } from "../../list-iterator-directive";
 import { OrderField } from "../../models/interface";
 import { NgForOfContext } from "@angular/common";

@@ -1,0 +1,46 @@
+import { Story, Meta, Preview } from '@storybook/addon-docs/blocks';
+import { moduleMetadata } from '@storybook/angular';
+import { UiTableModule } from "./table.module";
+import { CommonModule } from "@angular/common";
+import { TABLE_MOCK_DATA } from './mock.data';
+
+<Meta
+  title="Ui-kit / Table"
+  decorators={[
+    moduleMetadata({
+      imports: [UiTableModule, CommonModule],
+    }),
+    ]}
+/>
+
+# Таблица
+
+export const Desktop = args => ({
+  template:
+`<ui-table [list]="list">
+    <ui-table-head class='test'>#id</ui-table-head>
+    <ui-table-head>Name</ui-table-head>
+    <ui-table-head>Description</ui-table-head>
+    <ui-table-head>Controls</ui-table-head>
+    <!-- rows -->
+    <tr *uiTableIterator="let item of list" uiTableTr>
+        <td uiTableTd>#{{ item.num }}</td>
+        <td uiTableTd>{{ item.name }}</td>
+        <td uiTableTd>{{ item.description }}</td>
+        <td uiTableTd>
+            <button>Add Item</button>
+        </td>
+    </tr>
+ </ui-table>`,
+  props: {
+    list: TABLE_MOCK_DATA
+  }
+})
+
+<Preview>
+  <Story
+    name="Default"
+  >
+    {Desktop.bind({})}
+  </Story>
+</Preview>

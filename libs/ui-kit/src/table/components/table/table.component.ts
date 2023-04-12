@@ -28,7 +28,7 @@ export class UiTableComponent<T> {
   @ContentChild(UiTableIteratorDirective) private gridIterator: UiTableIteratorDirective<T>;
 
   get trackBy(): TrackByFunction<T> {
-    return this.gridIterator.uiTableIterator;
+    return this.gridIterator.uiTableIteratorTrackBy;
   }
 
   get rowTemplate(): TemplateRef<NgForOfContext<T>> {

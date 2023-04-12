@@ -6,11 +6,12 @@ import { NgForOfContext } from "@angular/common";
 })
 export class UiTableIteratorDirective<T> {
 
-  @Input() uiTableIterator: TrackByFunction<T>;
+  @Input() uiTableIteratorTrackBy: TrackByFunction<T> = (index) => index;
 
   @Input() uiTableIteratorOf: T[];
 
   constructor(public template: TemplateRef<NgForOfContext<T>>) {
+    console.log('xxx init', this);
   }
 
 }

@@ -28,7 +28,7 @@ import { TABLE_MOCK_DATA } from './mock.data';
 Далее после них нужно вывести список строк, через директиву uiTableIterator, на tr нужно добавить директиву uiTableTr,
 на td - добавить директиву uiTableTd - чтобы добавились нужные таблице классы
 
-Полня демонстрация кода в show code
+Полная демонстрация кода в show code
 
 export const Desktop = (style) => args => ({
   template:
@@ -39,10 +39,10 @@ export const Desktop = (style) => args => ({
     <ui-table-head class='controls'>Controls</ui-table-head>
     <!-- rows -->
     <tr *uiTableIterator="let item of list" uiTableTr>
-        <td uiTableTd class='-number'>#{{ item.num }}</td>
+        <td uiTableTd>#{{ item.num }}</td>
         <td uiTableTd>{{ item.name }}</td>
         <td uiTableTd>{{ item.description }}</td>
-        <td uiTableTd class='controls'>
+        <td uiTableTd>
             <button>Add Item</button>
         </td>
     </tr>

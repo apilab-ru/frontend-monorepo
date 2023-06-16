@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { ControlValueAccessor} from "@angular/forms";
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { UiFormControl } from "@ui-kit/form/form-control/form-control";
 import { controlProvider } from "@ui-kit/form/form-control/provider";
 

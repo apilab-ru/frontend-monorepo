@@ -12,7 +12,8 @@
     "filecab:ts:browser": "webpack --mode development --config ./apps/filecab/background/webpack.config.js --env=browser -w",
     "filecab:ts:dev": "webpack --mode development --config ./apps/filecab/background/webpack.config.js --env=development -w",
     "filecab:ts:build": "webpack --config ./apps/filecab/background/webpack.config.js --env=production --devtool=false",
-    "filecab:ui-kit": "nx run filecab-ui-kit:storybook"
+    "filecab:ui-kit": "nx run filecab-ui-kit:storybook",
+    "start:ui-kit": "nx run ui-kit:storybook"
   },
   "private": false,
   "dependencies": {
@@ -35,6 +36,9 @@
     "@sentry/angular": "7.37.2",
     "@sentry/tracing": "7.37.2",
     "@storybook/theming": "^6.5.16",
+    "@taiga-ui/addon-table": "^3.24.0",
+    "@taiga-ui/cdk": "^3.24.0",
+    "@taiga-ui/core": "^3.24.0",
     "@tinkoff/ng-dompurify": "3.0.0",
     "chart.js": "^4.2.0",
     "date-fns": "2.29.3",

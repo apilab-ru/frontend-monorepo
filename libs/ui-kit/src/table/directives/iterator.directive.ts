@@ -11,7 +11,6 @@ export class UiTableIteratorDirective<T> {
   @Input() uiTableIteratorOf: T[];
 
   constructor(public template: TemplateRef<NgForOfContext<T>>) {
-    console.log('xxx init', this);
   }
 
 }

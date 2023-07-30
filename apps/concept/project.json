@@ -16,11 +16,7 @@
         "tsConfig": "apps/concept/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": ["apps/concept/src/favicon.ico", "apps/concept/src/assets"],
-        "styles": [
-          "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
-          "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
-          "apps/concept/src/styles.scss"
-        ],
+        "styles": ["apps/concept/src/styles.scss"],
         "scripts": []
       },
       "configurations": {

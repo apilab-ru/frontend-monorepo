@@ -59,8 +59,8 @@ export class ProviderJira implements ProviderAbstract<IntegrationJira> {
 
     calc.forEach(item => {
       list.push({
-        task: item.task,
-        comment: item.description,
+        task: item.task.trim(),
+        comment: item.description.trim(),
         timeSpentSeconds: item.time * 60,
         started: formatMinutes(item.timeStart),
       })
@@ -87,7 +87,7 @@ export class ProviderJira implements ProviderAbstract<IntegrationJira> {
     return `
     (function() {
       const list = ${ JSON.stringify(list) };
-      const domain = '${ this.domain }';
+      const domain = location.host;
 
       ${ jiraFetch.toString() };
 

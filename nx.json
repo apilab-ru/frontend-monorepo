@@ -1,15 +1,16 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "utils-monorep",
+  "npmScope": "frontend-monorepo",
   "affected": {
     "defaultBase": "master"
   },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/nx-cloud",
+      "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e", "build-storybook"],
-        "accessToken": "N2Q3ZTVjYzctNjI3ZC00Y2FmLTk2Y2QtNzBmZTA4M2I5MmQwfHJlYWQtd3JpdGU="
+        "cacheableOperations": ["build", "lint", "test", "e2e", "build-storybook", "stylelint"],
+        "cacheDirectory": ".nx-cache",
+        "parallel": 1
       }
     }
   },

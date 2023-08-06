@@ -13,6 +13,12 @@
     "filecab:ts:dev": "webpack --mode development --config ./apps/filecab/background/webpack.config.js --env=development -w",
     "filecab:ts:build": "webpack --config ./apps/filecab/background/webpack.config.js --env=production --devtool=false",
     "filecab:ui-kit": "nx run filecab-ui-kit:storybook",
+
+    "exs:copy": "copyfiles -f ./apps/extension-skeleton/extension/* ./apps/extension-skeleton/dist",
+    "exs:cabinet:dev": "nx run extension-skeleton-cabinet:build:development --watch",
+    "exs:popup:dev": "nx run extension-skeleton-popup:build:development --watch",
+    "exs:ts:dev": "webpack --mode development --config ./apps/extension-skeleton/background/webpack.config.js --env=development -w",
+
     "start:ui-kit": "nx run ui-kit:storybook"
   },
   "private": false,
@@ -44,6 +50,7 @@
     "ng-lazyload-image": "9.1.3",
     "ngx-mask": "15.0.2",
     "ngx-page-scroll": "^10.0.0",
+    "primeicons": "^6.0.1",
     "primeng": "^15.2.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

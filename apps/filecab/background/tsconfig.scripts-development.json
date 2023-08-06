@@ -7,6 +7,7 @@
       "@filecab/models/*": ["libs/filecab/models/src/*"],
       "@environments/model": ["apps/filecab/environments/index.ts"],
       "@environments": ["apps/filecab/background/environments/environment.ts"],
+      "@store/*": ["libs/store/src/*"]
     }
   }
 }

@@ -21,6 +21,7 @@
       "@angular-shared/*": ["libs/angular-shared/src/lib/*"],
       "@filecab/models": ["libs/filecab/models/src/index.ts"],
       "@filecab/models/*": ["libs/filecab/models/src/*"],
+      "@frontend-monorepo/extension": ["libs/extension/src/index.ts"],
       "@store": ["libs/store/src/index.ts"],
       "@store/*": ["libs/store/src/*"],
       "@ui-kit/*": ["libs/ui-kit/src/*"],

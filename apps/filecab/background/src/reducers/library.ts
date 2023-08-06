@@ -1,10 +1,11 @@
-import { Reducer } from './reducer';
+
 import { Store } from '../store';
 import { Library } from '@shared/models/library';
 import { deepCopy } from '@shared/utils/utils';
 import { allApi } from '../api';
 import { from, Observable, throwError } from 'rxjs';
 import { LibraryItemV2 } from "@filecab/models/library";
+import { Reducer } from "../../../../../libs/extension/src/background/reducers/reducer";
 
 interface CRUDItem {
   item: LibraryItemV2;
@@ -70,7 +71,7 @@ export class LibraryReducer extends Reducer<Store> {
     this.store.data.next(data);
     this.store.lastTimeUpdate.next(lastTimeUpdate);
 
-    return from(allApi.chromeStoreApi.setStore(store).then(() => undefined));
+    return from(allApi.chromeStoreApi.setStore(store));
   }
 
   private removeUrlFromLib(data: LibraryItemV2[], url: string): LibraryItemV2[] {

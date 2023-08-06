@@ -102,7 +102,7 @@ export class FileCabService {
     return this.data$.pipe(
       take(1),
       map(list => {
-        const item = list.find(it => it.url === url);
+        const item = list?.find(it => it.url === url);
 
         return item || null;
       })

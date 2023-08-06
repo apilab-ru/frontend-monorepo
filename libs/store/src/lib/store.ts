@@ -4,7 +4,8 @@ import { map, startWith } from 'rxjs/operators';
 abstract class StoreMethods<T> {
   abstract select<S extends keyof T>(selector: S): Observable<T[S]>;
   abstract select(): Observable<T>;
-  abstract reload<S extends keyof T>(key: S, observable: Observable<T[S]>): void;
+
+  abstract reload<S extends keyof T>(key: S, observable: Observable<T[S]> | BehaviorSubject<T[S]>): void;
   abstract update(data: Partial<T>): void;
   abstract get(): T;
 }
@@ -12,8 +13,11 @@ abstract class StoreMethods<T> {
 type StoreFields<T> = { [key in keyof T]: BehaviorSubject<T[key]> };
 export type RecordSubject<T> = StoreFields<T> & StoreMethods<T>;
 
-export function makeStore<T extends object>(data: T): RecordSubject<T> {
-  const store = {} as StoreFields<T>;
+export function makeStore<Store extends object, ReactiveStore extends Partial<StoreFields<Store>>>(
+  data: Store,
+  reactiveStore?: ReactiveStore
+): RecordSubject<Store> {
+  const store = {} as StoreFields<Store>;
   for (const key in data) {
     // @ts-ignore
     store[key] = new BehaviorSubject<typeof data[typeof key]>(data[key]);
@@ -30,14 +34,15 @@ export function makeStore<T extends object>(data: T): RecordSubject<T> {
   });
 
   // @ts-ignore
-  (store as RecordSubject<T>).select = (selector?: keyof T) => {
+  (store as RecordSubject<Store>).select = (selector?: keyof Store) => {
     if (selector) {
 
       if (!store[selector]) {
-        return throwError(() => `Selector ${selector as string} not found`)
+        return throwError(() => `Selector ${selector as string} not found`);
       }
 
-      return store[selector];
+      // @ts-ignore
+      return store[selector].asObservable ? store[selector].asObservable() : store[selector];
     }
 
     // @ts-ignore
@@ -47,43 +52,62 @@ export function makeStore<T extends object>(data: T): RecordSubject<T> {
           // @ts-ignore
           obj[key] = list[index];
           return obj;
-        }, {}) as T;
+        }, {}) as Store;
       }),
       startWith(data),
     )
   };
 
-  (store as StoreMethods<T>).reload = (key:  keyof T, observable) => {
+  (store as StoreMethods<Store>).reload = (key:  keyof Store, observable) => {
     // @ts-ignore
     store[key] = observable;
   }
 
-  // @ts-ignore
-  (store as RecordSubject<T>).select = () => combineLatest(subjects).pipe(
-    map((list) => {
-      return keys.reduce((obj, key, index) => {
-        // @ts-ignore
-        obj[key] = list[index];
-        return obj;
-      }, {}) as T;
-    }),
-    startWith(data),
-  );
+  if (reactiveStore) {
+    Object.entries(reactiveStore).forEach(([key, observable]) => {
+      (store as StoreMethods<Store>).reload(key as keyof Store, observable as Observable<Store[keyof Store]>);
+    })
+  }
 
-  (store as RecordSubject<T>).get = () => {
+  // @ts-ignore
+  (store as RecordSubject<Store>).select = (selector?: keyof Store) => {
+    if (selector) {
+
+      if (!store[selector]) {
+        return throwError(() => `Selector ${selector as string} not found`);
+      }
+
+      // @ts-ignore
+      return store[selector].asObservable ? store[selector].asObservable() : store[selector];
+    }
+
+    // @ts-ignore
+    return combineLatest(subjects).pipe(
+      map((list) => {
+        return keys.reduce((obj, key, index) => {
+          // @ts-ignore
+          obj[key] = list[index];
+          return obj;
+        }, {}) as Store;
+      }),
+      startWith(data),
+    );
+  };
+
+  (store as RecordSubject<Store>).get = () => {
     return keys.reduce((prev, key) => ({
       ...prev,
       // @ts-ignore
       [key]: store[key].getValue(),
-    }), {}) as T;
+    }), {}) as Store;
   }
 
-  (store as RecordSubject<T>).update = (data) => {
+  (store as RecordSubject<Store>).update = (data) => {
     Object.entries(data).forEach(([key, value]) => {
       // @ts-ignore
       store[key].next(value);
     })
   }
 
-  return store as RecordSubject<T>;
+  return store as RecordSubject<Store>;
 }

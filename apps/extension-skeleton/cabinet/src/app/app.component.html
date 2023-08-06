@@ -1,0 +1,24 @@
+<div class="root">
+  <h2>Welcome to cabinet</h2>
+
+  <h2>Setup user data</h2>
+  <shared-user-form
+    [user]="user$ | async"
+    (userChange)="updateUser($event)"
+  ></shared-user-form>
+
+  <div *ngIf="repos$ | async as repos">
+    <h2>Git repos</h2>
+
+    <div *ngFor="let repo of repos">
+      {{ repo | json }}
+    </div>
+  </div>
+
+   <h2>Counter</h2>
+   <pre>{{ counter$ | async }}</pre>
+   <div>
+      <button (click)="increment()">Increment</button>
+      <button (click)="decrement()">Decrement</button>
+   </div>
+</div>

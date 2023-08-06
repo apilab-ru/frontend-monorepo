@@ -9,14 +9,14 @@ import { Genre } from "@filecab/models/genre";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MediaItemComponent implements OnChanges {
-  @Input() mediaItem: MediaItemV2;
-  @Input() genres: Genre[];
+  @Input() mediaItem?: MediaItemV2;
+  @Input() genres?: Genre[];
 
   showedGenres: Genre[];
 
   ngOnChanges({ mediaItem, genres }: SimpleChanges) {
     if ((mediaItem || genres) && (this.mediaItem && this.genres)) {
-      this.showedGenres = this.genres.filter(({ id }) => this.mediaItem.genreIds.includes(id))
+      this.showedGenres = this.genres?.filter(({ id }) => this.mediaItem?.genreIds.includes(id))
     }
   }
 }

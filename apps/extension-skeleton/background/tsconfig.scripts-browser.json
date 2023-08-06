@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "paths": {
+      "@shared/*": ["apps/extension-skeleton/shared/*"],
+      "@environments": ["apps/extension-skeleton/environments/environment.browser.ts"],
+      "@environments/model": ["apps/extension-skeleton/environments/index.ts"],
+      "@store/*": ["libs/store/src/*"]
+    }
+  }
+}

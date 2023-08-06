@@ -20,8 +20,8 @@ export class MediaItemListComponent implements OnChanges {
   @Input() isLoading = true;
   @Input() isSearchMode = false;
   @Input() mediaItem?: MediaItemV2;
-  @Input() list: MediaItemV2[];
-  @Input() genres: Genre[];
+  @Input() list?: MediaItemV2[];
+  @Input() genres?: Genre[];
 
   @Output() selectItem = new EventEmitter<MediaItemV2>();
   @Output() toSearchMode = new EventEmitter<void>();

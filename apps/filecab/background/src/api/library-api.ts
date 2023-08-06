@@ -1,17 +1,17 @@
-import { Observable, of } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 import { Library } from '@shared/models/library';
 import { catchError, map, pluck } from 'rxjs/operators';
-import { chromeStoreApi } from './chrome-store.api';
+
 import { isArray } from "lodash-es";
 import { LibraryItemV2 } from "@filecab/models/library";
+import { allApi } from "./index";
 
 const KEY_OLD_DATA = 'filecabOldData';
 
 class LibraryApi {
   load(): Observable<Library> {
-    return chromeStoreApi.getStore<Library>().pipe(
+    return allApi.chromeStoreApi.getStore<Library>().pipe(
       map(store => {
-
         if (!store) {
           return {
             tags: [],
@@ -31,6 +31,8 @@ class LibraryApi {
         return store;
       }),
       catchError((error) => {
+        console.log('xxx error', error)
+
         return of({
           tags: [],
           data: [],
@@ -42,6 +44,7 @@ class LibraryApi {
 
   loadData(): Observable<LibraryItemV2[]> {
     return this.load().pipe(
+      tap(data => console.log('xxx data', data)),
       pluck('data'),
     );
   }

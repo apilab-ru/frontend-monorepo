@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "ExtensionSkeleton",
+  "version": "1",
+  "description": "Description",
+  "icons": {
+    "48": "icon.png"
+  },
+  "action": {
+    "default_title": "ExtensionSkeleton",
+    "default_icon": "icon.png",
+    "default_popup": "popup/index.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "storage",
+    "bookmarks"
+  ]
+}

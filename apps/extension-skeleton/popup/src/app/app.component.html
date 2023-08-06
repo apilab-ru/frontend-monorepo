@@ -1,0 +1,13 @@
+<div class="root">
+   <a target="_blank" href="/cabinet/index.html?/">Cabinet</a>
+
+   <div>
+      {{ counter$ | async }}
+   </div>
+
+   <div class="block">
+      <button class="action" (click)="increment()">Increment</button>
+      <button class="action" (click)="decrement()">Decrement</button>
+   </div>
+</div>
+

@@ -1,0 +1,10 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div>
+    Name: <input formControlName="name">
+  </div>
+  <div>
+    Git: <input formControlName="git">
+  </div>
+
+  <button type="submit">Save</button>
+</form>

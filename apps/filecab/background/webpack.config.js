@@ -1,6 +1,6 @@
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const path = require('path');
-const getEnvTsConfig = require('./scripts/webpack-env.plugin');
+const getEnvTsConfig = require('../../../libs/extension/src/background/scripts/webpack-env.plugin.js');
 
 module.exports = {
   mode: 'development',

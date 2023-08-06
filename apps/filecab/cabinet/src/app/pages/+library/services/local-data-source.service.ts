@@ -76,7 +76,7 @@ export class LocalDataSourceService extends DataSourceService {
       this.searchService.type$,
       this.fileCabService.data$,
     ]).pipe(
-      map(([type, data]) => data.filter(item => item.type === type)),
+      map(([type, data]) => data?.filter(item => item.type === type) || []),
     );
   }
 

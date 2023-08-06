@@ -1,13 +1,15 @@
-import { makeStore } from './helpers';
 import { STORE_DATA } from './const';
 import { shareReplay } from 'rxjs';
 import { allApi } from '../api';
 import { reactiveStore } from '@shared/helpers/reactive-store';
 import { libraryApi } from '../api/library-api';
+import { makeStore } from "@store/lib/store";
 
 export type Store = typeof STORE_DATA;
 
 export const store$ = makeStore(STORE_DATA);
+
+console.log('store', store$)
 
 store$.reload('genres', allApi.fileCabApi.loadGenres().pipe(
   shareReplay({ refCount: false, bufferSize: 1 }),

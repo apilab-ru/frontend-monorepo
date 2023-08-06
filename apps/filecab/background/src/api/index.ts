@@ -1,8 +1,9 @@
 import { FileCabApi } from './file-cab.api';
-import { chromeStoreApi } from './chrome-store.api';
+
 import { environment } from '@environments';
+import { makeChromeStoreApi } from "../../../../../libs/extension/src/background/api/chrome-store.api";
 
 export const allApi = {
   fileCabApi: new FileCabApi(environment),
-  chromeStoreApi
+  chromeStoreApi: makeChromeStoreApi(environment),
 };

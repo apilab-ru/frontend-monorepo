@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "paths": {
+      "@shared/*": ["apps/figma-extension/shared/*"],
+      "@environments": ["apps/figma-extension/environments/environment.dev.ts"],
+      "@environments/model": ["apps/figma-extension/environments/index.ts"],
+      "@store/*": ["libs/store/src/*"]
+    }
+  }
+}

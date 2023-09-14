@@ -1,0 +1,16 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "sourceMap": false,
+    "module": "commonjs",
+    "target": "es5",
+  },
+  "files": [
+    "./src/content.ts"
+  ],
+  "exclude": [
+    "./src/background.service.ts"
+  ],
+  "include": []
+}

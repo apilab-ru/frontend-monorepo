@@ -19,6 +19,11 @@
     "exs:popup:dev": "nx run extension-skeleton-popup:build:development --watch",
     "exs:ts:dev": "webpack --mode development --config ./apps/extension-skeleton/background/webpack.config.js --env=development -w",
 
+    "figma:copy": "copyfiles -f ./apps/figma-extension/extension/* ./apps/figma-extension/dist",
+    "figma:popup:dev": "nx run figma-extension-popup:build:development --watch",
+    "figma:background:dev": "webpack --mode development --config ./apps/figma-extension/background/webpack.config.js --env=development -w",
+    "figma:content:dev": "webpack --mode development --config ./apps/figma-extension/content/webpack.config.js --env=development -w",
+
     "start:ui-kit": "nx run ui-kit:storybook"
   },
   "private": false,

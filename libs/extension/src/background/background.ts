@@ -2,13 +2,14 @@ import { FetchEventData, ReducerEventData, SelectData, WorkerEvent } from './int
 import { WorkerAction } from './const';
 import { filter, Observable, of, Subject, takeUntil, throwError } from 'rxjs';
 
-import { ChromeMessage, makeChromeApi } from "./api/chrome-message.api";
+import { ChromeMessageApi } from "./api/chrome-message.api";
 import { EXSEnvironment } from "./environment";
 import { RecordSubject } from "@store/lib/store";
 
 export class EXSBackgroundWorker<Store, API, Reducers> {
   private closeRequest$ = new Subject<string>();
-  private chromeApi: ChromeMessage;
+  private chromeApi = new ChromeMessageApi();
+  private postMessage = this.chromeApi.postMessage.bind(this.chromeApi);
 
   constructor(
     private environment: EXSEnvironment,
@@ -17,19 +18,14 @@ export class EXSBackgroundWorker<Store, API, Reducers> {
     private allApi: API,
     protected logger = (...messages: any[]) => {}
   ) {
-    this.chromeApi = makeChromeApi(environment);
-
-    this.postMessage = this.chromeApi.postMessage.bind(this.chromeApi);
   }
 
   init(): void {
-    this.chromeApi.startWorker(event => this.handleMessage(event));
+    this.chromeApi.startWorker((event, tabId) => this.handleMessage(event, tabId));
   }
 
-  postMessage: (message: WorkerEvent) => void;
-
-  handleMessage(event: WorkerEvent): void {
-    this.logger(event);
+  handleMessage(event: WorkerEvent, tabId?: number): void {
+    this.logger(event, tabId);
 
     switch (event.action) {
       case WorkerAction.close:
@@ -38,20 +34,20 @@ export class EXSBackgroundWorker<Store, API, Reducers> {
         break;
 
       case WorkerAction.reducer:
-        this.handleReducer(event as WorkerEvent<ReducerEventData<unknown>>);
+        this.handleReducer(event as WorkerEvent<ReducerEventData<unknown>>, tabId);
         break;
 
       case WorkerAction.select:
-        this.handleSelect(event as WorkerEvent<SelectData<unknown>>);
+        this.handleSelect(event as WorkerEvent<SelectData<unknown>>, tabId);
         break;
 
       case WorkerAction.fetch:
-        this.handleFetch(event as WorkerEvent<FetchEventData<unknown>>);
+        this.handleFetch(event as WorkerEvent<FetchEventData<unknown>>, tabId);
         break;
     }
   }
 
-  private handleSelect(event: WorkerEvent<SelectData<unknown>>): void {
+  private handleSelect(event: WorkerEvent<SelectData<unknown>>, tabId?: number): void {
     const id = event.id;
     const selector = event.data as unknown as keyof Store;
 
@@ -60,14 +56,14 @@ export class EXSBackgroundWorker<Store, API, Reducers> {
       takeUntil(this.onClose(id)),
     ).subscribe({
       next: (data: any) => {
-        this.logger('xxx data select', event, data);
+        this.logger('xxx data select', event, data, tabId);
 
         this.postMessage({
           action: WorkerAction.select,
           status: 'success',
           data,
           id,
-        });
+        }, tabId);
       },
       error: (data: any) => {
         this.postMessage({
@@ -75,12 +71,12 @@ export class EXSBackgroundWorker<Store, API, Reducers> {
           status: 'error',
           data,
           id,
-        });
+        }, tabId);
       },
     });
   }
 
-  private handleFetch(event: WorkerEvent<FetchEventData<unknown>>): void {
+  private handleFetch(event: WorkerEvent<FetchEventData<unknown>>, tabId?: number): void {
     const id = event.id;
     const data = event.data;
     // @ts-ignore
@@ -92,7 +88,7 @@ export class EXSBackgroundWorker<Store, API, Reducers> {
             data: res,
             status: 'success',
             id,
-          });
+          }, tabId);
         },
         error: (res: any) => {
           this.postMessage({
@@ -100,12 +96,12 @@ export class EXSBackgroundWorker<Store, API, Reducers> {
             data: res,
             status: 'error',
             id,
-          });
+          }, tabId);
         },
       });
   }
 
-  private handleReducer(event: WorkerEvent<ReducerEventData<unknown>>): void {
+  private handleReducer(event: WorkerEvent<ReducerEventData<unknown>>, tabId?: number): void {
     const id = event.id;
     const data = event.data;
 
@@ -126,13 +122,13 @@ export class EXSBackgroundWorker<Store, API, Reducers> {
         id,
         data: res as object,
         status: 'success',
-      }),
+      }, tabId),
       error: error => this.postMessage({
         action: WorkerAction.reducer,
         id,
         data: error,
         status: 'error',
-      }),
+      }, tabId),
     });
   }
 

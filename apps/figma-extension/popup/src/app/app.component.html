@@ -1,0 +1,10 @@
+<div class="root">
+   <label class="control">
+      <p-checkbox [ngModel]="isEnable$ | async" (ngModelChange)="toggleEnable($event)" [binary]="true"></p-checkbox> Включенно
+   </label>
+
+   <label class="control">
+      <p-checkbox [ngModel]="isReload$ | async" (ngModelChange)="toggleReload($event)" [binary]="true"></p-checkbox> Авто релоад конфига
+   </label>
+</div>
+

@@ -1,0 +1,176 @@
+{
+  "name": "figma-extension-popup",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/figma-extension/popup/src",
+  "prefix": "popup",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "apps/figma-extension/dist/popup",
+        "index": "apps/figma-extension/popup/src/index.html",
+        "main": "apps/figma-extension/popup/src/main.ts",
+        "polyfills": [
+          "zone.js"
+        ],
+        "tsConfig": "apps/figma-extension/popup/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/figma-extension/popup/src/wish-list-icon.png",
+          "apps/figma-extension/popup/src/assets"
+        ],
+        "styles": [
+          "apps/figma-extension/popup/src/styles.scss"
+        ],
+        "optimization": {
+          "scripts": true,
+          "styles": {
+            "minify": false,
+            "inlineCritical": false
+          },
+          "fonts": true
+        },
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "baseHref": "./index.html?/",
+          "fileReplacements": [
+            {
+              "replace": "apps/figma-extension/popup/src/environments/environment.ts",
+              "with": "apps/figma-extension/popup/src/environments/environment.production.ts"
+            }
+          ],
+          "optimization": {
+            "scripts": true,
+            "styles": {
+              "minify": true,
+              "inlineCritical": false
+            },
+            "fonts": true
+          },
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "none",
+          "sourceMap": false,
+          "namedChunks": false,
+          "aot": true,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true
+        },
+        "development": {
+          "baseHref": "./index.html?/",
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        },
+        "browser": {
+          "baseHref": "",
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/figma-extension/popup/src/environments/environment.ts",
+              "with": "apps/figma-extension/popup/src/environments/environment.browser.ts"
+            }
+          ]
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "figma-extension-popup:build:production"
+        },
+        "development": {
+          "browserTarget": "figma-extension-popup:build:development"
+        },
+        "browser": {
+          "browserTarget": "figma-extension-popup:build:browser",
+          "proxyConfig": "apps/figma-extension/popup/src/proxy.conf.json",
+          "ssl": true,
+          "disableHostCheck": true
+        }
+      },
+      "defaultConfiguration": "browser"
+    },
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "browserTarget": "figma-extension-popup:build-storybook",
+        "port": 6006,
+        "configDir": "apps/figma-extension/popup/.storybook",
+        "tsConfig": "apps/figma-extension/popup/.storybook/tsconfig.json",
+        "styles": [
+          "apps/figma-extension/popup/.storybook/global.scss"
+        ],
+        "compodoc": false
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "options": {
+        "browserTarget": "figma-extension-popup:production",
+        "configDir": "apps/figma-extension/popup/.storybook",
+        "tsConfig": "apps/figma-extension/popup/.storybook/tsconfig.json",
+        "styles": [
+          "apps/figma-extension/shared/.storybook/global.scss"
+        ],
+        "compodoc": false
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "apps/figma-extension-popup/**/*.ts",
+          "apps/figma-extension-popup/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
+      "options": {
+        "jestConfig": "apps/figma-extension-popup/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

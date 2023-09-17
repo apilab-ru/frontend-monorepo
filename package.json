@@ -9,9 +9,9 @@
     "filecab:cabinet:dev": "nx run filecab-cabinet:build:development --watch",
     "filecab:copy": "copyfiles -f ./apps/filecab/extension/* ./apps/filecab/dist",
     "filecab:dist": "http-server apps/filecab/dist --cors --port=3000",
-    "filecab:ts:browser": "webpack --mode development --config ./apps/filecab/background/webpack.config.js --env=browser -w",
-    "filecab:ts:dev": "webpack --mode development --config ./apps/filecab/background/webpack.config.js --env=development -w",
-    "filecab:ts:build": "webpack --config ./apps/filecab/background/webpack.config.js --env=production --devtool=false",
+    "filecab:background:browser": "webpack --mode development --config ./apps/filecab/background/webpack.config.js --env=browser -w",
+    "filecab:background:dev": "webpack --mode development --config ./apps/filecab/background/webpack.config.js --env=development -w",
+    "filecab:background:build": "webpack --config ./apps/filecab/background/webpack.config.js --env=production --devtool=false",
     "filecab:ui-kit": "nx run filecab-ui-kit:storybook",
 
     "exs:copy": "copyfiles -f ./apps/extension-skeleton/extension/* ./apps/extension-skeleton/dist",

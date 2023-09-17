@@ -31,7 +31,7 @@ export interface LibrarySettings {
 export interface Library {
   // tags: Tag[];
   data: LibraryItemV2[];
-  lastTimeUpdate: number;
+  lastTimeUpdate?: number;
   oldData?: Record<string, LibraryItemOld<ItemType>[]>;
 }
 

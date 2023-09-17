@@ -123,10 +123,10 @@ export class EXSBackgroundWorker<Store, API, Reducers> {
         data: res as object,
         status: 'success',
       }, tabId),
-      error: error => this.postMessage({
+      error: error =>  this.postMessage({
         action: WorkerAction.reducer,
         id,
-        data: error,
+        data: error?.message || error,
         status: 'error',
       }, tabId),
     });

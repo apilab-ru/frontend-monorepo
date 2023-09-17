@@ -8,3 +8,15 @@ export function saveAsFile(data: string, fileName: string): void {
   window.URL.revokeObjectURL(a.href);
   a.remove();
 }
+
+export function readFile(file: File): Promise<string> {
+  const fr = new FileReader();
+
+  return new Promise((resolve, reject) => {
+    fr.onload = result => resolve(fr.result as string)
+
+    fr.onerror = err => reject(err);
+
+    fr.readAsText(file);
+  })
+}

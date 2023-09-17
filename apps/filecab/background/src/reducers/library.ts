@@ -14,6 +14,10 @@ interface CRUDItem {
 export class LibraryReducer extends Reducer<Store> {
 
   update(store: Partial<Library>): Observable<void> {
+    if (!store.data) {
+      return throwError(() => new Error('Store data empty'))
+    }
+
     return this.updateStore(store.data);
   }
 

@@ -1,7 +1,12 @@
 <div class="root">
    <p-button
-      class="button"
-      label="Fix Data"
-      (click)="fixData()"
+      class="control"
+      label="Export"
+      (click)="exportData()"
    ></p-button>
+
+   <label class="control-file control">
+      <input class="file" type="file" (change)="importData($event.target.files)" accept="application/JSON"> Import data
+   </label>
+
 </div>

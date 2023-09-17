@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ItemParam } from '@shared/services/file-cab';
 import { Observable, switchMap, tap } from 'rxjs';
 import { map, shareReplay, take } from 'rxjs/operators';
 import { Library, LibrarySettings } from '@shared/models/library';
@@ -8,7 +7,7 @@ import { Genre } from '@filecab/models/genre';
 import { BackgroundService } from '@filecab/background';
 import { SearchRequestResult, AnimeSearchV2Query, FilmSearchParams, SearchId } from "@filecab/models";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
-import { MetaData, MetaDataV2 } from "../../../../libs/filecab/models/src/meta-data";
+import { MetaDataV2 } from "../../../../libs/filecab/models/src/meta-data";
 import { uiDateISO } from "../../../../libs/ui-kit/src/time/date-iso";
 
 @UntilDestroy()
@@ -19,8 +18,6 @@ export class FileCabService {
   genres$: Observable<Genre[]>;
 
   data$: Observable<LibraryItemV2[]>;
-  // store$: Observable<Library>;
-  // settings$: Observable<LibrarySettings>;
 
   constructor(
     private backgroundService: BackgroundService
@@ -110,7 +107,7 @@ export class FileCabService {
   }
 
   searchInApi(param: AnimeSearchV2Query | FilmSearchParams, type: string): Observable<SearchRequestResult<MediaItemV2>> {
-    return this.backgroundService.fetch('fileCabApi', 'searchApi')([param, type]);
+    return this.backgroundService.fetch('fileCabApi', 'searchApi')({ param, type });
   }
 
   addOrUpdate(item: MediaItemV2, metaData: MetaDataV2): Observable<LibraryItemV2> {

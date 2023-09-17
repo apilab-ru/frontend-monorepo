@@ -33,8 +33,6 @@ export abstract class DataSourceService {
     const orderType = lastData?.orderType || OrderType.desc;
     const data = lastData?.data || [];
 
-    console.log('lastData', lastData, data);
-
     this.searchService.setData(data)
 
     this.paginatorService.setLimit(limit);

@@ -20,6 +20,8 @@ export class ParserTokens {
       return rule.template.replace(RULE_VALUE_PLACEHOLDER, value);
     }
 
+    console.info('not found token: ' + token);
+
     return null;
   }
 }

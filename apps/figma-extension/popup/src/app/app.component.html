@@ -1,13 +1,13 @@
 <div class="root">
-   <label class="control">
+   <label class="control item">
       <p-checkbox [ngModel]="isEnable$ | async" (ngModelChange)="toggleEnable($event)" [binary]="true"></p-checkbox> Включенно
    </label>
 
-   <label class="control">
+   <label class="control item">
       <p-checkbox [ngModel]="isReload$ | async" (ngModelChange)="toggleReload($event)" [binary]="true"></p-checkbox> Авто релоад конфига
    </label>
 
-   <div class="input-box">
+   <div class="input-box item">
       <ui-input
          #rhythmInput
          class="input"
@@ -15,6 +15,12 @@
       ></ui-input>
       <button (click)="convertAndCopy(rhythmInput.getValue())">Конвертировать</button>
    </div>
+
+   <div *ngIf="(isRuleLoaded$ | async) === false" class="message item">
+      Конфиг не загружен
+   </div>
+
+   <button class="control item" (click)="loadConfig()">Загрузить конфиг</button>
 
    <p-toast></p-toast>
 </div>

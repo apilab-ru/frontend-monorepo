@@ -5,17 +5,23 @@
   color: #fff;
 }
 
-.control {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-
+.item {
   & + & {
     margin-top: 12px;
   }
 }
 
+.control {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
 .input-box {
-  margin-top: 12px;
   position: relative;
+}
+
+.message {
+  padding: 4px;
+  color: red;
 }

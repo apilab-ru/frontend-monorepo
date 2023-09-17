@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BackgroundService } from "@background";
 import { map } from "rxjs";
 import { UiMessagesService } from "@ui-kit/messages/messages.service";
@@ -13,6 +12,7 @@ import { UiMessagesService } from "@ui-kit/messages/messages.service";
 export class AppComponent {
   isEnable$ = this.backgroundService.select('config').pipe(map(config => !!config.enabled));
   isReload$ = this.backgroundService.select('config').pipe(map(config => !!config.reloadEnable));
+  isRuleLoaded$ = this.backgroundService.select('config').pipe(map(config => !!config.rules));
 
   constructor(
     private backgroundService: BackgroundService,
@@ -37,7 +37,18 @@ export class AppComponent {
     })
   }
 
-  convertToRhythm(value: string): string {
+  loadConfig(): void {
+    this.backgroundService.reduce('config', 'loadConfig')(undefined).subscribe({
+      next: () => this.uiMessageService.success({
+        summary: `Загружен`
+      }),
+      error: summary => this.uiMessageService.error({
+        summary
+      })
+    });
+  }
+
+  private convertToRhythm(value: string): string {
     return value.replaceAll(/([0-9]+)px/g, res => `rhythm(${res[1]})`);
   }
 }

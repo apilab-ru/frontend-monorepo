@@ -23,6 +23,6 @@ backgroundService.select('config').pipe(
   filter(Boolean),
 ).subscribe(text => {
   navigator.clipboard.writeText(text);
-  notificationService.message(`Token copied: ${text}`);
+  notificationService.message(`Токен скопирован: ${text}`);
 });
 

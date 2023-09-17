@@ -1,14 +1,16 @@
 const containerStyles = `
-  background: black;
-  color: #fff;
-  transition: 0.3s;
-  padding: 8px 12px;
-  position: fixed;
-  z-index: 99;
-  bottom: -60px;
-  border-radius: 6px;
-  transform: translateX(-50%);
-  left: 50%;
+    background: black;
+    color: rgb(255, 255, 255);
+    transition: all 0.3s ease 0s;
+    padding: 10px 16px;
+    position: fixed;
+    z-index: 99;
+    bottom: -60px;
+    border-radius: 6px;
+    transform: translateX(-50%);
+    left: 50%;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
 `
 
 function setCssStyles(element: HTMLElement, styles: string): void {

@@ -20,7 +20,7 @@ export class FileCabApi {
     }
   }
 
-  searchApi(param: AnimeSearchV2Query | FilmSearchParams, type: string): Observable<SearchRequestResult<MediaItemV2>> {
+  searchApi({ param, type }: { param: AnimeSearchV2Query | FilmSearchParams, type: string }): Observable<SearchRequestResult<MediaItemV2>> {
     if (!param.limit) {
       param.limit = 50;
     }

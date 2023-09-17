@@ -22,7 +22,7 @@
     ],
     "resolveJsonModule": true,
     "lib": [
-      "es2018",
+      "es2021",
       "dom"
     ],
     "paths": {
@@ -30,7 +30,8 @@
       "@shared/*": ["apps/figma-extension/shared/*"],
       "@environments": ["apps/figma-extension/environments/environment.production.ts"],
       "@environments/model": ["apps/figma-extension/environments/index.ts"],
-      "@angular-shared": ["libs/angular-shared/src/index.ts"]
+      "@angular-shared": ["libs/angular-shared/src/index.ts"],
+      "@ui-kit/*": ["libs/ui-kit/src/*"]
     }
   },
   "files": [],

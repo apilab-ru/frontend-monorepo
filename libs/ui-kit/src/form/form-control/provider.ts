@@ -1,6 +1,6 @@
 import { NG_VALUE_ACCESSOR } from "@angular/forms";
 import { forwardRef } from "@angular/core";
-import { UiFormControl } from "@ui-kit/form/form-control/form-control";
+import { UiFormControl } from "./form-control";
 
 export const controlProvider = (component: any) => ([
   {

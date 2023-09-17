@@ -6,5 +6,16 @@
    <label class="control">
       <p-checkbox [ngModel]="isReload$ | async" (ngModelChange)="toggleReload($event)" [binary]="true"></p-checkbox> Авто релоад конфига
    </label>
+
+   <div class="input-box">
+      <ui-input
+         #rhythmInput
+         class="input"
+         [label]="'Конвертер в rhythm'"
+      ></ui-input>
+      <button (click)="convertAndCopy(rhythmInput.getValue())">Конвертировать</button>
+   </div>
+
+   <p-toast></p-toast>
 </div>
 

@@ -128,7 +128,10 @@ export class MigrationProcessComponent implements OnInit {
       switchMap(form => {
         this.isLoading$.next(true);
 
-        return this.fileCabApi.searchApi(form.type, form.name).pipe(
+        return this.fileCabApi.searchApi({
+          type: form.type,
+          param: { name: form.name }
+        }).pipe(
           map(res => res.results as MediaItemV2[]),
           catchError(error => {
             console.error(error);

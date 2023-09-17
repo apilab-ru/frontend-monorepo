@@ -41,10 +41,13 @@ export class ApiDataSourceService extends DataSourceService {
         this.state.loading.next(true);
       }),
       switchMap(([limit, orderType, orderField, data, page, type]) => this.fileCabApi.searchApi({
-        limit,
-        page,
-        name: data.find(it => it.key === 'search')?.value + '',
-      }, type).pipe(
+        param: {
+          limit,
+          page,
+          name: data.find(it => it.key === 'search')?.value + '',
+        },
+        type
+      }).pipe(
         map(response => {
           this.paginatorService.setTotal(response.total_results);
 

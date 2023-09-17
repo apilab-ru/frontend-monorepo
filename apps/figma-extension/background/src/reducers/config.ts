@@ -1,8 +1,8 @@
 import { Store } from "../store";
 import { Reducer } from "../../../../../libs/extension/src/background/reducers/reducer";
-import { from, interval, NEVER, Observable, of, switchMap, tap } from "rxjs";
+import { from, interval, map, NEVER, Observable, of, switchMap, tap } from "rxjs";
 import { allApi } from "../api";
-import { ConfigRules } from "@shared/config-rules";
+import { ConfigRule, ConfigRules } from "@shared/config-rules";
 
 export class ConfigReducer extends Reducer<Store> {
 
@@ -26,8 +26,26 @@ export class ConfigReducer extends Reducer<Store> {
 
   loadConfig(): Observable<ConfigRules> {
     return from(fetch('./config.json').then(res => res.json())).pipe(
+      map(rules => this.parserRules(rules)),
       tap(rules => this.update({ rules }))
     );
+  }
+
+  private parserRules(response: Record<string, ConfigRule>): ConfigRules {
+    const rules = Object.values(response);
+
+    const replaceTokenPart = ' [day]';
+
+    rules.forEach(rule => {
+      const tokens = Object.entries(rule.map);
+      tokens.forEach(([key, value]) => {
+        if (key.includes(replaceTokenPart)) {
+          rule.map[key.replace(replaceTokenPart, '')] = value;
+        }
+      })
+    })
+
+    return rules;
   }
 
   private updateStore(store: Store['config']): void {

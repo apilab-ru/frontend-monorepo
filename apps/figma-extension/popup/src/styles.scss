@@ -1,4 +1,13 @@
+@import "libs/ui-kit/src/messages/toast-theme.scss";
+
 body {
   padding: 0;
   margin: 0;
+}
+
+.p-toast {
+  width: calc(100vw - 20px) !important;
+  right: 10px !important;
+  top: auto !important;
+  bottom: 5px !important;
 }

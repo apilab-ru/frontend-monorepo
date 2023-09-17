@@ -1,0 +1,30 @@
+.p-toast .p-toast-message.p-toast-message-success {
+  background: #e4f8f0;
+  border: solid #1ea97c;
+  border-width: 0 0 0 6px;
+  color: #1ea97c;
+}
+
+.p-toast .p-toast-message .p-toast-message-content {
+  padding: 1rem;
+  border-width: 0 0 0 6px;
+}
+
+.p-toast .p-toast-message.p-toast-message-success .p-toast-message-icon, .p-toast .p-toast-message.p-toast-message-success .p-toast-icon-close {
+  color: #1ea97c;
+}
+
+.p-toast-icon-close {
+  background: none;
+  border: none;
+}
+
+.p-icon-wrapper {
+  display: inline-flex;
+}
+
+.p-icon {
+  width: 1rem;
+  height: 1rem;
+  display: inline-block;
+}

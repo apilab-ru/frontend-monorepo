@@ -2,13 +2,9 @@ import { ConfigRules, RULE_VALUE_PLACEHOLDER } from "@shared/config-rules";
 
 export class ParserTokens {
   parse(rules: ConfigRules, token: string): string | null {
-    console.log('xxx token', token);
-
-    const list = Object.values(rules);
-
     let value: string | undefined;
 
-    const rule = list.find(rule => {
+    const rule = rules.find(rule => {
       value = rule.map[token];
       if (!value) {
         value = Object.entries(rule.map)
@@ -20,6 +16,7 @@ export class ParserTokens {
     })
 
     if (rule) {
+      console.info('original token', token);
       return rule.template.replace(RULE_VALUE_PLACEHOLDER, value);
     }
 

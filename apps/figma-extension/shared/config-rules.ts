@@ -1,4 +1,4 @@
-export type ConfigRules = Record<string, ConfigRule>;
+export type ConfigRules = ConfigRule[];
 
 export interface ConfigRule {
   map: Record<string, string>;

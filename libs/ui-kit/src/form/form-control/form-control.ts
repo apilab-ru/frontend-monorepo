@@ -80,6 +80,10 @@ export abstract class UiFormControl<T> implements ControlValueAccessor, OnChange
     )
   }
 
+  getValue(): T {
+    return this.value$.value;
+  }
+
   updateValue(value: T): void {
     this.value$.next(value);
 

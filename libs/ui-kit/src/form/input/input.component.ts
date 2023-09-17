@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { UiFormControl } from "@ui-kit/form/form-control/form-control";
-import { controlProvider } from "@ui-kit/form/form-control/provider";
+import { UiFormControl } from "../form-control/form-control";
+import { controlProvider } from "../form-control/provider";
 
 @Component({
   selector: 'ui-input',

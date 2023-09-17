@@ -1,7 +1,7 @@
 .root {
   padding: 24px;
   background: #2c2c2c;
-  width: 200px;
+  width: 300px;
   color: #fff;
 }
 
@@ -13,4 +13,9 @@
   & + & {
     margin-top: 12px;
   }
+}
+
+.input-box {
+  margin-top: 12px;
+  position: relative;
 }

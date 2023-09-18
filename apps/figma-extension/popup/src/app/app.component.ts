@@ -49,6 +49,6 @@ export class AppComponent {
   }
 
   private convertToRhythm(value: string): string {
-    return value.replaceAll(/([0-9]+)px/g, res => `rhythm(${res[1]})`);
+    return value.replace(/([0-9]+)px/g, res => `rhythm(${parseInt(res) / 4})`);
   }
 }

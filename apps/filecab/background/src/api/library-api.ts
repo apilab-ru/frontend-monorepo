@@ -1,6 +1,6 @@
-import { Observable, of, tap } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Library } from '@shared/models/library';
-import { catchError, map, pluck } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 import { isArray } from "lodash-es";
 import { LibraryItemV2 } from "@filecab/models/library";
@@ -44,14 +44,13 @@ class LibraryApi {
 
   loadData(): Observable<LibraryItemV2[]> {
     return this.load().pipe(
-      tap(data => console.log('xxx data', data)),
-      pluck('data'),
+      map(res => res?.data),
     );
   }
 
   loadLastTimeUpdate(): Observable<number> {
     return this.load().pipe(
-      pluck('lastTimeUpdate'),
+      map(res => res?.lastTimeUpdate),
     );
   }
 }

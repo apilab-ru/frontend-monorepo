@@ -3,7 +3,6 @@ import { WorkerAction } from './const';
 import { filter, Observable, of, Subject, takeUntil, throwError } from 'rxjs';
 
 import { ChromeMessageApi } from "./api/chrome-message.api";
-import { EXSEnvironment } from "./environment";
 import { RecordSubject } from "@store/lib/store";
 
 export class EXSBackgroundWorker<Store, API, Reducers> {
@@ -12,7 +11,6 @@ export class EXSBackgroundWorker<Store, API, Reducers> {
   private postMessage = this.chromeApi.postMessage.bind(this.chromeApi);
 
   constructor(
-    private environment: EXSEnvironment,
     private store: RecordSubject<Store>,
     private reducers: Reducers,
     private allApi: API,

@@ -13,10 +13,9 @@ function log(...messages: any[]): void {}
 
 export class EXSBackgroundService<Store, API, Reducers> extends EXSBackgroundBaseService<Store, API, Reducers> {
   constructor(
-    environment: EXSEnvironment,
     private ngZone: NgZone,
   ) {
-    super(environment);
+    super();
   }
 
   select<S extends keyof Store>(selector: S): Observable<Store[S]> {

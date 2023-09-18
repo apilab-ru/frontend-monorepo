@@ -2,8 +2,10 @@ import { WorkerEvent } from "../interface";
 
 export class ChromeMessageApi {
   startWorker(handler: (event: WorkerEvent, tabId?: number) => void): void {
-    chrome.runtime.onMessage.addListener((message, sender) => {
+    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       handler(message, sender?.tab?.id)
+
+      sendResponse({ status: true });
     })
   }
 

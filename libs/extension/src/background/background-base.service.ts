@@ -17,9 +17,7 @@ export class EXSBackgroundBaseService<Store, API, Reducers> {
   private responseQuery$ = new BehaviorSubject<WorkerEvent[]>([]);
   private chromeApi = new ChromeMessageApi();
 
-  constructor(
-    private environment: EXSEnvironment,
-  ) {
+  constructor() {
     this.chromeApi.connectToWorker((event: WorkerEvent) => this.handleMessage(event));
   }
 

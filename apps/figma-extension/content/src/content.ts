@@ -1,11 +1,9 @@
-import { environment } from '@environments';
-
 import { BackgroundBaseService } from "../../background/src/background-base.service";
 import { filter, fromEvent, map, NEVER, switchMap } from "rxjs";
 import { ParserTokens } from "./parser-tokens";
 import { NotificationsService } from "./notifications";
 
-const backgroundService = new BackgroundBaseService(environment);
+const backgroundService = new BackgroundBaseService();
 const parserTokens = new ParserTokens();
 const notificationService = new NotificationsService();
 

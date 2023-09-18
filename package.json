@@ -24,8 +24,8 @@
     "figma:background:dev": "webpack --mode development --config ./apps/figma-extension/background/webpack.config.js --env=development -w",
     "figma:content:dev": "webpack --mode development --config ./apps/figma-extension/content/webpack.config.js --env=development -w",
     "figma:popup:prod": "nx run figma-extension-popup:build:production",
-    "figma:background:prod": "webpack --mode production --config ./apps/figma-extension/background/webpack.config.js --env=production",
-    "figma:content:prod": "webpack --mode production --config ./apps/figma-extension/content/webpack.config.js --env=production",
+    "figma:background:prod": "webpack --mode production --config ./apps/figma-extension/background/webpack.config.js --env=production --devtool=false",
+    "figma:content:prod": "webpack --mode production --config ./apps/figma-extension/content/webpack.config.js --env=production --devtool=false",
     "figma:build": "npm run figma:popup:prod && npm run figma:background:prod && npm run figma:content:prod",
 
     "start:ui-kit": "nx run ui-kit:storybook"

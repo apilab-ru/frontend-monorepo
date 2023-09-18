@@ -81,21 +81,6 @@
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
-        },
-        "browser": {
-          "baseHref": "",
-          "buildOptimizer": false,
-          "optimization": false,
-          "vendorChunk": true,
-          "extractLicenses": false,
-          "sourceMap": true,
-          "namedChunks": true,
-          "fileReplacements": [
-            {
-              "replace": "apps/figma-extension/popup/src/environments/environment.ts",
-              "with": "apps/figma-extension/popup/src/environments/environment.browser.ts"
-            }
-          ]
         }
       },
       "defaultConfiguration": "development"
@@ -108,15 +93,9 @@
         },
         "development": {
           "browserTarget": "figma-extension-popup:build:development"
-        },
-        "browser": {
-          "browserTarget": "figma-extension-popup:build:browser",
-          "proxyConfig": "apps/figma-extension/popup/src/proxy.conf.json",
-          "ssl": true,
-          "disableHostCheck": true
         }
       },
-      "defaultConfiguration": "browser"
+      "defaultConfiguration": "development"
     },
     "storybook": {
       "executor": "@storybook/angular:start-storybook",

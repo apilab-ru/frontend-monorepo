@@ -8,9 +8,4 @@ import { EXSBackgroundBaseService } from "../../../../libs/extension/src/backgro
 type AllApiTypes = typeof allApi;
 
 export class BackgroundBaseService extends EXSBackgroundBaseService<Store, AllApiTypes, Reducers> {
-  constructor(
-    environment: Environment,
-  ) {
-    super(environment);
-  }
 }

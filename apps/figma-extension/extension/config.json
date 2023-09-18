@@ -1,0 +1,54 @@
+{
+  "colors": {
+    "map": {
+      "Text [day]/main": "--ui-sb-color-text-main",
+      "Text [day]/secondary": "--ui-sb-color-text-secondary",
+      "Text [day]/addition": "--ui-sb-color-text-addition",
+      "Text [day]/disable": "--ui-sb-color-text-disable",
+      "Text [day]/invert": "--ui-sb-color-text-invert",
+
+      "BG [day]/main": "--ui-sb-color-bg-main",
+      "BG [day]/secondary": "--ui-sb-color-bg-secondary",
+      "BG [day]/secondary-accent": "--ui-sb-color-bg-secondary-accent",
+      "BG [day]/shadow": "--ui-sb-color-bg-shadow",
+      "BG [day]/accent": "--ui-sb-color-bg-accent",
+      "BG [day]/invert": "--ui-sb-color-bg-invert",
+      "BG [day]/overlay": "--ui-sb-color-bg-overlay",
+
+      "Strokes [day]/main": "--ui-sb-color-stroke-main",
+      "Strokes [day]/secondary": "--ui-sb-color-stroke-secondary",
+      "Strokes [day]/accent": "--ui-sb-color-stroke-accent",
+      "Strokes [day]/invert": "--ui-sb-color-stroke-invert",
+      "Strokes [day]/disable": "--ui-sb-color-stroke-disable",
+
+      "Icons [day]/main": "--ui-sb-color-icon-main",
+      "Icons [day]/secondary": "--ui-sb-color-icon-secondary",
+      "Icons [day]/addition": "--ui-sb-color-icon-addition",
+      "Icons [day]/invert": "--ui-sb-color-icon-invert",
+      "Icons [day]/disable": "--ui-sb-color-icon-disable",
+
+      "Accent [day]/success-indicator": "--ui-sb-color-element-success-indicator",
+      "Accent [day]/success": "--ui-sb-color-element-success",
+      "Accent [day]/success-bg": "--ui-sb-color-element-success-bg",
+      "Accent [day]/success-secondary": "--ui-sb-color-element-success-secondary",
+      "Accent [day]/warning-indicator": "--ui-sb-color-element-warning-indicator",
+      "Accent [day]/warning": "--ui-sb-color-element-warning",
+      "Accent [day]/warning-bg": "--ui-sb-color-element-warning-bg",
+      "Accent [day]/warning-secondary": "--ui-sb-color-element-warning-secondary",
+      "Accent [day]/danger-indicator": "--ui-sb-color-element-danger-indicator",
+      "Accent [day]/danger": "--ui-sb-color-element-danger",
+      "Accent [day]/danger-rgb": "--ui-sb-color-element-danger-rgb",
+      "Accent [day]/danger-bg": "--ui-sb-color-element-danger-bg",
+      "Accent [day]/danger-secondary": "--ui-sb-color-element-danger-secondary",
+      "Accent [day]/always-white": "--ui-sb-color-element-always-white",
+      "Accent [day]/always-white-rgb": "--ui-sb-color-element-always-white-rgb",
+      "Accent [day]/always-black": "--ui-sb-color-element-always-black",
+      "Accent [day]/always-black-rgb": "--ui-sb-color-element-always-black-rgb",
+      "Accent [day]/sale": "--ui-sb-color-element-sale",
+      "Accent [day]/always-none": "--ui-sb-color-element-always-none",
+
+      "--actions-day-table": "--ui-vendor-color-actions-table"
+    },
+    "template": "var({{data}})"
+  }
+}

@@ -145,36 +145,6 @@ export class FileCabService {
     return this.backgroundService.reduce('library', 'deleteItem')({ id });
   }
 
-  /*
-
-  selectGenres(type: string): Observable<Genre[]> {
-    return this.genres$.pipe(
-      map(list => list.filter(genre => genre.kind.includes(type as GenreKind)))
-    );
-  }
-
-  searchInStore(
-    path: string,
-    item: ItemParam
-  ): Observable<LibraryItem | null> {
-    return this.data$.pipe(
-      take(1),
-      pluck(path),
-      map(list => list?.find(
-        it => it.item.title === item.name
-          || it.url === item.url
-          || it.name === item.name
-      ) || null)
-    );
-  }
-
-  loadById(path: string, id: number): Observable<MediaItem> {
-    return this.backgroundService.fetch('fileCabApi', 'loadById')([path, id]).pipe(
-    );
-  }
-
-  */
-
   updateStore(store: Library): Observable<void> {
     return this.backgroundService.reduce('library', 'update')(store);
   }

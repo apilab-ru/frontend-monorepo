@@ -1,4 +1,4 @@
-import { ParserResponse } from '@shared/parser/interface';
+import { ParserResponse } from '../interface';
 
 export function parserKinopoisk(): ParserResponse[] {
   const list: ParserResponse[] = [];

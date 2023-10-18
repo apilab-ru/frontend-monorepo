@@ -11,7 +11,7 @@ import { LibraryMode } from "../../models/mode";
 import { ApiDataSourceService } from "../../services/api-data-source.service";
 import { LibrarySourceService } from "../../services/library-source.service";
 import { FilterSearchData } from "@filecab/ui-kit/filter-search/interface";
-import { BASE_SEARCH_VALUES } from "@filecab/ui-kit/filter-search/const";
+import { BASE_SEARCH_VALUES, LOCAL_SEARCH_VALUES } from "@filecab/ui-kit/filter-search/const";
 
 @Component({
   selector: 'cabinet-page',
@@ -30,7 +30,8 @@ export class PageComponent implements OnInit {
   limitList = [12, 20, 50, 100];
   orderFields = LOCAL_ORDER_FIELDS;
   LibraryMode = LibraryMode;
-  filterList = BASE_SEARCH_VALUES;
+  filterListSearch = BASE_SEARCH_VALUES;
+  filterListLibrary = LOCAL_SEARCH_VALUES;
 
   list$: Observable<LibraryItemV2[]>;
   mode$ = this.searchService.mode$;

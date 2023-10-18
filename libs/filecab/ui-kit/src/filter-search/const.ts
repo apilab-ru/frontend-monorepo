@@ -29,7 +29,8 @@ export enum SearchKeys {
   tags = 'tags',
   ratingFrom = 'ratingFrom',
   ratingTo = 'ratingTo',
-  status = 'status'
+  status = 'status',
+  star = 'star'
 }
 
 export const BASE_SEARCH_DATA: FilterSearchData = [];
@@ -49,4 +50,14 @@ export const BASE_SEARCH_VALUES: FSDropdownValue[] = [
     unique: true,
     filterFn: () => true,
   },
+];
+
+export const LOCAL_SEARCH_VALUES: FSDropdownValue[] = [
+  ...BASE_SEARCH_VALUES,
+  {
+    key: 'star',
+    name: 'Оценка',
+    custom: true,
+    filterFn: (value: string) => !value || !isNaN(parseInt(value)),
+  }
 ];

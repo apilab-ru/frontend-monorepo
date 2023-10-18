@@ -3,13 +3,11 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "filecab:popup:browser": "nx run filecab-popup:serve:browser",
     "filecab:popup:dev": "nx run filecab-popup:build:development --watch",
     "filecab:popup:build": "nx run filecab-popup:build:production",
     "filecab:cabinet:dev": "nx run filecab-cabinet:build:development --watch",
     "filecab:copy": "copyfiles -f ./apps/filecab/extension/* ./apps/filecab/dist",
     "filecab:dist": "http-server apps/filecab/dist --cors --port=3000",
-    "filecab:background:browser": "webpack --mode development --config ./apps/filecab/background/webpack.config.js --env=browser -w",
     "filecab:background:dev": "webpack --mode development --config ./apps/filecab/background/webpack.config.js --env=development -w",
     "filecab:background:build": "webpack --config ./apps/filecab/background/webpack.config.js --env=production --devtool=false",
     "filecab:ui-kit": "nx run filecab-ui-kit:storybook",

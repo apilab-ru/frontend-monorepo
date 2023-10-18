@@ -51,7 +51,7 @@ export class EditItemComponent implements OnInit {
     this.genres$ = this.filecabService.genres$;
     this.mediaResultList$ = this.context.buildMediaList();
 
-    this.mediaResultList$.subscribe(res => console.log('list', res))
+    //this.mediaResultList$.subscribe(res => console.log('list', res))
   }
 
   setSearchMode(isSearchMode: boolean): void {

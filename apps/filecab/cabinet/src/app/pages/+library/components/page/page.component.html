@@ -22,7 +22,7 @@
       <lib-filter-search
          class="filter-search"
          [value]="searchData$ | async"
-         [list]="filterList"
+         [list]="((mode$ | async) === LibraryMode.library) ? filterListLibrary : filterListSearch"
          (valueChanges)="onUpdateSearch($event)"
       ></lib-filter-search>
    </div>
@@ -37,7 +37,7 @@
    <filecab-card
       *listIterator="let item of (list$ | async); trackBy: trackById"
       [item]="item"
-      [isLibraryMode]="true"
+      [isLibraryMode]="(mode$ | async) === LibraryMode.library"
       (updateItem)="onUpdateItem($event)"
       (deleteItem)="onDeleteItem(item.item.id)"
    ></filecab-card>

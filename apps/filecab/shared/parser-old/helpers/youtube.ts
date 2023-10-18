@@ -1,4 +1,4 @@
-import { ParserResponse } from '@shared/parser/interface';
+import { ParserResponse } from '../interface';
 
 export function parserYoutube(): ParserResponse[] {
   const list = window.getSelection().toString().split('\n').map(item => {

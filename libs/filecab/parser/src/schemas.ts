@@ -8,18 +8,14 @@ export interface Schema {
   func: () => SchemaFuncRes;
 }
 
-const MAIL_RU_PRESET: Schema = {
-  type: Types.films,
-  func: () => {
-    const [ru, en] = document.title.split(/[()]/);
-    var res = en.split(',');
-    const title = (res.length > 1 ? res[0] : ru);
-    return { title };
-  },
-};
+interface SchemaWithDomain extends Schema {
+  domain?: string;
+  domains?: string[];
+}
 
-const schemas: Record<string, Schema> = {
-  'animego.org': {
+const SCHEMAS_ARRAY: SchemaWithDomain[] = [
+  {
+    domain: 'animego.org',
     type: Types.anime,
     func: () => {
       const rawTitle = document.title;
@@ -28,46 +24,60 @@ const schemas: Record<string, Schema> = {
         .replace('— Аниме', '')
         .trim();
       return { title };
-    },
+    }
   },
-  'anidub.tv': {
+  {
+    domain: 'anidub.tv',
     type: Types.anime,
     func: () => {
       const title = document.title.split('/')[1].split('[')[0];
       return { title };
     },
   },
-  'animestars.org': {
+  {
+    domain: 'animestars.org',
     type: Types.anime,
     func: () => {
       const [title] = document.title.split('— смотреть');
       return { title };
     },
   },
-  'smotret-anime.com': {
+  {
+    domain: 'smotret-anime.com',
     type: Types.anime,
     func: () => {
       const title = (document.querySelector('.line-1') as HTMLElement)?.innerText || document.title;
       return { title };
     },
   },
-  'shikimori.one': {
+  {
+    domain: 'shikimori.one',
     type: Types.anime,
     func: () => {
       const [title] = document.querySelector('h1').textContent.split('/');
       return { title };
     },
   },
-  'dreamerscast.com': {
+  {
+    domain: 'dreamerscast.com',
     type: Types.anime,
     func: () => {
       const [title] = document.title.split('/');
       return { title: title.trim() }
     }
   },
-  'kino.mail.ru': MAIL_RU_PRESET,
-  'afisha.mail.ru': MAIL_RU_PRESET,
-  'ivi.ru': {
+  {
+    domains: ['kino.mail.ru', 'afisha.mail.ru'],
+    type: Types.films,
+    func: () => {
+      const [ru, en] = document.title.split(/[()]/);
+      var res = en.split(',');
+      const title = (res.length > 1 ? res[0] : ru);
+      return { title };
+    },
+  },
+  {
+    domain: 'ivi.ru',
     type: Types.films,
     func: () => {
       const [title] = document.title.split(/ \([Ф|С|М]{1}/);
@@ -75,25 +85,32 @@ const schemas: Record<string, Schema> = {
       return { type, title };
     },
   },
-  'kinopoisk.ru': {
+  {
+    domains: ['kinopoisk.ru', 'hd.kinopoisk.ru'],
     type: Types.films,
     func: () => {
       const [id, rawType] = location.href.split('/').filter(it => !!it).reverse();
-      const title = document.title.split(/[\-\—]/)[0]
+      const title = document.title.split(/[\—]/)[0] // Отбирает название фильма
+        .split('(сериал')[0] // Откидывает строку вида: (сериал, все серии, 1 сезон)
         .replace(/([\(\)0-9]{6})/, '')
         .replace(/\([\s\S]*\)/, '')
+        .replace(/(,\s\d{4})/, '') //удаляет год
         .trim();
       const type = (rawType === 'film' ? 'films' : 'tv') as Types;
       return { title, id: +id, idField: 'kinopoisk', type };
     },
   },
-  'jut-su.club': {
+  {
+    domain: 'jut-su.club',
     type: Types.anime,
     func: () => {
       const title = document.title.split('/')[0].trim();
       return { title }
     }
   },
+];
+
+const schemas: Record<string, Schema> = {
   default: {
     type: Types.films,
     func: () => ({
@@ -101,6 +118,18 @@ const schemas: Record<string, Schema> = {
     }),
   },
 };
+
+SCHEMAS_ARRAY.forEach(({ domain, domains, ...schema }) => {
+  if (domain) {
+    schemas[domain] = schema;
+  }
+
+  if (domains) {
+    domains.forEach(domain => {
+      schemas[domain] = schema;
+    })
+  }
+})
 
 @Injectable({
   providedIn: "root",
@@ -110,6 +139,8 @@ export class ParserSchemas {
 
   getImportSchema(domain: string): Schema {
     const schema = this.schemas[domain] || this.schemas.default;
+
+    console.log('xxx scema', schema, domain);
 
     return schema;
   }

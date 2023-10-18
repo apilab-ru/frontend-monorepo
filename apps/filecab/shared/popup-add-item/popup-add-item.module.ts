@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { CardEditComponent } from './components/card-edit/card-edit.component';
 import { HorizontalScrollDirective } from './directives/horizontal-scroll.directive';
 import { FoundedListComponent } from './components/founded-list/founded-list.component';
-import { PopupComponent } from './components/popup/popup.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -21,7 +20,6 @@ import { FoundedItemComponent } from './components/founded-item/founded-item.com
     CardEditComponent,
     FoundedListComponent,
     HorizontalScrollDirective,
-    PopupComponent,
     SearchBoxComponent,
     FoundedItemComponent,
   ],
@@ -38,7 +36,6 @@ import { FoundedItemComponent } from './components/founded-item/founded-item.com
     LoaderModule,
   ],
   exports: [
-    PopupComponent,
     CardEditComponent,
     FoundedListComponent,
     SearchBoxComponent,

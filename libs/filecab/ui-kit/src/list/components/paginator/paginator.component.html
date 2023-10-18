@@ -55,6 +55,10 @@
          optionLabel="name"
          optionValue="key"
       ></p-dropdown>
+
+      <div *ngIf="total$ | async as total" class="page">
+         &nbsp;из {{ total }}
+      </div>
    </div>
 
    <div class="sort">

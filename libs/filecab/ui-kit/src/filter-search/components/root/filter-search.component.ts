@@ -30,7 +30,7 @@ export class FilterSearchComponent implements OnInit, OnChanges {
 
   private store = new BehaviorSubject<FilterSearchData>(BASE_SEARCH_DATA);
 
-  preset: Record<string, FSDropdownValue> = {};
+  presets: Record<string, FSDropdownValue> = {};
   options$: Observable<SearchValue[]>;
 
   @ViewChild(InputComponent, { static: true }) private inputComponent: InputComponent;
@@ -41,9 +41,9 @@ export class FilterSearchComponent implements OnInit, OnChanges {
     }
 
     if (list && this.list) {
-      this.preset = {};
+      this.presets = {};
       this.list.forEach(item => {
-        this.preset[item.key!] = item;
+        this.presets[item.key!] = item;
       })
     }
   }
@@ -85,7 +85,7 @@ export class FilterSearchComponent implements OnInit, OnChanges {
           return true;
         }
 
-        const preset = this.preset[it.key];
+        const preset = this.presets[it.key];
         if (preset.unique || it.value === value.value) {
           return false;
         }

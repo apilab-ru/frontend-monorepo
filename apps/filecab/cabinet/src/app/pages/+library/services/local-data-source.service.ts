@@ -7,7 +7,7 @@ import { FileCabService } from "@shared/services/file-cab.service";
 import { PaginatorService } from "@filecab/ui-kit/list/paginator.service";
 import { LibraryItemV2 } from "@filecab/models/library";
 import { SearchService } from "./search.service";
-import { ORDER_DEFAULT, OrderParams } from "../models/order";
+import { OrderParams } from "../models/order";
 import { OrderType } from "@filecab/ui-kit/list/models/order-type";
 import { ConfigService } from "./config-service";
 import { FilterSearchData, SearchValue } from "@filecab/ui-kit/filter-search/interface";
@@ -138,6 +138,10 @@ export class LocalDataSourceService extends DataSourceService {
 
       case SearchKeys.ratingTo:
         return item.star <= value[0].value;
+
+      case SearchKeys.star:
+        const stars = value.map(({ value }) => +value)
+        return stars.includes(item.star);
 
       default:
         return true;

@@ -1,5 +1,3 @@
-import { environment } from '@environments';
-
 import { EXSBackgroundWorker } from "../../../../libs/extension/src/background/background";
 
 import { allApi } from './api';
@@ -10,7 +8,6 @@ class BackgroundWorker extends EXSBackgroundWorker<Store, typeof allApi, typeof 
 }
 
 const backgroundWorker = new BackgroundWorker(
-  environment,
   store$,
   reducers,
   allApi,

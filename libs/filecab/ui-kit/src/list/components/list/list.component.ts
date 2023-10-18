@@ -3,7 +3,6 @@ import {
   Component,
   ContentChild,
   Input,
-  OnChanges, SimpleChanges,
   TemplateRef,
   TrackByFunction
 } from '@angular/core';
@@ -17,7 +16,7 @@ import { NgForOfContext } from "@angular/common";
   styleUrls: ['./list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UiListComponent<T> implements OnChanges {
+export class UiListComponent<T> {
   @Input() list: T[];
   @Input() orderFields: OrderField[];
   @Input() limitList: number[];
@@ -30,8 +29,5 @@ export class UiListComponent<T> implements OnChanges {
 
   get rowTemplate(): TemplateRef<NgForOfContext<T>> {
     return this.listIterator.template;
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
   }
 }

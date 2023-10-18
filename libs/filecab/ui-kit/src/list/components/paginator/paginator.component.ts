@@ -20,6 +20,7 @@ export class UiPaginatorComponent implements OnChanges {
   hasMore$ = this.paginatorService.hasMore$;
   canGoToLast$ = this.paginatorService.canGoToLast$;
   totalPages$ = this.paginatorService.totalPages$;
+  total$ = this.paginatorService.total$;
   limit$ = this.paginatorService.limit$;
   orderField$ = this.paginatorService.orderField$;
   orderType$ = this.paginatorService.orderType$;

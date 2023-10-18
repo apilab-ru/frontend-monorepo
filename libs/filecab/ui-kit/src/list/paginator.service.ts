@@ -7,6 +7,7 @@ import { OrderType } from "./models/order-type";
 @Injectable()
 export class PaginatorService {
   page$: Observable<number>;
+  total$: Observable<number | null | undefined>;
   hasMore$: Observable<boolean>;
   canGoToLast$: Observable<boolean>;
   limit$: Observable<number>;
@@ -25,6 +26,7 @@ export class PaginatorService {
 
   constructor() {
     this.page$ = this.store.page.asObservable();
+    this.total$ = this.store.total.asObservable();
 
     this.hasMore$ = combineLatest([
       this.store.limit.pipe(filterUndefined()),

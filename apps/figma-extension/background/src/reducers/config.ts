@@ -7,7 +7,11 @@ import { ConfigRule, ConfigRules } from "@shared/config-rules";
 export class ConfigReducer extends Reducer<Store> {
 
   update(config: Partial<Store['config']>): Observable<void> {
-    const lastValue = this.store.get().config;
+    let lastValue = this.store.get().config;
+
+    if ((lastValue as any)['config']) {
+      lastValue = {} as Store['config'];
+    }
 
     this.updateStore({
       ...lastValue,
@@ -22,6 +26,10 @@ export class ConfigReducer extends Reducer<Store> {
       switchMap(({ reloadEnable }) => !reloadEnable ? NEVER : interval(5000)),
       switchMap(() => this.loadConfig())
     ).subscribe();
+  }
+
+  baseLoad(): void {
+    this.loadConfig().subscribe();
   }
 
   loadConfig(): Observable<ConfigRules> {

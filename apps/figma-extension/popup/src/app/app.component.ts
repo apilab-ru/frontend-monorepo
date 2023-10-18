@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BackgroundService } from "@background";
 import { map } from "rxjs";
 import { UiMessagesService } from "@ui-kit/messages/messages.service";

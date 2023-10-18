@@ -40,7 +40,7 @@ export class EXSBackgroundWorker<Store, API, Reducers> {
         break;
 
       case WorkerAction.fetch:
-        this.handleFetch(event as WorkerEvent<FetchEventData<unknown>>, tabId);
+        this.handleFetch(event as WorkerEvent<FetchEventData<API>>, tabId);
         break;
     }
   }
@@ -74,11 +74,11 @@ export class EXSBackgroundWorker<Store, API, Reducers> {
     });
   }
 
-  private handleFetch(event: WorkerEvent<FetchEventData<unknown>>, tabId?: number): void {
+  private handleFetch(event: WorkerEvent<FetchEventData<API>>, tabId?: number): void {
     const id = event.id;
     const data = event.data;
     // @ts-ignore
-    this.allApi[data.class][data.method](...data.args)
+    this.allApi[data.class][data.method](data.args)
       .subscribe({
         next: (res: any) => {
           this.postMessage({

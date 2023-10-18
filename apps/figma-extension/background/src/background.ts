@@ -1,5 +1,3 @@
-import { environment } from '@environments';
-
 import { allApi } from "./api";
 import { Store, store$ } from "./store";
 import { reducers } from "./reducers";
@@ -17,4 +15,6 @@ const backgroundWorker = new BackgroundWorker(
 
 backgroundWorker.init();
 reducers.config.subscribeAutoReload();
+reducers.config.baseLoad();
 
+console.log('xxx store', store$);

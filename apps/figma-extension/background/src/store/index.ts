@@ -11,10 +11,3 @@ export const store$ = makeStore(STORE_DATA, {
     STORE_DATA.config
   )
 });
-
-/*
-store$.reload('repos', store$.select('user').pipe(
-  filter(user => !!user),
-  switchMap(user => user?.git ? githubApi.fetchRepos(user!.git) : of([])),
-  shareReplay({ refCount: false, bufferSize: 1 }),
-));*/

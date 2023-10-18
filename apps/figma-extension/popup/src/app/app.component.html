@@ -8,19 +8,19 @@
    </label>
 
    <div class="input-box item">
-      <ui-input
+      <input
          #rhythmInput
          class="input"
-         [label]="'Конвертер в rhythm'"
-      ></ui-input>
-      <button (click)="convertAndCopy(rhythmInput.getValue())">Конвертировать</button>
+         placeholder="'Конвертер в rhythm'"
+      >
+      <button class="button" (click)="convertAndCopy(rhythmInput.value)">Конвертировать</button>
    </div>
 
    <div *ngIf="(isRuleLoaded$ | async) === false" class="message item">
       Конфиг не загружен
    </div>
 
-   <button class="control item" (click)="loadConfig()">Загрузить конфиг</button>
+   <button class="control item button" (click)="loadConfig()">Загрузить конфиг</button>
 
    <p-toast></p-toast>
 </div>

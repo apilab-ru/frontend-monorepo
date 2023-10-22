@@ -21,10 +21,6 @@ if (environment.production) {
   enableProdMode();
 }
 
-if (environment.useBrowser) {
-  document.body.classList.add('-browser');
-}
-
 platformBrowserDynamic().bootstrapModule(AppModule) // { ngZone: 'noop' }
   .catch(err => {
     console.error(err);

@@ -19,6 +19,13 @@
       "path": "./tsconfig.spec.json"
     }
   ],
+  "typeRoots": [
+    "node_modules/@types"
+  ],
+  "types": [
+    "node",
+    "chrome"
+  ],
   "extends": "../../tsconfig.base.json",
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

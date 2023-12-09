@@ -1,6 +1,6 @@
 {
   "name": "@apilab/extension",
-  "version": "17.0.1",
+  "version": "17.0.2",
   "peerDependencies": {
     "@angular/core": "17.0.6",
     "@apilab/store": "0.0.1"

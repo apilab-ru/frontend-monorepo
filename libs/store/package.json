@@ -1,5 +1,5 @@
 {
-  "name": "@apilab/monorepo/store",
-  "version": "1.0.0",
+  "name": "@apilab/store",
+  "version": "0.0.1",
   "type": "commonjs"
 }

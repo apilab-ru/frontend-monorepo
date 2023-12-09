@@ -1,9 +1,9 @@
 {
   "name": "@apilab/extension",
-  "version": "0.0.1",
+  "version": "17.0.0",
   "peerDependencies": {
-    "@angular/core": "^15.2.0",
-    "@apilab/store": "1.0.0"
+    "@angular/core": "17.0.6",
+    "@apilab/store": "0.0.1"
   },
   "dependencies": {
     "tslib": "^2.3.0"

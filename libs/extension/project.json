@@ -2,14 +2,25 @@
   "name": "extension",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/extension/src",
+  "prefix": "frontend-monorepo",
+  "tags": [],
   "projectType": "library",
   "targets": {
-    "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "lintFilePatterns": ["libs/extension/**/*.ts"]
-      }
+        "project": "libs/extension/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/extension/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/extension/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
     },
     "test": {
       "executor": "@nrwl/jest:jest",
@@ -24,7 +35,13 @@
           "codeCoverage": true
         }
       }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/extension/**/*.ts", "libs/extension/**/*.html"]
+      }
     }
-  },
-  "tags": []
+  }
 }

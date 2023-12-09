@@ -1,5 +1,5 @@
 import { Store } from "../store";
-import { Reducer } from "../../../../../libs/extension/src/background/reducers/reducer";
+import { Reducer } from "@apilab/extension/background";
 import { from, interval, map, NEVER, Observable, of, switchMap, tap } from "rxjs";
 import { allApi } from "../api";
 import { ConfigRule, ConfigRules } from "@shared/config-rules";

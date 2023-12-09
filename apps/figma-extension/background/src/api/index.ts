@@ -1,4 +1,4 @@
-import { ChromeStoreApi } from "../../../../../libs/extension/src/background/api/chrome-store.api";
+import { ChromeStoreApi } from "@apilab/extension/background";
 
 export const allApi = {
   chromeStoreApi: new ChromeStoreApi(),

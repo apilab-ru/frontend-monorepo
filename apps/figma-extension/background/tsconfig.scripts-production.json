@@ -3,8 +3,6 @@
   "compilerOptions": {
     "paths": {
       "@shared/*": ["apps/figma-extension/shared/*"],
-      "@environments": ["apps/figma-extension/environments/environment.production.ts"],
-      "@environments/model": ["apps/figma-extension/environments/index.ts"],
       "@store/*": ["libs/store/src/*"]
     }
   }

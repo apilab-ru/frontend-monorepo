@@ -4,6 +4,23 @@
   "sourceRoot": "libs/store/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/store",
+        "main": "libs/store/src/index.ts",
+        "tsConfig": "libs/store/tsconfig.lib.json",
+        "assets": ["libs/store/*.md"]
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs store {args.ver} {args.tag}"
+      },
+      "dependsOn": ["build"]
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],

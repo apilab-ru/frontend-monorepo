@@ -1,9 +1,12 @@
 {
-  "name": "ui-kit",
+  "name": "@apilab/ui-kit",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^15.1.0",
-    "@angular/core": "^15.1.0"
+    "@angular/common": "^15.2.0",
+    "@angular/core": "^15.2.0",
+    "@angular/cdk": "^15.2.0",
+    "date-fns": "2.29.3",
+    "primeng": "^15.2.1"
   },
   "dependencies": {
     "tslib": "^2.3.0"

@@ -13,7 +13,6 @@ abstract class StoreMethods<T> {
 type StoreFields<T> = { [key in keyof T]: BehaviorSubject<T[key]> };
 export type RecordSubject<T> = StoreFields<T> & StoreMethods<T>;
 
-// TODO предусмотреть сохранение в неправильном формате
 export function makeStore<Store extends object, ReactiveStore extends Partial<StoreFields<Store>>>(
   data: Store,
   reactiveStore?: ReactiveStore

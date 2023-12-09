@@ -39,6 +39,6 @@ export class BreakpointsService {
   private checkForWindowResize(): Breakpoint {
     const size = window.innerWidth;
 
-    return this.sizes.find(item => item.size <= size).key;
+    return this.sizes.find(item => item.size <= size)?.key!;
   }
 }

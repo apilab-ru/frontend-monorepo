@@ -3,7 +3,7 @@ import { WorkerAction } from './const';
 import { filter, Observable, of, Subject, takeUntil, throwError } from 'rxjs';
 
 import { ChromeMessageApi } from "./api/chrome-message.api";
-import { RecordSubject } from "@store/lib/store";
+import { RecordSubject } from "@apilab/store";
 
 export class EXSBackgroundWorker<Store, API, Reducers> {
   private closeRequest$ = new Subject<string>();

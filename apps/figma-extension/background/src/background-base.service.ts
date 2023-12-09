@@ -1,9 +1,8 @@
-import { Environment } from '@environments/model';
 import { allApi } from "./api";
 import { Store } from "./store";
 
 import { Reducers } from "./reducers";
-import { EXSBackgroundBaseService } from "../../../../libs/extension/src/background/background-base.service";
+import { EXSBackgroundBaseService } from "@apilab/extension/background";
 
 type AllApiTypes = typeof allApi;
 

@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from "@angular/core";
 import { allApi } from "./api";
-import { EXSBackgroundService } from "../../../../libs/extension/src/background/background.service";
+import { EXSBackgroundService } from "@apilab/extension/background-angular";
 import { Store } from "./store";
 
 import { Reducers } from "./reducers";

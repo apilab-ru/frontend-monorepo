@@ -27,11 +27,7 @@
     ],
     "paths": {
       "@background": ["apps/figma-extension/background/index.ts"],
-      "@shared/*": ["apps/figma-extension/shared/*"],
-      "@environments": ["apps/figma-extension/environments/environment.production.ts"],
-      "@environments/model": ["apps/figma-extension/environments/index.ts"],
-      "@angular-shared": ["libs/angular-shared/src/index.ts"],
-      "@ui-kit/*": ["libs/ui-kit/src/*"]
+      "@shared/*": ["apps/figma-extension/shared/*"]
     }
   },
   "files": [],

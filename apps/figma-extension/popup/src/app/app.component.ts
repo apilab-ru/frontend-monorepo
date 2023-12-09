@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BackgroundService } from "@background";
 import { map } from "rxjs";
-import { UiMessagesService } from "@ui-kit/messages/messages.service";
+import { UiMessagesService } from "@apilab/ui-kit/messages";
 
 @Component({
   selector: 'app-root',

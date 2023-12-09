@@ -1,0 +1,12 @@
+{
+  "name": "@apilab/extension",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/core": "^15.2.0",
+    "@apilab/store": "1.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
+}

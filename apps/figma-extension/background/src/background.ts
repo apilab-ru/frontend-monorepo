@@ -1,7 +1,7 @@
 import { allApi } from "./api";
 import { Store, store$ } from "./store";
 import { reducers } from "./reducers";
-import { EXSBackgroundWorker } from "../../../../libs/extension/src/background/background";
+import { EXSBackgroundWorker } from "@apilab/extension/background";
 
 class BackgroundWorker extends EXSBackgroundWorker<Store, typeof allApi, typeof reducers> {
 }

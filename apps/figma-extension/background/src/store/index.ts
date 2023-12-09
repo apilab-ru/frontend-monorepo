@@ -1,6 +1,5 @@
 import { STORE_DATA } from "./const";
-import { makeStore } from "../../../../../libs/store/src";
-import { reactiveStore } from "../../../../filecab/shared/helpers/reactive-store";
+import { makeStore, reactiveStore } from "@apilab/store";
 
 import { allApi } from '../api';
 export type Store = typeof STORE_DATA;

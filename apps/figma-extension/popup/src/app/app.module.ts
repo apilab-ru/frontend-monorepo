@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
-import { Environment } from "@environments/model";
-import { environment } from "../environments/environment";
 import { CheckboxModule } from "primeng/checkbox";
 import { FormsModule } from "@angular/forms";
-import { UiMessagesModule } from "@ui-kit/messages/messages.module";
+import { UiMessagesModule } from "@apilab/ui-kit/messages";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
@@ -19,12 +16,6 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     FormsModule,
     CheckboxModule,
     UiMessagesModule,
-  ],
-  providers: [
-    {
-      provide: Environment,
-      useValue: environment,
-    }
   ],
   bootstrap: [AppComponent]
 })

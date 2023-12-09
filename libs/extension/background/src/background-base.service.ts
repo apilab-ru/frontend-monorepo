@@ -3,7 +3,6 @@ import { FetchEventData, ReducerEventData, WorkerEvent, WorkerEventData } from '
 import { BehaviorSubject, filter, finalize, map, Observable, of, switchMap, take, tap, throwError } from 'rxjs';
 
 import { ChromeMessageApi  } from "./api/chrome-message.api";
-import { EXSEnvironment } from "./environment";
 
 type Parameters<T> = T extends (arg: infer T) => any ? T : never;
 type ReturnType<T> = T extends (arg?: any) => infer T ? T : never;

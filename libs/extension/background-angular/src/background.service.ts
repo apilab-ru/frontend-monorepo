@@ -1,10 +1,22 @@
 import { NgZone } from '@angular/core';
 
-import {  Observable } from 'rxjs';
+import { Observable, OperatorFunction } from 'rxjs';
 
-import { EXSEnvironment } from "./environment";
-import { runInZone } from "@angular-shared";
-import { EXSBackgroundBaseService } from "./background-base.service";
+//import { runInZone } from "@angular-shared";
+export function runInZone<T>(zone: NgZone): OperatorFunction<T, T> {
+  return (source) => {
+    return new Observable(observer => {
+      const next = (value: T) => zone.run(() => observer.next(value));
+      const error = (e: any) => zone.run(() => observer.error(e));
+      const complete = () => zone.run(() => observer.complete());
+      return source.subscribe({
+        next, error, complete,
+      });
+    });
+  };
+}
+
+import { EXSBackgroundBaseService } from "../../background/src/background-base.service";
 
 type Parameters<T> = T extends (arg: infer T) => any ? T : never;
 type ReturnType<T> = T extends (arg?: any) => infer T ? T : never;

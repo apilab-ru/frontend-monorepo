@@ -3,7 +3,7 @@ import { firstValueFrom, Observable } from 'rxjs';
 export class ChromeStoreApi {
   onStoreChanges<T>(): Observable<Partial<T>> {
     return new Observable<Partial<T>>((resolve) => {
-      chrome.storage.onChanged.addListener(result => {
+      chrome.storage.onChanged.addListener((result) => {
         const updates: Partial<T> = Object.keys(result)
           .reduce((obj, key) => ({ ...obj, [key]: result[key].newValue }), {});
 
@@ -32,8 +32,8 @@ export class ChromeStoreApi {
   getStore<T>(selector?: string): Observable<unknown>
   {
     return new Observable<T>((resolve) => {
-      chrome.storage.local.get((res) => {
-        resolve.next(res as unknown as T);
+      chrome.storage.local.get((res: T) => {
+        resolve.next(res);
       });
     });
   }

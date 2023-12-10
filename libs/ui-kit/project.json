@@ -8,7 +8,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "outputs": ["./dist"],
       "options": {
         "project": "libs/ui-kit/ng-package.json"
       },

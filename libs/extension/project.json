@@ -1,16 +1,19 @@
 {
   "name": "extension",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/extension/src",
-  "prefix": "frontend-monorepo",
+  "sourceRoot": "libs/extension",
+  "prefix": "extension",
   "tags": [],
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
-      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["libs/extension/dist"],
       "options": {
-        "project": "libs/extension/ng-package.json"
+        "outputPath": "libs/extension/dist",
+        "main": "libs/extension/background/index.ts",
+        "tsConfig": "libs/extension/tsconfig.lib.json",
+        "assets": ["libs/extension/*.md"]
       },
       "configurations": {
         "production": {

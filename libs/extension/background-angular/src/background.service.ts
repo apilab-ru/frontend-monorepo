@@ -30,13 +30,13 @@ export class EXSBackgroundService<Store, API, Reducers> extends EXSBackgroundBas
     super();
   }
 
-  select<S extends keyof Store>(selector: S): Observable<Store[S]> {
+  override select<S extends keyof Store>(selector: S): Observable<Store[S]> {
     return super.select(selector).pipe(
       runInZone(this.ngZone),
     );
   }
 
-  fetch<Api extends keyof API, Method extends keyof API[Api]>
+  override fetch<Api extends keyof API, Method extends keyof API[Api]>
   (api: Api, method: Method): (args: Parameters<API[Api][Method]>) => ReturnType<API[Api][Method]> {
     // @ts-ignore
     return (args) => super.fetch(api, method)(args)?.pipe(
@@ -44,7 +44,7 @@ export class EXSBackgroundService<Store, API, Reducers> extends EXSBackgroundBas
     )
   }
 
-  reduce<Api extends keyof Reducers, Method extends keyof Reducers[Api]>
+  override reduce<Api extends keyof Reducers, Method extends keyof Reducers[Api]>
   (api: Api, method: Method): (data: Parameters<Reducers[Api][Method]>) => ReturnType<Reducers[Api][Method]> {
     // @ts-ignore
     return (data) => super.reduce(api, method)(data)?.pipe(

@@ -1,13 +1,23 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "rootDir": "./",
+    "baseUrl": "./",
     "target": "es2022",
+    "module": "commonjs",
     "useDefineForClassFields": false,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "types": [
+      "chrome"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
+    ]
   },
   "files": [],
   "include": [],
@@ -19,15 +29,8 @@
       "path": "./tsconfig.spec.json"
     }
   ],
-  "typeRoots": [
-    "node_modules/@types"
-  ],
-  "types": [
-    "node",
-    "chrome"
-  ],
-  "extends": "../../tsconfig.base.json",
   "angularCompilerOptions": {
+    "experimentalDecorators": true,
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,

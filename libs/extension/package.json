@@ -1,9 +1,9 @@
 {
   "name": "@apilab/extension",
-  "version": "17.0.3",
+  "version": "17.0.4",
   "peerDependencies": {
     "@angular/core": "17.0.6",
-    "@apilab/store": "0.0.3",
+    "@apilab/store": "0.0.4",
     "@types/chrome": "~0.0.254"
   },
   "dependencies": {

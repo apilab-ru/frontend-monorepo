@@ -7,16 +7,12 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/worklog-analize",
         "index": "apps/worklog-analize/src/index.html",
         "main": "apps/worklog-analize/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/worklog-analize/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -24,9 +20,7 @@
           "apps/worklog-analize/src/assets",
           "apps/worklog-analize/src/.htaccess"
         ],
-        "styles": [
-          "apps/worklog-analize/src/styles.scss"
-        ],
+        "styles": ["apps/worklog-analize/src/styles.scss"],
         "scripts": [],
         "webWorkerTsConfig": "apps/worklog-analize/tsconfig.worker.json"
       },
@@ -79,16 +73,8 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
-      "options": {
-        "lintFilePatterns": [
-          "apps/worklog-analize/**/*.ts",
-          "apps/worklog-analize/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     }
   },
   "tags": []

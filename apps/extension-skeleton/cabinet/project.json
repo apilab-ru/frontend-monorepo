@@ -7,25 +7,19 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "apps/extension-skeleton/dist/cabinet",
         "index": "apps/extension-skeleton/cabinet/src/index.html",
         "main": "apps/extension-skeleton/cabinet/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/extension-skeleton/cabinet/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/extension-skeleton/cabinet/src/wish-list-icon.png",
           "apps/extension-skeleton/cabinet/src/assets"
         ],
-        "styles": [
-          "apps/extension-skeleton/cabinet/src/styles.scss"
-        ],
+        "styles": ["apps/extension-skeleton/cabinet/src/styles.scss"],
         "optimization": {
           "scripts": true,
           "styles": {
@@ -126,9 +120,7 @@
         "port": 6006,
         "configDir": "apps/extension-skeleton/cabinet/.storybook",
         "tsConfig": "apps/extension-skeleton/cabinet/.storybook/tsconfig.json",
-        "styles": [
-          "apps/extension-skeleton/cabinet/.storybook/global.scss"
-        ],
+        "styles": ["apps/extension-skeleton/cabinet/.storybook/global.scss"],
         "compodoc": false
       }
     },
@@ -138,19 +130,16 @@
         "browserTarget": "extension-skeleton-cabinet:production",
         "configDir": "apps/extension-skeleton/cabinet/.storybook",
         "tsConfig": "apps/extension-skeleton/cabinet/.storybook/tsconfig.json",
-        "styles": [
-          "apps/extension-skeleton/shared/.storybook/global.scss"
-        ],
+        "styles": ["apps/extension-skeleton/shared/.storybook/global.scss"],
         "compodoc": false
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
+          "apps/extension-skeleton/cabinet",
           "apps/extension-skeleton-cabinet/**/*.ts",
           "apps/extension-skeleton-cabinet/**/*.html"
         ]
@@ -158,9 +147,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/extension-skeleton-cabinet/jest.config.ts",
         "passWithNoTests": true

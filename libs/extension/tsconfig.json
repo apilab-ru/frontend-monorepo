@@ -14,13 +14,8 @@
     "noFallthroughCasesInSwitch": true,
     "types": [
       "chrome"
-    ],
-    "typeRoots": [
-      "node_modules/@types"
     ]
   },
-  "files": [],
-  "include": [],
   "references": [
     {
       "path": "./tsconfig.lib.json"

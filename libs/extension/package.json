@@ -3,7 +3,7 @@
   "version": "17.0.3",
   "peerDependencies": {
     "@angular/core": "17.0.6",
-    "@apilab/store": "0.0.2",
+    "@apilab/store": "0.0.3",
     "@types/chrome": "~0.0.254"
   },
   "dependencies": {

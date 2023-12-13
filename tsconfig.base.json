@@ -21,8 +21,6 @@
       "@angular-shared/*": ["libs/angular-shared/src/lib/*"],
       "@apilab/monorepo/extension": ["libs/extension/src/index.ts"],
       "@apilab/monorepo/store": ["libs/store/src/index.ts"],
-      "@apilab/test": ["libs/test-kit/src/index.ts"],
-      "@apilab/test-v2": ["libs/test-kit-v2/src/index.ts"],
       "@apilab/ui-kit": ["libs/ui-kit/src/index.ts"],
       "@filecab/models": ["libs/filecab/models/src/index.ts"],
       "@filecab/models/*": ["libs/filecab/models/src/*"],

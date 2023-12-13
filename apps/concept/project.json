@@ -58,7 +58,6 @@
       },
       "defaultConfiguration": "development"
     },
-
     "storybook": {
       "executor": "@storybook/angular:start-storybook",
       "options": {
@@ -66,9 +65,7 @@
         "port": 6006,
         "configDir": "apps/concept/.storybook",
         "tsConfig": "apps/concept/.storybook/tsconfig.json",
-        "styles": [
-          "apps/concept/.storybook/global.scss"
-        ],
+        "styles": ["apps/concept/.storybook/global.scss"],
         "compodoc": false
       }
     },
@@ -79,20 +76,14 @@
         "browserTarget": "concept:build",
         "configDir": "apps/concept/.storybook",
         "tsConfig": "apps/concept/.storybook/tsconfig.json",
-        "styles": [
-          "apps/concept/.storybook/global.scss"
-        ],
+        "styles": ["apps/concept/.storybook/global.scss"],
         "outputDir": "apps/concept/.storybook/dist",
         "compodoc": false
       }
     },
-
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/concept/**/*.ts", "apps/concept/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nrwl/jest:jest",

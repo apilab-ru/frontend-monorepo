@@ -7,25 +7,16 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "apps/figma-extension/dist/popup",
         "index": "apps/figma-extension/popup/src/index.html",
         "main": "apps/figma-extension/popup/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/figma-extension/popup/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": [
-          "apps/figma-extension/popup/src/wish-list-icon.png",
-          "apps/figma-extension/popup/src/assets"
-        ],
-        "styles": [
-          "apps/figma-extension/popup/src/styles.scss"
-        ],
+        "assets": ["apps/figma-extension/popup/src/wish-list-icon.png", "apps/figma-extension/popup/src/assets"],
+        "styles": ["apps/figma-extension/popup/src/styles.scss"],
         "optimization": {
           "scripts": true,
           "styles": {
@@ -104,9 +95,7 @@
         "port": 6006,
         "configDir": "apps/figma-extension/popup/.storybook",
         "tsConfig": "apps/figma-extension/popup/.storybook/tsconfig.json",
-        "styles": [
-          "apps/figma-extension/popup/.storybook/global.scss"
-        ],
+        "styles": ["apps/figma-extension/popup/.storybook/global.scss"],
         "compodoc": false
       }
     },
@@ -116,19 +105,16 @@
         "browserTarget": "figma-extension-popup:production",
         "configDir": "apps/figma-extension/popup/.storybook",
         "tsConfig": "apps/figma-extension/popup/.storybook/tsconfig.json",
-        "styles": [
-          "apps/figma-extension/shared/.storybook/global.scss"
-        ],
+        "styles": ["apps/figma-extension/shared/.storybook/global.scss"],
         "compodoc": false
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
+          "apps/figma-extension/popup",
           "apps/figma-extension-popup/**/*.ts",
           "apps/figma-extension-popup/**/*.html"
         ]
@@ -136,9 +122,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/figma-extension-popup/jest.config.ts",
         "passWithNoTests": true

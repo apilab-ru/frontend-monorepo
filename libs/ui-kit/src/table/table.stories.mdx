@@ -37,7 +37,7 @@ export const Desktop = (style) => args => ({
     <ui-table-head>Name</ui-table-head>
     <ui-table-head>Description</ui-table-head>
     <ui-table-head class='controls'>Controls</ui-table-head>
-    <!-- rows -->
+    {/* rows */}
     <tr *uiTableIterator="let item of list" uiTableTr>
         <td uiTableTd>#{{ item.num }}</td>
         <td uiTableTd>{{ item.name }}</td>

@@ -1,15 +1,13 @@
 import { NgModule } from "@angular/core";
 import { ToastModule } from "primeng/toast";
-import { MessageService } from "primeng/api";
-import { UiMessagesService } from "./messages.service";
+import { messagesProviders } from "./messages-providers";
 
 @NgModule({
   imports: [
     ToastModule,
   ],
   providers: [
-    MessageService,
-    UiMessagesService,
+    ...messagesProviders()
   ],
   exports: [
     ToastModule,

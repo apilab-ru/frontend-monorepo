@@ -7,25 +7,16 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "apps/extension-skeleton/dist/popup",
         "index": "apps/extension-skeleton/popup/src/index.html",
         "main": "apps/extension-skeleton/popup/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/extension-skeleton/popup/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": [
-          "apps/extension-skeleton/popup/src/wish-list-icon.png",
-          "apps/extension-skeleton/popup/src/assets"
-        ],
-        "styles": [
-          "apps/extension-skeleton/popup/src/styles.scss"
-        ],
+        "assets": ["apps/extension-skeleton/popup/src/wish-list-icon.png", "apps/extension-skeleton/popup/src/assets"],
+        "styles": ["apps/extension-skeleton/popup/src/styles.scss"],
         "optimization": {
           "scripts": true,
           "styles": {
@@ -125,9 +116,7 @@
         "port": 6006,
         "configDir": "apps/extension-skeleton/popup/.storybook",
         "tsConfig": "apps/extension-skeleton/popup/.storybook/tsconfig.json",
-        "styles": [
-          "apps/extension-skeleton/popup/.storybook/global.scss"
-        ],
+        "styles": ["apps/extension-skeleton/popup/.storybook/global.scss"],
         "compodoc": false
       }
     },
@@ -137,19 +126,16 @@
         "browserTarget": "extension-skeleton-popup:production",
         "configDir": "apps/extension-skeleton/popup/.storybook",
         "tsConfig": "apps/extension-skeleton/popup/.storybook/tsconfig.json",
-        "styles": [
-          "apps/extension-skeleton/shared/.storybook/global.scss"
-        ],
+        "styles": ["apps/extension-skeleton/shared/.storybook/global.scss"],
         "compodoc": false
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
+          "apps/extension-skeleton/popup",
           "apps/extension-skeleton-popup/**/*.ts",
           "apps/extension-skeleton-popup/**/*.html"
         ]
@@ -157,9 +143,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/extension-skeleton-popup/jest.config.ts",
         "passWithNoTests": true

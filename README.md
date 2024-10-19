@@ -18,11 +18,10 @@
 |--------|-----------------------------------------------------------|
 | store  | Интеграция с indexDB, реализация стора и прочее для стора |
 
+## Установка
+npm install --legacy-peer-deps --force
+
 ## Understand this workspace
 
 Run `nx graph` to see a diagram of the dependencies of the projects.
-
-## Remote caching
-
-Run `npx nx connect-to-nx-cloud` to enable [remote caching](https://nx.app) and make CI faster.
 

@@ -4,6 +4,11 @@
   "aboutFullstack": "Специализируюсь на фронтенде, но по необходимости занимаюсь и серверной частью (node js). В портфолио есть несколько pet / фриланс <a>реализованных проектов</a> и production опыт в роли fullstack разработчика ~4 года.",
   "aboutCases": "Помимо основной работы, я занимаюсь сложными и интересными кейсами, часть которых есть в <a>моём портфолио.</a>",
   "works": {
+    "skillbox": {
+      "position": "Senior Developer",
+      "company": "Skillbox",
+      "function": "Запуск нового продукта (на основе существующего)."
+    },
     "skyeng": {
       "position": "Senior/Lead Developer",
       "company": "Skyeng",

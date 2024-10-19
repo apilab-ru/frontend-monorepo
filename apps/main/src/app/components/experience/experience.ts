@@ -8,9 +8,14 @@ interface JobItem extends Pick<Work, 'dateFrom' | 'dateTo'> {
 
 export const JOB_LIST: JobItem[] = [
   {
+    key: 'skillbox',
+    dateFrom: '2023-02-15',
+    dateTo: null,
+  },
+  {
     key: 'skyeng',
     dateFrom: '2019-10-01',
-    dateTo: null,
+    dateTo: '2023-02-15',
   },
   {
     key: 'simbirSoft',

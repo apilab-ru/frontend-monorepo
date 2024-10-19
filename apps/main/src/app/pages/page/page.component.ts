@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ScrollNavigationService } from '../../services/scroll-navigation.service';
-import { MatLegacyDialog } from '@angular/material/legacy-dialog';
+
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { distinctUntilChanged, filter, map, startWith, switchMap } from 'rxjs/operators';
 import { ModalProjectComponent } from '../../components/modal-project/modal-project.component';
@@ -10,6 +10,7 @@ import { Title } from '@angular/platform-browser';
 import { provideTranslation, registerTranslationManually } from '@shared/translations';
 import { PortfolioService } from '../../portfolio/portfolio.service';
 import { Project } from '../../components/interfaces/project';
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   selector: 'app-page',
@@ -23,7 +24,7 @@ export class PageComponent implements AfterViewInit, OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private scrollNavigationService: ScrollNavigationService,
-    private dialog: MatLegacyDialog,
+    private dialog: MatDialog,
     private router: Router,
     private translocoService: TranslocoService,
     private title: Title,

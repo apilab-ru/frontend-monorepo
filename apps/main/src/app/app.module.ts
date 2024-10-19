@@ -18,7 +18,6 @@ import { ProjectCardComponent } from './components/project-card/project-card.com
 import { ItemFeedbackComponent } from './components/item-feedback/item-feedback.component';
 import { ModalProjectComponent } from './components/modal-project/modal-project.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatLegacyDialogModule } from '@angular/material/legacy-dialog';
 import { RouterModule, Routes } from '@angular/router';
 import { TRANSLOCO_CONFIG, TranslocoModule } from '@ngneat/transloco';
 import { TranslocoMessageFormatModule } from '@ngneat/transloco-messageformat';
@@ -26,6 +25,7 @@ import { LinkDirective } from './directives/link.directive';
 import localeRu from '@angular/common/locales/ru';
 import { DatePipe, registerLocaleData } from '@angular/common';
 import { AppDatePipe } from './pipes/date.pipe';
+import { MatDialogModule } from "@angular/material/dialog";
 
 registerLocaleData(localeRu, 'ru-RU');
 
@@ -70,7 +70,7 @@ const ROUTES: Routes = [
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatLegacyDialogModule,
+    MatDialogModule,
     RouterModule.forRoot(ROUTES),
     TranslocoModule,
     TranslocoMessageFormatModule.forRoot(),

@@ -9,7 +9,7 @@
       <div class="block-contacts">
         <section class="item">
           <h3 class="item__subtitle">{{ 'about.email' | transloco }}</h3>
-          <p class="item__text">viktor@apilab.ru</p>
+          <p class="item__text">{{ email }}</p>
         </section>
         <section class="item">
           <h3 class="item__subtitle">{{ 'about.links' | transloco }}</h3>
@@ -38,7 +38,6 @@
     </div>
     <div class="photo-section">
       <picture class="my-photo">
-        <source srcset="/assets/img/me-postered.avif" type="image/avif" >
         <source srcset="/assets/img/me-postered.webp" type="image/webp" >
         <img src="/assets/img/me-postered.jpg" alt="My photo" loading="lazy">
       </picture>

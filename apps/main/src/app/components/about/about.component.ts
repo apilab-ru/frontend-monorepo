@@ -9,4 +9,5 @@ import { provideTranslation } from '@shared/translations';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AboutComponent {
+  email = 'viktor@apilab.ru';
 }

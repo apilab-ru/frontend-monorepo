@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { MAT_LEGACY_DIALOG_DATA, MatLegacyDialogRef } from '@angular/material/legacy-dialog';
+
 import { ProjectCardComponent } from '../project-card/project-card.component';
 import { Project } from '../interfaces/project';
 import { provideTranslation } from '@shared/translations';
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
 @Component({
   selector: 'app-modal-project',
@@ -14,8 +15,8 @@ import { provideTranslation } from '@shared/translations';
 })
 export class ModalProjectComponent {
   constructor(
-    public dialogRef: MatLegacyDialogRef<ProjectCardComponent>,
-    @Inject(MAT_LEGACY_DIALOG_DATA) public detail: Project,
+    public dialogRef: MatDialogRef<ProjectCardComponent>,
+    @Inject(MAT_DIALOG_DATA) public detail: Project,
   ) {
   }
 

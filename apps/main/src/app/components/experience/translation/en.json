@@ -4,6 +4,11 @@
   "aboutFullstack": "I specialize in frontend, but if necessary, I also deal with the server side (js-node). The portfolio includes several home / freelance <a>completed projects</a> and production experience as a fullstack developer for 4 years.",
   "aboutCases": "In addition to my main job, I deal with complex and interesting cases, some of which are in <a> my portfolio.</a>",
   "works": {
+    "skillbox": {
+      "position": "Senior Developer",
+      "company": "Skillbox",
+      "function": ""
+    },
     "skyeng": {
       "position": "Senior/Lead Developer",
       "company": "Skyeng",

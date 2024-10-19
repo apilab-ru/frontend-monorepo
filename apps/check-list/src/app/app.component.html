@@ -1,0 +1,15 @@
+<div class="container">
+  <ng-container *ngFor="let group of (points$ | async)">
+    <h2 class="subtitle">{{ group.title }}</h2>
+    <section class="checkbox">
+      <mat-checkbox
+        *ngFor="let item of group.list"
+        class="checkbox__item"
+      >{{ item.text }}
+        <div *ngIf="item.description" class="description">
+          ( {{ item.description }} )
+        </div>
+      </mat-checkbox>
+    </section>
+  </ng-container>
+</div>

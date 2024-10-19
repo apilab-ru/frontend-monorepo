@@ -1,7 +1,7 @@
 import { allApi } from "./api";
 import { Store, store$ } from "./store";
 import { reducers } from "./reducers";
-import { EXSBackgroundWorker } from "@apilab/extension/background";
+import { EXSBackgroundWorker } from "../../../../libs/extension/background";
 
 class BackgroundWorker extends EXSBackgroundWorker<Store, typeof allApi, typeof reducers> {
 }
@@ -14,7 +14,5 @@ const backgroundWorker = new BackgroundWorker(
 );
 
 backgroundWorker.init();
-reducers.config.subscribeAutoReload();
-reducers.config.baseLoad();
 
-console.log('xxx store', store$);
+console.log('backgroundWorker', backgroundWorker);

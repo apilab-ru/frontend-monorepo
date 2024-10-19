@@ -3,8 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { CheckboxModule } from "primeng/checkbox";
 import { FormsModule } from "@angular/forms";
-import { UiMessagesModule } from "@apilab/ui-kit/messages";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ToastModule } from "primeng/toast";
+import { MessageService } from "primeng/api";
+import { UiMessagesService } from "./messages.service";
 
 @NgModule({
   declarations: [
@@ -15,7 +17,11 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     BrowserModule,
     FormsModule,
     CheckboxModule,
-    UiMessagesModule,
+    ToastModule,
+  ],
+  providers: [
+    MessageService,
+    UiMessagesService,
   ],
   bootstrap: [AppComponent]
 })

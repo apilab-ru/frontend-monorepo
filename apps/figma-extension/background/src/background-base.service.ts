@@ -2,7 +2,7 @@ import { allApi } from "./api";
 import { Store } from "./store";
 
 import { Reducers } from "./reducers";
-import { EXSBackgroundBaseService } from "@apilab/extension/background";
+import { EXSBackgroundBaseService } from "../../../../libs/extension/background";
 
 type AllApiTypes = typeof allApi;
 

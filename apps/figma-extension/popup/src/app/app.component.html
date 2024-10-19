@@ -16,6 +16,15 @@
       <button class="button" (click)="convertAndCopy(rhythmInput.value)">Конвертировать</button>
    </div>
 
+   <div class="input-box item">
+      <input
+        class="input"
+        placeholder="Тест"
+        [ngModel]="test$ | async"
+        (ngModelChange)="updateTest($event)"
+      >
+   </div>
+
    <div *ngIf="(isRuleLoaded$ | async) === false" class="message item">
       Конфиг не загружен
    </div>

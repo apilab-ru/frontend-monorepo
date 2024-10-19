@@ -24,3 +24,5 @@ backgroundService.select('config').pipe(
   notificationService.message(`Токен скопирован: ${text}`);
 });
 
+backgroundService.select('config').subscribe(config => console.log('xxx config', config));
+

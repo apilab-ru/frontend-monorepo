@@ -1,9 +1,10 @@
-import { ConfigRules } from "../../../shared/config-rules";
+import { IConfig } from "./model";
 
 export const STORE_DATA = {
   config: {
-    enabled: false,
+    enabled: true,
     reloadEnable: false,
-    rules: null as ConfigRules | null
-  },
+    rules: null,
+    test: 'default'
+  } as IConfig,
 }

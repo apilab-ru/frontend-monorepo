@@ -1,4 +1,4 @@
-import { ConfigRules, RULE_VALUE_PLACEHOLDER } from "@shared/config-rules";
+import { ConfigRules, RULE_VALUE_PLACEHOLDER } from "../../shared/config-rules";
 
 export class ParserTokens {
   parse(rules: ConfigRules, token: string): string | null {

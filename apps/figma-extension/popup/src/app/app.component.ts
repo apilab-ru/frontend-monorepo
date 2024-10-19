@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BackgroundService } from "@background";
 import { map } from "rxjs";
-import { UiMessagesService } from "@apilab/ui-kit/messages";
+import { UiMessagesService } from "./messages.service";
 
 @Component({
   selector: 'app-root',
@@ -9,15 +9,20 @@ import { UiMessagesService } from "@apilab/ui-kit/messages";
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   isEnable$ = this.backgroundService.select('config').pipe(map(config => !!config.enabled));
   isReload$ = this.backgroundService.select('config').pipe(map(config => !!config.reloadEnable));
-  isRuleLoaded$ = this.backgroundService.select('config').pipe(map(config => !!config.rules));
+  isRuleLoaded$ = this.backgroundService.select('config').pipe(map(config => !!config.test));
+  test$ = this.backgroundService.select('config').pipe(map(config => config.test));
 
   constructor(
     private backgroundService: BackgroundService,
     private uiMessageService: UiMessagesService,
   ) {
+  }
+
+  ngOnInit(): void {
+    this.backgroundService.select('config').subscribe(config => console.log('xxx popup config', config));
   }
 
   toggleEnable(isEnable: boolean): void {
@@ -37,8 +42,12 @@ export class AppComponent {
     })
   }
 
+  updateTest(test: string): void {
+    this.backgroundService.reduce('config', 'update')({ test });
+  }
+
   loadConfig(): void {
-    this.backgroundService.reduce('config', 'loadConfig')(undefined).subscribe({
+    this.backgroundService.reduce('config', 'loadConfig')(void 0).subscribe({
       next: () => this.uiMessageService.success({
         summary: `Загружен`
       }),

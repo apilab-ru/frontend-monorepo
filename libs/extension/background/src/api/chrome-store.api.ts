@@ -32,8 +32,14 @@ export class ChromeStoreApi {
   getStore<T>(selector?: string): Observable<unknown>
   {
     return new Observable<T>((resolve) => {
-      chrome.storage.local.get((res: T) => {
-        resolve.next(res);
+      chrome.storage.local.get((res: any) => {
+        const needResult = selector ? res?.[selector] : res;
+
+        if (!needResult || JSON.stringify(needResult) === '{}') {
+          return resolve.next(undefined);
+        }
+
+        resolve.next(needResult);
       });
     });
   }

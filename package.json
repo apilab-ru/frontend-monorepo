@@ -43,6 +43,7 @@
     "@apilab/extension": "./libs/extension",
     "@apilab/store": "./libs/store",
     "@apilab/ui-kit": "./libs/ui-kit/src",
+    "@ng-draw-flow/core": "^0.4.0",
     "@ngneat/transloco": "^3.1.1",
     "@ngneat/transloco-messageformat": "^3.0.1",
     "@ngneat/until-destroy": "^9.2.3",

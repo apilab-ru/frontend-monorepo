@@ -1,0 +1,14 @@
+<df-input
+   class="input"
+   *ngIf="!startNode"
+   [connectorData]="{nodeId, connectorId: nodeId + '-input-1', single: false}"
+/>
+
+<p>test-node works!</p>
+<p class="tui-text_body-xs">{{ model | json }}</p>
+
+<df-output
+   class="output"
+   *ngIf="!endNode"
+   [connectorData]="{nodeId, connectorId: nodeId + '-output-1', single: false}"
+/>

@@ -1,5 +1,6 @@
 <div class="root">
-  <label class="file-drop-area">
-    <input type="file" (input)="fileChange($event.target)">
-  </label>
+   <label class="file-drop-area">
+      <input type="file" (input)="fileChange($event.target)" />
+   </label>
+   <button type="button" mat-raised-button color="primary" (click)="loadExample()">Example</button>
 </div>

@@ -1,3 +1,5 @@
+import { RouterOutlet } from '@angular/router';
+import { MenuComponent } from '../menu/menu.component';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
@@ -5,6 +7,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  standalone: true,
+  imports: [MenuComponent, RouterOutlet],
 })
 export class AppComponent {}

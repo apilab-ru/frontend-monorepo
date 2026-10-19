@@ -1,4 +1,7 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Inject, OnInit, ViewChild, DOCUMENT } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { JsonRowComponent } from '../json-row/json-row.component';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, OnInit, ViewChild, DOCUMENT } from '@angular/core';
 import { JsonDataService } from '../../services/json-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, Observable, switchMap, take, tap } from 'rxjs';
@@ -8,6 +11,7 @@ import lodashSet from 'lodash-es/set';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { saveAsFile } from '@store';
 import { PageScrollService } from 'ngx-page-scroll-core';
+import { PATH_SEPARATOR } from '../../const';
 
 interface Path {
   key: string;
@@ -21,9 +25,16 @@ interface Path {
   templateUrl: './json-editor.component.html',
   styleUrls: ['./json-editor.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  standalone: true,
+  imports: [AsyncPipe, MatButtonModule, JsonRowComponent],
 })
 export class JsonEditorComponent implements OnInit {
+  private readonly jsonDataService = inject(JsonDataService);
+  private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly pageScrollService = inject(PageScrollService);
+  private readonly router = inject(Router);
+  private readonly document = inject(DOCUMENT);
+
   isChanged = false;
   paths$: Observable<Path[]>;
   data$: Observable<JsonData>;
@@ -33,14 +44,6 @@ export class JsonEditorComponent implements OnInit {
   private fileId: number;
 
   @ViewChild('rowsBox') private rowsBox: ElementRef<HTMLElement>;
-
-  constructor(
-    private jsonDataService: JsonDataService,
-    private activatedRoute: ActivatedRoute,
-    private pageScrollService: PageScrollService,
-    private router: Router,
-    @Inject(DOCUMENT) private document: Document
-  ) {}
 
   ngOnInit(): void {
     this.data$ = this.fileId$.pipe(
@@ -78,9 +81,8 @@ export class JsonEditorComponent implements OnInit {
   }
 
   selectPath(child: string, prev?: Path): void {
-    const path = prev ? prev.full : [];
-    path.push(child);
-    this.setPath(path.join('.'));
+    const path = [...(prev?.full ?? []), child];
+    this.setPath(path.join(PATH_SEPARATOR));
 
     setTimeout(() => {
       this.pageScrollService.scroll({
@@ -101,7 +103,7 @@ export class JsonEditorComponent implements OnInit {
   }
 
   onUpdateValue(event: UpdateValueEvent, path: Path): void {
-    const dir = [...path.full, event.key].join('.');
+    const dir = [...path.full, event.key];
     lodashSet(this.tempData, dir, event.value);
     this.isChanged = true;
   }
@@ -135,7 +137,7 @@ export class JsonEditorComponent implements OnInit {
       return [];
     }
 
-    const keys = path.split('.');
+    const keys = path.split(PATH_SEPARATOR);
     const list: Path[] = [];
 
     keys.forEach((key) => {
@@ -144,7 +146,7 @@ export class JsonEditorComponent implements OnInit {
       list.push({
         key,
         full,
-        fullSt: full.join('.'),
+        fullSt: full.join(PATH_SEPARATOR),
       });
     });
 

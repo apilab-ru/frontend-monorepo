@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { MENU } from '../../routes';
 import { JsonDataService } from '../../services/json-data.service';
 import { map, Observable } from 'rxjs';
@@ -9,12 +11,13 @@ import { MenuItem } from '../../interface';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  standalone: true,
+  imports: [AsyncPipe, RouterLink, RouterLinkActive],
 })
 export class MenuComponent implements OnInit {
   list$: Observable<MenuItem[]>;
 
-  constructor(private jsonDataService: JsonDataService) {}
+  private readonly jsonDataService = inject(JsonDataService);
 
   ngOnInit(): void {
     this.list$ = this.jsonDataService.fileNames$.pipe(

@@ -1,15 +1,25 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { JsonDataService } from '../../services/json-data.service';
+import { Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import example from '../../examples/example.json';
 
 @Component({
   selector: 'je-json-input',
   templateUrl: './json-input.component.html',
   styleUrls: ['./json-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  standalone: true,
+  imports: [MatButtonModule],
 })
 export class JsonInputComponent {
-  constructor(private jsonDataService: JsonDataService) {}
+  private readonly jsonDataService = inject(JsonDataService);
+  private readonly router = inject(Router);
+
+  async loadExample(): Promise<void> {
+    const file = await this.jsonDataService.addFile(JSON.parse(JSON.stringify(example)), 'example.json');
+    await this.router.navigate(['/edit', file.id]);
+  }
 
   fileChange(target: EventTarget | null): void {
     const files = (target as HTMLInputElement)?.files;

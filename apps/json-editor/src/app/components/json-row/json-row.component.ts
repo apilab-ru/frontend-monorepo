@@ -1,3 +1,7 @@
+import { AsyncPipe } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -8,7 +12,7 @@ import {
   Output,
   type SimpleChanges,
 } from '@angular/core';
-import { JsonData, UpdateValueEvent, Value } from '../../interface';
+import type { JsonData, UpdateValueEvent, Value } from '../../interface';
 import { FormControl, FormGroup } from '@angular/forms';
 import { combineLatest, map, Observable, ReplaySubject, startWith } from 'rxjs';
 
@@ -31,7 +35,8 @@ const MAX_PREVIEW_LENGTH = 20;
   templateUrl: './json-row.component.html',
   styleUrls: ['./json-row.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  standalone: true,
+  imports: [AsyncPipe, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule],
 })
 export class JsonRowComponent implements OnChanges, OnInit {
   @Input() key: string;

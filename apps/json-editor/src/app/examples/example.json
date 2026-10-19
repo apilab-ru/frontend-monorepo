@@ -1,0 +1,100 @@
+{
+  "project": {
+    "name": "JSON Editor Example",
+    "version": 1,
+    "active": true,
+    "owner": {
+      "name": "Alex Morgan",
+      "contact": {
+        "email": "alex@example.com",
+        "address": {
+          "city": "Tokyo",
+          "country": "Japan",
+          "postalCode": "100-0001"
+        }
+      }
+    }
+  },
+  "settings": {
+    "theme": "light",
+    "language": "en",
+    "editor": {
+      "json": {
+        "indent": 2,
+        "sortKeys": false,
+        "wrapLines": true
+      }
+    },
+    "notifications": {
+      "email": true,
+      "desktop": false
+    }
+  },
+  "users": [
+    {
+      "id": 1,
+      "name": "Alex Morgan",
+      "role": "admin",
+      "preferences": {
+        "timezone": "Asia/Tokyo",
+        "language": "en"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Sam Taylor",
+      "role": "editor",
+      "preferences": {
+        "timezone": "Europe/London",
+        "language": "en"
+      }
+    }
+  ],
+  "catalog": {
+    "items": [
+      {
+        "id": "book-1",
+        "name": "Learning JSON",
+        "price": 24.5,
+        "tags": [
+          "json",
+          "reference"
+        ]
+      },
+      {
+        "id": "book-2",
+        "name": "Web Applications",
+        "price": 39,
+        "tags": [
+          "web",
+          "development"
+        ]
+      }
+    ]
+  },
+  "recentFiles": [
+    "settings.json",
+    "users.json",
+    "catalog.json"
+  ],
+  "statistics": {
+    "files": 3,
+    "edits": 12,
+    "lastSaved": "2026-10-19T09:00:00Z"
+  },
+  "key.with.dots": {
+    "nested.key": {
+      "value": "Dots are part of the key"
+    }
+  },
+  "emptyObject": {},
+  "emptyArray": [],
+  "optionalValue": null,
+  "example": {
+    "description": "A sample document for exploring nested JSON",
+    "purpose": "Try navigation, search and editing",
+    "format": "JSON",
+    "maxDepth": 5,
+    "editable": true
+  }
+}

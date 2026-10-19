@@ -1,4 +1,4 @@
-@import "libs/ui-kit/src/breakpoints/main";
+@use "libs/ui-kit/src/breakpoints/main" as *;
 
 :host {
   display: flex;

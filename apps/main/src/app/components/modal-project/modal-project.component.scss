@@ -1,6 +1,6 @@
-@import '../../styles/colors';
-@import '../../styles/breakpoints';
-@import 'libs/ui-kit/src/scroll/main';
+@use '../../styles/colors' as *;
+@use '../../styles/breakpoints' as *;
+@use 'libs/ui-kit/src/scroll/main' as *;
 
 .modal {
   max-width: 760px;

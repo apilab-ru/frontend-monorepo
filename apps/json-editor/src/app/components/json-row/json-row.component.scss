@@ -1,4 +1,4 @@
-@import "libs/ui-kit/src/scroll/main";
+@use "libs/ui-kit/src/scroll/main" as *;
 
 .root {
   padding: 3px;

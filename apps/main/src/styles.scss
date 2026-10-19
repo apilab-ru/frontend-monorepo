@@ -1,6 +1,6 @@
+@use "breakpoints" as *;
+@use "libs/ui-kit/src/angular-cdk/overlay" as *;
 @import "assets/fonts/style.css";
-@import "breakpoints";
-@import "libs/ui-kit/src/angular-cdk/overlay";
 
 body {
   margin: 0;

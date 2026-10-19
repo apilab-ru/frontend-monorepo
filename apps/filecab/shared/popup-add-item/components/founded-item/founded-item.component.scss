@@ -1,5 +1,5 @@
-@import "apps/filecab/shared/styles/colors";
-@import "apps/filecab/shared/styles/custom-scroll";
+@use "apps/filecab/shared/styles/colors" as *;
+@use "apps/filecab/shared/styles/custom-scroll" as *;
 
 .image {
   width: 100%;

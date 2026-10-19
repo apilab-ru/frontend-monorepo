@@ -1,4 +1,4 @@
-@import "apps/filecab/shared/styles/breakpoint";
+@use "apps/filecab/shared/styles/breakpoint" as *;
 
 :host {
   display: block;

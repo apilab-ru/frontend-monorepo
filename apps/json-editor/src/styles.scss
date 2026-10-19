@@ -1,4 +1,4 @@
-@import "vars";
+@use "vars" as *;
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
 
 body {

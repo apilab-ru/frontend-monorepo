@@ -1,5 +1,5 @@
-@import '../../styles/colors';
-@import '../../styles/breakpoints';
+@use '../../styles/colors' as *;
+@use '../../styles/breakpoints' as *;
 
 :host {
   padding: 21px 0;

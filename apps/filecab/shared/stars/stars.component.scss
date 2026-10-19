@@ -1,4 +1,4 @@
-@import "../../shared/styles/star";
+@use "../../shared/styles/star" as *;
 
 :host {
   display: flex;

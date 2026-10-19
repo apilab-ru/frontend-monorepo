@@ -1,4 +1,4 @@
-@import '../../styles/colors';
+@use '../../styles/colors' as *;
 
 .block-feedback {
   padding: 40px 0;

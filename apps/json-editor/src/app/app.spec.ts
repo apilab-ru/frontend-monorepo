@@ -8,6 +8,7 @@ import { JsonDataService } from './services/json-data.service';
 import type { JsonData, JsonFile } from './interface';
 import example from './examples/example.json';
 import { PageScrollService } from 'ngx-page-scroll-core';
+import { PATH_SEPARATOR } from './const';
 
 jest.mock('@store', () => ({ ...jest.requireActual('@store'), saveAsFile: jest.fn() }));
 
@@ -125,7 +126,7 @@ describe('Standalone JSON Editor', () => {
     expect(element.querySelector('je-json-row')?.textContent).toContain('catalog');
   });
 
-  it('uses ### paths and preserves dotted keys when navigating, editing and saving', async () => {
+  it('uses the configured path separator and preserves dotted keys when navigating, editing and saving', async () => {
     const nested = { 'profile.settings': { 'contact.info': { 'email.address': 'before' } } };
     service.loadFileData.mockReturnValue(of(nested));
     service.files$ = of([{ id: 7, name: 'example.json', data: nested }]);
@@ -144,7 +145,9 @@ describe('Standalone JSON Editor', () => {
     fixture.detectChanges();
     await fixture.whenStable();
     fixture.detectChanges();
-    expect(router.parseUrl(router.url).queryParams.path).toBe('profile.settings###contact.info');
+    expect(router.parseUrl(router.url).queryParams.path).toBe(
+      ['profile.settings', 'contact.info'].join(PATH_SEPARATOR)
+    );
     expect(router.parseUrl(router.url).fragment).toBeNull();
     const rows = element.querySelectorAll('je-json-row');
     expect(rows).toHaveLength(3);

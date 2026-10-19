@@ -1,4 +1,4 @@
-import type { StorybookConfig } from '@storybook/core-common';
+import type { StorybookConfig } from '@storybook/angular';
 
 export const rootMain: StorybookConfig = {
   stories: [],

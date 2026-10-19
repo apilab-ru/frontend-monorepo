@@ -3,9 +3,8 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
-import * as Sentry from '@sentry/angular-ivy';
-import { Integrations } from '@sentry/tracing';
-import { captureException } from '@sentry/angular-ivy';
+import * as Sentry from '@sentry/angular';
+import { captureException } from '@sentry/angular';
 
 if (environment.production) {
   enableProdMode();
@@ -14,11 +13,9 @@ if (environment.production) {
 if (environment.sentry.dsn) {
   Sentry.init({
     integrations: [
-      new Integrations.BrowserTracing({
-        tracingOrigins: ['*'],
-        routingInstrumentation: Sentry.routingInstrumentation,
-      }),
+      Sentry.browserTracingIntegration(),
     ],
+    tracePropagationTargets: ['*'],
     ...environment.sentry,
   });
 }

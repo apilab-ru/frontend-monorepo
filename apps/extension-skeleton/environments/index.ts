@@ -1,5 +1,3 @@
-import { EXSEnvironment } from "../../../libs/extension/src/background/environment";
-
-export class Environment extends EXSEnvironment {
+export class Environment {
   production: boolean;
 }

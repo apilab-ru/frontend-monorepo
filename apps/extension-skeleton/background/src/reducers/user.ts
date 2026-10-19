@@ -1,6 +1,6 @@
 import { User } from "@shared/user/interface";
 import { Store } from "../store";
-import { Reducer } from "../../../../../libs/extension/src/background/reducers/reducer";
+import { Reducer } from "../../../../../libs/extension/background/src/reducers/reducer";
 import { Observable, of } from "rxjs";
 
 export class UserReducer extends Reducer<Store> {

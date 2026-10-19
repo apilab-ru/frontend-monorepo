@@ -52,23 +52,33 @@
         "styles": [
           "libs/ui-kit/.storybook/global.scss"
         ],
-        "compodoc": false
+        "compodoc": false,
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "."
+          ]
+        }
       }
     },
     "build-storybook": {
       "executor": "@storybook/angular:build-storybook",
       "outputs": [
-        "{options.outputPath}"
+        "{options.outputDir}"
       ],
       "options": {
-        "browserTarget": "ui-kit:build",
+        "browserTarget": "ui-kit:build-storybook",
         "configDir": "libs/ui-kit/.storybook",
         "tsConfig": "libs/ui-kit/.storybook/tsconfig.json",
         "styles": [
           "libs/ui-kit/.storybook/global.scss"
         ],
-        "outputDir": "libs/ui-kit/.storybook/dist",
-        "compodoc": false
+        "outputDir": "dist/storybook/ui-kit",
+        "compodoc": false,
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "."
+          ]
+        }
       }
     },
     "lint": {

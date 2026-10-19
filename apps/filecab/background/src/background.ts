@@ -1,4 +1,4 @@
-import { EXSBackgroundWorker } from "../../../../libs/extension/src/background/background";
+import { EXSBackgroundWorker } from "../../../../libs/extension/background/src/background";
 
 import { allApi } from './api';
 import { Store, store$ } from './store';

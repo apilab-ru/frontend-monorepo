@@ -5,7 +5,7 @@ import { deepCopy } from '@shared/utils/utils';
 import { allApi } from '../api';
 import { from, Observable, throwError } from 'rxjs';
 import { LibraryItemV2 } from "@filecab/models/library";
-import { Reducer } from "../../../../../libs/extension/src/background/reducers/reducer";
+import { Reducer } from "../../../../../libs/extension/background/src/reducers/reducer";
 
 interface CRUDItem {
   item: LibraryItemV2;

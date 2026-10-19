@@ -1,7 +1,7 @@
 import { STORE_DATA } from "./const";
 import { filter, of, shareReplay, switchMap } from "rxjs";
 import { githubApi } from "@shared/github";
-import { makeStore } from "../../../../../libs/store/src";
+import { makeStore } from "../../../../../libs/store";
 import { reactiveStore } from "../../../../filecab/shared/helpers/reactive-store";
 
 import { allApi } from '../api';

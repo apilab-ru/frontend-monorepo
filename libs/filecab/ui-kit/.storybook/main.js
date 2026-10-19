@@ -1,10 +1,11 @@
 module.exports = {
-  stories: ['../**/*.stories.@(mdx|ts)'],
+  stories: ['../**/*.stories.ts', '../**/*.mdx'],
   addons: [
     '@storybook/addon-essentials',
   ],
-  framework: '@storybook/angular',
+  framework: { name: '@storybook/angular', options: {} },
   core: {
+    disableTelemetry: true,
     builder: '@storybook/builder-webpack5',
   },
   features: {

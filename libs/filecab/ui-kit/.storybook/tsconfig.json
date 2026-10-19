@@ -1,13 +1,14 @@
 {
   "extends": "../tsconfig.json",
 
+  "compilerOptions": { "types": ["node", "chrome"] },
   "exclude": ["../**/*.spec.ts"],
   "include": [
     "../src/**/*.stories.ts",
     "../src/**/*.stories.js",
     "../src/**/*.stories.jsx",
     "../src/**/*.stories.tsx",
-    "../src/**/*.stories.mdx",
+    "../src/**/*.mdx",
     "*.ts",
     "*.js"
   ]

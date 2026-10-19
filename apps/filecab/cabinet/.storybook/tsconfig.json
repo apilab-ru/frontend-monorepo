@@ -1,8 +1,9 @@
 {
-  "extends": "../../../tsconfig.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "types": [
-      "node"
+      "node",
+      "chrome"
     ],
     "allowSyntheticDefaultImports": true
   },
@@ -11,7 +12,9 @@
     "../**/*.spec.ts"
   ],
   "include": [
-    "../**/*"
+    "../**/*.stories.ts",
+    "../**/*.d.ts",
+    "../../../../libs/filecab/ui-kit/src/**/*.stories.ts"
   ],
   "files": [
     "./typings.d.ts"

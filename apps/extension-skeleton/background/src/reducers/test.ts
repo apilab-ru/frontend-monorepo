@@ -1,5 +1,5 @@
 import { Store } from "../store";
-import { Reducer } from "../../../../../libs/extension/src/background/reducers/reducer";
+import { Reducer } from "../../../../../libs/extension/background/src/reducers/reducer";
 import { allApi } from "../api";
 import { StoreTest } from "../store/const";
 

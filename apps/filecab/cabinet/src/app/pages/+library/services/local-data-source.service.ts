@@ -134,10 +134,10 @@ export class LocalDataSourceService extends DataSourceService {
           && searchResStatus.negative.reduce((prev, next) => prev && next, true);
 
       case SearchKeys.ratingFrom:
-        return item.star >= value[0].value;
+        return item.star >= Number(value[0].value);
 
       case SearchKeys.ratingTo:
-        return item.star <= value[0].value;
+        return item.star <= Number(value[0].value);
 
       case SearchKeys.star:
         const stars = value.map(({ value }) => +value)

@@ -12,9 +12,6 @@ import { CommonModule } from '@angular/common';
   exports: [
     StarsComponent,
   ],
-  entryComponents: [
-    StarsComponent,
-  ],
 })
 export class StarsModule {
 }

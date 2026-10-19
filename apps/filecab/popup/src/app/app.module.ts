@@ -1,5 +1,7 @@
+import * as Sentry from '@sentry/angular';
+import { Router } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Environment } from '@environments/model';
@@ -40,6 +42,13 @@ import { DefaultRouteReuseStrategy } from "./services/stop-resuse.router-strateg
     UiMessagesModule,
   ],
   providers: [
+    { provide: Sentry.TraceService, deps: [Router] },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: () => (): void => undefined,
+      deps: [Sentry.TraceService],
+      multi: true,
+    },
     {
       provide: Environment,
       useValue: environment,

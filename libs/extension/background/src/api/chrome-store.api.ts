@@ -27,11 +27,11 @@ export class ChromeStoreApi {
     })
   }
 
-  getStore<T>(): Observable<T>;
-  getStore<T>(selector: string): Observable<T>;
+  getStore<T>(): Observable<T | undefined>;
+  getStore<T>(selector: string): Observable<T | undefined>;
   getStore<T>(selector?: string): Observable<unknown>
   {
-    return new Observable<T>((resolve) => {
+    return new Observable<T | undefined>((resolve) => {
       chrome.storage.local.get((res: any) => {
         const needResult = selector ? res?.[selector] : res;
 

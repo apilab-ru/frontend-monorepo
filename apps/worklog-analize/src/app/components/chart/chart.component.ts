@@ -30,7 +30,7 @@ export class ChartComponent implements OnInit, OnChanges {
   items$ = new ReplaySubject<Item[]>(1);
   total$ = new ReplaySubject<number>(1);
 
-  private chart: Chart;
+  private chart: Chart<'pie', number[], string>;
   private total: number;
   @ViewChild('chart', { static: true }) private chartCanvas: ElementRef<HTMLCanvasElement>;
 
@@ -40,7 +40,7 @@ export class ChartComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.chart = new Chart(this.chartCanvas.nativeElement, {
+    this.chart = new Chart<'pie', number[], string>(this.chartCanvas.nativeElement, {
       type: 'pie',
       data: {
         datasets: [{

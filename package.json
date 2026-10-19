@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
+    "code": "codex --ask-for-approval never --sandbox danger-full-access",
     "filecab:popup:dev": "nx run filecab-popup:build:development --watch",
     "filecab:popup:build": "nx run filecab-popup:build:production",
     "filecab:cabinet:dev": "nx run filecab-cabinet:build:development --watch",

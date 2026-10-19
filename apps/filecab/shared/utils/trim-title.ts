@@ -1,4 +1,4 @@
-import { captureException } from '@sentry/angular';
+import { captureException } from '@sentry/angular-ivy';
 
 const nameExp = /([a-zA-zа-яА-яёЁ\s0-9:,.-]*)/;
 

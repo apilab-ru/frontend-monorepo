@@ -1,9 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "paths": {
-      "@shared/*": ["apps/figma-extension/shared/*"],
-      "@store/*": ["libs/store/src/*"]
-    }
-  }
-}

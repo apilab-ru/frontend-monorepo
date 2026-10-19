@@ -3,9 +3,9 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
-import * as Sentry from '@sentry/angular';
+import * as Sentry from '@sentry/angular-ivy';
 import { Integrations } from '@sentry/tracing';
-import { captureException } from '@sentry/angular';
+import { captureException } from '@sentry/angular-ivy';
 
 if (environment.production) {
   enableProdMode();

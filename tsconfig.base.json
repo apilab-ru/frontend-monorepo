@@ -12,22 +12,20 @@
     "importHelpers": true,
     "target": "es2020",
     "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
       "@angular-shared": ["libs/angular-shared/src/index.ts"],
       "@angular-shared/*": ["libs/angular-shared/src/lib/*"],
-      "@apilab/monorepo/extension": ["libs/extension/src/index.ts"],
-      "@apilab/monorepo/store": ["libs/store/src/index.ts"],
       "@apilab/ui-kit": ["libs/ui-kit/src/index.ts"],
       "@filecab/models": ["libs/filecab/models/src/index.ts"],
       "@filecab/models/*": ["libs/filecab/models/src/*"],
-      "@store": ["libs/store/src/index.ts"],
-      "@store/*": ["libs/store/src/*"],
-      "@ui-kit/*": ["libs/ui-kit/src/*"],
-      "@utils-monorep/server": ["libs/server/src/index.ts"]
+      "@store": ["libs/store/index.ts"],
+      "@store/*": ["libs/store/*"],
+      "@utils-monorep/angular-shared": ["libs/angular-shared/src/index.ts"],
+      "@ui-kit/*": ["libs/ui-kit/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -19,7 +19,7 @@
 | store  | Интеграция с indexDB, реализация стора и прочее для стора |
 
 ## Установка
-npm install --legacy-peer-deps --force
+npm ci
 
 ## Understand this workspace
 

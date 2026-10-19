@@ -1,4 +1,4 @@
-import { enableProdMode } from '@angular/core';
+import { enableProdMode, provideZoneChangeDetection } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
@@ -12,16 +12,15 @@ if (environment.production) {
 
 if (environment.sentry.dsn) {
   Sentry.init({
-    integrations: [
-      Sentry.browserTracingIntegration(),
-    ],
+    integrations: [Sentry.browserTracingIntegration()],
     tracePropagationTargets: ['*'],
     ...environment.sentry,
   });
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => {
+platformBrowserDynamic()
+  .bootstrapModule(AppModule, { applicationProviders: [provideZoneChangeDetection()] })
+  .catch((err) => {
     console.error(err);
 
     if (environment.sentry.dsn) {

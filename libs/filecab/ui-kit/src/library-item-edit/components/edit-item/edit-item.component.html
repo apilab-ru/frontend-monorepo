@@ -30,27 +30,28 @@
             scrollHeight="400px"
          ></p-select>
 
+         @if (statusWithProgress.includes(formMeta.value.status)) {
          <filecab-progress
-            *ngIf="statusWithProgress.includes(formMeta.value.status)"
             class="progress"
             formControlName="progress"
             [total]="mediaItem?.episodes || 0"
          ></filecab-progress>
+         }
       </div>
 
-      <filecab-stars
-         *ngIf="statusWithStars.includes(formMeta.value.status)"
-         class="stars"
-         formControlName="star"
-      ></filecab-stars>
+      @if (statusWithStars.includes(formMeta.value.status)) {
+      <filecab-stars class="stars" formControlName="star"></filecab-stars>
+      }
 
       <div class="comment-box p-float-label">
          <textarea formControlName="comment" id="comment" class="comment" pTextarea></textarea>
          <label for="comment">Комментарий</label>
       </div>
 
-      <div *ngIf="isMetaChanged(formMeta.getRawValue()) || needShowSave" class="save-button-box">
+      @if (isMetaChanged(formMeta.getRawValue()) || needShowSave) {
+      <div class="save-button-box">
          <p-button label="Сохранить" icon="pi pi-check" styleClass="p-button-sm" (click)="saveMeta()"></p-button>
       </div>
+      }
    </div>
 </div>

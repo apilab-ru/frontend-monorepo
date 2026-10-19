@@ -1,32 +1,31 @@
 <div class="root">
-  <div class="title">
-    {{ key }}
-  </div>
+   <div class="title">
+      {{ key }}
+   </div>
 
-  <mat-form-field [formGroup]="formGroup">
-    <mat-label>Search by value</mat-label>
-    <input matInput placeholder="" formControlName="search">
-  </mat-form-field>
+   <mat-form-field [formGroup]="formGroup">
+      <mat-label>Search by value</mat-label>
+      <input matInput placeholder="" formControlName="search" />
+   </mat-form-field>
 
-  <div class="fields-container">
-    <div class="fields">
-      <ng-container *ngFor="let item of fields$ | async">
-        <div class="key" [class.-selected]="selected === item.key">
-          {{ item.key }}
-        </div>
-        <div
-          class="value -{{ item.type }}"
-          [class.-selected]="selected === item.key"
-          (click)="onValueClick(item.key, item.type)"
-        >
-          <ng-container *ngIf="item.type === FieldType.object">
+   <div class="fields-container">
+      <div class="fields">
+         @for (item of fields$ | async; track item) {
+         <div class="key" [class.-selected]="selected === item.key">
+            {{ item.key }}
+         </div>
+         <div
+            class="value -{{ item.type }}"
+            [class.-selected]="selected === item.key"
+            (click)="onValueClick(item.key, item.type)"
+         >
+            @if (item.type === FieldType.object) {
             {{ item.value }}
-          </ng-container>
-          <ng-container *ngIf="item.type === FieldType.simple">
-            <input [ngModel]="item.value" (ngModelChange)="onUpdateValue(item, $event)">
-          </ng-container>
-        </div>
-      </ng-container>
-    </div>
-  </div>
+            } @if (item.type === FieldType.simple) {
+            <input [ngModel]="item.value" (ngModelChange)="onUpdateValue(item, $event)" />
+            }
+         </div>
+         }
+      </div>
+   </div>
 </div>

@@ -1,19 +1,13 @@
 <div class="root">
-  <app-integration-item
-    *ngFor="let item of integrations$ | async; let index = index"
-    class="item"
-    [integration]="item"
-    [disabled]="!calc || !calc.length"
-    (remove)="removeIntegration(index)"
-    (export)="export(item)"
-  ></app-integration-item>
+   @for (item of integrations$ | async; track item; let index = $index) {
+   <app-integration-item
+      class="item"
+      [integration]="item"
+      [disabled]="!calc || !calc.length"
+      (remove)="removeIntegration(index)"
+      (export)="export(item)"
+   ></app-integration-item>
+   }
 
-  <button
-    class="button"
-    mat-raised-button
-    color="primary"
-    (click)="addIntegration()"
-  >
-    + New integration
-  </button>
+   <button class="button" mat-raised-button color="primary" (click)="addIntegration()">+ New integration</button>
 </div>

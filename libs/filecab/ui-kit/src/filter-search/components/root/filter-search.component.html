@@ -1,18 +1,13 @@
 <div class="root">
-   <ng-container *ngFor="let item of options$ | async; index as index">
-      <filecab-chip
-         *ngIf="presets[item.key] as preset"
-         class="item"
-         [item]="item"
-         [preset]="preset"
-         (removeChip)="onRemoveChip(index)"
-         (click)="onEditChip(index, item)"
-      ></filecab-chip>
-   </ng-container>
+   @for (item of options$ | async; track item; let index = $index) { @if (presets[item.key]; as preset) {
+   <filecab-chip
+      class="item"
+      [item]="item"
+      [preset]="preset"
+      (removeChip)="onRemoveChip(index)"
+      (click)="onEditChip(index, item)"
+   ></filecab-chip>
+   } }
 
-   <filecab-input
-      class="input item"
-      [list]="list"
-      (selectValue)="onAddValue($event)"
-   ></filecab-input>
+   <filecab-input class="input item" [list]="list" (selectValue)="onAddValue($event)"></filecab-input>
 </div>

@@ -1,50 +1,41 @@
 <div class="root">
-  <div class="paths">
-    <a *ngFor="let path of paths$ | async; let index = index" class="path" (click)="goToPath(path)">
-      {{ path.key }}
-    </a>
+   <div class="paths">
+      @for (path of paths$ | async; track path; let index = $index) {
+      <a class="path" (click)="goToPath(path)">
+         {{ path.key }}
+      </a>
+      }
 
-    <div class="buttons">
-      <button
-        *ngIf="isChanged"
-        class="button"
-        mat-raised-button
-        color="primary"
-        (click)="saveJson()"
-      >
-        Save changes
-      </button>
-      <button
-        class="button"
-        mat-raised-button
-        color="warn"
-        (click)="deleteFile()"
-      >
-        Delete file
-      </button>
-    </div>
-  </div>
+      <div class="buttons">
+         @if (isChanged) {
+         <button class="button" mat-raised-button color="primary" (click)="saveJson()">Save changes</button>
+         }
+         <button class="button" mat-raised-button color="warn" (click)="deleteFile()">Delete file</button>
+      </div>
+   </div>
 
-  <div class="rows-box">
-    <div *ngIf="data$ | async as data" class="rows" #rowsBox>
-      <je-json-row
-        class="row"
-        key="root"
-        [data]="tempData"
-        [selected]="getSelectedDeepKey(0) | async"
-        (selectKey)="selectPath($event)"
-      ></je-json-row>
-
-      <je-json-row
-        *ngFor="let path of paths$ | async; let index = index; trackBy: trackByPath; let last = last"
-        class="row"
-        [class.-last]="last"
-        [key]="path.key"
-        [data]="pickData(tempData, path)"
-        [selected]="getSelectedDeepKey(index + 1) | async"
-        (selectKey)="selectPath($event, path)"
-        (updateValue)="onUpdateValue($event, path)"
-      ></je-json-row>
-    </div>
-  </div>
+   <div class="rows-box">
+      @if (data$ | async; as data) {
+      <div class="rows" #rowsBox>
+         <je-json-row
+            class="row"
+            key="root"
+            [data]="tempData"
+            [selected]="getSelectedDeepKey(0) | async"
+            (selectKey)="selectPath($event)"
+         ></je-json-row>
+         @for (path of paths$ | async; track trackByPath(index, path); let index = $index; let last = $last) {
+         <je-json-row
+            class="row"
+            [class.-last]="last"
+            [key]="path.key"
+            [data]="pickData(tempData, path)"
+            [selected]="getSelectedDeepKey(index + 1) | async"
+            (selectKey)="selectPath($event, path)"
+            (updateValue)="onUpdateValue($event, path)"
+         ></je-json-row>
+         }
+      </div>
+      }
+   </div>
 </div>

@@ -17,24 +17,30 @@
          <span class="key">{{ 'modalProject.date' | transloco }}</span>
          <span class="value -date">{{ detail.date | appDate | async }}</span>
       </div>
-      <div *ngFor="let link of detail.links" class="line">
+      @for (link of detail.links; track link) {
+      <div class="line">
          <span class="key"></span>
          <span class="value">
-           <a
-              class="link"
-              [href]="link.href"
-           >
-               <span *ngIf="link.icon" class="icon-github"></span>
+            <a class="link" [href]="link.href">
+               @if (link.icon) {
+               <span class="icon-github"></span>
+               }
                <span class="link-name">
                   {{ link.name || 'modalProject.link' | transloco }}
                </span>
-           </a>
+            </a>
          </span>
       </div>
+      }
    </div>
 
-   <section *ngFor="let item of detail.details" class="detail-item">
-      <div *ngIf="item.text" class="text" [innerHTML]="item.text"></div>
-      <img *ngIf="item.image" class="image" [src]="item.image"/>
+   @for (item of detail.details; track item) {
+   <section class="detail-item">
+      @if (item.text) {
+      <div class="text" [innerHTML]="item.text"></div>
+      } @if (item.image) {
+      <img class="image" [src]="item.image" />
+      }
    </section>
+   }
 </div>

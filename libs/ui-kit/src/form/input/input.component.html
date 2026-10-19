@@ -1,8 +1,9 @@
-<label *ngIf="label" class="label" htmlFor="{{ id }}">
+@if (label) {
+<label class="label" htmlFor="{{ id }}">
    {{ label }}
 </label>
+} @if (type === 'text') {
 <input
-   *ngIf="type === 'text'"
    pInputText
    [id]="id"
    [attr.aria-describedby]="id + '-help'"
@@ -11,8 +12,8 @@
    (ngModelChange)="updateValue($event)"
    (focusout)="touch()"
 />
+} @if (type === 'password') {
 <p-password
-   *ngIf="type === 'password'"
    class="password"
    [id]="id"
    [attr.aria-describedby]="id + '-help'"
@@ -23,6 +24,8 @@
    [toggleMask]="true"
    [feedback]="false"
 ></p-password>
-<small *ngIf="error$ | async as error" class="error" [id]="id + '-help'">
+} @if (error$ | async; as error) {
+<small class="error" [id]="id + '-help'">
    {{ error }}
 </small>
+}

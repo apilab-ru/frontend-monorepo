@@ -1,25 +1,24 @@
+@if (isAvailable$ | async) {
 <filecab-edit-item
-  *ngIf="isAvailable$ | async"
-  [type]="type$ | async"
-  [name]="name$ | async"
-  [meta]="metaData$ | async"
-  [mediaItem]="mediaItem$ | async"
-  [needShowSave]="hasChanges$ | async"
-  (typeChange)="onTypeChange($event)"
-  (nameChange)="onNameChange($event)"
-  (metaChange)="onSaveItem($event)"
+   [type]="type$ | async"
+   [name]="name$ | async"
+   [meta]="metaData$ | async"
+   [mediaItem]="mediaItem$ | async"
+   [needShowSave]="hasChanges$ | async"
+   (typeChange)="onTypeChange($event)"
+   (nameChange)="onNameChange($event)"
+   (metaChange)="onSaveItem($event)"
 >
-  <popup-media-item-list
-    [list]="mediaResultList$ | async"
-    [genres]="genres$ | async"
-    [mediaItem]="mediaItem$ | async"
-    [isLoading]="(isLoadingMeta$ | async) || (isLoadingList$ | async)"
-    [isSearchMode]="isSearchMode$ | async"
-    (toSearchMode)="setSearchMode(true)"
-    (selectItem)="onSelectItem($event)"
-  ></popup-media-item-list>
+   <popup-media-item-list
+      [list]="mediaResultList$ | async"
+      [genres]="genres$ | async"
+      [mediaItem]="mediaItem$ | async"
+      [isLoading]="(isLoadingMeta$ | async) || (isLoadingList$ | async)"
+      [isSearchMode]="isSearchMode$ | async"
+      (toSearchMode)="setSearchMode(true)"
+      (selectItem)="onSelectItem($event)"
+   ></popup-media-item-list>
 </filecab-edit-item>
-
-<div *ngIf="!(isAvailable$ | async)" class="message">
-  С данной страницы недоступен парсинг
-</div>
+} @if (!(isAvailable$ | async)) {
+<div class="message">С данной страницы недоступен парсинг</div>
+}

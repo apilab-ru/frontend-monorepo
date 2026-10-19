@@ -1,12 +1,14 @@
 <div class="root" [style.backgroundImage]="'url(' + mediaItem?.image + ')'">
-  <div class="container">
-    <div class="panel -top">
-      {{ mediaItem?.title }} {{ mediaItem?.year }}
-    </div>
-    <div *ngIf="showedGenres?.length" class="panel -bottom">
-      <span *ngFor="let genre of showedGenres" class="genre">
-        {{ genre.name }}
-      </span>
-    </div>
-  </div>
+   <div class="container">
+      <div class="panel -top">{{ mediaItem?.title }} {{ mediaItem?.year }}</div>
+      @if (showedGenres?.length) {
+      <div class="panel -bottom">
+         @for (genre of showedGenres; track genre) {
+         <span class="genre">
+            {{ genre.name }}
+         </span>
+         }
+      </div>
+      }
+   </div>
 </div>

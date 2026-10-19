@@ -108,5 +108,6 @@
   "parallel": 1,
   "cacheDirectory": ".nx-cache",
   "useInferencePlugins": false,
-  "defaultBase": "master"
+  "defaultBase": "master",
+  "analytics": false
 }

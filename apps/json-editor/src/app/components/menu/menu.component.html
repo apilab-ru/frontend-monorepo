@@ -1,10 +1,7 @@
 <div class="root">
-  <a
-    *ngFor="let item of list$ | async"
-    class="link"
-    [routerLink]="item.path"
-    [routerLinkActive]="'-active'"
-  >
-    {{ item.name }}
-  </a>
+   @for (item of list$ | async; track item) {
+   <a class="link" [routerLink]="item.path" [routerLinkActive]="'-active'">
+      {{ item.name }}
+   </a>
+   }
 </div>

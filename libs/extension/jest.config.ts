@@ -1,5 +1,5 @@
 /* eslint-disable */
-export default {
+module.exports = {
   displayName: 'extension',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/background/src/test-setup.ts'],

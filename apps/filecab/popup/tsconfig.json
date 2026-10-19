@@ -4,7 +4,12 @@
   "references": [
     {
       "path": "./tsconfig.app.json"
-    },
+    }
   ],
   "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "lib": ["dom", "es2022"]
+  }
 }

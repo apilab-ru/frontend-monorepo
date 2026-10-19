@@ -3,7 +3,9 @@
   "compilerOptions": {
     "types": ["node", "chrome"],
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "bundler"
+    "moduleResolution": "bundler",
+    "module": "preserve",
+    "lib": ["dom", "es2022"]
   },
   "exclude": ["../test.ts", "../**/*.spec.ts"],
   "include": ["../**/*.stories.ts", "../**/*.d.ts"],

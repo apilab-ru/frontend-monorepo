@@ -1,11 +1,9 @@
 <div class="genres">
-  <div class="genres-list">
-      <span
-        *ngFor="let genre of genresList"
-        class="genre"
-        (click)="clickTag(genre.id)"
-      >
-        <span class="genre-icon-{{ genre.key }}" [matTooltip]="genre.name"></span>
+   <div class="genres-list">
+      @for (genre of genresList; track genre) {
+      <span class="genre" (click)="clickTag(genre.id)">
+         <span class="genre-icon-{{ genre.key }}" [matTooltip]="genre.name"></span>
       </span>
-  </div>
+      }
+   </div>
 </div>

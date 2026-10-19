@@ -1,16 +1,10 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "types": [
-      "jest",
-      "node",
-      "chrome"
-    ]
+    "module": "preserve",
+    "types": ["jest", "node", "chrome"],
+    "moduleResolution": "bundler",
+    "isolatedModules": true
   },
-  "include": [
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts",
-    "src/**/*.d.ts"
-  ]
+  "include": ["src/**/*.spec.ts", "src/**/*.test.ts", "src/**/*.d.ts"]
 }

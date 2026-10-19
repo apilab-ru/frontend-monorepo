@@ -14,14 +14,15 @@ import { BehaviorSubject } from 'rxjs';
 @Component({
   selector: 'app-stars',
   template: `
+    @for (star of list; track star) {
     <span
       class="star"
-      *ngFor="let star of list"
       [class.selected]="(currentStar$ | async) >= star"
       [class.hovered]="(hoveredStar$ | async) >= star"
       (click)="selectStar(star)"
       (mouseenter)="onHover(star)"
     ></span>
+    }
     <span class="counter">{{ (currentStar$ | async) || 0 }} / 10</span>
   `,
   styleUrls: ['stars.component.scss'],

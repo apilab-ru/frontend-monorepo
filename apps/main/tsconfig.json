@@ -1,18 +1,15 @@
 {
   "compilerOptions": {
     "target": "es2022",
-    "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "module": "preserve",
+    "lib": ["dom", "es2022"],
     "resolveJsonModule": true,
     "useDefineForClassFields": false,
     "forceConsistentCasingInFileNames": true,
     "strict": false,
     "sourceMap": true,
     "downlevelIteration": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "importHelpers": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": false,

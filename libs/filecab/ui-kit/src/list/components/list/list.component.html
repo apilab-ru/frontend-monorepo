@@ -1,21 +1,23 @@
 <div class="root">
    <div class="data" [class.-empty]="!list?.length">
-      <ng-template
-         *ngIf="list?.length; else emptyPlaceholder"
-         ngFor
-         [ngForOf]="list"
-         [ngForTrackBy]="trackBy"
-         [ngForTemplate]="rowTemplate"
-      ></ng-template>
-
-      <ng-template #emptyPlaceholder>
-         <div class="message">Нет данных</div>
-      </ng-template>
+      @if (list?.length) { @for (item of list; track trackBy($index, item)) {
+      <ng-container
+         [ngTemplateOutlet]="rowTemplate"
+         [ngTemplateOutletContext]="{
+            $implicit: item,
+            ngForOf: list,
+            index: $index,
+            count: $count,
+            first: $first,
+            last: $last,
+            even: $even,
+            odd: $odd
+         }"
+      ></ng-container>
+      } } @else {
+      <div class="message">Нет данных</div>
+      }
    </div>
 
-   <filecab-paginator
-      class="paginator"
-      [limitList]="limitList"
-      [orderFields]="orderFields"
-   ></filecab-paginator>
+   <filecab-paginator class="paginator" [limitList]="limitList" [orderFields]="orderFields"></filecab-paginator>
 </div>

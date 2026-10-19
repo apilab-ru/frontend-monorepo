@@ -39,11 +39,13 @@
    </div>
 
    <div class="info">
-      <div *ngIf="page$ | async as page" class="page">
+      @if (page$ | async; as page) {
+      <div class="page">
          {{ page }}
       </div>
-
-      <div *ngIf="totalPages$ | async as totalPages" class="page -total">&nbsp;/ {{ totalPages }}</div>
+      } @if (totalPages$ | async; as totalPages) {
+      <div class="page -total">&nbsp;/ {{ totalPages }}</div>
+      }
 
       <p-select
          class="limit"
@@ -54,7 +56,9 @@
          optionValue="key"
       ></p-select>
 
-      <div *ngIf="total$ | async as total" class="page">&nbsp;из {{ total }}</div>
+      @if (total$ | async; as total) {
+      <div class="page">&nbsp;из {{ total }}</div>
+      }
    </div>
 
    <div class="sort">

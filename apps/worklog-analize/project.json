@@ -7,12 +7,15 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular/build:application",
       "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/worklog-analize",
+        "outputPath": {
+          "base": "dist/apps/worklog-analize",
+          "browser": ""
+        },
         "index": "apps/worklog-analize/src/index.html",
-        "main": "apps/worklog-analize/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/worklog-analize/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
@@ -23,7 +26,11 @@
         ],
         "styles": ["apps/worklog-analize/src/styles.scss"],
         "scripts": [],
-        "webWorkerTsConfig": "apps/worklog-analize/tsconfig.worker.json"
+        "webWorkerTsConfig": "apps/worklog-analize/tsconfig.worker.json",
+        "browser": "apps/worklog-analize/src/main.ts",
+        "stylePreprocessorOptions": {
+          "includePaths": ["."]
+        }
       },
       "configurations": {
         "production": {
@@ -42,20 +49,19 @@
           "outputHashing": "all"
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
         }
-      },
-      "defaultConfiguration": "production"
+      }
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
+      "defaultConfiguration": "development",
+      "continuous": true,
       "options": {
-        "disableHostCheck": true
+        "allowedHosts": true
       },
       "configurations": {
         "production": {
@@ -64,12 +70,10 @@
         "development": {
           "buildTarget": "worklog-analize:build:development"
         }
-      },
-      "defaultConfiguration": "development",
-      "continuous": true
+      }
     },
     "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "executor": "@angular/build:extract-i18n",
       "options": {
         "buildTarget": "worklog-analize:build"
       }

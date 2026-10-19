@@ -4,12 +4,11 @@
   "projectType": "library",
   "sourceRoot": "libs/filecab/ui-kit/src",
   "prefix": "filecab",
+  "tags": [],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": [
-        "{options.outputFile}"
-      ]
+      "outputs": ["{options.outputFile}"]
     },
     "storybook": {
       "executor": "@storybook/angular:start-storybook",
@@ -18,15 +17,12 @@
         "configDir": "libs/filecab/ui-kit/.storybook",
         "browserTarget": "filecab-ui-kit:build-storybook",
         "compodoc": false,
-        "styles": [
-          "libs/filecab/ui-kit/.storybook/global.scss"
-        ],
+        "styles": ["libs/filecab/ui-kit/.storybook/global.scss"],
         "tsConfig": "libs/filecab/ui-kit/.storybook/tsconfig.json",
         "stylePreprocessorOptions": {
-          "includePaths": [
-            "."
-          ]
-        }
+          "includePaths": ["."]
+        },
+        "sourceMap": false
       },
       "configurations": {
         "ci": {
@@ -36,9 +32,7 @@
     },
     "build-storybook": {
       "executor": "@storybook/angular:build-storybook",
-      "outputs": [
-        "{options.outputDir}"
-      ],
+      "outputs": ["{options.outputDir}"],
       "options": {
         "outputDir": "dist/storybook/filecab-ui-kit",
         "configDir": "libs/filecab/ui-kit/.storybook",
@@ -46,13 +40,10 @@
         "compodoc": false,
         "tsConfig": "libs/filecab/ui-kit/.storybook/tsconfig.json",
         "stylePreprocessorOptions": {
-          "includePaths": [
-            "."
-          ]
+          "includePaths": ["."]
         },
-        "styles": [
-          "libs/filecab/ui-kit/.storybook/global.scss"
-        ]
+        "styles": ["libs/filecab/ui-kit/.storybook/global.scss"],
+        "sourceMap": false
       },
       "configurations": {
         "ci": {
@@ -60,6 +51,5 @@
         }
       }
     }
-  },
-  "tags": []
+  }
 }

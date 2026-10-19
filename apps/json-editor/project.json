@@ -7,18 +7,25 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular/build:application",
       "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/json-editor",
+        "outputPath": {
+          "base": "dist/apps/json-editor",
+          "browser": ""
+        },
         "index": "apps/json-editor/src/index.html",
-        "main": "apps/json-editor/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/json-editor/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": ["apps/json-editor/src/favicon.ico", "apps/json-editor/src/assets", "apps/json-editor/src/.htaccess"],
         "styles": ["apps/json-editor/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "browser": "apps/json-editor/src/main.ts",
+        "stylePreprocessorOptions": {
+          "includePaths": ["."]
+        }
       },
       "configurations": {
         "production": {
@@ -37,18 +44,17 @@
           "outputHashing": "all"
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
         }
-      },
-      "defaultConfiguration": "production"
+      }
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
+      "defaultConfiguration": "development",
+      "continuous": true,
       "configurations": {
         "production": {
           "buildTarget": "json-editor:build:production"
@@ -56,12 +62,10 @@
         "development": {
           "buildTarget": "json-editor:build:development"
         }
-      },
-      "defaultConfiguration": "development",
-      "continuous": true
+      }
     },
     "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "executor": "@angular/build:extract-i18n",
       "options": {
         "buildTarget": "json-editor:build"
       }

@@ -6,7 +6,7 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChanges,
+  type SimpleChanges,
 } from '@angular/core';
 
 @Directive({

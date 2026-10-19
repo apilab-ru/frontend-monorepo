@@ -5,7 +5,8 @@
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "bundler",
     "module": "preserve",
-    "lib": ["dom", "es2022"]
+    "lib": ["dom", "es2022"],
+    "ignoreDeprecations": "6.0"
   },
   "exclude": ["../test.ts", "../**/*.spec.ts"],
   "include": ["../**/*.stories.ts", "../**/*.d.ts", "../../../../libs/filecab/ui-kit/src/theme/prime-ng.providers.ts"],

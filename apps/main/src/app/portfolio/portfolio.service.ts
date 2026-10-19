@@ -1,5 +1,6 @@
+import translations from './translation';
 import { Injectable } from '@angular/core';
-import { TranslocoService } from '@ngneat/transloco';
+import { TranslocoService } from '@jsverse/transloco';
 import { registerTranslationManually } from '@shared/translations';
 import { Observable } from 'rxjs';
 import { Project } from '../components/interfaces/project';
@@ -12,34 +13,27 @@ import { PROJECTS } from './portfolio';
 export class PortfolioService {
   projects$: Observable<Project[]>;
 
-  constructor(
-    private translocoService: TranslocoService,
-  ) {
-    registerTranslationManually(
-      'portfolio',
-      // @ts-ignore
-      () => import.meta.webpackContext('./translation'),
-      this.translocoService,
-    );
+  constructor(private translocoService: TranslocoService) {
+    registerTranslationManually('portfolio', translations, this.translocoService);
 
     this.projects$ = this.translocoService.selectTranslateObject('portfolio.list').pipe(
       map((allData) => {
-        return PROJECTS.map(item => {
+        return PROJECTS.map((item) => {
           const data = allData[item.id!];
 
           return {
             ...item,
-            ...(data ? data : {})
+            ...(data ? data : {}),
           };
         });
       })
-    )
+    );
   }
 
   loadProject(projectId: string): Observable<Project> {
     return this.projects$.pipe(
       take(1),
-      map(list => list.find(it => it.id === projectId)!),
-    )
+      map((list) => list.find((it) => it.id === projectId)!)
+    );
   }
 }

@@ -1,4 +1,4 @@
-import { TRANSLOCO_CONFIG } from "@ngneat/transloco";
+import { TRANSLOCO_CONFIG } from '@jsverse/transloco';
 
 export const translocoConfig = (langs: string[]) => ({
   provide: TRANSLOCO_CONFIG,

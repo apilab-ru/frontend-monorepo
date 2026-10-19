@@ -1,15 +1,15 @@
+import translations from './translation';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { provideTranslation } from '@shared/translations';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { TranslocoService } from '@ngneat/transloco';
+import { TranslocoService } from '@jsverse/transloco';
 
 @Component({
   selector: 'header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  // @ts-ignore
-  providers: [provideTranslation('header', () => import.meta.webpackContext('./translation'))],
+  providers: [provideTranslation('header', translations)],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })

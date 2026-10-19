@@ -13,25 +13,18 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "typeRoots": [
-      "../../node_modules/@types"
-    ],
-    "types": [
-      "node",
-      "chrome"
-    ],
+    "typeRoots": ["../../node_modules/@types"],
+    "types": ["node", "chrome"],
     "resolveJsonModule": true,
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "lib": ["es2018", "dom"],
     "paths": {
       "@background": ["apps/extension-skeleton/background/index.ts"],
       "@shared/*": ["apps/extension-skeleton/shared/*"],
       "@environments": ["apps/extension-skeleton/environments/environment.production.ts"],
       "@environments/model": ["apps/extension-skeleton/environments/index.ts"],
       "@angular-shared": ["libs/angular-shared/src/index.ts"]
-    }
+    },
+    "ignoreDeprecations": "6.0"
   },
   "files": [],
   "include": [],
@@ -52,5 +45,5 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": false
-  },
+  }
 }

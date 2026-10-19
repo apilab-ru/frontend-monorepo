@@ -26,7 +26,12 @@
       "@store/*": ["libs/store/*"],
       "@ui-kit/*": ["libs/ui-kit/src/*"],
       "@utils-monorep/angular-shared": ["libs/angular-shared/src/index.ts"]
-    }
+    },
+    "strict": false,
+    "noUncheckedSideEffectImports": false,
+    "types": ["*"],
+    "esModuleInterop": false,
+    "ignoreDeprecations": "6.0"
   },
   "exclude": ["node_modules", "tmp"]
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { TimeItem } from '../../models/time-item';
 import { UpdateEvent } from '../../models/update-event';
 
@@ -6,6 +6,7 @@ import { UpdateEvent } from '../../models/update-event';
   selector: 'app-time-board-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TimeBoardListComponent {

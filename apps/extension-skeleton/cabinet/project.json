@@ -7,12 +7,15 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular/build:application",
       "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "development",
       "options": {
-        "outputPath": "apps/extension-skeleton/dist/cabinet",
+        "outputPath": {
+          "base": "apps/extension-skeleton/dist/cabinet",
+          "browser": ""
+        },
         "index": "apps/extension-skeleton/cabinet/src/index.html",
-        "main": "apps/extension-skeleton/cabinet/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/extension-skeleton/cabinet/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
@@ -29,7 +32,11 @@
           },
           "fonts": true
         },
-        "scripts": []
+        "scripts": [],
+        "browser": "apps/extension-skeleton/cabinet/src/main.ts",
+        "stylePreprocessorOptions": {
+          "includePaths": ["."]
+        }
       },
       "configurations": {
         "production": {
@@ -64,24 +71,18 @@
           "sourceMap": false,
           "namedChunks": false,
           "aot": true,
-          "extractLicenses": true,
-          "vendorChunk": false,
-          "buildOptimizer": true
+          "extractLicenses": true
         },
         "development": {
           "baseHref": "./",
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
         },
         "browser": {
           "baseHref": "",
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true,
@@ -92,11 +93,12 @@
             }
           ]
         }
-      },
-      "defaultConfiguration": "development"
+      }
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
+      "defaultConfiguration": "browser",
+      "continuous": true,
       "configurations": {
         "production": {
           "buildTarget": "extension-skeleton-cabinet:build:production"
@@ -109,11 +111,9 @@
           "buildTarget": "extension-skeleton-cabinet:build:browser",
           "proxyConfig": "apps/extension-skeleton/cabinet/src/proxy.conf.json",
           "ssl": true,
-          "disableHostCheck": true
+          "allowedHosts": true
         }
-      },
-      "defaultConfiguration": "browser",
-      "continuous": true
+      }
     },
     "storybook": {
       "executor": "@storybook/angular:start-storybook",
@@ -126,11 +126,13 @@
         "compodoc": false,
         "stylePreprocessorOptions": {
           "includePaths": ["."]
-        }
+        },
+        "sourceMap": false
       }
     },
     "build-storybook": {
       "executor": "@storybook/angular:build-storybook",
+      "outputs": ["{options.outputDir}"],
       "options": {
         "browserTarget": "extension-skeleton-cabinet:build:development",
         "configDir": "apps/extension-skeleton/shared/.storybook",
@@ -140,9 +142,9 @@
         "stylePreprocessorOptions": {
           "includePaths": ["."]
         },
-        "outputDir": "dist/storybook/extension-skeleton-cabinet"
-      },
-      "outputs": ["{options.outputDir}"]
+        "outputDir": "dist/storybook/extension-skeleton-cabinet",
+        "sourceMap": false
+      }
     },
     "lint": {
       "executor": "@nx/eslint:lint",

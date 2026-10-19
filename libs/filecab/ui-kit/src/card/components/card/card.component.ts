@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, type SimpleChanges } from '@angular/core';
 import { LibraryItemV2 } from '@filecab/models/library';
 import { Genre } from '@filecab/models/genre';
 import isEqual from 'lodash-es/isEqual';

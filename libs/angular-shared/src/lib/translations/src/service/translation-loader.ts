@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { IComponentTranslations } from '../interface';
-import { TranslocoService } from '@ngneat/transloco';
+import { TranslocoService } from '@jsverse/transloco';
 import { distinctUntilChanged, filter, switchMap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
@@ -28,10 +28,10 @@ export class TranslationLoaderService implements OnDestroy {
     this.translocoService.langChanges$
       .pipe(
         distinctUntilChanged(),
-        filter(lang => !!translations[lang] && !loadedLang.includes(lang)),
-        switchMap(lang => this.loadTranslation(translations, lang, scope)),
+        filter((lang) => !!translations[lang] && !loadedLang.includes(lang)),
+        switchMap((lang) => this.loadTranslation(translations, lang, scope)),
         filter(({ translation }) => !!translation),
-        takeUntil(this.destroyed),
+        takeUntil(this.destroyed)
       )
       .subscribe(({ translation, lang }) => {
         this.translocoService.setTranslation({ [scope]: translation! }, lang);
@@ -43,10 +43,10 @@ export class TranslationLoaderService implements OnDestroy {
   private loadTranslation(
     translations: IComponentTranslations,
     lang: string,
-    scope: string,
+    scope: string
   ): Promise<{ translation: Object | null; lang: string }> {
     return Promise.resolve(translations[lang])
-      .then(translation => ({
+      .then((translation) => ({
         // @ts-ignore
         translation: translation && translation['default'] ? translation['default'] : translation,
         lang,

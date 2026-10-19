@@ -17,10 +17,10 @@
     },
     "publish": {
       "executor": "nx:run-commands",
+      "dependsOn": ["build"],
       "options": {
         "command": "node tools/scripts/publish.mjs store {args.ver} {args.tag}"
-      },
-      "dependsOn": ["build"]
+      }
     },
     "lint": {
       "executor": "@nx/eslint:lint",

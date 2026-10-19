@@ -4,38 +4,50 @@
          pButton
          pRipple
          type="button"
-         icon="pi pi-angle-double-left"
+         [iconOnly]="true"
+         aria-label="Первая страница"
          [disabled]="(page$ | async) < 2"
          (click)="setPage(1)"
          class="p-button-rounded p-button-text p-button-secondary"
-      ></button>
+      >
+         <i class="pi pi-angle-double-left" aria-hidden="true"></i>
+      </button>
       <button
          pButton
          pRipple
          type="button"
-         icon="pi pi-angle-left"
+         [iconOnly]="true"
+         aria-label="Предыдущая страница"
          [disabled]="(page$ | async) < 2"
          (click)="prevPage()"
          class="p-button-rounded p-button-text p-button-secondary"
-      ></button>
+      >
+         <i class="pi pi-angle-left" aria-hidden="true"></i>
+      </button>
       <button
          pButton
          pRipple
          type="button"
-         icon="pi pi-angle-right"
+         [iconOnly]="true"
+         aria-label="Следующая страница"
          [disabled]="!(hasMore$ | async)"
          (click)="nextPage()"
          class="p-button-rounded p-button-text p-button-secondary"
-      ></button>
+      >
+         <i class="pi pi-angle-right" aria-hidden="true"></i>
+      </button>
       <button
          pButton
          pRipple
          type="button"
-         icon="pi pi-angle-double-right"
+         [iconOnly]="true"
+         aria-label="Последняя страница"
          [disabled]="!(canGoToLast$ | async)"
          (click)="lastPage()"
          class="p-button-rounded p-button-text p-button-secondary"
-      ></button>
+      >
+         <i class="pi pi-angle-double-right" aria-hidden="true"></i>
+      </button>
    </div>
 
    <div class="info">

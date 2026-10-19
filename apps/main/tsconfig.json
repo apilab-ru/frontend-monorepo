@@ -18,7 +18,9 @@
     "paths": {
       "styles/*": ["apps/main/src/app/styles/*"],
       "@shared/*": ["libs/angular-shared/src/lib/*"]
-    }
+    },
+    "ignoreDeprecations": "6.0",
+    "allowSyntheticDefaultImports": true
   },
   "files": [],
   "include": [],

@@ -7,7 +7,7 @@ import {
   Input,
   QueryList,
   TemplateRef,
-  TrackByFunction,
+  type TrackByFunction,
   ViewEncapsulation,
 } from '@angular/core';
 import { UiHeadComponent } from '@ui-kit/table/components/head/head.component';

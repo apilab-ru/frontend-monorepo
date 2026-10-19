@@ -13,18 +13,10 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "typeRoots": [
-      "../../node_modules/@types"
-    ],
-    "types": [
-      "node",
-      "chrome"
-    ],
+    "typeRoots": ["../../node_modules/@types"],
+    "types": ["node", "chrome"],
     "resolveJsonModule": true,
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "lib": ["es2018", "dom"],
     "paths": {
       "@shared/*": ["apps/filecab/shared/*"],
       "@filecab/models": ["libs/filecab/models/src/index.ts"],
@@ -38,14 +30,15 @@
       "@ui-kit/*": ["libs/ui-kit/src/*"],
       "@store/*": ["libs/store/*"],
       "@store": ["libs/store/index.ts"]
-    }
+    },
+    "ignoreDeprecations": "6.0"
   },
   "files": [],
   "include": [],
   "references": [
     {
       "path": "./shared/tsconfig.app.json"
-    },
+    }
   ],
   "extends": "../../tsconfig.base.json",
   "angularCompilerOptions": {
@@ -53,5 +46,5 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": false
-  },
+  }
 }

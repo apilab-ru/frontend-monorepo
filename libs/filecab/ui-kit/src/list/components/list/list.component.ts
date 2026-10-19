@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, ContentChild, Input, TemplateRef, TrackByFunction } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ContentChild,
+  Input,
+  TemplateRef,
+  type TrackByFunction,
+} from '@angular/core';
 import { UiListIteratorDirective } from '../../list-iterator-directive';
 import { OrderField } from '../../models/interface';
 import { NgForOfContext } from '@angular/common';

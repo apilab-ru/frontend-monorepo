@@ -62,7 +62,7 @@
          <p-select
             [tooltip]="'Статус'"
             [options]="statuses"
-            [ngModel]="localItem?.status"
+            [ngModel]="$safeNavigationMigration(localItem?.status)"
             (ngModelChange)="onSetStatus($event)"
             optionLabel="name"
             optionValue="status"
@@ -79,13 +79,7 @@
       <textarea class="comment" pTextarea [ngModel]="item.comment" (ngModelChange)="onSetComment($event)"></textarea>
       } @if (isChanged) {
       <div class="card__save">
-         <p-button
-            label="Сохранить"
-            icon="pi pi-check"
-            iconPos="right"
-            styleClass="p-button-sm"
-            (click)="update()"
-         ></p-button>
+         <p-button label="Сохранить" icon="pi pi-check" iconPos="right" size="small" (click)="update()"></p-button>
       </div>
       }
    </div>

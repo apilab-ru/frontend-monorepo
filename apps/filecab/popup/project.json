@@ -7,16 +7,27 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular/build:application",
       "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "development",
       "options": {
-        "outputPath": "apps/filecab/dist/popup",
+        "outputPath": {
+          "base": "apps/filecab/dist/popup",
+          "browser": ""
+        },
         "index": "apps/filecab/popup/src/index.html",
-        "main": "apps/filecab/popup/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/filecab/popup/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/filecab/popup/src/wish-list-icon.png", "apps/filecab/popup/src/assets"],
+        "assets": [
+          "apps/filecab/popup/src/wish-list-icon.png",
+          "apps/filecab/popup/src/assets",
+          {
+            "glob": "*.svg",
+            "input": "apps/filecab/shared/popup-add-item/components/founded-item/images",
+            "output": "assets/popup-add-item"
+          }
+        ],
         "styles": ["apps/filecab/popup/src/styles.scss"],
         "optimization": {
           "scripts": true,
@@ -26,7 +37,11 @@
           },
           "fonts": true
         },
-        "scripts": []
+        "scripts": [],
+        "browser": "apps/filecab/popup/src/main.ts",
+        "stylePreprocessorOptions": {
+          "includePaths": ["."]
+        }
       },
       "configurations": {
         "production": {
@@ -61,24 +76,18 @@
           "sourceMap": false,
           "namedChunks": false,
           "aot": true,
-          "extractLicenses": true,
-          "vendorChunk": false,
-          "buildOptimizer": true
+          "extractLicenses": true
         },
         "development": {
           "baseHref": "./",
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
         },
         "browser": {
           "baseHref": "",
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true,
@@ -89,11 +98,12 @@
             }
           ]
         }
-      },
-      "defaultConfiguration": "development"
+      }
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
+      "defaultConfiguration": "browser",
+      "continuous": true,
       "configurations": {
         "production": {
           "buildTarget": "filecab-popup:build:production"
@@ -105,11 +115,9 @@
           "buildTarget": "filecab-popup:build:browser",
           "proxyConfig": "apps/filecab/popup/src/proxy.conf.json",
           "ssl": true,
-          "disableHostCheck": true
+          "allowedHosts": true
         }
-      },
-      "defaultConfiguration": "browser",
-      "continuous": true
+      }
     },
     "storybook": {
       "executor": "@storybook/angular:start-storybook",
@@ -122,11 +130,20 @@
         "compodoc": false,
         "stylePreprocessorOptions": {
           "includePaths": ["."]
-        }
+        },
+        "sourceMap": false,
+        "assets": [
+          {
+            "glob": "*.svg",
+            "input": "apps/filecab/shared/popup-add-item/components/founded-item/images",
+            "output": "assets/popup-add-item"
+          }
+        ]
       }
     },
     "build-storybook": {
       "executor": "@storybook/angular:build-storybook",
+      "outputs": ["{options.outputDir}"],
       "options": {
         "browserTarget": "filecab-popup:build:development",
         "configDir": "apps/filecab/shared/.storybook",
@@ -136,9 +153,16 @@
         "stylePreprocessorOptions": {
           "includePaths": ["."]
         },
-        "outputDir": "dist/storybook/filecab-popup"
-      },
-      "outputs": ["{options.outputDir}"]
+        "outputDir": "dist/storybook/filecab-popup",
+        "sourceMap": false,
+        "assets": [
+          {
+            "glob": "*.svg",
+            "input": "apps/filecab/shared/popup-add-item/components/founded-item/images",
+            "output": "assets/popup-add-item"
+          }
+        ]
+      }
     },
     "lint": {
       "executor": "@nx/eslint:lint",

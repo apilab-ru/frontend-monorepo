@@ -1,3 +1,4 @@
+import translations from './translation';
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ScrollNavigationService } from '../../services/scroll-navigation.service';
 
@@ -5,7 +6,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { distinctUntilChanged, filter, map, startWith, switchMap } from 'rxjs/operators';
 import { ModalProjectComponent } from '../../components/modal-project/modal-project.component';
 import { Observable } from 'rxjs';
-import { TranslocoService } from '@ngneat/transloco';
+import { TranslocoService } from '@jsverse/transloco';
 import { Title } from '@angular/platform-browser';
 import { provideTranslation, registerTranslationManually } from '@shared/translations';
 import { PortfolioService } from '../../portfolio/portfolio.service';
@@ -17,8 +18,7 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // @ts-ignore
-  providers: [provideTranslation('page', () => import.meta.webpackContext('./translation'))],
+  providers: [provideTranslation('page', translations)],
   standalone: false,
 })
 export class PageComponent implements AfterViewInit, OnInit {
@@ -33,8 +33,7 @@ export class PageComponent implements AfterViewInit, OnInit {
   ) {}
 
   ngOnInit(): void {
-    // @ts-ignore
-    registerTranslationManually('page', () => import.meta.webpackContext('./translation'), this.translocoService);
+    registerTranslationManually('page', translations, this.translocoService);
 
     this.router.events
       .pipe(

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, type SimpleChanges } from '@angular/core';
 import { PaginatorService } from '../../paginator.service';
 import { DropdownItem, OrderField } from '../../models/interface';
 import { DROPDOWN_LIST, OrderType } from '../../models/order-type';

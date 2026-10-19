@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe as CommonDatePipe } from '@angular/common';
-import { TranslocoService } from '@ngneat/transloco';
+import { TranslocoService } from '@jsverse/transloco';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 

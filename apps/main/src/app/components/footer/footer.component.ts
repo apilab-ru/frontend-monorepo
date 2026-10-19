@@ -1,3 +1,4 @@
+import translations from './translation';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { provideTranslation } from '@shared/translations';
 
@@ -6,8 +7,7 @@ import { provideTranslation } from '@shared/translations';
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // @ts-ignore
-  providers: [provideTranslation('footer', () => import.meta.webpackContext('./translation'))],
+  providers: [provideTranslation('footer', translations)],
   standalone: false,
 })
 export class FooterComponent {

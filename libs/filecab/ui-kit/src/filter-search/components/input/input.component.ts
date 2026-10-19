@@ -7,7 +7,7 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
+  type SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';

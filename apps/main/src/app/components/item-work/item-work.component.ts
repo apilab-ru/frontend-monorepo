@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import translations from './translation';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, type SimpleChanges } from '@angular/core';
 import { Work } from '../interfaces/work';
 import { provideTranslation } from '@shared/translations';
 import differenceInDays from 'date-fns/differenceInDays';
@@ -7,8 +8,7 @@ import differenceInDays from 'date-fns/differenceInDays';
   selector: 'app-item-work',
   templateUrl: './item-work.component.html',
   styleUrls: ['./item-work.component.scss'],
-  // @ts-ignore
-  providers: [provideTranslation('itemWork', () => import.meta.webpackContext('./translation'))],
+  providers: [provideTranslation('itemWork', translations)],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })

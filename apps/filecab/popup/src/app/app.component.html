@@ -1,13 +1,13 @@
 <div class="root">
-    <p-selectButton
-        class="menu"
-        [options]="menu"
-        [ngModel]="path"
-        (ngModelChange)="onNavigate($event)"
-        optionLabel="name"
-        optionValue="path"
-    ></p-selectButton>
+   <p-select-button
+      class="menu"
+      [options]="menu"
+      [ngModel]="path"
+      (ngModelChange)="onNavigate($event)"
+      optionLabel="name"
+      optionValue="path"
+   ></p-select-button>
 
-    <router-outlet></router-outlet>
-    <p-toast></p-toast>
+   <router-outlet></router-outlet>
+   <p-toast></p-toast>
 </div>

@@ -6,7 +6,7 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
+  type SimpleChanges,
 } from '@angular/core';
 import { JsonData, UpdateValueEvent, Value } from '../../interface';
 import { FormControl, FormGroup } from '@angular/forms';

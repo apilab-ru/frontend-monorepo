@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, type SimpleChanges } from '@angular/core';
 import { MediaItemV2 } from '@filecab/models/library';
 import { Genre } from '@filecab/models/genre';
 

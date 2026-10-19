@@ -1,13 +1,13 @@
 <div class="root">
    <div class="card">
-      <p-selectButton
+      <p-select-button
          class="types"
          [options]="types"
          [ngModel]="type"
          (ngModelChange)="onTypeUpdate($event)"
          optionLabel="name"
          optionValue="path"
-      ></p-selectButton>
+      ></p-select-button>
 
       <div class="p-float-label text-box">
          <input class="input" id="float-input" type="text" pInputText [formControl]="nameControl" />
@@ -50,7 +50,7 @@
 
       @if (isMetaChanged(formMeta.getRawValue()) || needShowSave) {
       <div class="save-button-box">
-         <p-button label="Сохранить" icon="pi pi-check" styleClass="p-button-sm" (click)="saveMeta()"></p-button>
+         <p-button label="Сохранить" icon="pi pi-check" size="small" (click)="saveMeta()"></p-button>
       </div>
       }
    </div>

@@ -1,3 +1,4 @@
+import translations from './translation';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { provideTranslation } from '@shared/translations';
 
@@ -5,7 +6,7 @@ import { provideTranslation } from '@shared/translations';
   selector: 'app-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss'],
-  providers: [provideTranslation('about', () => import.meta.webpackContext('./translation'))],
+  providers: [provideTranslation('about', translations)],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })

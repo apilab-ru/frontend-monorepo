@@ -9,6 +9,7 @@
     "build": {
       "executor": "@nx/js:tsc",
       "outputs": ["{projectRoot}/dist"],
+      "defaultConfiguration": "production",
       "options": {
         "outputPath": "libs/extension/dist",
         "main": "libs/extension/background/index.ts",
@@ -22,8 +23,7 @@
         "development": {
           "tsConfig": "libs/extension/tsconfig.lib.json"
         }
-      },
-      "defaultConfiguration": "production"
+      }
     },
     "test": {
       "executor": "@nx/jest:jest",

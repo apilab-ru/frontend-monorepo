@@ -26,7 +26,10 @@
          </div>
       </div>
 
-      <p>Parsed: {{ parsedList?.length | json }}, Completed: {{ readyItems?.length | json }}</p>
+      <p>
+         Parsed: {{ $safeNavigationMigration(parsedList?.length) | json }}, Completed:
+         {{ $safeNavigationMigration(readyItems?.length) | json }}
+      </p>
    </div>
 
    <!--div class="migrated-box">

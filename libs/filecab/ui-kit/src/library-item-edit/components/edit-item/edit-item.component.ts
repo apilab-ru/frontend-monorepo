@@ -6,7 +6,7 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
+  type SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
 import { Types, TYPES } from '@filecab/models/types';

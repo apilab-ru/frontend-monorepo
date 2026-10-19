@@ -1,3 +1,4 @@
+import translations from './translation';
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PROJECTS, ProjectType } from '../../portfolio/portfolio';
 import { BehaviorSubject } from 'rxjs';
@@ -17,8 +18,7 @@ interface Item<T> extends Element {
   selector: 'app-portfolio',
   templateUrl: './portfolio.component.html',
   styleUrls: ['./portfolio.component.scss'],
-  // @ts-ignore
-  providers: [provideTranslation('portfolioPage', () => import.meta.webpackContext('./translation'))],
+  providers: [provideTranslation('portfolioPage', translations)],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })

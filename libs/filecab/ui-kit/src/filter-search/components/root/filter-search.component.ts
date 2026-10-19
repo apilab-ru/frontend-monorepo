@@ -6,7 +6,7 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
+  type SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { FilterSearchData, FSDropdownValue, SearchValue } from '../../interface';

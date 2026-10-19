@@ -9,5 +9,8 @@
     "../src/**/*.mdx",
     "../src/**/*.ts",
     "../src/**/*.js"
-  ]
+  ],
+  "compilerOptions": {
+    "ignoreDeprecations": "6.0"
+  }
 }

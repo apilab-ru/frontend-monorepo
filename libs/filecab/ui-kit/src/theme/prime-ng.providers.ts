@@ -1,5 +1,5 @@
-import { definePreset } from '@primeng/themes';
-import Lara from '@primeng/themes/lara';
+import { definePreset } from '@primeuix/themes';
+import Lara from '@primeuix/themes/lara';
 import { providePrimeNG } from 'primeng/config';
 
 // Keep Filecab's Lara light-blue theme across applications and Storybook.

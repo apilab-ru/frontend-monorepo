@@ -4,7 +4,7 @@ import { Genre } from '@filecab/models/genre';
 
 enum ViewMode {
   view = 'view',
-  description = 'description'
+  description = 'description',
 }
 
 @Component({
@@ -22,8 +22,8 @@ export class FoundedItemComponent implements OnChanges {
 
   mode: ViewMode = ViewMode.view;
   genresList: Genre[];
-  iconInfo = require('!file-loader!./images/info.svg').default;
-  iconInfoFilled = require('!file-loader!./images/info_outline.svg').default;
+  iconInfo = 'assets/popup-add-item/info.svg';
+  iconInfoFilled = 'assets/popup-add-item/info_outline.svg';
 
   ngOnChanges(): void {
     if (this.item && this.genres) {
@@ -40,8 +40,6 @@ export class FoundedItemComponent implements OnChanges {
   }
 
   private getGenres(genres: Genre[], ids: number[]): Genre[] {
-    return ids?.map(id => genres.find(it => +it.id === +id))
-      .filter(item => !!item);
+    return ids?.map((id) => genres.find((it) => +it.id === +id)).filter((item) => !!item);
   }
-
 }

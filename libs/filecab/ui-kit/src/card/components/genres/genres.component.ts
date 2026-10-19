@@ -5,7 +5,7 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChanges,
+  type SimpleChanges,
 } from '@angular/core';
 import { Genre } from '@filecab/models/genre';
 

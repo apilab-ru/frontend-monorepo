@@ -1,3 +1,4 @@
+import translations from './translation';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { provideTranslation } from '@shared/translations';
 
@@ -5,8 +6,7 @@ import { provideTranslation } from '@shared/translations';
   selector: 'app-skills',
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss'],
-  // @ts-ignore
-  providers: [provideTranslation('skills', () => import.meta.webpackContext('./translation'))],
+  providers: [provideTranslation('skills', translations)],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })

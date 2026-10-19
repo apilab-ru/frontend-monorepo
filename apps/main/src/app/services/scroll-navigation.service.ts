@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, fromEvent, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, shareReplay, startWith } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslocoService } from '@ngneat/transloco';
+import { TranslocoService } from '@jsverse/transloco';
 
 @Injectable({
   providedIn: 'root',
@@ -20,9 +20,8 @@ export class ScrollNavigationService {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private translocoService: TranslocoService,
-  ) {
-  }
+    private translocoService: TranslocoService
+  ) {}
 
   initListener(): void {
     this.isMobile = screen.availWidth < 721;
@@ -37,27 +36,29 @@ export class ScrollNavigationService {
       startWith(undefined),
       map(() => element.scrollTop),
       debounceTime(100),
-      shareReplay({ refCount: true, bufferSize: 1 }),
+      shareReplay({ refCount: true, bufferSize: 1 })
     );
 
     const skipDetectOnProjectPopupOpened = () => {
       return !this.activatedRoute.snapshot.queryParams.project;
-    }
+    };
 
-    this.scrollTop$.pipe(
-      filter(skipDetectOnProjectPopupOpened),
-      map(scrollTop => this.getActiveSection(scrollTop)),
-      distinctUntilChanged(),
-    ).subscribe(sectionId => {
-      this.sectionId$.next(sectionId);
+    this.scrollTop$
+      .pipe(
+        filter(skipDetectOnProjectPopupOpened),
+        map((scrollTop) => this.getActiveSection(scrollTop)),
+        distinctUntilChanged()
+      )
+      .subscribe((sectionId) => {
+        this.sectionId$.next(sectionId);
 
-      this.router.navigate([], {
-        fragment: sectionId,
-        queryParamsHandling: 'merge'
+        this.router.navigate([], {
+          fragment: sectionId,
+          queryParamsHandling: 'merge',
+        });
       });
-    });
 
-    this.scrollTop$.subscribe(scrollTop => {
+    this.scrollTop$.subscribe((scrollTop) => {
       this.isScrolled$.next(scrollTop > 0);
     });
   }
@@ -70,9 +71,7 @@ export class ScrollNavigationService {
   }
 
   getLink(): Observable<string> {
-    return this.translocoService.langChanges$.pipe(
-      map(lang => `/${lang}`)
-    );
+    return this.translocoService.langChanges$.pipe(map((lang) => `/${lang}`));
   }
 
   private getActiveSection(scrollTop: number): string {

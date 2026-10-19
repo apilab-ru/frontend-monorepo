@@ -5,7 +5,7 @@ import {
   Input,
   OnChanges,
   OnInit,
-  SimpleChanges,
+  type SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import Chart from 'chart.js/auto';

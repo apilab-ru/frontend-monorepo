@@ -1,4 +1,4 @@
-import { Directive, Input, TemplateRef, TrackByFunction } from '@angular/core';
+import { Directive, Input, TemplateRef, type TrackByFunction } from '@angular/core';
 import { NgForOfContext } from '@angular/common';
 
 export interface RowContext<T> {

@@ -1,3 +1,4 @@
+import translations from './translation';
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 
 import { ProjectCardComponent } from '../project-card/project-card.component';
@@ -9,8 +10,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   selector: 'app-modal-project',
   templateUrl: './modal-project.component.html',
   styleUrls: ['./modal-project.component.scss'],
-  // @ts-ignore
-  providers: [provideTranslation('modalProject', () => import.meta.webpackContext('./translation'))],
+  providers: [provideTranslation('modalProject', translations)],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })

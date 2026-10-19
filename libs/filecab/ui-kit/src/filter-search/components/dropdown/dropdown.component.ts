@@ -6,7 +6,7 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
+  type SimpleChanges,
 } from '@angular/core';
 import { FSDropdownValue } from '../../interface';
 import { makeStore } from '@store';

@@ -25,10 +25,13 @@
          pButton
          pRipple
          type="button"
-         icon="pi pi-pencil"
+         [iconOnly]="true"
+         aria-label="Редактировать"
          class="p-button-rounded p-button-outlined icon-edit"
          (click)="setSearchMode()"
-      ></button>
+      >
+         <i class="pi pi-pencil" aria-hidden="true"></i>
+      </button>
       <filecab-media-item class="selected-item" [mediaItem]="mediaItem" [genres]="genres"></filecab-media-item>
    </div>
    }

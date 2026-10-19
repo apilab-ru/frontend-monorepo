@@ -5,7 +5,7 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChanges,
+  type SimpleChanges,
 } from '@angular/core';
 import { User } from '../../interface';
 import { FormBuilder, FormGroup } from '@angular/forms';

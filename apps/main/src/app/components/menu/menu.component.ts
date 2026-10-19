@@ -1,3 +1,4 @@
+import translations from './translation';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ScrollNavigationService } from '../../services/scroll-navigation.service';
 import { MENU } from './menu';
@@ -7,8 +8,7 @@ import { provideTranslation } from '@shared/translations';
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
-  // @ts-ignore
-  providers: [provideTranslation('menu', () => import.meta.webpackContext('./translation'))],
+  providers: [provideTranslation('menu', translations)],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })

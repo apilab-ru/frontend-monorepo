@@ -10,7 +10,7 @@ import { environment } from '../environments/environment';
 import { MenuComponent } from './components/menu/menu.component';
 import { RouterModule } from '@angular/router';
 import { ROUTES } from './routes';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
 
@@ -34,7 +34,7 @@ import { ToastModule } from 'primeng/toast';
       provide: Environment,
       useValue: environment,
     },
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withXhr(), withInterceptorsFromDi()),
   ],
 })
 export class AppModule {}

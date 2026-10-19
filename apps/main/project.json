@@ -7,12 +7,15 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular/build:application",
       "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/main",
+        "outputPath": {
+          "base": "dist/apps/main",
+          "browser": ""
+        },
         "index": "apps/main/src/index.html",
-        "main": "apps/main/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/main/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
@@ -20,8 +23,9 @@
         "styles": ["apps/main/src/styles.scss"],
         "scripts": [],
         "stylePreprocessorOptions": {
-          "includePaths": ["apps/main/src/app/styles/", "libs/ui-kit/src"]
-        }
+          "includePaths": ["apps/main/src/app/styles/", "libs/ui-kit/src", "."]
+        },
+        "browser": "apps/main/src/main.ts"
       },
       "configurations": {
         "production": {
@@ -40,18 +44,17 @@
           "outputHashing": "all"
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
         }
-      },
-      "defaultConfiguration": "production"
+      }
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
+      "defaultConfiguration": "development",
+      "continuous": true,
       "configurations": {
         "production": {
           "buildTarget": "main:build:production"
@@ -59,12 +62,10 @@
         "development": {
           "buildTarget": "main:build:development"
         }
-      },
-      "defaultConfiguration": "development",
-      "continuous": true
+      }
     },
     "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "executor": "@angular/build:extract-i18n",
       "options": {
         "buildTarget": "main:build"
       }

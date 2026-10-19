@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { BoardModule } from '../board/board.module';
 
 @NgModule({
@@ -16,6 +16,6 @@ import { BoardModule } from '../board/board.module';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     BoardModule,
   ],
-  providers: [provideHttpClient(withInterceptorsFromDi())],
+  providers: [provideHttpClient(withXhr(), withInterceptorsFromDi())],
 })
 export class AppModule {}

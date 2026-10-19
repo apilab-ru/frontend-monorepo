@@ -7,12 +7,15 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular/build:application",
       "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/time",
+        "outputPath": {
+          "base": "dist/apps/time",
+          "browser": ""
+        },
         "index": "apps/time/src/index.html",
-        "main": "apps/time/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/time/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
@@ -23,7 +26,11 @@
           "apps/time/src/manifest.json"
         ],
         "styles": ["apps/time/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "browser": "apps/time/src/main.ts",
+        "stylePreprocessorOptions": {
+          "includePaths": ["."]
+        }
       },
       "configurations": {
         "production": {
@@ -42,23 +49,22 @@
           "outputHashing": "all"
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
         }
-      },
-      "defaultConfiguration": "production"
+      }
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
+      "defaultConfiguration": "development",
+      "continuous": true,
       "options": {
         "host": "0.0.0.0",
         "port": 443,
         "ssl": true,
-        "disableHostCheck": true
+        "allowedHosts": true
       },
       "configurations": {
         "production": {
@@ -67,12 +73,10 @@
         "development": {
           "buildTarget": "time:build:development"
         }
-      },
-      "defaultConfiguration": "development",
-      "continuous": true
+      }
     },
     "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "executor": "@angular/build:extract-i18n",
       "options": {
         "buildTarget": "time:build"
       }

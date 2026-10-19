@@ -1,9 +1,4 @@
-import {
-  ControlValueAccessor,
-  FormControl,
-  FormControlDirective,
-  NgControl
-} from "@angular/forms";
+import { ControlValueAccessor, FormControl, FormControlDirective, NgControl } from '@angular/forms';
 import {
   AfterViewInit,
   Directive,
@@ -12,12 +7,12 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChanges,
-  ViewChild
-} from "@angular/core";
+  type SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { ChangeCallback, TouchCallback } from './interface';
-import { map } from "rxjs/operators";
-import { BehaviorSubject, merge, Observable, Subject } from "rxjs";
+import { map } from 'rxjs/operators';
+import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
 
 @Directive()
 export abstract class UiFormControl<T> implements ControlValueAccessor, OnChanges, AfterViewInit {
@@ -37,10 +32,7 @@ export abstract class UiFormControl<T> implements ControlValueAccessor, OnChange
   protected touchCallback?: TouchCallback;
   protected refresh$ = new Subject<void>();
 
-  constructor(
-    protected injector: Injector,
-  ) {
-  }
+  constructor(protected injector: Injector) {}
 
   ngOnChanges({ name, value }: SimpleChanges): void {
     if (value) {
@@ -55,29 +47,28 @@ export abstract class UiFormControl<T> implements ControlValueAccessor, OnChange
   ngAfterViewInit(): void {
     const ngControl = this.injector.get(NgControl, null);
 
-    this.control = ngControl?.control as FormControl || new FormControl<T>(undefined as unknown as T);
+    this.control = (ngControl?.control as FormControl) || new FormControl<T>(undefined as unknown as T);
     this.name = this.name || ngControl?.name + '' || 'input';
 
     this.id = this.name + Math.random();
 
-    this.error$ = merge(
-      this.control.statusChanges,
-      this.refresh$,
-    ).pipe(
+    this.error$ = merge(this.control.statusChanges, this.refresh$).pipe(
       map(() => {
         if (!this.control.touched || !this.control.errors) {
           return null;
         }
 
-        return Object.entries(this.control.errors || {}).map(([key, value]) => {
-          if (typeof value === 'string') {
-            return value;
-          }
+        return Object.entries(this.control.errors || {})
+          .map(([key, value]) => {
+            if (typeof value === 'string') {
+              return value;
+            }
 
-          return key;
-        }).join(',');
+            return key;
+          })
+          .join(',');
       })
-    )
+    );
   }
 
   getValue(): T {

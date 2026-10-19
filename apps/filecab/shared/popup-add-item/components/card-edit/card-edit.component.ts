@@ -6,7 +6,7 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
+  type SimpleChanges,
 } from '@angular/core';
 import { checkIsShowStar } from '@shared/utils/check-is-show-star';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -18,7 +18,6 @@ import { STATUS_LIST } from '@shared/const/const';
 import { SearchData } from '@shared/popup-add-item/models/search-data';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { LibraryItem } from '@filecab/models';
-
 
 @UntilDestroy()
 @Component({
@@ -53,21 +52,21 @@ export class CardEditComponent implements OnChanges, OnInit {
   ngOnInit(): void {
     this.isShowStar$ = this.formGroup.valueChanges.pipe(
       startWith(this.formGroup.getRawValue()),
-      map(({ status }) => checkIsShowStar(status)),
+      map(({ status }) => checkIsShowStar(status))
     );
     this.isShowProgress$ = this.formGroup.valueChanges.pipe(
       startWith(this.formGroup.getRawValue()),
-      map(({ status }) => checkIsShowProgress(status)),
+      map(({ status }) => checkIsShowProgress(status))
     );
 
     combineLatest([
       this.formGroup.get('name').valueChanges.pipe(startWith(this.formGroup.get('name').value)),
       this.formGroup.get('type').valueChanges.pipe(startWith(this.formGroup.get('type').value)),
-    ]).pipe(
-      untilDestroyed(this),
-    ).subscribe(([name, type]) => {
-      this.updateSearchData.emit({ name, type });
-    });
+    ])
+      .pipe(untilDestroyed(this))
+      .subscribe(([name, type]) => {
+        this.updateSearchData.emit({ name, type });
+      });
   }
 
   ngOnChanges(changes: SimpleChanges): void {

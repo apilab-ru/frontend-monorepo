@@ -20,7 +20,8 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
   selector: 'app-time-board',
   templateUrl: './time-board.component.html',
   styleUrls: ['./time-board.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class TimeBoardComponent implements OnInit {
   list$: Observable<TimeItem[]>;
@@ -43,31 +44,21 @@ export class TimeBoardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const totalTimeMinutes$ = this.list$
-      .pipe(
-        map(list => list.reduce((prev, next) => this.timeService.getTime(next) + prev, 0))
-      );
-
-    this.totalTime$ = totalTimeMinutes$
-      .pipe(
-        map(minutes => this.timeService.getStringHourMinute(minutes))
-      );
-
-    this.totalHours$ = totalTimeMinutes$.pipe(
-      map(minutes => (minutes / 60).toFixed(2))
+    const totalTimeMinutes$ = this.list$.pipe(
+      map((list) => list.reduce((prev, next) => this.timeService.getTime(next) + prev, 0))
     );
 
-    this.keyListenerService
-      .listener(['ControlLeft', 'KeyZ'])
-      .subscribe(() => {
-        this.store.dispatch(new actions.Undo());
-      });
+    this.totalTime$ = totalTimeMinutes$.pipe(map((minutes) => this.timeService.getStringHourMinute(minutes)));
 
-    this.keyListenerService
-      .listener(['ControlLeft', 'KeyQ'])
-      .subscribe(() => {
-        this.reCalc();
-      });
+    this.totalHours$ = totalTimeMinutes$.pipe(map((minutes) => (minutes / 60).toFixed(2)));
+
+    this.keyListenerService.listener(['ControlLeft', 'KeyZ']).subscribe(() => {
+      this.store.dispatch(new actions.Undo());
+    });
+
+    this.keyListenerService.listener(['ControlLeft', 'KeyQ']).subscribe(() => {
+      this.reCalc();
+    });
   }
 
   undo(): void {
@@ -95,14 +86,12 @@ export class TimeBoardComponent implements OnInit {
   }
 
   reCalc(): void {
-    combineLatest([
-      this.list$,
-      this.taskMapService.taskMap$
-    ]).pipe(take(1))
+    combineLatest([this.list$, this.taskMapService.taskMap$])
+      .pipe(take(1))
       .subscribe(([timeList, taskMap]) => {
-        this.store.dispatch(new actions.SetCalculationList(
-          this.timeService.calcTime(timeList, this.timeService.getSetting(), taskMap)
-        ));
+        this.store.dispatch(
+          new actions.SetCalculationList(this.timeService.calcTime(timeList, this.timeService.getSetting(), taskMap))
+        );
       });
   }
 

@@ -1,12 +1,14 @@
-import { Meta, Canvas } from '@storybook/blocks';
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
 import * as TableStories from './table.stories';
 
 <Meta of={TableStories} />
 
 # Таблица
+
 [Реализация](https://github.com/apilab-ru/frontend-monorepo/tree/master/libs/ui-kit/src/table)
 
 ## Использование
+
 Чтобы использовать достаточно импортировать модуль UiTableModule.
 
 Далее нужно использовать ui-table - компонент, который внутри себя оборачивает таблицу нужными дополнительными стилями и логикой.
@@ -21,11 +23,11 @@ import * as TableStories from './table.stories';
 Полная демонстрация кода в show code
 
 ## Поддерживаемые классы ячеек
-| Класс      | Описание     |
-|---------   |--------------|
-| number    | ширина 50px   |
-| controls  |  ширина 300px |
 
+| Класс    | Описание     |
+| -------- | ------------ |
+| number   | ширина 50px  |
+| controls | ширина 300px |
 
 <Canvas of={TableStories.Default} />
 

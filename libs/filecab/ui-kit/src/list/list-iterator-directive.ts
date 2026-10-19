@@ -1,5 +1,5 @@
 import { Directive, Input, TemplateRef, TrackByFunction } from '@angular/core';
-import { NgForOfContext } from "@angular/common";
+import { NgForOfContext } from '@angular/common';
 
 export interface RowContext<T> {
   $implicit: T;
@@ -7,13 +7,12 @@ export interface RowContext<T> {
 
 @Directive({
   selector: '[listIterator][listIteratorOf]',
+  standalone: false,
 })
 export class UiListIteratorDirective<T> {
   @Input() listIterator: TrackByFunction<T>;
   @Input() listIteratorOf: T[];
   @Input() listIteratorTrackBy: (index: number, item: T) => number;
 
-  constructor(public template: TemplateRef<NgForOfContext<T>>) {
-  }
-
+  constructor(public template: TemplateRef<NgForOfContext<T>>) {}
 }

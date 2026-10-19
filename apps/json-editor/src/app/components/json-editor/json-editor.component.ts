@@ -1,14 +1,13 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Inject, OnInit, ViewChild, } from '@angular/core';
-import { JsonDataService } from "../../services/json-data.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { map, Observable, switchMap, take, tap } from "rxjs";
-import { JsonData, UpdateValueEvent } from "../../interface";
+import { ChangeDetectionStrategy, Component, ElementRef, Inject, OnInit, ViewChild, DOCUMENT } from '@angular/core';
+import { JsonDataService } from '../../services/json-data.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map, Observable, switchMap, take, tap } from 'rxjs';
+import { JsonData, UpdateValueEvent } from '../../interface';
 import lodashGet from 'lodash-es/get';
 import lodashSet from 'lodash-es/set';
-import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
-import { saveAsFile } from "@store";
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { saveAsFile } from '@store';
 import { PageScrollService } from 'ngx-page-scroll-core';
-import { DOCUMENT } from "@angular/common";
 
 interface Path {
   key: string;
@@ -22,6 +21,7 @@ interface Path {
   templateUrl: './json-editor.component.html',
   styleUrls: ['./json-editor.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class JsonEditorComponent implements OnInit {
   isChanged = false;
@@ -40,24 +40,21 @@ export class JsonEditorComponent implements OnInit {
     private pageScrollService: PageScrollService,
     private router: Router,
     @Inject(DOCUMENT) private document: Document
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.data$ = this.fileId$.pipe(
-      tap(fileId => this.fileId = fileId),
-      switchMap(id => this.jsonDataService.loadFileData(id)),
+      tap((fileId) => (this.fileId = fileId)),
+      switchMap((id) => this.jsonDataService.loadFileData(id))
     );
 
-    this.data$.pipe(
-      untilDestroyed(this)
-    ).subscribe(data => {
+    this.data$.pipe(untilDestroyed(this)).subscribe((data) => {
       this.tempData = data;
       this.isChanged = false;
-    })
+    });
 
     this.paths$ = this.activatedRoute.queryParams.pipe(
-      map(params => {
+      map((params) => {
         const path = params?.path;
         return this.parserPath(path);
       })
@@ -70,14 +67,14 @@ export class JsonEditorComponent implements OnInit {
 
   getSelectedDeepKey(index: number): Observable<string | null> {
     return this.paths$.pipe(
-      map(paths => {
+      map((paths) => {
         if (paths.length > index) {
           return paths[index].key;
         }
 
         return null;
       })
-    )
+    );
   }
 
   selectPath(child: string, prev?: Path): void {
@@ -88,13 +85,11 @@ export class JsonEditorComponent implements OnInit {
     setTimeout(() => {
       this.pageScrollService.scroll({
         document: this.document,
-        scrollViews: [
-          this.rowsBox.nativeElement
-        ],
+        scrollViews: [this.rowsBox.nativeElement],
         scrollTarget: '.-last',
         verticalScrolling: false,
-      })
-    })
+      });
+    });
   }
 
   pickData(data: JsonData, path: Path): JsonData {
@@ -112,24 +107,26 @@ export class JsonEditorComponent implements OnInit {
   }
 
   saveJson(): void {
-    this.jsonDataService.files$.pipe(
-      take(1),
-      map(list => {
-        const file = list.find(it => it.id === this.fileId)!;
-        return {
-          ...file,
-          data: this.tempData,
-        }
-      }),
-    ).subscribe(file => {
-      saveAsFile(JSON.stringify(file.data), file.name);
-      this.jsonDataService.updateFile(file);
-    });
+    this.jsonDataService.files$
+      .pipe(
+        take(1),
+        map((list) => {
+          const file = list.find((it) => it.id === this.fileId)!;
+          return {
+            ...file,
+            data: this.tempData,
+          };
+        })
+      )
+      .subscribe((file) => {
+        saveAsFile(JSON.stringify(file.data), file.name);
+        this.jsonDataService.updateFile(file);
+      });
   }
 
   deleteFile(): void {
     this.jsonDataService.deleteFile(this.fileId).then(() => {
-      this.router.navigate(['/'])
+      this.router.navigate(['/']);
     });
   }
 
@@ -141,15 +138,15 @@ export class JsonEditorComponent implements OnInit {
     const keys = path.split('.');
     const list: Path[] = [];
 
-    keys.forEach(key => {
+    keys.forEach((key) => {
       const prev = list.map(({ key }) => key);
       const full = [...prev, key];
       list.push({
         key,
         full,
-        fullSt: full.join('.')
-      })
-    })
+        fullSt: full.join('.'),
+      });
+    });
 
     return list;
   }
@@ -157,8 +154,8 @@ export class JsonEditorComponent implements OnInit {
   private setPath(path: string): void {
     this.router.navigate([], {
       queryParams: {
-        path
-      }
-    })
+        path,
+      },
+    });
   }
 }

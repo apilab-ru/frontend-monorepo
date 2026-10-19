@@ -10,7 +10,7 @@
       ></p-selectButton>
 
       <div class="p-float-label text-box">
-         <input class="input" id="float-input" type="text" pInputText [formControl]="nameControl">
+         <input class="input" id="float-input" type="text" pInputText [formControl]="nameControl" />
          <label for="float-input">Название материала</label>
       </div>
    </div>
@@ -21,14 +21,14 @@
 
    <div class="card" [formGroup]="formMeta">
       <div class="status-list">
-         <p-dropdown
+         <p-select
             formControlName="status"
             [tooltip]="'Статус'"
             [options]="statuses"
             optionLabel="name"
             optionValue="status"
             scrollHeight="400px"
-         ></p-dropdown>
+         ></p-select>
 
          <filecab-progress
             *ngIf="statusWithProgress.includes(formMeta.value.status)"
@@ -45,12 +45,7 @@
       ></filecab-stars>
 
       <div class="comment-box p-float-label">
-         <textarea
-            formControlName="comment"
-            id="comment"
-            class="comment"
-            pInputTextarea
-         ></textarea>
+         <textarea formControlName="comment" id="comment" class="comment" pTextarea></textarea>
          <label for="comment">Комментарий</label>
       </div>
 

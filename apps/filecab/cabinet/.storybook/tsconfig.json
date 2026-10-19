@@ -1,22 +1,16 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "types": [
-      "node",
-      "chrome"
-    ],
-    "allowSyntheticDefaultImports": true
+    "types": ["node", "chrome"],
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "bundler"
   },
-  "exclude": [
-    "../test.ts",
-    "../**/*.spec.ts"
-  ],
+  "exclude": ["../test.ts", "../**/*.spec.ts"],
   "include": [
     "../**/*.stories.ts",
     "../**/*.d.ts",
-    "../../../../libs/filecab/ui-kit/src/**/*.stories.ts"
+    "../../../../libs/filecab/ui-kit/src/**/*.stories.ts",
+    "../../../../libs/filecab/ui-kit/src/theme/prime-ng.providers.ts"
   ],
-  "files": [
-    "./typings.d.ts"
-  ]
+  "files": ["./typings.d.ts"]
 }

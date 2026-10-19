@@ -20,6 +20,7 @@ interface Item<T> extends Element {
   // @ts-ignore
   providers: [provideTranslation('portfolioPage', () => import.meta.webpackContext('./translation'))],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class PortfolioComponent implements OnInit, AfterViewInit {
   projectTypes = Object.values(ProjectType) as ProjectType[];
@@ -31,19 +32,17 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private portfolioService: PortfolioService,
-  ) {
-  }
+    private portfolioService: PortfolioService
+  ) {}
 
   ngOnInit(): void {
-    this.activatedRoute
-      .queryParams
+    this.activatedRoute.queryParams
       .pipe(
-        map(data => data?.type),
-        filter(type => !!type),
-        take(1),
+        map((data) => data?.type),
+        filter((type) => !!type),
+        take(1)
       )
-      .subscribe(type => this.filter$.next(type));
+      .subscribe((type) => this.filter$.next(type));
   }
 
   ngAfterViewInit(): void {
@@ -57,16 +56,16 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
     });
 
     // @ts-ignore
-    const collection: Item<Project>[] = Array.from(
-      this.box.nativeElement.querySelectorAll('.card'),
-    ).map((item, index) => {
-      // @ts-ignore
-      item['data'] = PROJECTS[index];
-      return item;
-    });
+    const collection: Item<Project>[] = Array.from(this.box.nativeElement.querySelectorAll('.card')).map(
+      (item, index) => {
+        // @ts-ignore
+        item['data'] = PROJECTS[index];
+        return item;
+      }
+    );
 
-    this.filter$.subscribe(filter => {
-      const filteredList = collection.filter(item => {
+    this.filter$.subscribe((filter) => {
+      const filteredList = collection.filter((item) => {
         return !filter || item.data.types.includes(filter);
       });
 

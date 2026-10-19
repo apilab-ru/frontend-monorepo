@@ -6,8 +6,8 @@ import { Project } from '../interfaces/project';
   templateUrl: './project-card.component.html',
   styleUrls: ['./project-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class ProjectCardComponent {
   @Input() project: Project;
-
 }

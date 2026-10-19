@@ -1,15 +1,16 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
-import { LibraryItemV2 } from "@filecab/models/library";
-import { Genre } from "@filecab/models/genre";
+import { LibraryItemV2 } from '@filecab/models/library';
+import { Genre } from '@filecab/models/genre';
 import isEqual from 'lodash-es/isEqual';
 import cloneDeep from 'lodash-es/cloneDeep';
-import { STATUS_LIST, STATUS_WITH_PROGRESS, STATUS_WITH_STARS } from "@filecab/models/status";
+import { STATUS_LIST, STATUS_WITH_PROGRESS, STATUS_WITH_STARS } from '@filecab/models/status';
 
 @Component({
   selector: 'filecab-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class FilecabCardComponent {
   @Input() item: LibraryItemV2;

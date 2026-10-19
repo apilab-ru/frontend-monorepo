@@ -1,37 +1,24 @@
 <div class="card">
    <div class="card__title">
-    <span class="title-text" [attr.title]="item.item.title + ' / ' + (item.item.originalTitle || '')">
-      {{ item.item.title || item.item.originalTitle }}
-    </span>
+      <span class="title-text" [attr.title]="item.item.title + ' / ' + (item.item.originalTitle || '')">
+         {{ item.item.title || item.item.originalTitle }}
+      </span>
 
       <span *ngIf="isLibraryMode || item.founded" class="star-box" (click)="toggleEditMode()">
-      <span *ngIf="localItem?.star" class="star-sum">{{ localItem?.star }}</span>
+         <span *ngIf="localItem?.star" class="star-sum">{{ localItem?.star }}</span>
 
-      <button class="star-button">
-         <span
-            class="star"
-            [class.-completed]="localItem?.star"
-            [class.-edit-mode]="isEditMode"
-         ></span>
-         <span
-            class="pi pi-pencil star-edit"
-            [class.-hide]="isEditMode"
-         ></span>
-      </button>
-    </span>
+         <button class="star-button">
+            <span class="star" [class.-completed]="localItem?.star" [class.-edit-mode]="isEditMode"></span>
+            <span class="pi pi-pencil star-edit" [class.-hide]="isEditMode"></span>
+         </button>
+      </span>
    </div>
    <div class="card__subtitle">
       <span class="card__year">{{ item.item.year }}</span>
-      <span *ngIf="item.item.episodes" class="card__episodes">
-      Серий: {{ item.item.episodes }}
-    </span>
+      <span *ngIf="item.item.episodes" class="card__episodes"> Серий: {{ item.item.episodes }} </span>
    </div>
 
-   <button
-      *ngIf="isLibraryMode"
-      class="card__delete"
-      (click)="deleteItem.emit()"
-   >
+   <button *ngIf="isLibraryMode" class="card__delete" (click)="deleteItem.emit()">
       <span class="icon-delete"></span>
    </button>
 
@@ -48,11 +35,7 @@
          (clickGenre)="onClickGenre($event)"
          [genres]="genres"
       ></filecab-genres>
-      <filecab-link
-         *ngIf="item.url"
-         class="card__link"
-         [link]="item.url"
-      ></filecab-link>
+      <filecab-link *ngIf="item.url" class="card__link" [link]="item.url"></filecab-link>
       <div class="card__description">
          <div>{{ item.item.description || item.comment || 'Нет описания' }}</div>
       </div>
@@ -64,14 +47,10 @@
 
    <div *ngIf="isEditMode" class="meta-data-box">
       <ng-container *ngIf="isLibraryMode || item.founded">
-
-         <app-stars
-            [star]="localItem.star || 0"
-            (setStars)="onSetStars($event)"
-         ></app-stars>
+         <app-stars [star]="localItem.star || 0" (setStars)="onSetStars($event)"></app-stars>
 
          <div class="status-list">
-            <p-dropdown
+            <p-select
                [tooltip]="'Статус'"
                [options]="statuses"
                [ngModel]="localItem?.status"
@@ -79,7 +58,7 @@
                optionLabel="name"
                optionValue="status"
                scrollHeight="400px"
-            ></p-dropdown>
+            ></p-select>
 
             <filecab-progress
                class="progress"
@@ -93,7 +72,7 @@
       <textarea
          *ngIf="isLibraryMode || item.founded"
          class="comment"
-         pInputTextarea
+         pTextarea
          [ngModel]="item.comment"
          (ngModelChange)="onSetComment($event)"
       ></textarea>

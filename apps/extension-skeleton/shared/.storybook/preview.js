@@ -1,7 +1,7 @@
-import { create } from '@storybook/theming';
+import { create } from 'storybook/theming';
 
 export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
+  actions: { argTypesRegex: '^on[A-Z].*' },
   options: {
     theme: create({
       brandTitle: 'Shared',
@@ -15,6 +15,6 @@ export const parameters = {
     },
   },
   docs: {
-    inlineStories: true
+    inlineStories: true,
   },
-}
+};

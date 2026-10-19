@@ -3,14 +3,15 @@ import { AnalyzerService } from '../../services/analyzer.service';
 import { combineLatest, Observable, of, switchMap } from 'rxjs';
 import { LogDetail } from '../../interfaces';
 import { catchError, map } from 'rxjs/operators';
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { UserDataService } from "../../services/user-data.service";
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserDataService } from '../../services/user-data.service';
 
 @Component({
   selector: 'app-page',
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class PageComponent implements OnInit {
   logs$: Observable<LogDetail[]>;
@@ -18,13 +19,12 @@ export class PageComponent implements OnInit {
   constructor(
     private analyzerService: AnalyzerService,
     private snackBar: MatSnackBar,
-    private userDataService: UserDataService,
-  ) {
-  }
+    private userDataService: UserDataService
+  ) {}
 
   ngOnInit(): void {
     const logs$ = this.userDataService.logs$.pipe(
-      map(logs => this.analyzerService.convertLogs(logs)),
+      map((logs) => this.analyzerService.convertLogs(logs)),
       catchError((error) => {
         this.snackBar.open(error.toString());
         console.error(error);
@@ -33,7 +33,7 @@ export class PageComponent implements OnInit {
     );
 
     const rules$ = this.userDataService.rules$.pipe(
-      map(rules => this.analyzerService.parserRules(rules)),
+      map((rules) => this.analyzerService.parserRules(rules)),
       catchError((error) => {
         this.snackBar.open(error.toString());
         console.error(error);
@@ -41,13 +41,9 @@ export class PageComponent implements OnInit {
       })
     );
 
-    this.logs$ = combineLatest([
-      logs$,
-      rules$,
-      this.userDataService.groupConfig$,
-    ]).pipe(
+    this.logs$ = combineLatest([logs$, rules$, this.userDataService.groupConfig$]).pipe(
       switchMap(([logs, rules, groupConfig]) => this.analyzerService.groupLogs(logs, rules, groupConfig)),
-      catchError(error => {
+      catchError((error) => {
         this.snackBar.open(error.toString());
         console.error(error);
 

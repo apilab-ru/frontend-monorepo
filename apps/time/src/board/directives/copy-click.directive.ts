@@ -2,10 +2,10 @@ import { Directive, HostListener, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Directive({
-  selector: '[appCopyClick]'
+  selector: '[appCopyClick]',
+  standalone: false,
 })
 export class CopyClickDirective {
-
   @Input() appCopyClick: string;
 
   @HostListener('click', ['$event']) onClick(event: Event) {
@@ -13,12 +13,11 @@ export class CopyClickDirective {
     event.stopPropagation();
     this.copy(this.appCopyClick);
     this.snackBar.open(`Copped: ${this.appCopyClick}`, 'Hide', {
-      duration: 20_000
+      duration: 20_000,
     });
   }
 
-  constructor(private snackBar: MatSnackBar) {
-  }
+  constructor(private snackBar: MatSnackBar) {}
 
   copy(str: string): void {
     const tmp = document.createElement('INPUT');

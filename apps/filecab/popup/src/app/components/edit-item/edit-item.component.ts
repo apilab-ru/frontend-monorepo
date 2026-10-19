@@ -1,32 +1,27 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit
-} from '@angular/core';
-import {
-  Observable,
-} from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Types } from '@filecab/models/types';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { FileCabService } from "@shared/services/file-cab.service";
-import { MediaItemV2 } from "@filecab/models/library";
-import { MetaDataV2 } from "@filecab/models/meta-data";
-import { Genre } from "@filecab/models/genre";
-import { UiMessagesService } from "@ui-kit/messages/messages.service";
-import { EditContext } from "../../services/edit-context";
+import { FileCabService } from '@shared/services/file-cab.service';
+import { MediaItemV2 } from '@filecab/models/library';
+import { MetaDataV2 } from '@filecab/models/meta-data';
+import { Genre } from '@filecab/models/genre';
+import { UiMessagesService } from '@ui-kit/messages/messages.service';
+import { EditContext } from '../../services/edit-context';
 
 @UntilDestroy()
 @Component({
   selector: 'popup-edit-item',
   templateUrl: './edit-item.component.html',
   styleUrls: ['./edit-item.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class EditItemComponent implements OnInit {
   type$ = this.context.type$;
   name$ = this.context.name$;
   metaData$ = this.context.metaData$;
-  mediaItem$ = this.context.mediaItem$
+  mediaItem$ = this.context.mediaItem$;
   isLoadingMeta$ = this.context.isLoadingMeta$;
   isLoadingList$ = this.context.isLoadingList$;
   isSearchMode$ = this.context.isSearchMode$;
@@ -39,14 +34,11 @@ export class EditItemComponent implements OnInit {
   constructor(
     private uiMessageService: UiMessagesService,
     private filecabService: FileCabService,
-    private context: EditContext,
-  ) {
-  }
+    private context: EditContext
+  ) {}
 
   ngOnInit(): void {
-    this.context.init().pipe(
-      untilDestroyed(this)
-    ).subscribe();
+    this.context.init().pipe(untilDestroyed(this)).subscribe();
 
     this.genres$ = this.filecabService.genres$;
     this.mediaResultList$ = this.context.buildMediaList();

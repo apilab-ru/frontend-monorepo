@@ -6,14 +6,14 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
-import { FSDropdownValue } from "../../interface";
-import { makeStore } from "@store";
-import { Observable, combineLatest, map } from "rxjs";
-import { getStreamValue } from "@store/rxjs/get-stream-value";
-import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
-import { FSEventSelectValue } from "../../fs-event-select";
+import { FSDropdownValue } from '../../interface';
+import { makeStore } from '@store';
+import { Observable, combineLatest, map } from 'rxjs';
+import { getStreamValue } from '@store/rxjs/get-stream-value';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { FSEventSelectValue } from '../../fs-event-select';
 
 const store = {
   search: '',
@@ -21,7 +21,7 @@ const store = {
   selected: null as null | string,
   index: 0,
   positive: true,
-}
+};
 
 @UntilDestroy()
 @Component({
@@ -29,6 +29,7 @@ const store = {
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class DropdownComponent implements OnChanges, OnInit {
   @Input() list: FSDropdownValue[];
@@ -61,26 +62,17 @@ export class DropdownComponent implements OnChanges, OnInit {
 
   ngOnInit(): void {
     this.selected$ = this.store.selected.asObservable();
-    const rawList$ = combineLatest([
-      this.selected$,
-      this.store.list
-    ]).pipe(
-      map(([selected, list]) => !selected
-        ? list
-        : [
-          { key: null, name: 'Назад' },
-          ...list.find(it => it.key === selected)?.values || [],
-        ])
+    const rawList$ = combineLatest([this.selected$, this.store.list]).pipe(
+      map(([selected, list]) =>
+        !selected ? list : [{ key: null, name: 'Назад' }, ...(list.find((it) => it.key === selected)?.values || [])]
+      )
     );
 
     function stringInclude(source: string, search: string): boolean {
-      return source.toLocaleLowerCase().includes(search)
+      return source.toLocaleLowerCase().includes(search);
     }
 
-    this.list$ = combineLatest([
-      rawList$,
-      this.store.search,
-    ]).pipe(
+    this.list$ = combineLatest([rawList$, this.store.search]).pipe(
       map(([list, search]) => {
         if (!search) {
           return list;
@@ -88,17 +80,16 @@ export class DropdownComponent implements OnChanges, OnInit {
 
         const filterSt = search.toLocaleLowerCase().trim();
 
-        return list.filter(item => {
-          const filterFn = item.filterFn ? item.filterFn : stringInclude.bind(null, item.name)
+        return list.filter((item) => {
+          const filterFn = item.filterFn ? item.filterFn : stringInclude.bind(null, item.name);
           return !item.key || filterFn(filterSt);
-        })
-      }),
+        });
+      })
     );
 
-    this.list$.pipe(untilDestroyed(this)).subscribe(list => this.handleChangeIndex(
-      this.store.index.value,
-      list.length,
-    ));
+    this.list$
+      .pipe(untilDestroyed(this))
+      .subscribe((list) => this.handleChangeIndex(this.store.index.value, list.length));
 
     this.index$ = this.store.index.asObservable();
     this.positive$ = this.store.positive.asObservable();
@@ -118,7 +109,7 @@ export class DropdownComponent implements OnChanges, OnInit {
         key: this.store.selected.value || item.key!,
         value: this.store.selected.value ? item.key! : '',
         negative: negative ?? !this.store.positive.value,
-      })
+      });
     }
   }
 
@@ -147,9 +138,7 @@ export class DropdownComponent implements OnChanges, OnInit {
   }
 
   togglePositive(): void {
-    this.store.positive.next(
-      !this.store.positive.value
-    )
+    this.store.positive.next(!this.store.positive.value);
   }
 
   private handleChangeIndex(newIndex: number, listLength: number): void {
@@ -157,7 +146,7 @@ export class DropdownComponent implements OnChanges, OnInit {
       newIndex = listLength - 1;
     }
 
-    if (newIndex > (listLength - 1)) {
+    if (newIndex > listLength - 1) {
       newIndex = 0;
     }
 

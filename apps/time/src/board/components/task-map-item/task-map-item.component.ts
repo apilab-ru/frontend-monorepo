@@ -5,7 +5,8 @@ import { TaskMapItem } from '../../models/task-map-item';
   selector: 'app-task-map-item',
   templateUrl: './task-map-item.component.html',
   styleUrls: ['./task-map-item.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class TaskMapItemComponent {
   @Input() item: TaskMapItem;
@@ -16,7 +17,7 @@ export class TaskMapItemComponent {
   public onChange(key: keyof TaskMapItem, value: string): void {
     this.item = {
       ...this.item,
-      [key]: value
+      [key]: value,
     };
 
     this.updateItem.emit(this.item);

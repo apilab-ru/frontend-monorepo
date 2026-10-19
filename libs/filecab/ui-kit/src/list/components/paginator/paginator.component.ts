@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { PaginatorService } from "../../paginator.service";
-import { DropdownItem, OrderField } from "../../models/interface";
-import { DROPDOWN_LIST, OrderType } from "../../models/order-type";
+import { PaginatorService } from '../../paginator.service';
+import { DropdownItem, OrderField } from '../../models/interface';
+import { DROPDOWN_LIST, OrderType } from '../../models/order-type';
 
 @Component({
   selector: 'filecab-paginator',
   templateUrl: './paginator.component.html',
   styleUrls: ['./paginator.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class UiPaginatorComponent implements OnChanges {
   @Input() limitList: number[];
@@ -25,14 +26,11 @@ export class UiPaginatorComponent implements OnChanges {
   orderField$ = this.paginatorService.orderField$;
   orderType$ = this.paginatorService.orderType$;
 
-  constructor(
-    private paginatorService: PaginatorService,
-  ) {
-  }
+  constructor(private paginatorService: PaginatorService) {}
 
   ngOnChanges({ limitList }: SimpleChanges): void {
     if (limitList) {
-      this.limitViewList = this.limitList.map(key => ({ key, name: key }))
+      this.limitViewList = this.limitList.map((key) => ({ key, name: key }));
     }
   }
 

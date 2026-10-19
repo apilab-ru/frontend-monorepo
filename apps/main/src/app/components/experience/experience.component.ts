@@ -16,8 +16,9 @@ import { Work } from '../interfaces/work';
   // @ts-ignore
   providers: [provideTranslation('experience', () => import.meta.webpackContext('./translation'))],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
-export class ExperienceComponent implements OnInit  {
+export class ExperienceComponent implements OnInit {
   works$: Observable<Work[]>;
   experience = this.getYearExperience();
   link$ = this.scrollNavigationService.getLink();
@@ -25,16 +26,15 @@ export class ExperienceComponent implements OnInit  {
   constructor(
     private scrollNavigationService: ScrollNavigationService,
     private translocoService: TranslocoService,
-    private router: Router,
-  ) {
-  }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.works$ = this.translocoService.selectTranslateObject('experience.works').pipe(
-      map(obj => {
-        return JOB_LIST.map(({key, ...item}) => ({
+      map((obj) => {
+        return JOB_LIST.map(({ key, ...item }) => ({
           ...item,
-          ...obj[key]
+          ...obj[key],
         }));
       })
     );
@@ -46,9 +46,6 @@ export class ExperienceComponent implements OnInit  {
   }
 
   private getYearExperience(): number {
-    return differenceInYears(
-      new Date(),
-      new Date(START_WORK_DATE),
-    );
+    return differenceInYears(new Date(), new Date(START_WORK_DATE));
   }
 }

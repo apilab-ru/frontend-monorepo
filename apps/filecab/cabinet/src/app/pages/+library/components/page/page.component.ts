@@ -1,30 +1,25 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Observable } from "rxjs";
-import { LibraryItemV2 } from "@filecab/models/library";
-import { PaginatorService } from "@filecab/ui-kit/list/paginator.service";
-import { LocalDataSourceService } from "../../services/local-data-source.service";
-import { SearchService } from "../../services/search.service";
-import { LOCAL_ORDER_FIELDS } from "../../models/order";
-import { FileCabService } from "@shared/services/file-cab.service";
-import { MessageService } from "primeng/api";
-import { LibraryMode } from "../../models/mode";
-import { ApiDataSourceService } from "../../services/api-data-source.service";
-import { LibrarySourceService } from "../../services/library-source.service";
-import { FilterSearchData } from "@filecab/ui-kit/filter-search/interface";
-import { BASE_SEARCH_VALUES, LOCAL_SEARCH_VALUES } from "@filecab/ui-kit/filter-search/const";
+import { Observable } from 'rxjs';
+import { LibraryItemV2 } from '@filecab/models/library';
+import { PaginatorService } from '@filecab/ui-kit/list/paginator.service';
+import { LocalDataSourceService } from '../../services/local-data-source.service';
+import { SearchService } from '../../services/search.service';
+import { LOCAL_ORDER_FIELDS } from '../../models/order';
+import { FileCabService } from '@shared/services/file-cab.service';
+import { MessageService } from 'primeng/api';
+import { LibraryMode } from '../../models/mode';
+import { ApiDataSourceService } from '../../services/api-data-source.service';
+import { LibrarySourceService } from '../../services/library-source.service';
+import { FilterSearchData } from '@filecab/ui-kit/filter-search/interface';
+import { BASE_SEARCH_VALUES, LOCAL_SEARCH_VALUES } from '@filecab/ui-kit/filter-search/const';
 
 @Component({
   selector: 'cabinet-page',
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    PaginatorService,
-    SearchService,
-    LocalDataSourceService,
-    ApiDataSourceService,
-    LibrarySourceService,
-  ],
+  providers: [PaginatorService, SearchService, LocalDataSourceService, ApiDataSourceService, LibrarySourceService],
+  standalone: false,
 })
 export class PageComponent implements OnInit {
   limitList = [12, 20, 50, 100];
@@ -41,9 +36,8 @@ export class PageComponent implements OnInit {
     private librarySourceService: LibrarySourceService,
     private filecabService: FileCabService,
     private messageService: MessageService,
-    private searchService: SearchService,
-  ) {
-  }
+    private searchService: SearchService
+  ) {}
 
   ngOnInit(): void {
     this.list$ = this.librarySourceService.list$;
@@ -67,25 +61,25 @@ export class PageComponent implements OnInit {
       next: () => {
         this.messageService.add({
           severity: 'success',
-          detail: 'Done!'
-        })
+          detail: 'Done!',
+        });
       },
       error: (error) => {
         console.log('xxx error', error);
         this.messageService.add({
           severity: 'error',
-          detail: error.toString()
-        })
-      }
-    })
+          detail: error.toString(),
+        });
+      },
+    });
   }
 
   onDeleteItem(id: number): void {
     this.filecabService.deleteItem(id).subscribe(() => {
       this.messageService.add({
         severity: 'success',
-        detail: 'Done!'
-      })
-    })
+        detail: 'Done!',
+      });
+    });
   }
 }

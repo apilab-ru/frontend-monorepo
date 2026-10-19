@@ -1,11 +1,16 @@
 import {
   ChangeDetectionStrategy,
-  Component, EventEmitter,
-  Input, OnChanges, OnInit, Output, SimpleChanges,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
 } from '@angular/core';
-import { JsonData, UpdateValueEvent, Value } from "../../interface";
-import { FormControl, FormGroup } from "@angular/forms";
-import { combineLatest, map, Observable, ReplaySubject, startWith } from "rxjs";
+import { JsonData, UpdateValueEvent, Value } from '../../interface';
+import { FormControl, FormGroup } from '@angular/forms';
+import { combineLatest, map, Observable, ReplaySubject, startWith } from 'rxjs';
 
 enum FieldType {
   object = 'object',
@@ -26,6 +31,7 @@ const MAX_PREVIEW_LENGTH = 20;
   templateUrl: './json-row.component.html',
   styleUrls: ['./json-row.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class JsonRowComponent implements OnChanges, OnInit {
   @Input() key: string;
@@ -42,18 +48,13 @@ export class JsonRowComponent implements OnChanges, OnInit {
   private fields = new ReplaySubject<Field[]>(1);
 
   ngOnInit(): void {
-    this.fields$ = combineLatest([
-      this.fields,
-      this.formGroup.controls.search.valueChanges.pipe(
-        startWith('')
-      )
-    ]).pipe(
+    this.fields$ = combineLatest([this.fields, this.formGroup.controls.search.valueChanges.pipe(startWith(''))]).pipe(
       map(([fields, search]) => {
         if (!search) {
           return fields;
         }
 
-        return fields.filter(item => item.fullValue.includes(search));
+        return fields.filter((item) => item.fullValue.includes(search));
       })
     );
   }
@@ -76,21 +77,21 @@ export class JsonRowComponent implements OnChanges, OnInit {
     this.updateValue.emit({
       key: field.key,
       value: value,
-    })
+    });
   }
 
   private prepareFields(): Field[] {
     const keys = Object.keys(this.data);
     const fields: Field[] = [];
-    keys.forEach(key => {
-      const type = typeof this.data[key] === "object" ? FieldType.object : FieldType.simple;
+    keys.forEach((key) => {
+      const type = typeof this.data[key] === 'object' ? FieldType.object : FieldType.simple;
       fields.push({
         key,
         type,
         value: this.prepareValue(key, type),
-        fullValue: JSON.stringify(this.data[key])
-      })
-    })
+        fullValue: JSON.stringify(this.data[key]),
+      });
+    });
 
     return fields;
   }
@@ -105,7 +106,7 @@ export class JsonRowComponent implements OnChanges, OnInit {
 
   private initForm(): FormGroup {
     return new FormGroup({
-      search: new FormControl<string>('')
-    })
+      search: new FormControl<string>(''),
+    });
   }
 }

@@ -5,29 +5,23 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 const LANG_MAP = {
-  'ru': 'ru-RU',
-  'en': 'en-US',
+  ru: 'ru-RU',
+  en: 'en-US',
 };
 
 @Pipe({
-  name: 'appDate'
+  name: 'appDate',
+  standalone: false,
 })
 export class AppDatePipe implements PipeTransform {
   lang$ = this.translocoService.langChanges$.pipe(
     // @ts-ignore
-    map(lang => LANG_MAP[lang]),
+    map((lang) => LANG_MAP[lang])
   );
 
-  constructor(
-    private datePipe: CommonDatePipe,
-    private translocoService: TranslocoService,
-  ) {
-  }
+  constructor(private datePipe: CommonDatePipe, private translocoService: TranslocoService) {}
 
   transform(date: string | Date, format: string = 'LLLL, YYYY'): Observable<string | null> {
-    return this.lang$.pipe(
-      map(lang => this.datePipe.transform(date, format, undefined, lang))
-    );
+    return this.lang$.pipe(map((lang) => this.datePipe.transform(date, format, undefined, lang)));
   }
-
 }

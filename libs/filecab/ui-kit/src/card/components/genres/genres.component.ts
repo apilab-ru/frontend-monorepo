@@ -7,13 +7,14 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { Genre } from "@filecab/models/genre";
+import { Genre } from '@filecab/models/genre';
 
 @Component({
   selector: 'filecab-genres',
   templateUrl: './genres.component.html',
   styleUrls: ['./genres.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class GenresComponent implements OnChanges {
   @Input() list: number[];
@@ -25,8 +26,9 @@ export class GenresComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.list && this.genres) {
-      this.genresList = this.list.map(id => this.genres.find(genre => genre.id === +id))
-        .filter(it => !!it) as Genre[];
+      this.genresList = this.list
+        .map((id) => this.genres.find((genre) => genre.id === +id))
+        .filter((it) => !!it) as Genre[];
     }
   }
 

@@ -4,28 +4,20 @@
   "projectType": "application",
   "sourceRoot": "apps/filecab/cabinet/src",
   "prefix": "cabinet",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "apps/filecab/dist/cabinet",
         "index": "apps/filecab/cabinet/src/index.html",
         "main": "apps/filecab/cabinet/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/filecab/cabinet/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": [
-          "apps/filecab/cabinet/src/wish-list-icon.png",
-          "apps/filecab/cabinet/src/assets"
-        ],
-        "styles": [
-          "apps/filecab/cabinet/src/styles.scss"
-        ],
+        "assets": ["apps/filecab/cabinet/src/wish-list-icon.png", "apps/filecab/cabinet/src/assets"],
+        "styles": ["apps/filecab/cabinet/src/styles.scss"],
         "optimization": {
           "scripts": true,
           "styles": {
@@ -74,7 +66,7 @@
           "buildOptimizer": true
         },
         "development": {
-          "baseHref": "./index.html?/",
+          "baseHref": "./",
           "buildOptimizer": false,
           "optimization": false,
           "vendorChunk": true,
@@ -104,20 +96,21 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "filecab-cabinet:build:production"
+          "buildTarget": "filecab-cabinet:build:production"
         },
         "development": {
-          "browserTarget": "filecab-cabinet:build:development",
+          "buildTarget": "filecab-cabinet:build:development",
           "watch": true
         },
         "browser": {
-          "browserTarget": "filecab-cabinet:build:browser",
+          "buildTarget": "filecab-cabinet:build:browser",
           "proxyConfig": "apps/filecab/cabinet/src/proxy.conf.json",
           "ssl": true,
           "disableHostCheck": true
         }
       },
-      "defaultConfiguration": "browser"
+      "defaultConfiguration": "browser",
+      "continuous": true
     },
     "storybook": {
       "executor": "@storybook/angular:start-storybook",
@@ -126,14 +119,10 @@
         "port": 6006,
         "configDir": "apps/filecab/cabinet/.storybook",
         "tsConfig": "apps/filecab/cabinet/.storybook/tsconfig.json",
-        "styles": [
-          "apps/filecab/cabinet/.storybook/global.scss"
-        ],
+        "styles": ["apps/filecab/cabinet/.storybook/global.scss"],
         "compodoc": false,
         "stylePreprocessorOptions": {
-          "includePaths": [
-            "."
-          ]
+          "includePaths": ["."]
         }
       }
     },
@@ -143,42 +132,29 @@
         "browserTarget": "filecab-cabinet:build:development",
         "configDir": "apps/filecab/cabinet/.storybook",
         "tsConfig": "apps/filecab/cabinet/.storybook/tsconfig.json",
-        "styles": [
-          "apps/filecab/cabinet/.storybook/global.scss"
-        ],
+        "styles": ["apps/filecab/cabinet/.storybook/global.scss"],
         "compodoc": false,
         "stylePreprocessorOptions": {
-          "includePaths": [
-            "."
-          ]
+          "includePaths": ["."]
         },
         "outputDir": "dist/storybook/filecab-cabinet"
       },
-      "outputs": [
-        "{options.outputDir}"
-      ]
+      "outputs": ["{options.outputDir}"]
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "apps/filecab/cabinet",
-          "apps/filecab-cabinet/**/*.ts",
-          "apps/filecab-cabinet/**/*.html"
-        ]
+        "lintFilePatterns": ["apps/filecab/cabinet", "apps/filecab-cabinet/**/*.ts", "apps/filecab-cabinet/**/*.html"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/filecab/cabinet/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "tsConfig": "apps/filecab/cabinet/tsconfig.spec.json"
       },
       "configurations": {
         "ci": {
@@ -187,6 +163,5 @@
         }
       }
     }
-  },
-  "tags": []
+  }
 }

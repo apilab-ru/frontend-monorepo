@@ -9,20 +9,17 @@ import { BehaviorSubject } from 'rxjs';
   templateUrl: './time.component.html',
   styleUrls: ['./time.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TimeComponent), multi: true }
-  ]
+  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TimeComponent), multi: true }],
+  standalone: false,
 })
 export class TimeComponent implements ControlValueAccessor {
   value: TimeDto;
   valueString$ = new BehaviorSubject<string>('');
   mask = '00:00';
 
-  private propagateChange: (value: TimeDto) => void = (arg: TimeDto) => {
-  }
+  private propagateChange: (value: TimeDto) => void = (arg: TimeDto) => {};
 
-  constructor(private timeService: TimeService) {
-  }
+  constructor(private timeService: TimeService) {}
 
   updateValue(value: string): void {
     this.valueString$.next(value);
@@ -42,13 +39,11 @@ export class TimeComponent implements ControlValueAccessor {
     this.propagateChange = fn;
   }
 
-  registerOnTouched(fn): void {
-  }
+  registerOnTouched(fn): void {}
 
   setNow(): void {
     this.value = TimeService.getNow();
     this.propagateChange(this.value);
     this.valueString$.next(this.timeService.getStringTime(this.value));
   }
-
 }

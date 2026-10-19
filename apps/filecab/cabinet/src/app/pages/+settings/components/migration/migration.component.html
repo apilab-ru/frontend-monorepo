@@ -1,51 +1,35 @@
 <div class="root">
-  <div class="row">
-    <div class="rows">
-        <span class="p-float-label input-box">
-          <textarea
-            class="textarea"
-            [ngModel]="rawData"
-            (ngModelChange)="onInput($event)"
-            id="float-input"
-            pInputTextarea
-          ></textarea>
-          <label for="float-input">Old list</label>
-      </span>
+   <div class="row">
+      <div class="rows">
+         <span class="p-float-label input-box">
+            <textarea
+               class="textarea"
+               [ngModel]="rawData"
+               (ngModelChange)="onInput($event)"
+               id="float-input"
+               pTextarea
+            ></textarea>
+            <label for="float-input">Old list</label>
+         </span>
 
-      <div class="p-float-label chunk-box">
-        <input class="input-chunk" id="chunk" type="text" pInputText [(ngModel)]="chunkSize">
-        <label for="chunk">Chunk</label>
+         <div class="p-float-label chunk-box">
+            <input class="input-chunk" id="chunk" type="text" pInputText [(ngModel)]="chunkSize" />
+            <label for="chunk">Chunk</label>
+         </div>
+
+         <div class="controls">
+            <p-button class="button" label="Process" [loading]="process$ | async" (click)="startMigration()"></p-button>
+
+            <p-button class="button" label="Recheck" [loading]="process$ | async" (click)="reCheckLibrary()"></p-button>
+
+            <p-button class="button" label="Save to library" (click)="saveToLibrary()"></p-button>
+         </div>
       </div>
 
-      <div class="controls">
-        <p-button
-          class="button"
-          label="Process"
-          [loading]="process$ | async"
-          (click)="startMigration()"
-        ></p-button>
+      <p>Parsed: {{ parsedList?.length | json }}, Completed: {{ readyItems?.length | json }}</p>
+   </div>
 
-        <p-button
-          class="button"
-          label="Recheck"
-          [loading]="process$ | async"
-          (click)="reCheckLibrary()"
-        ></p-button>
-
-        <p-button
-          class="button"
-          label="Save to library"
-          (click)="saveToLibrary()"
-        ></p-button>
-      </div>
-    </div>
-
-    <p>
-      Parsed: {{ parsedList?.length | json }}, Completed: {{ readyItems?.length | json }}
-    </p>
-  </div>
-
-  <!--div class="migrated-box">
+   <!--div class="migrated-box">
     <div *ngIf="readyItems?.length" class="migrated">
       <filecab-media-item
         *ngFor="let item of readyItems"

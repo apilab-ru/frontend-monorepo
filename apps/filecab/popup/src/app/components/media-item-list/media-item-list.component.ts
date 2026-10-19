@@ -5,16 +5,17 @@ import {
   Input,
   OnChanges,
   Output,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
-import { MediaItemV2 } from "@filecab/models/library";
-import { Genre } from "@filecab/models/genre";
+import { MediaItemV2 } from '@filecab/models/library';
+import { Genre } from '@filecab/models/genre';
 
 @Component({
   selector: 'popup-media-item-list',
   templateUrl: './media-item-list.component.html',
   styleUrls: ['./media-item-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class MediaItemListComponent implements OnChanges {
   @Input() isLoading = true;
@@ -32,7 +33,7 @@ export class MediaItemListComponent implements OnChanges {
     if ((list || isSearchMode) && this.list?.length === 1 && !this.isManual && this.isSearchMode) {
       setTimeout(() => {
         this.selectItem.emit(this.list[0]);
-      })
+      });
     }
   }
 

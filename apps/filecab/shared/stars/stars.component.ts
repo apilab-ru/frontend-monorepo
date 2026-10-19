@@ -14,30 +14,30 @@ import { BehaviorSubject } from 'rxjs';
 @Component({
   selector: 'app-stars',
   template: `
-    <span class="star"
-          *ngFor="let star of list"
-          [class.selected]="(currentStar$ | async) >= star"
-          [class.hovered]="(hoveredStar$ | async) >= star"
-          (click)="selectStar(star)"
-          (mouseenter)="onHover(star)"
+    <span
+      class="star"
+      *ngFor="let star of list"
+      [class.selected]="(currentStar$ | async) >= star"
+      [class.hovered]="(hoveredStar$ | async) >= star"
+      (click)="selectStar(star)"
+      (mouseenter)="onHover(star)"
     ></span>
     <span class="counter">{{ (currentStar$ | async) || 0 }} / 10</span>
   `,
   styleUrls: ['stars.component.scss'],
   encapsulation: ViewEncapsulation.ShadowDom,
-  providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => StarsComponent), multi: true },
-  ],
+  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => StarsComponent), multi: true }],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class StarsComponent implements ControlValueAccessor {
   @Input() set star(star: number) {
     this.currentStar$.next(star);
-  };
+  }
 
   @Output() setStars = new EventEmitter<number>();
 
-  list = Array.from(Array(10).keys()).map(item => ++item);
+  list = Array.from(Array(10).keys()).map((item) => ++item);
   currentStar$ = new BehaviorSubject<number>(0);
   hoveredStar$ = new BehaviorSubject<number>(0);
 
@@ -55,8 +55,7 @@ export class StarsComponent implements ControlValueAccessor {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
-  }
+  registerOnTouched(fn: any): void {}
 
   onHover(star: number): void {
     this.hoveredStar$.next(star);
@@ -74,5 +73,4 @@ export class StarsComponent implements ControlValueAccessor {
   checkSelected(star: number): boolean {
     return star <= this.star;
   }
-
 }

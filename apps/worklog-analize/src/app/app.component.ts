@@ -6,6 +6,7 @@ import { ROUTES } from './routes';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class AppComponent {
   githubLink = 'https://github.com/apilab-ru/worklog-analize';

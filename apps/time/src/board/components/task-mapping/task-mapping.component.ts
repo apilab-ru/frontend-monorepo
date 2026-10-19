@@ -7,15 +7,13 @@ import { TaskMapItem } from '../../models/task-map-item';
   selector: 'app-task-mapping',
   templateUrl: './task-mapping.component.html',
   styleUrls: ['./task-mapping.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class TaskMappingComponent implements OnInit {
   taskMapList$: Observable<TaskMapItem[]>;
 
-  constructor(
-    private taskMapService: TaskMapService
-  ) {
-  }
+  constructor(private taskMapService: TaskMapService) {}
 
   ngOnInit(): void {
     this.taskMapList$ = this.taskMapService.taskMapList$;

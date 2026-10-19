@@ -6,6 +6,7 @@ import { FEEDBACK } from './const';
   templateUrl: './feedback.component.html',
   styleUrls: ['./feedback.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class FeedbackComponent {
   feedback = FEEDBACK;

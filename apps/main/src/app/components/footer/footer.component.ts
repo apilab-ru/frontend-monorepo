@@ -8,6 +8,7 @@ import { provideTranslation } from '@shared/translations';
   changeDetection: ChangeDetectionStrategy.OnPush,
   // @ts-ignore
   providers: [provideTranslation('footer', () => import.meta.webpackContext('./translation'))],
+  standalone: false,
 })
 export class FooterComponent {
   year = new Date();

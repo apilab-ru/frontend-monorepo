@@ -1,26 +1,22 @@
-import { Injectable } from "@angular/core";
-import { MessageService } from "primeng/api";
-import { Message } from "primeng/api/message";
+import { Injectable } from '@angular/core';
+import { MessageService, ToastMessageOptions } from 'primeng/api';
 
 @Injectable()
 export class UiMessagesService {
-  constructor(
-    private messageService: MessageService,
-  ) {
-  }
+  constructor(private messageService: MessageService) {}
 
-  success(data: Message): void {
+  success(data: ToastMessageOptions): void {
     this.messageService.add({
       severity: 'success',
       ...data,
-    })
+    });
   }
 
-  error(data: Message): void {
+  error(data: ToastMessageOptions): void {
     this.messageService.add({
       severity: 'error',
       summary: 'Error',
       ...data,
-    })
+    });
   }
 }

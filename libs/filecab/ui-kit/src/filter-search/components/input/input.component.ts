@@ -1,33 +1,36 @@
 import {
   ChangeDetectionStrategy,
-  Component, ElementRef, EventEmitter,
+  Component,
+  ElementRef,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
   Output,
   SimpleChanges,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
-import { FormControl } from "@angular/forms";
-import { combineLatest, delay, map, merge, Observable, of, Subject, switchMap } from "rxjs";
-import { FSDropdownValue } from "../../interface";
-import { DropdownComponent } from "../dropdown/dropdown.component";
+import { FormControl } from '@angular/forms';
+import { combineLatest, delay, map, merge, Observable, of, Subject, switchMap } from 'rxjs';
+import { FSDropdownValue } from '../../interface';
+import { DropdownComponent } from '../dropdown/dropdown.component';
 
-import { makeStore } from "@store";
-import { filterUndefined } from "@store/rxjs/filter-undefined";
-import { FSEventSelectValue } from "../../fs-event-select";
+import { makeStore } from '@store';
+import { filterUndefined } from '@store/rxjs/filter-undefined';
+import { FSEventSelectValue } from '../../fs-event-select';
 
 const store = {
   selected: null as string | null,
   isOpen: false,
   list: undefined as undefined | FSDropdownValue[],
-}
+};
 
 @Component({
   selector: 'filecab-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class InputComponent implements OnInit, OnChanges {
   @Input() list: FSDropdownValue[];
@@ -51,22 +54,12 @@ export class InputComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    const isOpen$ = this.store.isOpen.pipe(
-      switchMap(isOpen => isOpen ? of(true) : of(false).pipe(
-        delay(300),
-      ))
-    )
+    const isOpen$ = this.store.isOpen.pipe(switchMap((isOpen) => (isOpen ? of(true) : of(false).pipe(delay(300)))));
 
-    this.isOpen$ = merge(
-      isOpen$,
-      this.forceClose.pipe(map(() => false)),
-    )
+    this.isOpen$ = merge(isOpen$, this.forceClose.pipe(map(() => false)));
 
-    this.selected$ = combineLatest([
-      this.store.selected,
-      this.store.list.pipe(filterUndefined())
-    ]).pipe(
-      map(([selected, list]) => !selected ? null : list.find(it => it.key === selected) || null)
+    this.selected$ = combineLatest([this.store.selected, this.store.list.pipe(filterUndefined())]).pipe(
+      map(([selected, list]) => (!selected ? null : list.find((it) => it.key === selected) || null))
     );
   }
 

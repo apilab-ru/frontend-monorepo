@@ -4,6 +4,7 @@
   "projectType": "application",
   "sourceRoot": "apps/time/src",
   "prefix": "app",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
@@ -61,18 +62,19 @@
       },
       "configurations": {
         "production": {
-          "browserTarget": "time:build:production"
+          "buildTarget": "time:build:production"
         },
         "development": {
-          "browserTarget": "time:build:development"
+          "buildTarget": "time:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "continuous": true
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "time:build"
+        "buildTarget": "time:build"
       }
     },
     "lint": {
@@ -84,7 +86,8 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/time/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "tsConfig": "apps/time/tsconfig.spec.json"
       },
       "configurations": {
         "ci": {
@@ -93,6 +96,5 @@
         }
       }
     }
-  },
-  "tags": []
+  }
 }

@@ -7,6 +7,7 @@ import { TimeService } from '../../services/time.service';
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class ItemComponent {
   @Input() item: TimeItem;
@@ -14,8 +15,7 @@ export class ItemComponent {
   @Output() deleteItem = new EventEmitter();
   @Output() updateItem = new EventEmitter<TimeItem>();
 
-  constructor(private timeService: TimeService) {
-  }
+  constructor(private timeService: TimeService) {}
 
   delete(): void {
     this.deleteItem.emit();
@@ -28,9 +28,8 @@ export class ItemComponent {
   onChange<Key extends keyof TimeItem>(value: TimeItem[Key], field: Key): void {
     const result = {
       ...this.item,
-      [field]: value
-    }
+      [field]: value,
+    };
     this.updateItem.emit(result);
   }
-
 }

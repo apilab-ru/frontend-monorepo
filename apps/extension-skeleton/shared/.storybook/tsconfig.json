@@ -1,19 +1,11 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "types": [
-      "node", "chrome"
-    ],
+    "types": ["node", "chrome"],
     "allowSyntheticDefaultImports": true,
+    "moduleResolution": "bundler"
   },
-  "exclude": [
-    "../test.ts",
-    "../**/*.spec.ts"
-  ],
-  "include": [
-    "../**/*.stories.ts", "../**/*.d.ts"
-  ],
-  "files": [
-    "./typings.d.ts"
-  ]
+  "exclude": ["../test.ts", "../**/*.spec.ts"],
+  "include": ["../**/*.stories.ts", "../**/*.d.ts"],
+  "files": ["./typings.d.ts"]
 }

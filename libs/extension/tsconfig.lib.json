@@ -3,9 +3,9 @@
   "compilerOptions": {
     "outDir": "dist",
     "declaration": true,
-    "declarationMap": true
+    "declarationMap": true,
+    "moduleResolution": "node"
   },
-  "exclude": ["src/**/*.spec.ts",
-    "background/src/test-setup.ts", "jest.config.ts", "src/**/*.test.ts"],
+  "exclude": ["src/**/*.spec.ts", "background/src/test-setup.ts", "jest.config.ts", "src/**/*.test.ts"],
   "include": ["background/**/*.ts", "background-angular/**/*.ts", "scripts/*.js"]
 }

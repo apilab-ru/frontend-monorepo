@@ -10,7 +10,7 @@ import { Title } from '@angular/platform-browser';
 import { provideTranslation, registerTranslationManually } from '@shared/translations';
 import { PortfolioService } from '../../portfolio/portfolio.service';
 import { Project } from '../../components/interfaces/project';
-import { MatDialog } from "@angular/material/dialog";
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-page',
@@ -19,6 +19,7 @@ import { MatDialog } from "@angular/material/dialog";
   changeDetection: ChangeDetectionStrategy.OnPush,
   // @ts-ignore
   providers: [provideTranslation('page', () => import.meta.webpackContext('./translation'))],
+  standalone: false,
 })
 export class PageComponent implements AfterViewInit, OnInit {
   constructor(
@@ -28,48 +29,51 @@ export class PageComponent implements AfterViewInit, OnInit {
     private router: Router,
     private translocoService: TranslocoService,
     private title: Title,
-    private portfolioService: PortfolioService,
-  ) {
-  }
+    private portfolioService: PortfolioService
+  ) {}
 
   ngOnInit(): void {
     // @ts-ignore
     registerTranslationManually('page', () => import.meta.webpackContext('./translation'), this.translocoService);
 
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
-      startWith(undefined),
-      map(() => this.activatedRoute.snapshot.data?.lang),
-      distinctUntilChanged(),
-    ).subscribe(lang => {
-      this.translocoService.setActiveLang(lang);
-    });
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        startWith(undefined),
+        map(() => this.activatedRoute.snapshot.data?.lang),
+        distinctUntilChanged()
+      )
+      .subscribe((lang) => {
+        this.translocoService.setActiveLang(lang);
+      });
 
-    this.translocoService
-      .selectTranslate('page.title')
-      .subscribe(title => this.title.setTitle(title));
+    this.translocoService.selectTranslate('page.title').subscribe((title) => this.title.setTitle(title));
   }
 
   private openProject(project: Project): Observable<void> {
-    return this.dialog.open(ModalProjectComponent, {
-      data: project
-    }).afterClosed();
+    return this.dialog
+      .open(ModalProjectComponent, {
+        data: project,
+      })
+      .afterClosed();
   }
 
   ngAfterViewInit(): void {
     this.scrollNavigationService.initListener();
 
-    this.activatedRoute.queryParams.pipe(
-      map(({ project }) => project),
-      filter(project => !!project),
-      switchMap(projectId => this.portfolioService.loadProject(projectId)),
-      switchMap(project => this.openProject(project))
-    ).subscribe(() => {
-      this.router.navigate([], {
-        preserveFragment: true,
-        queryParams: { project: null },
-        queryParamsHandling: 'merge'
+    this.activatedRoute.queryParams
+      .pipe(
+        map(({ project }) => project),
+        filter((project) => !!project),
+        switchMap((projectId) => this.portfolioService.loadProject(projectId)),
+        switchMap((project) => this.openProject(project))
+      )
+      .subscribe(() => {
+        this.router.navigate([], {
+          preserveFragment: true,
+          queryParams: { project: null },
+          queryParamsHandling: 'merge',
+        });
       });
-    })
   }
 }

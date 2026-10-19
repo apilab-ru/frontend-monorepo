@@ -1,17 +1,15 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { JsonDataService } from "../../services/json-data.service";
+import { JsonDataService } from '../../services/json-data.service';
 
 @Component({
   selector: 'je-json-input',
   templateUrl: './json-input.component.html',
   styleUrls: ['./json-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class JsonInputComponent {
-  constructor(
-    private jsonDataService: JsonDataService,
-  ) {
-  }
+  constructor(private jsonDataService: JsonDataService) {}
 
   fileChange(target: EventTarget | null): void {
     const files = (target as HTMLInputElement)?.files;
@@ -27,8 +25,7 @@ export class JsonInputComponent {
     reader.onload = (event: ProgressEvent) => {
       const res = JSON.parse((event as any).target['result']);
       this.jsonDataService.addFile(res, file.name);
-    }
+    };
     reader.readAsText(file);
   }
-
 }

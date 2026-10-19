@@ -5,7 +5,8 @@ import { UpdateEvent } from '../../models/update-event';
 @Component({
   selector: 'app-time-board-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
+  standalone: false,
 })
 export class TimeBoardListComponent {
   @Input() list: TimeItem[] = [];
@@ -20,7 +21,7 @@ export class TimeBoardListComponent {
   onUpdateItem(index: number, item: TimeItem): void {
     this.updateItem.emit({
       index,
-      item
+      item,
     });
   }
 

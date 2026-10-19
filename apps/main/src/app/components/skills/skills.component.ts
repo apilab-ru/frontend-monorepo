@@ -8,6 +8,6 @@ import { provideTranslation } from '@shared/translations';
   // @ts-ignore
   providers: [provideTranslation('skills', () => import.meta.webpackContext('./translation'))],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
-export class SkillsComponent {
-}
+export class SkillsComponent {}

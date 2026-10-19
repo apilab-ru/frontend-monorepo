@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { MigrationProcessData } from "./interface";
-import { LibraryItemV2, ManyResultItem, MediaItemV2, PreparedItem } from "@filecab/models/library";
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MigrationProcessData } from './interface';
+import { LibraryItemV2, ManyResultItem, MediaItemV2, PreparedItem } from '@filecab/models/library';
 import {
   BehaviorSubject,
   catchError,
@@ -12,16 +12,16 @@ import {
   ReplaySubject,
   shareReplay,
   switchMap,
-  tap
-} from "rxjs";
-import { FormControl, FormGroup } from "@angular/forms";
-import { Types } from "@filecab/models/types";
-import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
-import { BackgroundService, FileCabApi } from "@filecab/background";
-import { Environment } from "@environments/model";
-import format from 'date-fns/format'
-import { MetaData } from "@filecab/models/meta-data";
-import { makeStore } from "@store";
+  tap,
+} from 'rxjs';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Types } from '@filecab/models/types';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { BackgroundService, FileCabApi } from '@filecab/background';
+import { Environment } from '@environments/model';
+import format from 'date-fns/format';
+import { MetaData } from '@filecab/models/meta-data';
+import { makeStore } from '@store';
 
 @UntilDestroy()
 @Component({
@@ -29,7 +29,8 @@ import { makeStore } from "@store";
   templateUrl: './migration-process.component.html',
   styleUrls: ['./migration-process.component.scss'],
   encapsulation: ViewEncapsulation.Emulated,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class MigrationProcessComponent implements OnInit {
   process: ManyResultItem[];
@@ -46,7 +47,7 @@ export class MigrationProcessComponent implements OnInit {
   private fileCabApi: FileCabApi;
   private store = makeStore({
     meta: null as null | MetaData,
-  })
+  });
 
   meta$ = this.store.meta.asObservable();
 
@@ -54,7 +55,7 @@ export class MigrationProcessComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private data: MigrationProcessData,
     private matDialogRef: MatDialogRef<LibraryItemV2[]>,
     private backgroundService: BackgroundService,
-    private env: Environment,
+    private env: Environment
   ) {
     this.process = data.items;
 
@@ -79,25 +80,20 @@ export class MigrationProcessComponent implements OnInit {
         this.form.patchValue({
           name: item.name || item.item.title || '',
           type: item.type,
-        })
+        });
 
-        return merge(
-          this.itemsSubject,
-          this.loadResult(),
-        )
+        return merge(this.itemsSubject, this.loadResult());
       }),
-      shareReplay({ refCount: true, bufferSize: 1 }),
+      shareReplay({ refCount: true, bufferSize: 1 })
     );
 
-    this.items$.pipe(
-      untilDestroyed(this)
-    ).subscribe();
+    this.items$.pipe(untilDestroyed(this)).subscribe();
   }
 
   updateMeta(meta: MetaData): void {
     this.store.meta.next({
       ...this.store.meta.value,
-      ...meta
+      ...meta,
     });
   }
 
@@ -115,7 +111,7 @@ export class MigrationProcessComponent implements OnInit {
       name,
       dateAd: '',
       dateChange: '',
-      item: mediaItem
+      item: mediaItem,
     };
     this.results.push(item);
 
@@ -125,25 +121,27 @@ export class MigrationProcessComponent implements OnInit {
   private loadResult(): Observable<MediaItemV2[]> {
     return this.form.valueChanges.pipe(
       // skip(1),
-      switchMap(form => {
+      switchMap((form) => {
         this.isLoading$.next(true);
 
-        return this.fileCabApi.searchApi({
-          type: form.type,
-          param: { name: form.name }
-        }).pipe(
-          map(res => res.results as MediaItemV2[]),
-          catchError(error => {
-            console.error(error);
-            return of([]);
-          }),
-        )
+        return this.fileCabApi
+          .searchApi({
+            type: form.type,
+            param: { name: form.name },
+          })
+          .pipe(
+            map((res) => res.results as MediaItemV2[]),
+            catchError((error) => {
+              console.error(error);
+              return of([]);
+            })
+          );
       }),
-      tap(list => {
+      tap((list) => {
         console.log('xxx list', list);
-        this.isLoading$.next(false)
-      }),
-    )
+        this.isLoading$.next(false);
+      })
+    );
   }
 
   next(): void {

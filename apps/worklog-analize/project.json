@@ -4,6 +4,7 @@
   "projectType": "application",
   "sourceRoot": "apps/worklog-analize/src",
   "prefix": "utils-monorep",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
@@ -58,24 +59,24 @@
       },
       "configurations": {
         "production": {
-          "browserTarget": "worklog-analize:build:production"
+          "buildTarget": "worklog-analize:build:production"
         },
         "development": {
-          "browserTarget": "worklog-analize:build:development"
+          "buildTarget": "worklog-analize:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "continuous": true
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "worklog-analize:build"
+        "buildTarget": "worklog-analize:build"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"]
     }
-  },
-  "tags": []
+  }
 }

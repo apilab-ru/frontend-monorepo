@@ -7,6 +7,7 @@ import { provideTranslation } from '@shared/translations';
   styleUrls: ['./about.component.scss'],
   providers: [provideTranslation('about', () => import.meta.webpackContext('./translation'))],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class AboutComponent {
   email = 'viktor@apilab.ru';

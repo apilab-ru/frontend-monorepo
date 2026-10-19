@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Work } from '../interfaces/work';
 import { provideTranslation } from '@shared/translations';
-import differenceInDays from "date-fns/differenceInDays";
+import differenceInDays from 'date-fns/differenceInDays';
 
 @Component({
   selector: 'app-item-work',
@@ -10,6 +10,7 @@ import differenceInDays from "date-fns/differenceInDays";
   // @ts-ignore
   providers: [provideTranslation('itemWork', () => import.meta.webpackContext('./translation'))],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class ItemWorkComponent implements OnChanges {
   @Input() work: Work;
@@ -18,10 +19,9 @@ export class ItemWorkComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.work) {
-      this.durationsInMonths = Math.round(differenceInDays(
-        this.work.dateTo ? new Date(this.work.dateTo) : new Date(),
-        new Date(this.work.dateFrom),
-      ) / 30);
+      this.durationsInMonths = Math.round(
+        differenceInDays(this.work.dateTo ? new Date(this.work.dateTo) : new Date(), new Date(this.work.dateFrom)) / 30
+      );
     }
   }
 }

@@ -10,15 +10,13 @@ import { provideTranslation } from '@shared/translations';
   // @ts-ignore
   providers: [provideTranslation('menu', () => import.meta.webpackContext('./translation'))],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class MenuComponent {
   sectionId$ = this.scrollNavigationService.sectionId$;
   menuList = MENU;
 
-  constructor(
-    private scrollNavigationService: ScrollNavigationService,
-  ) {
-  }
+  constructor(private scrollNavigationService: ScrollNavigationService) {}
 
   scrollTo(sectionId: string): void {
     this.scrollNavigationService.scrollTo(sectionId);

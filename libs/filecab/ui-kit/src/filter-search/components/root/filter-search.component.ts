@@ -6,15 +6,16 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges, ViewChild
+  SimpleChanges,
+  ViewChild,
 } from '@angular/core';
-import { FilterSearchData, FSDropdownValue, SearchValue } from "../../interface";
-import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
-import { BehaviorSubject, filter, Observable, skip } from "rxjs";
-import isEqual from "lodash-es/isEqual";
-import { BASE_SEARCH_DATA } from "../../const";
-import { FSEventSelectValue } from "../../fs-event-select";
-import { InputComponent } from "../input/input.component";
+import { FilterSearchData, FSDropdownValue, SearchValue } from '../../interface';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { BehaviorSubject, filter, Observable, skip } from 'rxjs';
+import isEqual from 'lodash-es/isEqual';
+import { BASE_SEARCH_DATA } from '../../const';
+import { FSEventSelectValue } from '../../fs-event-select';
+import { InputComponent } from '../input/input.component';
 
 @UntilDestroy()
 @Component({
@@ -22,6 +23,7 @@ import { InputComponent } from "../input/input.component";
   templateUrl: './filter-search.component.html',
   styleUrls: ['./filter-search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class FilterSearchComponent implements OnInit, OnChanges {
   @Input() list: FSDropdownValue[];
@@ -42,28 +44,28 @@ export class FilterSearchComponent implements OnInit, OnChanges {
 
     if (list && this.list) {
       this.presets = {};
-      this.list.forEach(item => {
+      this.list.forEach((item) => {
         this.presets[item.key!] = item;
-      })
+      });
     }
   }
 
   ngOnInit(): void {
-    this.store.pipe(
-      skip(1),
-      filter(value => !isEqual(value, this.value)),
-      untilDestroyed(this)
-    ).subscribe(value => {
-      this.valueChanges.emit(value);
-    })
+    this.store
+      .pipe(
+        skip(1),
+        filter((value) => !isEqual(value, this.value)),
+        untilDestroyed(this)
+      )
+      .subscribe((value) => {
+        this.valueChanges.emit(value);
+      });
 
     this.options$ = this.store.asObservable();
   }
 
   onRemoveChip(index: number): void {
-    this.store.next(
-      this.store.value.filter((_, i) => i !== index)
-    )
+    this.store.next(this.store.value.filter((_, i) => i !== index));
   }
 
   onEditChip(index: number, item: SearchValue): void {
@@ -80,7 +82,7 @@ export class FilterSearchComponent implements OnInit, OnChanges {
   private handleAddOption(value: SearchValue): void {
     const options = this.store.value || [];
     this.store.next([
-      ...options.filter(it => {
+      ...options.filter((it) => {
         if (it.key !== value.key) {
           return true;
         }
@@ -93,6 +95,6 @@ export class FilterSearchComponent implements OnInit, OnChanges {
         return true;
       }),
       value,
-    ])
+    ]);
   }
 }

@@ -1,15 +1,12 @@
-import {
-  ChangeDetectionStrategy,
-  Component, EventEmitter, Input, Output,
-} from '@angular/core';
-import { Integration } from "../../interfase";
-
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Integration } from '../../interfase';
 
 @Component({
   selector: 'app-integration-item',
   templateUrl: './integration-item.component.html',
   styleUrls: ['./integration-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class IntegrationItemComponent {
   @Input() integration: Integration;

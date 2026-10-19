@@ -1,7 +1,8 @@
+import { provideFilecabTheme } from '@filecab/ui-kit/theme/prime-ng.providers';
 import * as Sentry from '@sentry/angular';
 import { Router } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule, inject, provideAppInitializer } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Environment } from '@environments/model';
@@ -11,22 +12,18 @@ import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { ROUTES } from './routes';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
-import { LibraryItemEditModule } from "@filecab/ui-kit/library-item-edit";
-import { MediaItemListComponent } from "./components/media-item-list/media-item-list.component";
+import { LibraryItemEditModule } from '@filecab/ui-kit/library-item-edit';
+import { MediaItemListComponent } from './components/media-item-list/media-item-list.component';
 import { SkeletonModule } from 'primeng/skeleton';
-import { MediaItemModule } from "@filecab/ui-kit/media-item";
-import { ButtonModule } from "primeng/button";
-import { RippleModule } from "primeng/ripple";
-import { UiKitHorizontalScrollDirective } from "@ui-kit/scroll/horizontal-scroll.directive";
-import { UiMessagesModule } from "@ui-kit/messages/messages.module";
-import { DefaultRouteReuseStrategy } from "./services/stop-resuse.router-strategy";
+import { MediaItemModule } from '@filecab/ui-kit/media-item';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+import { UiKitHorizontalScrollDirective } from '@ui-kit/scroll/horizontal-scroll.directive';
+import { UiMessagesModule } from '@ui-kit/messages/messages.module';
+import { DefaultRouteReuseStrategy } from './services/stop-resuse.router-strategy';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    EditItemComponent,
-    MediaItemListComponent,
-  ],
+  declarations: [AppComponent, EditItemComponent, MediaItemListComponent],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
@@ -42,13 +39,11 @@ import { DefaultRouteReuseStrategy } from "./services/stop-resuse.router-strateg
     UiMessagesModule,
   ],
   providers: [
+    provideFilecabTheme(),
     { provide: Sentry.TraceService, deps: [Router] },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: () => (): void => undefined,
-      deps: [Sentry.TraceService],
-      multi: true,
-    },
+    provideAppInitializer(() => {
+      inject(Sentry.TraceService);
+    }),
     {
       provide: Environment,
       useValue: environment,
@@ -60,5 +55,4 @@ import { DefaultRouteReuseStrategy } from "./services/stop-resuse.router-strateg
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

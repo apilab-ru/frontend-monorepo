@@ -43,27 +43,23 @@
          {{ page }}
       </div>
 
-      <div *ngIf="totalPages$ | async as totalPages" class="page -total">
-         &nbsp;/ {{ totalPages }}
-      </div>
+      <div *ngIf="totalPages$ | async as totalPages" class="page -total">&nbsp;/ {{ totalPages }}</div>
 
-      <p-dropdown
+      <p-select
          class="limit"
          [options]="limitViewList"
          [ngModel]="limit$ | async"
          (ngModelChange)="updateLimit($event)"
          optionLabel="name"
          optionValue="key"
-      ></p-dropdown>
+      ></p-select>
 
-      <div *ngIf="total$ | async as total" class="page">
-         &nbsp;из {{ total }}
-      </div>
+      <div *ngIf="total$ | async as total" class="page">&nbsp;из {{ total }}</div>
    </div>
 
    <div class="sort">
       <span class="p-float-label">
-         <p-dropdown
+         <p-select
             inputId="orderField"
             class="dropdown-field"
             [options]="orderFields"
@@ -71,12 +67,12 @@
             (ngModelChange)="setOrderField($event)"
             optionLabel="name"
             optionValue="key"
-         ></p-dropdown>
+         ></p-select>
          <label for="orderField" class="label">Сортировать по</label>
       </span>
 
       <span class="p-float-label">
-         <p-dropdown
+         <p-select
             inputId="orderType"
             class="dropdown-order"
             [ngModel]="orderType$ | async"
@@ -84,7 +80,7 @@
             [options]="orderTypeList"
             optionLabel="name"
             optionValue="key"
-         ></p-dropdown>
+         ></p-select>
          <label for="orderType" class="label">Направление</label>
       </span>
    </div>

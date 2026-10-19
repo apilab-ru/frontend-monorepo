@@ -11,15 +11,16 @@ import { TranslocoService } from '@ngneat/transloco';
   // @ts-ignore
   providers: [provideTranslation('header', () => import.meta.webpackContext('./translation'))],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class HeaderComponent {
   lang$: Observable<string>;
-  langs = [{ key: 'ru', title: 'Русская версия' }, { key: 'en', title: 'English version' }];
+  langs = [
+    { key: 'ru', title: 'Русская версия' },
+    { key: 'en', title: 'English version' },
+  ];
 
-  constructor(
-    private router: Router,
-    private translocoService: TranslocoService,
-  ) {
+  constructor(private router: Router, private translocoService: TranslocoService) {
     this.lang$ = this.translocoService.langChanges$;
   }
 

@@ -1,9 +1,13 @@
 import {
   ChangeDetectionStrategy,
-  Component, EventEmitter, Input, OnChanges, OnInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
   Output,
   SimpleChanges,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { Types, TYPES } from '@filecab/models/types';
 import { Status, STATUS_LIST, STATUS_WITH_PROGRESS, STATUS_WITH_STARS } from '@filecab/models/status';
@@ -12,7 +16,7 @@ import { MetaData } from '@filecab/models/meta-data';
 import isEqual from 'lodash-es/isEqual';
 import { debounceTime, filter } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { MediaItem } from "@filecab/models";
+import { MediaItem } from '@filecab/models';
 
 @UntilDestroy()
 @Component({
@@ -21,6 +25,7 @@ import { MediaItem } from "@filecab/models";
   styleUrls: ['./edit-item.component.scss'],
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class EditItemComponent implements OnChanges, OnInit {
   @Input() meta: MetaData;
@@ -58,13 +63,15 @@ export class EditItemComponent implements OnChanges, OnInit {
   }
 
   ngOnInit(): void {
-    this.nameControl.valueChanges.pipe(
-      debounceTime(300),
-      filter(value => value !== this.name),
-      untilDestroyed(this),
-    ).subscribe(name => {
-      this.nameChange.emit(name || '');
-    })
+    this.nameControl.valueChanges
+      .pipe(
+        debounceTime(300),
+        filter((value) => value !== this.name),
+        untilDestroyed(this)
+      )
+      .subscribe((name) => {
+        this.nameChange.emit(name || '');
+      });
   }
 
   onTypeUpdate(type: Types): void {

@@ -11,15 +11,13 @@ import {
 
 @Directive({
   selector: '[appLink]',
+  standalone: false,
 })
 export class LinkDirective implements OnChanges, AfterViewInit {
   @Input() appLink: string;
   @Output() linkClick = new EventEmitter<void>();
 
-  constructor(
-    private elementRef: ElementRef<HTMLElement>
-  ) {
-  }
+  constructor(private elementRef: ElementRef<HTMLElement>) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     const link = this.elementRef.nativeElement.querySelector('a');
@@ -42,7 +40,6 @@ export class LinkDirective implements OnChanges, AfterViewInit {
       if (this.appLink) {
         link.href = this.appLink;
       }
-    })
+    });
   }
-
 }

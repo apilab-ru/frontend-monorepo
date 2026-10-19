@@ -1,7 +1,9 @@
 {
   "extends": "../tsconfig.json",
-
-  "compilerOptions": { "types": ["node", "chrome"] },
+  "compilerOptions": {
+    "types": ["node", "chrome"],
+    "moduleResolution": "bundler"
+  },
   "exclude": ["../**/*.spec.ts"],
   "include": [
     "../src/**/*.stories.ts",
@@ -10,6 +12,7 @@
     "../src/**/*.stories.tsx",
     "../src/**/*.mdx",
     "*.ts",
-    "*.js"
+    "*.js",
+    "../src/theme/prime-ng.providers.ts"
   ]
 }

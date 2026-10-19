@@ -1,7 +1,8 @@
+import { provideFilecabTheme } from '@filecab/ui-kit/theme/prime-ng.providers';
 import * as Sentry from '@sentry/angular';
 import { Router } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule, inject, provideAppInitializer } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Environment } from '@environments/model';
@@ -24,13 +25,11 @@ import { ToastModule } from 'primeng/toast';
     ToastModule,
   ],
   providers: [
+    provideFilecabTheme(),
     { provide: Sentry.TraceService, deps: [Router] },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: () => (): void => undefined,
-      deps: [Sentry.TraceService],
-      multi: true,
-    },
+    provideAppInitializer(() => {
+      inject(Sentry.TraceService);
+    }),
     {
       provide: Environment,
       useValue: environment,

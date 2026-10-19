@@ -1,8 +1,6 @@
 module.exports = {
   stories: ['../**/*.stories.ts', '../**/*.mdx'],
-  addons: [
-    '@storybook/addon-essentials',
-  ],
+  addons: ['@storybook/addon-docs'],
   framework: { name: '@storybook/angular', options: {} },
   core: {
     disableTelemetry: true,

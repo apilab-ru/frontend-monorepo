@@ -1,16 +1,14 @@
 import { Directive, Input, TemplateRef, TrackByFunction } from '@angular/core';
-import { NgForOfContext } from "@angular/common";
+import { NgForOfContext } from '@angular/common';
 
 @Directive({
-  selector: '[uiTableIterator][uiTableIteratorOf]'
+  selector: '[uiTableIterator][uiTableIteratorOf]',
+  standalone: false,
 })
 export class UiTableIteratorDirective<T> {
-
   @Input() uiTableIteratorTrackBy: TrackByFunction<T> = (index) => index;
 
   @Input() uiTableIteratorOf: T[];
 
-  constructor(public template: TemplateRef<NgForOfContext<T>>) {
-  }
-
+  constructor(public template: TemplateRef<NgForOfContext<T>>) {}
 }

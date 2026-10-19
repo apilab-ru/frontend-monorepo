@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { FSDropdownValue, SearchValue } from "../../interface";
+import { FSDropdownValue, SearchValue } from '../../interface';
 
 @Component({
   selector: 'filecab-chip',
   templateUrl: './chip.component.html',
   styleUrls: ['./chip.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class ChipComponent {
   @Input() item: SearchValue;
@@ -14,13 +15,13 @@ export class ChipComponent {
   @Output() removeChip = new EventEmitter<void>();
 
   getValue(item: SearchValue, preset: FSDropdownValue): string {
-    const prefix = item.negative ? '!' : ''
+    const prefix = item.negative ? '!' : '';
 
     if (preset.values) {
-      return prefix + (preset.values.find(it => it.key === item.value)?.name || item.value as string);
+      return prefix + (preset.values.find((it) => it.key === item.value)?.name || (item.value as string));
     }
 
-    return prefix + item.value as string;
+    return (prefix + item.value) as string;
   }
 
   onRemoveChip(event: MouseEvent): void {

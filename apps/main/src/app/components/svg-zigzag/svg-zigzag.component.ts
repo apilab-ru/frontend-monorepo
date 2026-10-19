@@ -5,12 +5,10 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   templateUrl: './svg-zigzag.component.html',
   styleUrls: ['./svg-zigzag.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class SvgZigzagComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

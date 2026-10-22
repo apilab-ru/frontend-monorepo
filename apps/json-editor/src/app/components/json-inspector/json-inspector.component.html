@@ -1,0 +1,59 @@
+<aside class="inspector-content je-box" aria-label="Selected value details">
+   <form class="inspector-form je-box" (ngSubmit)="apply()">
+      <div class="fields je-box">
+         <label class="field-label je-box" for="inspector-key">Key name</label>
+         <input
+            class="field-control je-box je-control je-interactive"
+            id="inspector-key"
+            name="key"
+            [ngModel]="draft().key"
+            (ngModelChange)="updateKey($event)"
+            [disabled]="!canRename()"
+            aria-describedby="key-hint"
+         />
+         <p id="key-hint" class="hint je-box">
+            {{
+               canRename()
+                  ? 'Rename this field without changing its position.'
+                  : path().length
+                  ? 'Array indexes cannot be renamed.'
+                  : 'The root has no field name.'
+            }}
+         </p>
+         <label class="field-label je-box" for="inspector-json">JSON value</label>
+         <textarea
+            id="inspector-json"
+            class="preview field-control je-box je-control je-interactive"
+            name="json"
+            [ngModel]="draft().json"
+            (ngModelChange)="updateJson($event)"
+            spellcheck="false"
+            aria-describedby="json-hint inspector-error"
+            [attr.aria-invalid]="!!validationError()"
+         ></textarea>
+         <p id="json-hint" class="hint je-box">
+            Edit any JSON value, object, or array. Strings need double quotes.
+         </p>
+         @if (validationError()) {
+         <p id="inspector-error" class="error je-box" role="alert">
+            {{ validationError() }}
+         </p>
+         }
+      </div>
+      <div class="actions je-box">
+         <button
+            type="submit"
+            class="apply action-button je-box je-control je-interactive je-button"
+         >
+            Apply changes
+         </button>
+         <button
+            class="action-button je-box je-control je-interactive je-button"
+            type="button"
+            (click)="reset()"
+         >
+            Reset
+         </button>
+      </div>
+   </form>
+</aside>

@@ -1,11 +1,53 @@
-@use "vars" as *;
-@import "@angular/material/prebuilt-themes/indigo-pink.css";
+.je-document {
+  color-scheme: dark;
+  --je-bg: #0f1728;
+  --je-panel: #1e293b;
+  --je-border: #334155;
+  --je-text: #e2e8f0;
+  --je-muted: #94a3b8;
+  --je-accent: #a3e635;
+}
+.je-box {
+  box-sizing: border-box;
 
-body {
-  padding: 0;
+  &::selection {
+    background: #4f46e5;
+    color: white;
+  }
+  &::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #475569;
+    border-radius: 8px;
+  }
+}
+.je-body {
   margin: 0;
-  @include colors();
-  font-family: Roboto, sans-serif;
+  background: var(--je-bg);
+  color: var(--je-text);
+  font: 13px/1.5 system-ui, sans-serif;
+}
+.je-control {
+  font: inherit;
+}
+.je-interactive {
+  -webkit-tap-highlight-color: transparent;
 
-  color: var(--color-primary-text);
+  &:focus-visible {
+    outline: 2px solid var(--je-accent);
+    outline-offset: 2px;
+  }
+}
+.je-button {
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: default;
+  }
+}
+.je-link {
+  color: inherit;
 }

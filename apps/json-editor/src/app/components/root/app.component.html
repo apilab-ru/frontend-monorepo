@@ -1,6 +1,11 @@
-<div class="root">
-  <je-menu></je-menu>
-  <div class="content">
-    <router-outlet></router-outlet>
-  </div>
+<div class="root je-box">
+   <je-menu class="je-box"></je-menu>
+   <main class="content je-box"><router-outlet class="je-box"></router-outlet></main>
+   <footer class="footer je-box">
+      <span class="je-box"
+         ><span class="status-dot je-box"></span> Files stored on your device</span
+      ><span class="je-box"
+         >JSON Editor <span class="footer-label je-box">/ Explore your data</span></span
+      >
+   </footer>
 </div>

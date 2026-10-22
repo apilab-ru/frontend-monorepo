@@ -1,6 +1,38 @@
-<div class="root">
-   <label class="file-drop-area">
-      <input type="file" (input)="fileChange($event.target)" />
+<section class="root je-box">
+   <div class="intro je-box">
+      <span class="eyebrow je-box">YOUR DATA, A CLEARER VIEW</span>
+      <h1 class="intro-title je-box">Make sense of your JSON.</h1>
+      <p class="description je-box">
+         Explore nested objects, find values, and edit your files in one workspace.
+      </p>
+   </div>
+   <label class="file-drop-area je-box">
+      <span class="upload-icon je-box" aria-hidden="true">&#123; &#125;</span>
+      <strong class="upload-title je-box">Open a JSON file</strong
+      ><span class="hint je-box">Choose a file from your device to start exploring</span>
+      <input
+         class="file-input je-box je-control je-interactive"
+         type="file"
+         accept=".json,application/json"
+         aria-label="Open a JSON file"
+         (input)="fileChange($event.target)"
+      />
+      <span class="choose-file je-box"
+         >Choose file <span class="je-box" aria-hidden="true">↗</span></span
+      >
    </label>
-   <button type="button" mat-raised-button color="primary" (click)="loadExample()">Example</button>
-</div>
+   <div class="example je-box">
+      <span class="je-box">Just looking around?</span
+      ><button
+         class="example-button je-box je-control je-interactive je-button"
+         type="button"
+         (click)="loadExample()"
+      >
+         Example</button
+      ><span class="example-hint je-box">100 lines · 5 levels to explore</span>
+   </div>
+   <p class="privacy description je-box">
+      <span class="privacy-icon je-box" aria-hidden="true">◈</span> Your files stay in
+      your browser. No upload required.
+   </p>
+</section>

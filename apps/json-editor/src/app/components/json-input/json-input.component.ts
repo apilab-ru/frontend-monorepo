@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { JsonDataService } from '../../services/json-data.service';
 import { Router } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
 import example from '../../examples/example.json';
 
 @Component({
@@ -10,14 +9,17 @@ import example from '../../examples/example.json';
   styleUrls: ['./json-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MatButtonModule],
+  imports: [],
 })
 export class JsonInputComponent {
-  private readonly jsonDataService = inject(JsonDataService);
-  private readonly router = inject(Router);
+  private jsonDataService = inject(JsonDataService);
+  private router = inject(Router);
 
   async loadExample(): Promise<void> {
-    const file = await this.jsonDataService.addFile(JSON.parse(JSON.stringify(example)), 'example.json');
+    const file = await this.jsonDataService.addFile(
+      JSON.parse(JSON.stringify(example)),
+      'example.json'
+    );
     await this.router.navigate(['/edit', file.id]);
   }
 
@@ -32,8 +34,8 @@ export class JsonInputComponent {
 
   private handleChangeFile(file: File): void {
     const reader = new FileReader();
-    reader.onload = (event: ProgressEvent) => {
-      const res = JSON.parse((event as any).target['result']);
+    reader.onload = () => {
+      const res = JSON.parse(String(reader.result));
       this.jsonDataService.addFile(res, file.name);
     };
     reader.readAsText(file);

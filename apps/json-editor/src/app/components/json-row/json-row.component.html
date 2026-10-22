@@ -1,31 +1,56 @@
-<div class="root">
-   <div class="title">
-      {{ key }}
-   </div>
-
-   <mat-form-field [formGroup]="formGroup">
-      <mat-label>Search by value</mat-label>
-      <input matInput placeholder="" formControlName="search" />
-   </mat-form-field>
-
-   <div class="fields-container">
-      <div class="fields">
-         @for (item of fields$ | async; track item) {
-         <div class="key" [class.-selected]="selected === item.key">
-            {{ item.key }}
-         </div>
-         <div
-            class="value -{{ item.type }}"
-            [class.-selected]="selected === item.key"
-            (click)="onValueClick(item.key, item.type)"
-         >
+<section class="root je-box">
+   <header class="title je-box">
+      <span class="object-icon je-box" aria-hidden="true">
+         {{ isArray() ? '[ ]' : '◇' }}
+      </span>
+      {{ key() }}
+   </header>
+   <label class="search je-box" [formGroup]="formGroup"
+      ><span class="je-box" aria-hidden="true">⌕</span
+      ><input
+         class="search-input row-input je-box je-control je-interactive"
+         placeholder="Search keys or values…"
+         aria-label="Search keys or values"
+         formControlName="search"
+   /></label>
+   <div class="fields-container je-box">
+      <div class="fields je-box">
+         @for (item of filteredFields(); track item.key) {
+         <div class="field je-box" [class.-selected]="selected() === item.key">
+            <span
+               class="type-icon je-box"
+               [class]="'type-icon type-' + item.kind"
+               [title]="item.kind"
+               aria-hidden="true"
+               >{{ item.icon }}</span
+            >
+            <span class="key je-box" [title]="item.key">{{ item.key }}</span>
             @if (item.type === FieldType.object) {
-            {{ item.value }}
-            } @if (item.type === FieldType.simple) {
-            <input [ngModel]="item.value" (ngModelChange)="onUpdateValue(item, $event)" />
+            <button
+               type="button"
+               class="value -object je-box je-control je-interactive je-button"
+               [attr.aria-label]="'Explore ' + item.key"
+               (click)="inspectKey.emit(item.key)"
+            >
+               {{ item.value }} <span class="chevron je-box" aria-hidden="true">›</span>
+            </button>
+            } @else {
+            <div class="value -simple je-box" [class]="'value -simple type-' + item.kind">
+               <input
+                  class="value-input row-input je-box je-control je-interactive"
+                  [placeholder]="item.kind === 'null' ? 'null' : ''"
+                  [attr.aria-label]="'Edit ' + item.key"
+                  [ngModel]="item.value"
+                  (focus)="inspectKey.emit(item.key)"
+                  (click)="inspectKey.emit(item.key)"
+                  (ngModelChange)="onUpdateValue(item, $event)"
+               />
+            </div>
             }
          </div>
+         } @empty {
+         <p class="empty je-box">No matching fields</p>
          }
       </div>
    </div>
-</div>
+</section>

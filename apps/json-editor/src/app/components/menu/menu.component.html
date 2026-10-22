@@ -1,7 +1,23 @@
-<div class="root">
-   @for (item of list$ | async; track item) {
-   <a class="link" [routerLink]="item.path" [routerLinkActive]="'-active'">
-      {{ item.name }}
-   </a>
-   }
-</div>
+<header class="root je-box">
+   <a
+      class="brand je-box je-interactive je-link"
+      routerLink="/addFile"
+      aria-label="JSON Editor home"
+      ><span class="brand-icon je-box">&#123; &#125;</span> JSON
+      <strong class="brand-accent je-box">EDITOR</strong></a
+   >
+   <nav class="file-nav je-box" aria-label="Files">
+      @for (item of list(); track item.path) {
+      <a
+         class="link je-box je-interactive je-link"
+         [routerLink]="item.path"
+         routerLinkActive="-active"
+         ><span class="file-icon je-box" aria-hidden="true">{{
+            item.path === 'addFile' ? '+' : '◇'
+         }}</span
+         >{{ item.name }}</a
+      >
+      }
+   </nav>
+   <span class="local-badge je-box">LOCAL WORKSPACE</span>
+</header>

@@ -1,30 +1,32 @@
 import { inject, Injectable, NgZone } from '@angular/core';
 import { IDbStoreService, makeStore } from '@store';
 import { DBStore, JsonData, JsonFile, Tab } from '../interface';
-import { DB_STORE_CONFIG } from '../const';
+import { DB_STORE_CONFIG, STORE } from '../const';
 import { from, map, Observable, shareReplay, switchMap, tap } from 'rxjs';
 import { runInZone } from '@utils-monorep/angular-shared';
-
-const STORE = {
-  files: [] as JsonFile[],
-};
 
 @Injectable({
   providedIn: 'root',
 })
 export class JsonDataService {
-  private readonly ngZone = inject(NgZone);
+  files$: Observable<JsonFile[]>;
+  fileNames$: Observable<Tab[]>;
+
+  private ngZone = inject(NgZone);
   private dbService = new IDbStoreService<DBStore>(DB_STORE_CONFIG);
   private store = makeStore(STORE);
 
-  readonly files$: Observable<JsonFile[]> = from(this.dbService.selectList('jsonFiles')).pipe(
-    tap((list) => this.store.files.next(list)),
-    switchMap(() => this.store.files.asObservable()),
-    runInZone(this.ngZone),
-    shareReplay({ refCount: false, bufferSize: 1 })
-  );
-
-  readonly fileNames$: Observable<Tab[]> = this.files$.pipe(map((list) => list.map(({ name, id }) => ({ name, id }))));
+  constructor() {
+    this.files$ = from(this.dbService.selectList('jsonFiles')).pipe(
+      tap((list) => this.store.files.next(list)),
+      switchMap(() => this.store.files.asObservable()),
+      runInZone(this.ngZone),
+      shareReplay({ refCount: false, bufferSize: 1 })
+    );
+    this.fileNames$ = this.files$.pipe(
+      map((list) => list.map(({ name, id }) => ({ name, id })))
+    );
+  }
 
   loadFileData(id: number): Observable<JsonData | null> {
     return this.files$.pipe(
@@ -63,6 +65,7 @@ export class JsonDataService {
       })
       .then((file) => {
         this.store.files.next([...this.store.files.getValue(), file]);
+
         return file;
       });
   }

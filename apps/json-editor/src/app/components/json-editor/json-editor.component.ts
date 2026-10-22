@@ -1,163 +1,248 @@
-import { AsyncPipe } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
-import { JsonRowComponent } from '../json-row/json-row.component';
-import { ChangeDetectionStrategy, Component, ElementRef, inject, OnInit, ViewChild, DOCUMENT } from '@angular/core';
-import { JsonDataService } from '../../services/json-data.service';
+import {
+  afterRenderEffect,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DOCUMENT,
+  ElementRef,
+  inject,
+  linkedSignal,
+  type Signal,
+  viewChild,
+  type WritableSignal,
+} from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, Observable, switchMap, take, tap } from 'rxjs';
-import { JsonData, UpdateValueEvent } from '../../interface';
-import lodashGet from 'lodash-es/get';
-import lodashSet from 'lodash-es/set';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { distinctUntilChanged, map, startWith, switchMap } from 'rxjs';
 import { saveAsFile } from '@store';
 import { PageScrollService } from 'ngx-page-scroll-core';
+import { JsonDataService } from '../../services/json-data.service';
+import type {
+  JsonData,
+  JsonFile,
+  UpdateValueEvent,
+  JsonEditorSource,
+  JsonEditorDraft,
+  InspectorChange,
+} from '../../interface';
 import { PATH_SEPARATOR } from '../../const';
+import { documentSelection, replaceAt, valueAt } from '../../utils/json-document';
+import { JsonRowComponent } from '../json-row/json-row.component';
+import { JsonInspectorComponent } from '../json-inspector/json-inspector.component';
 
-interface Path {
-  key: string;
-  full: string[];
-  fullSt: string;
-}
-
-@UntilDestroy()
 @Component({
   selector: 'je-json-editor',
   templateUrl: './json-editor.component.html',
   styleUrls: ['./json-editor.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [AsyncPipe, MatButtonModule, JsonRowComponent],
+  imports: [JsonRowComponent, JsonInspectorComponent],
 })
-export class JsonEditorComponent implements OnInit {
-  private readonly jsonDataService = inject(JsonDataService);
-  private readonly activatedRoute = inject(ActivatedRoute);
-  private readonly pageScrollService = inject(PageScrollService);
-  private readonly router = inject(Router);
-  private readonly document = inject(DOCUMENT);
+export class JsonEditorComponent {
+  fileName = this.createFileName();
+  tempData = computed(() => this.draft().data);
+  isChanged = computed(() => this.draft().changed);
+  selection = computed(() => documentSelection(this.tempData(), this.routePath()));
+  inspectedPath = computed(() => this.selection().path);
+  inspectedValue = computed(() => valueAt(this.tempData(), this.inspectedPath()));
+  columns = computed(() => this.selection().columns);
+  breadcrumbs = computed(() => this.columns().slice(1));
+  canRenameInspectedKey = this.createCanRenameInspectedKey();
+  inspectorError = this.createInspectorError();
 
-  isChanged = false;
-  paths$: Observable<Path[]>;
-  data$: Observable<JsonData>;
-  tempData: JsonData;
+  private jsonDataService = inject(JsonDataService);
+  private activatedRoute = inject(ActivatedRoute);
+  private pageScrollService = inject(PageScrollService);
+  private router = inject(Router);
+  private document = inject(DOCUMENT);
+  private rowsBox = viewChild<ElementRef<HTMLElement>>('rowsBox');
+  private routePath = this.createRoutePath();
+  private files = this.createFiles();
+  private source = this.createSource();
+  private fileId = computed(() => this.source().id);
+  private draft = this.createDraft();
 
-  private fileId$ = this.activatedRoute.params.pipe(map(({ id }) => +id));
-  private fileId: number;
+  constructor() {
+    afterRenderEffect(() => {
+      const rows = this.rowsBox();
+      const path = this.routePath();
+      const columns = this.columns();
 
-  @ViewChild('rowsBox') private rowsBox: ElementRef<HTMLElement>;
+      if (!rows || !path || columns.length < 2) return;
 
-  ngOnInit(): void {
-    this.data$ = this.fileId$.pipe(
-      tap((fileId) => (this.fileId = fileId)),
-      switchMap((id) => this.jsonDataService.loadFileData(id))
-    );
-
-    this.data$.pipe(untilDestroyed(this)).subscribe((data) => {
-      this.tempData = data;
-      this.isChanged = false;
-    });
-
-    this.paths$ = this.activatedRoute.queryParams.pipe(
-      map((params) => {
-        const path = params?.path;
-        return this.parserPath(path);
-      })
-    );
-  }
-
-  goToPath(path: Path): void {
-    this.setPath(path.fullSt);
-  }
-
-  getSelectedDeepKey(index: number): Observable<string | null> {
-    return this.paths$.pipe(
-      map((paths) => {
-        if (paths.length > index) {
-          return paths[index].key;
-        }
-
-        return null;
-      })
-    );
-  }
-
-  selectPath(child: string, prev?: Path): void {
-    const path = [...(prev?.full ?? []), child];
-    this.setPath(path.join(PATH_SEPARATOR));
-
-    setTimeout(() => {
       this.pageScrollService.scroll({
         document: this.document,
-        scrollViews: [this.rowsBox.nativeElement],
+        scrollViews: [rows.nativeElement],
         scrollTarget: '.-last',
         verticalScrolling: false,
       });
     });
   }
 
-  pickData(data: JsonData, path: Path): JsonData {
-    return lodashGet(data, path.full);
-  }
+  applyInspectorChange(change: InspectorChange): void {
+    const path = this.inspectedPath();
+    const oldKey = path.at(-1);
+    const renamed = this.canRenameInspectedKey() && change.key !== oldKey;
+    const parentPath = path.slice(0, -1);
+    const parent = valueAt(this.tempData(), parentPath) as Record<string, unknown>;
+    this.inspectorError.set('');
 
-  trackByPath(_index: number, path: Path): string {
-    return path.fullSt;
-  }
+    if (renamed && (!change.key.length || change.key.includes(PATH_SEPARATOR))) {
+      this.inspectorError.set(
+        `Use a nonempty key without the path separator (${PATH_SEPARATOR}).`
+      );
 
-  onUpdateValue(event: UpdateValueEvent, path: Path): void {
-    const dir = [...path.full, event.key];
-    lodashSet(this.tempData, dir, event.value);
-    this.isChanged = true;
-  }
-
-  saveJson(): void {
-    this.jsonDataService.files$
-      .pipe(
-        take(1),
-        map((list) => {
-          const file = list.find((it) => it.id === this.fileId)!;
-          return {
-            ...file,
-            data: this.tempData,
-          };
-        })
-      )
-      .subscribe((file) => {
-        saveAsFile(JSON.stringify(file.data), file.name);
-        this.jsonDataService.updateFile(file);
-      });
-  }
-
-  deleteFile(): void {
-    this.jsonDataService.deleteFile(this.fileId).then(() => {
-      this.router.navigate(['/']);
-    });
-  }
-
-  private parserPath(path?: string): Path[] {
-    if (!path) {
-      return [];
+      return;
     }
 
-    const keys = path.split(PATH_SEPARATOR);
-    const list: Path[] = [];
+    if (renamed && Object.hasOwn(parent, change.key)) {
+      this.inspectorError.set('A field with this name already exists.');
 
-    keys.forEach((key) => {
-      const prev = list.map(({ key }) => key);
-      const full = [...prev, key];
-      list.push({
-        key,
-        full,
-        fullSt: full.join(PATH_SEPARATOR),
-      });
+      return;
+    }
+
+    const replacement = renamed
+      ? Object.fromEntries(
+          Object.entries(parent).map(([key, value]) =>
+            key === oldKey ? [change.key, change.value] : [key, value]
+          )
+        )
+      : change.value;
+    this.draft.set({
+      data: replaceAt(this.tempData(), renamed ? parentPath : path, replacement),
+      changed: true,
     });
-
-    return list;
+    this.setPath(renamed ? [...parentPath, change.key] : path);
   }
 
-  private setPath(path: string): void {
-    this.router.navigate([], {
-      queryParams: {
-        path,
+  inspectKey(key: string, path: string[] = []): void {
+    this.setPath([...path, key]);
+  }
+
+  goToRoot(): void {
+    this.setPath([]);
+  }
+
+  goToPath(path: string[]): void {
+    this.setPath(path);
+  }
+
+  onUpdateValue(event: UpdateValueEvent, path: string[]): void {
+    this.draft.update((draft) => ({
+      data: replaceAt(draft.data, [...path, event.key], event.value),
+      changed: true,
+    }));
+  }
+
+  async saveJson(): Promise<void> {
+    const current = this.files().find((file) => file.id === this.fileId());
+
+    if (!current) return;
+
+    const data = this.tempData() as JsonData;
+    const file = { ...current, data };
+    saveAsFile(JSON.stringify(data), file.name);
+    await this.jsonDataService.updateFile(file);
+
+    // Preserve edits made while persistence was in flight.
+    if (this.tempData() === data)
+      this.draft.update((draft) => ({ ...draft, changed: false }));
+  }
+
+  async deleteFile(): Promise<void> {
+    await this.jsonDataService.deleteFile(this.fileId());
+    await this.router.navigate(['/']);
+  }
+
+  private createFileName(): Signal<string> {
+    return computed(
+      () => this.files().find((file) => file.id === this.fileId())?.name ?? ''
+    );
+  }
+
+  private createCanRenameInspectedKey(): Signal<boolean> {
+    return computed(() => {
+      const path = this.inspectedPath();
+      const parent = path.length ? valueAt(this.tempData(), path.slice(0, -1)) : null;
+
+      return parent !== null && typeof parent === 'object' && !Array.isArray(parent);
+    });
+  }
+
+  private createInspectorError(): WritableSignal<string> {
+    return linkedSignal(() => {
+      this.routePath();
+      this.source();
+
+      return '';
+    });
+  }
+
+  private createFiles(): Signal<JsonFile[]> {
+    return toSignal(this.jsonDataService.files$, {
+      initialValue: [] as JsonFile[],
+    });
+  }
+
+  private createRoutePath(): Signal<string> {
+    return toSignal(
+      this.activatedRoute.queryParams.pipe(map((params) => String(params['path'] ?? ''))),
+      {
+        initialValue: String(this.activatedRoute.snapshot.queryParams['path'] ?? ''),
+      }
+    );
+  }
+
+  private createSource(): Signal<JsonEditorSource> {
+    return toSignal(
+      this.activatedRoute.params.pipe(
+        map(({ id }) => +id),
+        distinctUntilChanged(),
+        switchMap((id) =>
+          this.jsonDataService.loadFileData(id).pipe(
+            map((data) => ({ id, data })),
+            startWith({ id, data: null as JsonData | null })
+          )
+        )
+      ),
+      {
+        initialValue: {
+          id: +this.activatedRoute.snapshot.params['id'],
+          data: null as JsonData | null,
+        },
+      }
+    );
+  }
+
+  private createDraft(): WritableSignal<JsonEditorDraft> {
+    return linkedSignal<JsonEditorSource, JsonEditorDraft>({
+      source: this.source,
+      computation: (source, previous) => {
+        const edited = previous?.value;
+
+        if (
+          source.data !== null &&
+          previous?.source.id === source.id &&
+          edited.changed &&
+          edited.data !== source.data
+        ) {
+          return edited;
+        }
+
+        return { data: source.data, changed: false };
       },
+    });
+  }
+
+  private setPath(path: string[]): void {
+    this.inspectorError.set('');
+    const encoded = path.join(PATH_SEPARATOR);
+
+    if (this.routePath() === encoded) return;
+
+    void this.router.navigate([], {
+      queryParams: { path: encoded },
+      queryParamsHandling: 'merge',
     });
   }
 }

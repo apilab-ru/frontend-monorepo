@@ -1,68 +1,174 @@
-@use "libs/ui-kit/src/scroll/main" as *;
-
 .root {
-  font-size: 16px;
-  padding: 0 10px;
   display: flex;
   flex-direction: column;
   height: 100%;
   overflow: hidden;
 }
-
-.rows-box {
-  overflow-x: auto;
-  overflow-y: hidden;
-  flex: 1;
-  @include customScrollBar();
+.document-bar {
+  height: 48px;
+  flex: 0 0 auto;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--je-panel);
+  border-bottom: 1px solid var(--je-border);
 }
-
+.document-name {
+  font-weight: 600;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.document-icon {
+  color: var(--je-accent);
+  font-size: 19px;
+}
+.document-format {
+  font: 9px monospace;
+  color: var(--je-muted);
+  padding: 2px 5px;
+  border: 1px solid var(--je-border);
+  border-radius: 3px;
+}
+.buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-shrink: 0;
+}
+.button {
+  padding: 5px 10px;
+  border: 1px solid #475569;
+  background: #334155;
+  color: #e2e8f0;
+  border-radius: 4px;
+  font-size: 11px;
+  &:hover {
+    border-color: #94a3b8;
+  }
+}
+.save {
+  background: var(--je-accent);
+  color: #182214;
+  border-color: var(--je-accent);
+  font-weight: 650;
+}
+.delete:hover {
+  color: #fda4af;
+  border-color: #fda4af;
+}
+.unsaved {
+  font-size: 10px;
+  color: #fcd34d;
+}
+.workspace {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+.browser {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.paths {
+  height: 37px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 10px;
+  border-bottom: 1px solid var(--je-border);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.path-button {
+  color: #b6c4d7;
+  border: none;
+  background: transparent;
+  padding: 3px 7px;
+  border-radius: 3px;
+  font-size: 11px;
+  &:hover {
+    background: #334155;
+    color: white;
+  }
+}
+.path:last-child {
+  background: #334155;
+}
+.view-icon {
+  color: #c4b5fd;
+  padding-right: 10px;
+  border-right: 1px solid var(--je-border);
+}
+.path-separator {
+  color: #64748b;
+}
+.rows-box {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
 .rows {
   display: flex;
   height: 100%;
-  overflow-y: hidden;
-  @include customScrollBar();
+  min-width: 100%;
+  width: max-content;
 }
-
-.paths {
-  display: flex;
-  padding: 5px 0;
-  align-items: center;
-}
-
-.path {
-  cursor: pointer;
-  padding: 1px 2px;
-
-  & + & {
-    &:before {
-      content: '/';
-      padding: 0 2px;
-      display: inline-block;
-    }
-  }
-}
-
-.buttons {
-  display: flex;
-  align-items: center;
-  margin: -8px 20px -8px auto;
-}
-
-.button {
-  & + & {
-    margin-left: 12px;
-  }
-}
-
 .row {
-  max-width: 500px;
   display: block;
-
-  & + & {
-    margin-left: 20px;
+  height: 100%;
+  flex: 0 0 305px;
+  width: 305px;
+  border-right: 1px solid var(--je-border);
+}
+.inspector {
+  display: block;
+  height: 100%;
+  min-height: 0;
+  width: 320px;
+  flex: 0 0 auto;
+  background: var(--je-panel);
+  border-left: 1px solid var(--je-border);
+  padding: 20px 18px;
+  overflow: hidden;
+}
+@media (max-width: 950px) {
+  .inspector {
+    width: 260px;
   }
-
-  &:last-of-type {
-    padding-right: 50px;
+}
+@media (max-width: 700px) {
+  .inspector {
+    width: 100%;
+    max-height: 35%;
+    border-left: 0;
+    border-top: 1px solid var(--je-border);
+    padding: 14px;
+  }
+  .workspace {
+    flex-direction: column;
+  }
+  .browser {
+    min-height: 0;
+  }
+  .row {
+    width: 280px;
+    flex-basis: 280px;
+  }
+  .unsaved,
+  .document-format {
+    display: none;
+  }
+  .document-bar {
+    padding: 0 10px;
   }
 }

@@ -1,0 +1,119 @@
+.root {
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 70px 24px 32px;
+  background: radial-gradient(ellipse at 50% 0, #23314b70, transparent 65%);
+}
+.intro {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.eyebrow {
+  color: var(--je-accent);
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 650;
+}
+.intro-title {
+  font-size: clamp(26px, 4vw, 38px);
+  letter-spacing: -1.2px;
+  margin: 12px 0;
+  font-weight: 650;
+}
+.description {
+  color: var(--je-muted);
+  margin: 0;
+}
+.file-drop-area {
+  position: relative;
+  width: min(100%, 570px);
+  padding: 35px 24px;
+  border: 1px dashed #52617a;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #1e293b70;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  &:hover,
+  &:focus-within {
+    border-color: var(--je-accent);
+    background: #26344780;
+  }
+}
+.upload-icon {
+  font: 27px monospace;
+  color: var(--je-accent);
+  background: #a3e63512;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+}
+.upload-title {
+  font-size: 17px;
+  font-weight: 600;
+}
+.hint {
+  color: var(--je-muted);
+  font-size: 12px;
+  margin-top: 7px;
+  text-align: center;
+}
+.file-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.choose-file {
+  margin-top: 24px;
+  background: var(--je-accent);
+  color: #182214;
+  border-radius: 5px;
+  padding: 8px 19px;
+  font-weight: 650;
+}
+.example {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 26px;
+  color: var(--je-muted);
+  font-size: 12px;
+}
+.example-button {
+  border: 1px solid var(--je-border);
+  border-radius: 5px;
+  background: var(--je-panel);
+  color: var(--je-text);
+  padding: 6px 14px;
+  &:hover {
+    border-color: var(--je-accent);
+  }
+}
+.example-hint {
+  font-size: 11px;
+  color: #64748b;
+}
+.privacy {
+  margin-top: 38px;
+  font-size: 11px;
+  text-align: center;
+}
+.privacy-icon {
+  color: var(--je-accent);
+  margin-right: 5px;
+}
+@media (max-height: 650px) {
+  .root {
+    padding-top: 28px;
+  }
+}

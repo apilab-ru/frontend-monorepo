@@ -1,41 +1,72 @@
-<div class="root">
-   <div class="paths">
-      @for (path of paths$ | async; track path; let index = $index) {
-      <a class="path" (click)="goToPath(path)">
-         {{ path.key }}
-      </a>
-      }
-
-      <div class="buttons">
-         @if (isChanged) {
-         <button class="button" mat-raised-button color="primary" (click)="saveJson()">Save changes</button>
-         }
-         <button class="button" mat-raised-button color="warn" (click)="deleteFile()">Delete file</button>
+<div class="root je-box">
+   <header class="document-bar je-box">
+      <div class="document-name je-box">
+         <span class="document-icon je-box" aria-hidden="true">◇</span> {{ fileName() }}
+         <span class="document-format je-box">JSON</span>
       </div>
-   </div>
-
-   <div class="rows-box">
-      @if (data$ | async; as data) {
-      <div class="rows" #rowsBox>
-         <je-json-row
-            class="row"
-            key="root"
-            [data]="tempData"
-            [selected]="getSelectedDeepKey(0) | async"
-            (selectKey)="selectPath($event)"
-         ></je-json-row>
-         @for (path of paths$ | async; track trackByPath(index, path); let index = $index; let last = $last) {
-         <je-json-row
-            class="row"
-            [class.-last]="last"
-            [key]="path.key"
-            [data]="pickData(tempData, path)"
-            [selected]="getSelectedDeepKey(index + 1) | async"
-            (selectKey)="selectPath($event, path)"
-            (updateValue)="onUpdateValue($event, path)"
-         ></je-json-row>
-         }
+      <div class="buttons je-box">
+         @if (isChanged()) { <span class="unsaved je-box">Unsaved changes</span
+         ><button
+            type="button"
+            class="button save je-box je-control je-interactive je-button"
+            (click)="saveJson()"
+         >
+            Save changes
+         </button>
+         }<button
+            type="button"
+            class="button delete je-box je-control je-interactive je-button"
+            (click)="deleteFile()"
+         >
+            Delete file
+         </button>
       </div>
-      }
+   </header>
+   <div class="workspace je-box">
+      <section class="browser je-box" aria-label="JSON column browser">
+         <nav class="paths je-box" aria-label="JSON path">
+            <span class="view-icon je-box" aria-hidden="true">▥</span
+            ><button
+               type="button"
+               class="root-path path-button je-box je-control je-interactive je-button"
+               (click)="goToRoot()"
+            >
+               ◇ root</button
+            >@for (path of breadcrumbs(); track path.id) {
+            <span class="path-separator je-box" aria-hidden="true">›</span
+            ><button
+               type="button"
+               class="path path-button je-box je-control je-interactive je-button"
+               (click)="goToPath(path.path)"
+            >
+               {{ path.key }}
+            </button>
+            }
+         </nav>
+         <div class="rows-box je-box">
+            <div class="rows je-box" #rowsBox>
+               @for (column of columns(); track column.id; let last = $last) {
+               <je-json-row
+                  class="row je-box"
+                  [class.-last]="last"
+                  [key]="column.key"
+                  [data]="column.data"
+                  [selected]="column.selected"
+                  (inspectKey)="inspectKey($event, column.path)"
+                  (updateValue)="onUpdateValue($event, column.path)"
+               ></je-json-row>
+               }
+            </div>
+         </div>
+      </section>
+      <je-json-inspector
+         class="inspector je-box"
+         [value]="inspectedValue()"
+         [path]="inspectedPath()"
+         [canRename]="canRenameInspectedKey()"
+         [error]="inspectorError()"
+         (resetError)="inspectorError.set('')"
+         (applyChange)="applyInspectorChange($event)"
+      ></je-json-inspector>
    </div>
 </div>

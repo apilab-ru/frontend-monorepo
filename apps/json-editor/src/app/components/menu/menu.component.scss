@@ -1,27 +1,69 @@
 .root {
-  padding: 8px 16px;
-  background: var(--color-primary);
+  min-height: 52px;
   display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--je-border);
+  background: var(--je-panel);
 }
-
-.link {
-  padding: 8px;
-  color: var(--color-primary-inverted);
-  font-size: 14px;
+.brand {
+  flex-shrink: 0;
   text-decoration: none;
-  font-weight: 500;
-  border-radius: 3px;
-
-  & + & {
-    margin-left: 5px;
+  font-size: 15px;
+  font-weight: 750;
+  letter-spacing: -0.4px;
+}
+.brand-accent {
+  color: var(--je-accent);
+}
+.brand-icon {
+  color: var(--je-accent);
+  font: 18px monospace;
+  margin-right: 8px;
+}
+.file-nav {
+  display: flex;
+  align-self: stretch;
+  gap: 6px;
+  overflow-x: auto;
+  min-width: 0;
+}
+.link {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 12px;
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--je-muted);
+  border-bottom: 2px solid transparent;
+  &:hover {
+    color: white;
+    background: #ffffff06;
   }
-
-  &:hover:not(.-active) {
-    background: #000;
-  }
-
   &.-active {
-    cursor: initial;
-    background: rgba(0, 0, 0, .2);
+    color: var(--je-text);
+    border-color: var(--je-accent);
+    background: #ffffff05;
+  }
+}
+.file-icon {
+  font-size: 17px;
+}
+.local-badge {
+  margin-left: auto;
+  color: var(--je-muted);
+  font-size: 9px;
+  letter-spacing: 1.3px;
+  white-space: nowrap;
+}
+@media (max-width: 700px) {
+  .root {
+    gap: 12px;
+    padding: 0 10px;
+  }
+  .local-badge {
+    display: none;
   }
 }

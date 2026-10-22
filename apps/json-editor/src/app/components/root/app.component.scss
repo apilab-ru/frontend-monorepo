@@ -1,11 +1,36 @@
 .root {
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
-
 .content {
   flex: 1;
+  min-height: 0;
   overflow: hidden;
+}
+.footer {
+  height: 30px;
+  flex: 0 0 auto;
+  padding: 0 16px;
+  background: var(--je-panel);
+  border-top: 1px solid var(--je-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--je-muted);
+  font-size: 11px;
+}
+.status-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--je-accent);
+  margin-right: 6px;
+}
+@media (max-width: 600px) {
+  .footer-label {
+    display: none;
+  }
 }

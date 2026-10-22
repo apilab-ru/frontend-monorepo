@@ -24,6 +24,10 @@ export default [
         },
       ],
       '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/explicit-function-return-type': [
+        'error',
+        { allowExpressions: true },
+      ],
     },
   },
   ...nx.configs['flat/angular-template'],

@@ -51,6 +51,14 @@ export default [
   },
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
-    rules: { '@stylistic/no-extra-semi': 'error' },
+    rules: {
+      '@stylistic/no-extra-semi': 'error',
+      '@stylistic/padding-line-between-statements': [
+        'error',
+        { blankLine: 'always', prev: '*', next: 'if' },
+        { blankLine: 'always', prev: 'if', next: '*' },
+        { blankLine: 'always', prev: '*', next: 'return' },
+      ],
+    },
   },
 ];

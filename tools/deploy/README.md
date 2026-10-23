@@ -6,7 +6,7 @@ and workspace configuration. The comparison starts at the last successful run
 of this workflow, so failed deployments are retried on subsequent pushes.
 Manual runs and deployment configuration changes select every enabled app.
 
-Only `json-editor` is enabled in `apps.json`. To enable another static app, add
+`json-editor` and `time` are enabled in `apps.json`. To enable another static app, add
 its Nx project name, production output directory, and GitHub environment there.
 The shared workflow builds each selected app and deploys its artifact via FTP,
 using the same lftp settings as the existing apilab-main workflow.
@@ -60,3 +60,10 @@ for example `/time.apilab.ru/current`. Deploy only to the dedicated site's
 `json.apilab.ru` already has an Nginx virtual host rooted at
 `/var/www/json.apilab.ru/current`, with SPA fallback and cache headers configured.
 No Nginx changes or Apache installation are needed for this server.
+
+## Time
+
+Time uses the `time-production` GitHub environment and outputs `dist/apps/time`.
+Configure the four FTP secrets listed above, with `FTP_TARGET_DIR` set to
+`/time.apilab.ru/current`. Production includes the production environment and
+Angular service-worker files. The origin has HTTPS configured for time.apilab.ru.

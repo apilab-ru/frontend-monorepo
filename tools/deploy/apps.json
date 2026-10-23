@@ -3,5 +3,10 @@
     "project": "json-editor",
     "output": "dist/apps/json-editor",
     "environment": "json-editor-production"
+  },
+  {
+    "project": "time",
+    "output": "dist/apps/time",
+    "environment": "time-production"
   }
 ]

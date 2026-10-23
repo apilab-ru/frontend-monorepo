@@ -1,0 +1,56 @@
+name: Deploy affected apps
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: deploy-apps-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  NX_DAEMON: 'false'
+
+jobs:
+  affected:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      matrix: ${{ steps.apps.outputs.matrix }}
+      has_apps: ${{ steps.apps.outputs.has_apps }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - uses: nrwl/nx-set-shas@v4
+        with:
+          main-branch-name: master
+          workflow-id: deploy-apps.yml
+      - name: Select enabled apps affected by changes
+        id: apps
+        env:
+          DEPLOY_EVENT: ${{ github.event_name }}
+        run: node tools/deploy/affected-apps.mjs
+
+  deploy:
+    needs: affected
+    if: needs.affected.outputs.has_apps == 'true'
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.affected.outputs.matrix) }}
+    uses: ./.github/workflows/deploy-ftp.yml
+    secrets: inherit
+    with:
+      project: ${{ matrix.project }}
+      output: ${{ matrix.output }}
+      environment: ${{ matrix.environment }}

@@ -1,0 +1,7 @@
+[
+  {
+    "project": "json-editor",
+    "output": "dist/apps/json-editor",
+    "environment": "json-editor-production"
+  }
+]

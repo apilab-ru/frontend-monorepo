@@ -1,0 +1,101 @@
+name: Deploy static app over FTP
+
+on:
+  workflow_call:
+    inputs:
+      project:
+        required: true
+        type: string
+      output:
+        required: true
+        type: string
+      environment:
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+env:
+  NX_DAEMON: 'false'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Build production app
+        env:
+          PROJECT: ${{ inputs.project }}
+        run: npx nx build "$PROJECT" --configuration=production
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.project }}-production
+          path: ${{ inputs.output }}/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 1
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: ${{ inputs.environment }}
+    concurrency:
+      group: ftp-${{ inputs.project }}-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.project }}-production
+          path: artifact
+
+      - name: Install FTP client
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes lftp
+
+      - name: Synchronize artifact and delete stale remote files
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_TARGET_DIR: ${{ secrets.FTP_TARGET_DIR }}
+        run: |
+          test -n "$FTP_SERVER"
+          test -n "$FTP_USERNAME"
+          test -n "$FTP_PASSWORD"
+          test -n "$FTP_TARGET_DIR"
+          case "$FTP_TARGET_DIR" in
+            /*) ;;
+            *) echo "FTP_TARGET_DIR must be an absolute FTP path" >&2; exit 1 ;;
+          esac
+          case "${FTP_TARGET_DIR%/}" in
+            ""|/|/var|/var/www)
+              echo "Refusing unsafe FTP_TARGET_DIR: $FTP_TARGET_DIR" >&2
+              exit 1
+              ;;
+          esac
+          lftp <<EOF
+          set cmd:fail-exit yes
+          set cmd:interactive no
+          set net:timeout 20
+          set net:max-retries 2
+          set net:reconnect-interval-base 5
+          set ftp:ssl-allow no
+          open -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_SERVER"
+          cls -1 "$FTP_TARGET_DIR"
+          mirror --reverse --no-perms --verbose --parallel=1 artifact/ "$FTP_TARGET_DIR"
+          set cmd:fail-exit no
+          mirror --reverse --delete --no-perms --parallel=1 artifact/ "$FTP_TARGET_DIR"
+          set cmd:fail-exit yes
+          get "$FTP_TARGET_DIR/index.html" -o /tmp/deployed-index.html
+          bye
+          EOF
+          cmp --silent artifact/index.html /tmp/deployed-index.html

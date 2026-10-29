@@ -53,5 +53,4 @@ jobs:
     with:
       project: ${{ matrix.project }}
       output: ${{ matrix.output }}
-      environment: ${{ matrix.environment }}
       ftp_target_dir: ${{ matrix.ftp_target_dir }}

@@ -9,9 +9,6 @@ on:
       output:
         required: true
         type: string
-      environment:
-        required: true
-        type: string
       ftp_server:
         type: string
         default: ftp://92.53.119.95
@@ -55,7 +52,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    environment: ${{ inputs.environment }}
     concurrency:
       group: ftp-${{ inputs.project }}-production
       cancel-in-progress: false
@@ -63,8 +59,8 @@ jobs:
       FTP_SERVER: ${{ secrets.FTP_SERVER || vars.FTP_SERVER || inputs.ftp_server }}
       FTP_USERNAME: ${{ secrets.FTP_USERNAME || vars.FTP_USERNAME || inputs.ftp_username }}
       FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-      FTP_TARGET_DIR: ${{ secrets.FTP_TARGET_DIR || vars.FTP_TARGET_DIR || inputs.ftp_target_dir }}
-      DEPLOY_ENVIRONMENT: ${{ inputs.environment }}
+      FTP_TARGET_DIR: ${{ inputs.ftp_target_dir }}
+      DEPLOY_PROJECT: ${{ inputs.project }}
     steps:
       - name: Validate FTP configuration
         shell: bash
@@ -72,7 +68,7 @@ jobs:
           missing=0
           for name in FTP_SERVER FTP_USERNAME FTP_PASSWORD FTP_TARGET_DIR; do
             if [ -z "${!name}" ]; then
-              echo "::error::Missing $name for environment '$DEPLOY_ENVIRONMENT'. Configure it in this repository's Actions settings. FTP_PASSWORD must be an Actions secret."
+              echo "::error::Missing $name for project '$DEPLOY_PROJECT'. Configure the shared repository Actions settings. FTP_PASSWORD must be a repository Actions secret."
               missing=1
             fi
           done

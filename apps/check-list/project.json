@@ -16,7 +16,7 @@
           "browser": ""
         },
         "index": "apps/check-list/src/index.html",
-        "polyfills": ["zone.js"],
+        "polyfills": [],
         "tsConfig": "apps/check-list/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": ["apps/check-list/src/favicon.ico", "apps/check-list/src/assets"],
@@ -41,7 +41,13 @@
               "maximumError": "4kb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "fileReplacements": [
+            {
+              "replace": "apps/check-list/src/environments/environment.ts",
+              "with": "apps/check-list/src/environments/environment.prod.ts"
+            }
+          ]
         },
         "development": {
           "optimization": false,

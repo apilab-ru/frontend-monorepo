@@ -1,21 +1,17 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { GroupPoints } from './interface';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { MatCheckbox } from '@angular/material/checkbox';
 import { DataService } from './services/data.service';
 
 @Component({
   selector: 'app-root',
+  imports: [MatCheckbox],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
 })
-export class AppComponent implements OnInit {
-  points$: Observable<GroupPoints[]>;
+export class AppComponent {
+  private dataService = inject(DataService);
 
-  constructor(private dataService: DataService) {}
-
-  ngOnInit(): void {
-    this.points$ = this.dataService.loadPoints();
-  }
+  points = toSignal(this.dataService.loadPoints(), { initialValue: [] });
 }

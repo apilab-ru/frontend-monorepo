@@ -1,23 +1,35 @@
-import { Injectable } from '@angular/core';
-import { environment } from "../../environments/environment";
-import { from, Observable } from "rxjs";
-import { GoogleApiResponse } from "../interface";
-import { map } from "rxjs/operators";
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { Observable, map } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { GoogleApiResponse } from '../interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GoogleDocApiService {
+  private http = inject(HttpClient);
 
   fetchRows(): Observable<(string | null)[][]> {
-    const id = environment.doc;
-    const gid = environment.gridId;
-    return from(
-      fetch(`https://docs.google.com/spreadsheets/d/${ id }/gviz/tq?tqx=out:json&tq&gid=${ gid }`)
-        .then(res => res.text())
-        .then(text => JSON.parse(text.match(/(?<="table":).*(?=}\);)/g)![0]) as GoogleApiResponse)
-    ).pipe(
-      map(({ rows }) => rows.map(row => row?.c.map(ceil => ceil?.v || null )))
-    );
+    const { doc, gridId } = environment;
+
+    return this.http
+      .get(
+        `https://docs.google.com/spreadsheets/d/${doc}/gviz/tq?tqx=out:json&tq&gid=${gridId}`,
+        { responseType: 'text' }
+      )
+      .pipe(
+        map((text) => {
+          const table = text.match(/(?<="table":).*(?=}\);)/)?.[0];
+
+          if (!table) {
+            throw new Error('The spreadsheet response does not contain a table.');
+          }
+
+          const { rows } = JSON.parse(table) as GoogleApiResponse;
+
+          return rows.map((row) => row.c.map((cell) => cell?.v ?? null));
+        })
+      );
   }
 }

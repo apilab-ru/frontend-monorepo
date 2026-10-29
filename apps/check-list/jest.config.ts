@@ -1,4 +1,3 @@
-/* eslint-disable */
 module.exports = {
   displayName: 'check-list',
   preset: '../../jest.preset.js',

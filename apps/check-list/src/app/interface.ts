@@ -9,7 +9,7 @@ export interface GroupPoints {
 }
 
 export interface GoogleApiRow {
-  c: (null | {v: string})[];
+  c: (null | { v: string })[];
 }
 
 export interface GoogleApiResponse {

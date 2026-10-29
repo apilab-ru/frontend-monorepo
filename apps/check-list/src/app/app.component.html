@@ -1,5 +1,5 @@
 <div class="container">
-   @for (group of (points$ | async); track group) {
+   @for (group of points(); track group) {
    <h2 class="subtitle">{{ group.title }}</h2>
    <section class="checkbox">
       @for (item of group.list; track item) {

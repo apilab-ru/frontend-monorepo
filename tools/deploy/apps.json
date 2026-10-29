@@ -8,5 +8,10 @@
     "project": "time",
     "output": "dist/apps/time",
     "environment": "time-production"
+  },
+  {
+    "project": "check-list",
+    "output": "dist/apps/check-list",
+    "environment": "check-list-production"
   }
 ]

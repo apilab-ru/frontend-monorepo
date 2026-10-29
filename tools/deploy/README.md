@@ -6,7 +6,7 @@ and workspace configuration. The comparison starts at the last successful run
 of this workflow, so failed deployments are retried on subsequent pushes.
 Manual runs and deployment configuration changes select every enabled app.
 
-`json-editor` and `time` are enabled in `apps.json`. To enable another static app, add
+`json-editor`, `time`, and `check-list` are enabled in `apps.json`. To enable another static app, add
 its Nx project name, production output directory, and GitHub environment there.
 The shared workflow builds each selected app and deploys its artifact via FTP,
 using the same lftp settings as the existing apilab-main workflow.
@@ -67,3 +67,25 @@ Time uses the `time-production` GitHub environment and outputs `dist/apps/time`.
 Configure the four FTP secrets listed above, with `FTP_TARGET_DIR` set to
 `/time.apilab.ru/current`. Production includes the production environment and
 Angular service-worker files. The origin has HTTPS configured for time.apilab.ru.
+
+## Checklist
+
+Checklist uses the `check-list-production` GitHub environment and outputs
+`dist/apps/check-list`. Create this environment in `apilab-ru/frontend-monorepo`
+and configure:
+
+- `FTP_SERVER`: `ftp://92.53.119.95`.
+- `FTP_USERNAME`: `sites_deploy`.
+- `FTP_PASSWORD`: the existing deployment account password from the server's
+  `/root/.config/apilab-deploy/ftp.json` file. Do not use the root SSH password.
+- `FTP_TARGET_DIR`: `/check-list.apilab.ru/current`.
+
+The existing Nginx virtual host serves `check-list.apilab.ru` from
+`/var/www/check-list.apilab.ru/current` with SPA fallback. The relative `current`
+symlink resolves inside the FTP jail, and the deployment account has write
+access to its release directory and files. No Nginx or permission changes are
+needed. The current virtual host listens on HTTP port 80.
+
+Push these changes to `master` to deploy affected apps, or run **Deploy affected
+apps** manually to deploy all enabled apps. The workflow builds on Ubuntu and
+verifies the uploaded `index.html` against the build artifact.

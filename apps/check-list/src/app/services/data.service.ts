@@ -16,8 +16,8 @@ enum Rows {
 export class DataService {
   private api = inject(GoogleDocApiService);
 
-  loadPoints(): Observable<GroupPoints[]> {
-    return this.api.fetchRows().pipe(
+  loadPoints(url?: string): Observable<GroupPoints[]> {
+    return this.api.fetchRows(url).pipe(
       map((rows) => {
         const stack: GroupPoints[] = [];
 

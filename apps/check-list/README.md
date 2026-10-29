@@ -17,7 +17,11 @@ The development server uses `http://localhost:4200` by default. Production build
 
 ## Spreadsheet configuration
 
-Set `doc` (the spreadsheet ID) and `gridId` (the sheet's `gid`) in `src/environments/environment.ts` for development and `src/environments/environment.prod.ts` for production. The production build replaces the development environment file automatically.
+Paste a Google Sheets URL into the input and select **Load**. The last submitted valid link is saved in `localStorage` and loaded automatically on the next visit. The `gid` in the link selects the sheet tab. If no link has been saved, the app prefills the input with the default spreadsheet URL and loads that spreadsheet.
+
+Use **View format example** to expand the column guide, and **Open example** to open the default spreadsheet. The checkbox next to the title selects all items or clears them when all are selected. It also reflects individual selections, including a partial-selection state. The sticky footer counts checked items; **Reset** clears their checkmarks. Checkmarks also reset when another checklist is loaded.
+
+To change the default spreadsheet, set `doc` (the spreadsheet ID) and `gridId` (the sheet's `gid`) in `src/environments/environment.ts` for development and `src/environments/environment.prod.ts` for production. The production build replaces the development environment file automatically.
 
 The spreadsheet must be readable without signing in. The app requests its Google Visualization endpoint directly from the browser; it does not use an API key or a backend.
 

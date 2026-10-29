@@ -19,7 +19,7 @@
         "polyfills": [],
         "tsConfig": "apps/check-list/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/check-list/src/favicon.ico", "apps/check-list/src/assets"],
+        "assets": ["apps/check-list/src/favicon.png", "apps/check-list/src/assets"],
         "styles": ["apps/check-list/src/styles.scss"],
         "scripts": [],
         "browser": "apps/check-list/src/main.ts",
@@ -37,8 +37,8 @@
             },
             {
               "type": "anyComponentStyle",
-              "maximumWarning": "2kb",
-              "maximumError": "4kb"
+              "maximumWarning": "6kb",
+              "maximumError": "8kb"
             }
           ],
           "outputHashing": "all",

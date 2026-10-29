@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { GoogleApiResponse } from '../interface';
+import { parseSpreadsheetUrl } from '../spreadsheet-url';
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +11,8 @@ import { GoogleApiResponse } from '../interface';
 export class GoogleDocApiService {
   private http = inject(HttpClient);
 
-  fetchRows(): Observable<(string | null)[][]> {
-    const { doc, gridId } = environment;
+  fetchRows(url?: string): Observable<(string | null)[][]> {
+    const { doc, gridId } = url ? parseSpreadsheetUrl(url) : environment;
 
     return this.http
       .get(

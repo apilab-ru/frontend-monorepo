@@ -1,15 +1,107 @@
-<div class="container">
-   @for (group of points(); track group) {
-   <h2 class="subtitle">{{ group.title }}</h2>
-   <section class="checkbox">
-      @for (item of group.list; track item) {
-      <mat-checkbox class="checkbox__item"
-         >{{ item.text }}
-         @if (item.description) {
-         <div class="description">( {{ item.description }} )</div>
-         }
-      </mat-checkbox>
-      }
+@let validationError = sheetUrl.touched ? sheetUrl.getError('spreadsheetUrl') : null;
+
+<main class="checklist-card">
+   <header class="checklist-header">
+      <div class="brand">
+         <input
+            type="checkbox"
+            class="brand-checkbox"
+            aria-label="Select all checklist items"
+            [checked]="allChecked()"
+            [indeterminate]="partiallyChecked()"
+            [disabled]="totalCount() === 0"
+            (change)="toggleAll()"
+         />
+         <h1 class="brand-title">Checklist</h1>
+      </div>
+
+      <form class="sheet-form" (submit)="load($event)" novalidate>
+         <label class="sheet-label sr-only" for="sheet-url">Google Sheets URL</label>
+         <div class="load-row">
+            <div class="sheet-field">
+               <input
+                  id="sheet-url"
+                  class="sheet-url"
+                  type="url"
+                  placeholder="Paste your spreadsheet link"
+                  autocomplete="url"
+                  spellcheck="false"
+                  [formControl]="sheetUrl"
+                  [attr.aria-invalid]="validationError ? 'true' : null"
+                  [attr.aria-describedby]="validationError ? 'sheet-url-error' : null"
+               />
+               @if (validationError) {
+                  <p id="sheet-url-error" class="error-message" role="alert">
+                     {{ validationError }}
+                  </p>
+               }
+            </div>
+            <button class="load-button" type="submit" [disabled]="state().loading">
+               Load
+            </button>
+         </div>
+      </form>
+
+      <div class="example-actions">
+         <button
+            class="example-toggle"
+            type="button"
+            [attr.aria-expanded]="showExample()"
+            aria-controls="format-example"
+            (click)="showExample.set(!showExample())"
+         >
+            <span
+               class="chevron"
+               [class.expanded]="showExample()"
+               aria-hidden="true"
+            ></span>
+            {{ showExample() ? 'Hide format example' : 'View format example' }}
+         </button>
+         <a
+            class="example-link"
+            [href]="exampleUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+         >
+            Open example
+            <span aria-hidden="true">↗</span>
+            <span class="sr-only">(opens in a new tab)</span>
+         </a>
+      </div>
+   </header>
+
+   <section
+      id="format-example"
+      class="format-example"
+      [hidden]="!showExample()"
+      aria-label="Spreadsheet format example"
+   >
+      <app-format-example />
    </section>
+
+   @if (error()) {
+      <p id="load-error" class="error-message" role="alert">{{ error() }}</p>
    }
-</div>
+
+   <app-checklist-content
+      [points]="points()"
+      [checked]="checked()"
+      [loading]="state().loading"
+      [hasError]="!!error()"
+      (itemToggle)="toggleItem($event)"
+   />
+
+   <footer class="checklist-footer">
+      <span role="status" aria-live="polite">
+         {{ checkedCount() }} of {{ totalCount() }} checked
+      </span>
+      <button
+         type="button"
+         class="reset-button"
+         [disabled]="checkedCount() === 0"
+         (click)="reset()"
+      >
+         Reset
+      </button>
+   </footer>
+</main>

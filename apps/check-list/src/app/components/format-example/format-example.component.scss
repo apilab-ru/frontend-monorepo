@@ -1,0 +1,105 @@
+:host {
+  display: block;
+}
+
+.table-scroll {
+  overflow-x: auto;
+  border: 1px solid #dde1e8;
+  border-radius: 5px;
+
+  &:focus-visible {
+    outline: 3px solid #3876c5;
+    outline-offset: 4px;
+  }
+}
+
+.format-table {
+  width: 100%;
+  min-width: 550px;
+  border-collapse: collapse;
+  font-size: 14px;
+  color: #26364e;
+}
+
+.format-cell {
+  border-right: 1px solid #dde1e8;
+  border-bottom: 1px solid #dde1e8;
+  padding: 9px 11px;
+  text-align: left;
+  line-height: 1.5;
+
+  &:last-child {
+    border-right: 0;
+  }
+}
+
+.format-header {
+  background: #f3f4f6;
+  font-weight: 400;
+  text-align: center;
+}
+
+.format-row-index {
+  width: 36px;
+  padding: 5px;
+}
+
+.group-column {
+  width: 28%;
+}
+
+.item-column {
+  width: 39%;
+}
+
+.format-row:last-child > .format-cell {
+  border-bottom: 0;
+}
+
+.column-a {
+  background: #fff5d0;
+}
+
+.column-b {
+  background: #e5f1ff;
+}
+
+.column-c {
+  background: #eee9ff;
+}
+
+.heading-cell {
+  font-weight: 700;
+}
+
+.legend {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+  color: #455065;
+  font-size: 14px;
+
+  &-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &-marker {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    color: #26364e;
+  }
+}
+
+.format-hint {
+  margin: 14px 0 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #818896;
+}

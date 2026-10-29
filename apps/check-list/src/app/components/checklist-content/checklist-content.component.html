@@ -1,0 +1,60 @@
+<div class="checklist-content" [attr.aria-busy]="loading()">
+   @if (loading()) {
+      <span class="sr-only" role="status">Loading checklist…</span>
+      <div class="skeleton-groups" aria-hidden="true">
+         @for (group of skeletonGroups; track group) {
+            <div class="checklist-group">
+               <div class="skeleton skeleton-heading"></div>
+               <div class="checklist-items">
+                  @for (item of skeletonItems; track item) {
+                     <div class="checklist-item">
+                        <div class="skeleton skeleton-checkbox"></div>
+                        <div class="skeleton-copy">
+                           <div
+                              class="skeleton skeleton-line"
+                              [class.skeleton-line-short]="item % 2 === 1"
+                           ></div>
+                           @if (item === 0) {
+                              <div class="skeleton skeleton-description"></div>
+                           }
+                        </div>
+                     </div>
+                  }
+               </div>
+            </div>
+         }
+      </div>
+   } @else {
+      @for (group of points(); track $index; let groupIndex = $index) {
+         <section class="checklist-group" [attr.aria-labelledby]="'group-' + groupIndex">
+            <h2 class="group-title" [id]="'group-' + groupIndex">{{ group.title }}</h2>
+            <div class="checklist-items">
+               @for (item of group.list; track $index; let itemIndex = $index) {
+                  @let key = groupIndex + ':' + itemIndex;
+                  <label class="checklist-item">
+                     <input
+                        type="checkbox"
+                        class="checklist-checkbox"
+                        [checked]="checked().has(key)"
+                        (change)="onItemChange(key, $event)"
+                     />
+                     <span class="item-copy">
+                        <span class="item-text">{{ item.text }}</span>
+                        @if (item.description) {
+                           <span class="description">{{ item.description }}</span>
+                        }
+                     </span>
+                  </label>
+               }
+            </div>
+         </section>
+      } @empty {
+         @if (!hasError()) {
+            <p class="status-message">
+               No checklist items yet. Add groups and items to your spreadsheet, then load
+               it again.
+            </p>
+         }
+      }
+   }
+</div>

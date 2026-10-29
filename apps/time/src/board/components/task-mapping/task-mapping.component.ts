@@ -1,23 +1,19 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { TaskMapService } from '../../services/task-map.service';
-import { Observable } from 'rxjs';
 import { TaskMapItem } from '../../models/task-map-item';
+import { TaskMapItemComponent } from '../task-map-item/task-map-item.component';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-task-mapping',
   templateUrl: './task-mapping.component.html',
   styleUrls: ['./task-mapping.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [TaskMapItemComponent, MatButton],
 })
-export class TaskMappingComponent implements OnInit {
-  taskMapList$: Observable<TaskMapItem[]>;
-
-  constructor(private taskMapService: TaskMapService) {}
-
-  ngOnInit(): void {
-    this.taskMapList$ = this.taskMapService.taskMapList$;
-  }
+export class TaskMappingComponent {
+  private taskMapService = inject(TaskMapService);
+  taskMapList = this.taskMapService.taskMapList;
 
   addMapItem(): void {
     this.taskMapService.addItem();
@@ -29,9 +25,5 @@ export class TaskMappingComponent implements OnInit {
 
   updateItem(item: TaskMapItem, index: number): void {
     this.taskMapService.updateItem(item, index);
-  }
-
-  trackByIndex(index: number): number {
-    return index;
   }
 }

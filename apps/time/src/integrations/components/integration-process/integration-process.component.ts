@@ -1,34 +1,43 @@
-import { ChangeDetectionStrategy, Component, Inject, Injector, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Injector,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IntegrationData } from './interface';
 import { ProviderAbstract } from '../../services/povider-abstract';
-import { BehaviorSubject, finalize } from 'rxjs';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { finalize } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DestroyRef, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { INTEGRATION_MAP_CONFIG } from '../../const';
 import { filter } from 'rxjs/operators';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { FormsModule } from '@angular/forms';
+import { NgxMaskDirective } from 'ngx-mask';
+import { MatButton } from '@angular/material/button';
 
-@UntilDestroy()
 @Component({
   selector: 'app-integration-process',
   templateUrl: './integration-process.component.html',
   styleUrls: ['./integration-process.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [MatProgressSpinner, NgxMaskDirective, FormsModule, MatButton],
 })
 export class IntegrationProcessComponent implements OnInit {
+  private data = inject<IntegrationData>(MAT_DIALOG_DATA);
+  private dialogRef = inject<MatDialogRef<IntegrationData>>(MatDialogRef);
+  private injector = inject(Injector);
+  private snackBar = inject(MatSnackBar);
+
+  private destroyRef = inject(DestroyRef);
   private provider: ProviderAbstract;
 
-  ready$ = new BehaviorSubject<boolean>(false);
-  process$ = new BehaviorSubject<boolean>(false);
+  ready = signal(false);
+  processing = signal(false);
   date: string;
-
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private data: IntegrationData,
-    private dialogRef: MatDialogRef<IntegrationData>,
-    private injector: Injector,
-    private snackBar: MatSnackBar
-  ) {}
 
   ngOnInit(): void {
     const [date] = new Date().toISOString().split('T');
@@ -40,22 +49,22 @@ export class IntegrationProcessComponent implements OnInit {
     this.provider = this.injector.get(config.provider);
     this.provider
       .init(this.data.integration)
-      .pipe(untilDestroyed(this))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
-        this.ready$.next(true);
+        this.ready.set(true);
       });
   }
 
   start(): void {
-    this.process$.next(true);
+    this.processing.set(true);
     this.provider
       .export(this.data.calc, this.date)
       .pipe(
         filter(Boolean),
         finalize(() => {
-          this.process$.next(false);
+          this.processing.set(false);
         }),
-        untilDestroyed(this)
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe({
         next: () => {

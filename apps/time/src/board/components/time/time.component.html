@@ -1,12 +1,12 @@
 <input
-  name="time"
-  class="time-input"
-  type="tel"
-  [mask]="mask"
-  [ngModel]="valueString$ | async"
-  (ngModelChange)="updateValue($event)"
->
-<span class="icon" mat-icon-button color="accent" (click)="setNow()">
-  <mat-icon>input</mat-icon>
-</span>
-
+   name="time"
+   class="time-input"
+   type="tel"
+   [mask]="mask"
+   [ngModel]="valueString()"
+   (ngModelChange)="updateValue($event)"
+   (blur)="onBlur()"
+/>
+<button type="button" class="icon" aria-label="Set current time" (click)="setNow()">
+   <mat-icon>input</mat-icon>
+</button>

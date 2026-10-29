@@ -1,12 +1,11 @@
 <div class="root">
    <h2>Task Mapping</h2>
-   @for (item of (taskMapList$ | async); track trackByIndex(index); let index = $index) {
-   <app-task-map-item
-      class="line"
+   @for (item of taskMapList(); track $index; let index = $index) {
+   <app-task-map-item class="line"
       [item]="item"
       (deleteItem)="deleteItem(index)"
       (updateItem)="updateItem($event, index)"
-   ></app-task-map-item>
+    />
    }
    <button mat-raised-button color="primary" (click)="addMapItem()">+ Add</button>
 </div>

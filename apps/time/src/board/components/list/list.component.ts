@@ -1,19 +1,20 @@
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { TimeItem } from '../../models/time-item';
 import { UpdateEvent } from '../../models/update-event';
+import { ItemComponent } from '../item/item.component';
 
 @Component({
   selector: 'app-time-board-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ItemComponent],
 })
 export class TimeBoardListComponent {
-  @Input() list: TimeItem[] = [];
+  list = input<TimeItem[]>([]);
 
-  @Output() deleteItem = new EventEmitter<number>();
-  @Output() updateItem = new EventEmitter<UpdateEvent<TimeItem>>();
+  deleteItem = output<number>();
+  updateItem = output<UpdateEvent<TimeItem>>();
 
   onDeleteItem(i: number): void {
     this.deleteItem.emit(i);
@@ -24,9 +25,5 @@ export class TimeBoardListComponent {
       index,
       item,
     });
-  }
-
-  trackByIndex(index: number): number {
-    return index;
   }
 }

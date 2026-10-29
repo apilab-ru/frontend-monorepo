@@ -1,29 +1,44 @@
-import { ChangeDetectionStrategy, Component, forwardRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  forwardRef,
+  signal,
+  inject,
+} from '@angular/core';
 import { TimeDto } from '../../models/time';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { TimeService } from '../../services/time.service';
-import { BehaviorSubject } from 'rxjs';
+import { NgxMaskDirective } from 'ngx-mask';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-time',
   templateUrl: './time.component.html',
   styleUrls: ['./time.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TimeComponent), multi: true }],
-  standalone: false,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => TimeComponent),
+      multi: true,
+    },
+  ],
+  imports: [NgxMaskDirective, FormsModule, MatIcon],
 })
 export class TimeComponent implements ControlValueAccessor {
+  private timeService = inject(TimeService);
+
   value: TimeDto;
-  valueString$ = new BehaviorSubject<string>('');
+  valueString = signal('');
   mask = '00:00';
 
-  private propagateChange: (value: TimeDto) => void = (arg: TimeDto) => {};
-
-  constructor(private timeService: TimeService) {}
+  private propagateTouched: () => void = () => undefined;
+  private propagateChange: (value: TimeDto) => void = () => undefined;
 
   updateValue(value: string): void {
-    this.valueString$.next(value);
+    this.valueString.set(value);
     const time = this.timeService.getTimeFromString(value);
+
     if (JSON.stringify(time) !== JSON.stringify(this.value)) {
       this.value = time;
       this.propagateChange(time);
@@ -32,18 +47,25 @@ export class TimeComponent implements ControlValueAccessor {
 
   writeValue(value: TimeDto): void {
     this.value = value;
-    this.valueString$.next(this.timeService.getStringTime(value));
+    this.valueString.set(this.timeService.getStringTime(value));
   }
 
-  registerOnChange(fn): void {
+  registerOnChange(fn: (value: TimeDto) => void): void {
     this.propagateChange = fn;
   }
 
-  registerOnTouched(fn): void {}
+  registerOnTouched(fn: () => void): void {
+    this.propagateTouched = fn;
+  }
+
+  onBlur(): void {
+    this.propagateTouched();
+  }
 
   setNow(): void {
     this.value = TimeService.getNow();
     this.propagateChange(this.value);
-    this.valueString$.next(this.timeService.getStringTime(this.value));
+    this.propagateTouched();
+    this.valueString.set(this.timeService.getStringTime(this.value));
   }
 }

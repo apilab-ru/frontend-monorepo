@@ -1,7 +1,7 @@
 <div class="box">
-  <div class="right-float-block">
-    <app-task-mapping></app-task-mapping>
-    <app-integrations class="integrations" [calc]="calculated$ | async"></app-integrations>
-  </div>
+   <div class="right-float-block">
+      <app-task-mapping />
+      <app-integrations class="integrations" [calc]="calculated()" />
+   </div>
 </div>
-<app-time-board></app-time-board>
+<app-time-board />

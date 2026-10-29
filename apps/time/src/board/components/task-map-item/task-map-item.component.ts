@@ -1,25 +1,26 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { TaskMapItem } from '../../models/task-map-item';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-task-map-item',
   templateUrl: './task-map-item.component.html',
   styleUrls: ['./task-map-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [FormsModule],
 })
 export class TaskMapItemComponent {
-  @Input() item: TaskMapItem;
+  item = input.required<TaskMapItem>();
 
-  @Output() deleteItem = new EventEmitter<void>();
-  @Output() updateItem = new EventEmitter<TaskMapItem>();
+  deleteItem = output<void>();
+  updateItem = output<TaskMapItem>();
 
   public onChange(key: keyof TaskMapItem, value: string): void {
-    this.item = {
-      ...this.item,
+    const item = {
+      ...this.item(),
       [key]: value,
     };
 
-    this.updateItem.emit(this.item);
+    this.updateItem.emit(item);
   }
 }

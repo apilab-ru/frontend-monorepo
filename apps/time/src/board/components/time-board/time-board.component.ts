@@ -1,64 +1,66 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
 import { TimeItem } from '../../models/time-item';
-import { Calc } from '../../models/calc';
 import { Store } from '@ngrx/store';
 import { State } from '../../store/state';
 import * as fromRoot from '../../store/reducers';
 import * as actions from '../../store/actions';
-import { combineLatest, Observable } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { UpdateEvent } from '../../models/update-event';
-import { map, take } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Setting } from '../../models/setting';
 import { TimeService } from '../../services/time.service';
-import { HistoryService } from '../../services/history.service';
 import { KeyListenerService } from '../../services/key-listener.service';
 import { TaskMapService } from '../../services/task-map.service';
-import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatCheckboxChange, MatCheckbox } from '@angular/material/checkbox';
+import { MatButton } from '@angular/material/button';
+import { TimeBoardListComponent } from '../list/list.component';
+import { FormsModule } from '@angular/forms';
+import { CopyClickDirective } from '../../directives/copy-click.directive';
+import { TimeDtoPipe } from '../../pipes/time-dto.pipe';
 
 @Component({
   selector: 'app-time-board',
   templateUrl: './time-board.component.html',
   styleUrls: ['./time-board.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    MatButton,
+    TimeBoardListComponent,
+    MatCheckbox,
+    FormsModule,
+    CopyClickDirective,
+    TimeDtoPipe,
+  ],
 })
-export class TimeBoardComponent implements OnInit {
-  list$: Observable<TimeItem[]>;
-  calculated$: Observable<Calc[]>;
-  setting: Setting;
-  totalTime$: Observable<string>;
-  totalHours$: Observable<string>;
+export class TimeBoardComponent {
+  private timeService = inject(TimeService);
+  private store = inject<Store<State>>(Store);
+  private keyListenerService = inject(KeyListenerService);
+  private taskMapService = inject(TaskMapService);
 
-  constructor(
-    private timeService: TimeService,
-    private store: Store<State>,
-    private historyService: HistoryService,
-    private keyListenerService: KeyListenerService,
-    private snackBar: MatSnackBar,
-    private taskMapService: TaskMapService
-  ) {
-    this.list$ = store.select(fromRoot.getList);
-    this.calculated$ = store.select(fromRoot.getCalcList);
-    this.setting = this.timeService.getSetting();
-  }
+  list = this.store.selectSignal(fromRoot.getList);
+  calculated = this.store.selectSignal(fromRoot.getCalcList);
+  setting = signal(this.timeService.getSetting());
+  totalMinutes = computed(() =>
+    this.list().reduce((total, item) => total + this.timeService.getTime(item), 0)
+  );
+  totalTime = computed(() => this.timeService.getStringHourMinute(this.totalMinutes()));
+  totalHours = computed(() => (this.totalMinutes() / 60).toFixed(2));
 
-  ngOnInit(): void {
-    const totalTimeMinutes$ = this.list$.pipe(
-      map((list) => list.reduce((prev, next) => this.timeService.getTime(next) + prev, 0))
-    );
-
-    this.totalTime$ = totalTimeMinutes$.pipe(map((minutes) => this.timeService.getStringHourMinute(minutes)));
-
-    this.totalHours$ = totalTimeMinutes$.pipe(map((minutes) => (minutes / 60).toFixed(2)));
-
-    this.keyListenerService.listener(['ControlLeft', 'KeyZ']).subscribe(() => {
-      this.store.dispatch(new actions.Undo());
-    });
-
-    this.keyListenerService.listener(['ControlLeft', 'KeyQ']).subscribe(() => {
-      this.reCalc();
-    });
+  constructor() {
+    this.keyListenerService
+      .listener(['ControlLeft', 'KeyZ'])
+      .pipe(takeUntilDestroyed())
+      .subscribe(() => this.undo());
+    this.keyListenerService
+      .listener(['ControlLeft', 'KeyQ'])
+      .pipe(takeUntilDestroyed())
+      .subscribe(() => this.reCalc());
   }
 
   undo(): void {
@@ -86,31 +88,32 @@ export class TimeBoardComponent implements OnInit {
   }
 
   reCalc(): void {
-    combineLatest([this.list$, this.taskMapService.taskMap$])
-      .pipe(take(1))
-      .subscribe(([timeList, taskMap]) => {
-        this.store.dispatch(
-          new actions.SetCalculationList(this.timeService.calcTime(timeList, this.timeService.getSetting(), taskMap))
-        );
-      });
+    this.store.dispatch(
+      new actions.SetCalculationList(
+        this.timeService.calcTime(
+          this.list(),
+          this.setting(),
+          this.taskMapService.taskMap()
+        )
+      )
+    );
   }
 
   changeSort(event: MatCheckboxChange): void {
-    const setting = this.timeService.getSetting();
-    setting.sort = event.checked;
-    this.timeService.saveSetting(setting);
+    this.updateSetting({ sort: event.checked });
   }
 
   changeGroup(event: MatCheckboxChange): void {
-    const setting = this.timeService.getSetting();
-    setting.groupByDescription = event.checked;
-    this.timeService.saveSetting(setting);
+    this.updateSetting({ groupByDescription: event.checked });
   }
 
   changeTimeReorder(event: MatCheckboxChange): void {
-    const setting = this.timeService.getSetting();
-    setting.timeReorder = event.checked;
-    this.timeService.saveSetting(setting);
+    this.updateSetting({ timeReorder: event.checked });
+  }
+
+  private updateSetting(patch: Partial<Setting>): void {
+    this.setting.update((setting) => ({ ...setting, ...patch }));
+    this.timeService.saveSetting(this.setting());
   }
 
   getHourAndMinutes(minutes: number): string {

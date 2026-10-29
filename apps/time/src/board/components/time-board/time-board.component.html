@@ -2,37 +2,42 @@
 <br />
 <br />
 
-<app-time-board-list
-   [list]="list$ | async"
+<app-time-board-list [list]="list()"
    (updateItem)="onUpdateItem($event)"
    (deleteItem)="onDeleteItem($event)"
-></app-time-board-list>
+ />
 
 <div class="total-line">
-   Total <span class="total">{{ totalTime$ | async }}</span>
-   <span> / {{ totalHours$ | async }}</span>
+   Total <span class="total">{{ totalTime() }}</span>
+   <span> / {{ totalHours() }}</span>
 </div>
 
 <div class="buttons">
    <button mat-raised-button color="primary" (click)="addItem()">+ Add</button>
    <button mat-raised-button color="accent" (click)="reCalc()">Calc (Ctrl + Q)</button>
-   <mat-checkbox class="set" (change)="changeSort($event)" [ngModel]="setting.sort"> Order </mat-checkbox>
-   <mat-checkbox class="set" (change)="changeGroup($event)" [ngModel]="setting.groupByDescription">
+   <mat-checkbox class="set" (change)="changeSort($event)" [ngModel]="setting().sort">
+      Order
+   </mat-checkbox>
+   <mat-checkbox
+      class="set"
+      (change)="changeGroup($event)"
+      [ngModel]="setting().groupByDescription"
+   >
       Group by description
    </mat-checkbox>
    <!--mat-checkbox
       class="set"
       (change)="changeTimeReorder($event)"
-      [ngModel]="setting.timeReorder"
+      [ngModel]="setting().timeReorder"
       >
       Уплотнить
     </mat-checkbox-->
 </div>
 
-@if ((calculated$ | async)?.length) {
+@if (calculated().length) {
 <h3>Calculated</h3>
 <table>
-   @for (item of (calculated$ | async); track item; let i = $index) {
+   @for (item of calculated(); track item; let i = $index) {
    <tr class="calculated-line">
       <td class="copy-elem name" [appCopyClick]="item.timeStart | timeDto">
          {{ item.timeStart | timeDto }}
@@ -48,7 +53,9 @@
       </td>
       <td class="cell-copy-all">
          <button
-            [appCopyClick]="item.task + ' - ' + item.description + ' : ' + getHourAndMinutes(item.time)"
+            [appCopyClick]="
+               item.task + ' - ' + item.description + ' : ' + getHourAndMinutes(item.time)
+            "
             class="btn-copy"
          >
             C
@@ -63,5 +70,15 @@
 }
 
 <div class="note">
-   <b><a (click)="undo()">CtrlZ + Z</a></b> - undo the last operation<br />
+   <b
+      ><a
+         role="button"
+         tabindex="0"
+         (keydown.enter)="undo()"
+         (keydown.space)="$event.preventDefault(); undo()"
+         (click)="undo()"
+         >Ctrl + Z</a
+      ></b
+   >
+   - undo the last operation<br />
 </div>

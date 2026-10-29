@@ -1,15 +1,22 @@
-@if (item) {
+@if (item()) {
 <div class="root">
-   <app-time [ngModel]="item.from" (ngModelChange)="onChange($event, 'from')"></app-time>
+   <app-time [ngModel]="item().from"
+      (ngModelChange)="onChange($event, 'from')"
+    />
    <span class="separator">-</span>
-   <app-time [ngModel]="item.to" (ngModelChange)="onChange($event, 'to')"></app-time>
+   <app-time [ngModel]="item().to" (ngModelChange)="onChange($event, 'to')" />
    <div class="mobile-separator"></div>
-   <input type="text" class="task" [ngModel]="item.task" (ngModelChange)="onChange($event, 'task')" />
+   <input
+      type="text"
+      class="task"
+      [ngModel]="item().task"
+      (ngModelChange)="onChange($event, 'task')"
+   />
    <span class="calc">{{ getTime() }}</span>
    <textarea
       class="description"
       rows="1"
-      [ngModel]="item.description"
+      [ngModel]="item().description"
       (ngModelChange)="onChange($event, 'description')"
    ></textarea>
    <button (click)="delete()" class="btn-del">X</button>

@@ -1,9 +1,7 @@
-import { Injectable } from '@angular/core';
-import { map, pluck } from 'rxjs/operators';
+import { computed, inject, Injectable } from '@angular/core';
 import { TaskMap } from '../models/task-map';
 import { Store } from '@ngrx/store';
 import { State } from '../store/state';
-import { Observable } from 'rxjs';
 import * as actions from '../store/actions/task-map';
 import { TaskMapItem } from '../models/task-map-item';
 import { TaskMapState } from '../store/state/task-map';
@@ -11,28 +9,21 @@ import { TaskMapState } from '../store/state/task-map';
 const KEY_TASK_MAP = 'task-map';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TaskMapService {
-  public taskMap$: Observable<TaskMap>;
-  public taskMapList$: Observable<TaskMapItem[]>;
+  private store = inject<Store<State>>(Store);
 
-  constructor(
-    private store: Store<State>
-  ) {
-    this.taskMapList$ = this.store.pipe(
-      pluck('taskMap', 'list')
-    );
-    this.taskMap$ = this.taskMapList$.pipe(
-      map(this.fromArrayToMap)
-    );
-  }
+  taskMapList = this.store.selectSignal((state) => state.taskMap.list);
+  taskMap = computed(() => this.fromArrayToMap(this.taskMapList()));
 
   addItem(): void {
-    this.store.dispatch(new actions.Add({
-      key: null,
-      value: null
-    }));
+    this.store.dispatch(
+      new actions.Add({
+        key: null,
+        value: null,
+      })
+    );
   }
 
   deleteItem(index: number): void {
@@ -40,10 +31,12 @@ export class TaskMapService {
   }
 
   updateItem(item: TaskMapItem, index: number): void {
-    this.store.dispatch(new actions.Update({
-      index,
-      item
-    }));
+    this.store.dispatch(
+      new actions.Update({
+        index,
+        item,
+      })
+    );
   }
 
   getTaskMap(): TaskMap {
@@ -53,6 +46,7 @@ export class TaskMapService {
   private fromArrayToMap(list: TaskMapItem[]): TaskMap {
     return list.reduce((obj, item) => {
       obj[item.key] = item.value;
+
       return obj;
     }, {});
   }
@@ -63,20 +57,23 @@ export class TaskMapService {
 
   static loadTaskMap(): TaskMapState {
     const oldData = this.loadOldTaskMap();
+
     if (oldData) {
       return oldData;
     }
 
     try {
       const data = JSON.parse(localStorage.getItem(KEY_TASK_MAP));
+
       if (data) {
         return data;
       }
-    } catch (e) {
+    } catch {
+      // Ignore invalid saved data and use the fallback below.
     }
 
     return {
-      list: []
+      list: [],
     };
   }
 
@@ -84,7 +81,8 @@ export class TaskMapService {
     let data;
     try {
       data = JSON.parse(localStorage.getItem('jira-integration-task-map'));
-    } catch (e) {
+    } catch {
+      // Ignore invalid saved data and use the fallback below.
     }
 
     if (!data) {
@@ -94,11 +92,11 @@ export class TaskMapService {
     delete localStorage['jira-integration-task-map'];
 
     return {
-      list: this.fromMapToArray(data)
+      list: this.fromMapToArray(data),
     };
   }
 
   private static fromMapToArray(obj: TaskMap): TaskMapItem[] {
-    return Object.keys(obj).map(key => ({ key, value: obj[key] }));
+    return Object.keys(obj).map((key) => ({ key, value: obj[key] }));
   }
 }

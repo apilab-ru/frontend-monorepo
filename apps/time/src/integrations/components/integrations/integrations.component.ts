@@ -1,27 +1,31 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { IntegrationsService } from '../../services/integrations.service';
 import { MatDialog } from '@angular/material/dialog';
 import { IntegrationEditComponent } from '../integration-edit/integration-edit.component';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DestroyRef, inject } from '@angular/core';
 import { filter, take } from 'rxjs/operators';
 import { Calc } from '../../../board/models/calc';
-import { IntegrationClockify } from '../../interfase';
+import { Integration } from '../../interfase';
 import { IntegrationProcessComponent } from '../integration-process/integration-process.component';
+import { IntegrationItemComponent } from '../integration-item/integration-item.component';
+import { MatButton } from '@angular/material/button';
 
-@UntilDestroy()
 @Component({
   selector: 'app-integrations',
   templateUrl: './integrations.component.html',
   styleUrls: ['./integrations.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [IntegrationItemComponent, MatButton],
 })
 export class IntegrationsComponent {
-  @Input() calc: Calc[];
+  private integrationsService = inject(IntegrationsService);
+  private matDialog = inject(MatDialog);
 
-  integrations$ = this.integrationsService.integrations$;
+  private destroyRef = inject(DestroyRef);
+  calc = input.required<Calc[]>();
 
-  constructor(private integrationsService: IntegrationsService, private matDialog: MatDialog) {}
+  integrations = this.integrationsService.integrations;
 
   addIntegration(): void {
     this.matDialog
@@ -30,7 +34,7 @@ export class IntegrationsComponent {
       .pipe(
         take(1),
         filter((data) => !!data),
-        untilDestroyed(this)
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe((data) => {
         this.integrationsService.addIntegrations(data);
@@ -41,11 +45,11 @@ export class IntegrationsComponent {
     this.integrationsService.removeIntegrations(index);
   }
 
-  export(integration: IntegrationClockify): void {
+  export(integration: Integration): void {
     this.matDialog.open(IntegrationProcessComponent, {
       data: {
         integration,
-        calc: this.calc,
+        calc: this.calc(),
       },
     });
   }

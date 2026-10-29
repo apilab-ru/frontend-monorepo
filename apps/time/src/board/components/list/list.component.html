@@ -1,8 +1,7 @@
-@for (item of list; track trackByIndex(i); let i = $index) {
-<app-time-item
-   class="item"
+@for (item of list(); track $index; let i = $index) {
+<app-time-item class="item"
    [item]="item"
    (deleteItem)="onDeleteItem(i)"
    (updateItem)="onUpdateItem(i, $event)"
-></app-time-item>
+ />
 }

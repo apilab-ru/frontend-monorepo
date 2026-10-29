@@ -1,22 +1,18 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import * as fromRoot from '../../store/reducers';
-import { Observable } from 'rxjs';
-import { Calc } from '../../models/calc';
 import { Store } from '@ngrx/store';
+import { TaskMappingComponent } from '../task-mapping/task-mapping.component';
+import { IntegrationsComponent } from '../../../integrations/components/integrations/integrations.component';
+import { TimeBoardComponent } from '../time-board/time-board.component';
 
 @Component({
   selector: 'app-board-page',
   templateUrl: './board-page.component.html',
   styleUrls: ['./board-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [TaskMappingComponent, IntegrationsComponent, TimeBoardComponent],
 })
-export class BoardPageComponent implements OnInit {
-  calculated$: Observable<Calc[]>;
-
-  constructor(private store: Store) {}
-
-  ngOnInit(): void {
-    this.calculated$ = this.store.select(fromRoot.getCalcList);
-  }
+export class BoardPageComponent {
+  private store = inject(Store);
+  calculated = this.store.selectSignal(fromRoot.getCalcList);
 }

@@ -1,21 +1,21 @@
 <div
-  class="root"
-  matTooltip="Please first of all calc time log"
-  [matTooltipDisabled]="!disabled"
+   class="root"
+   matTooltip="Please first of all calc time log"
+   [matTooltipDisabled]="!disabled()"
 >
-  <span class="icon -type-{{ integration.type }}"></span>
+   <span class="icon -type-{{ integration().type }}"></span>
 
-  <button
-    class="button"
-    mat-raised-button
-    color="primary"
-    [disabled]="disabled"
-    (click)="export.emit()"
-  >
-    Export
-  </button>
+   <button
+      class="button"
+      mat-raised-button
+      color="primary"
+      [disabled]="disabled()"
+      (click)="export.emit()"
+   >
+      Export
+   </button>
 
-  <button class="button" mat-raised-button color="warn" (click)="remove.emit()">
-    Delete
-  </button>
+   <button class="button" mat-raised-button color="warn" (click)="remove.emit()">
+      Delete
+   </button>
 </div>

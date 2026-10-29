@@ -30,7 +30,7 @@ function jiraFetch(list, domain) {
       const { task, ...item } = list.shift();
 
       return sendLog(task, item).catch(() => {
-        console.log('error send', task, item);
+        console.log('Error sending worklog', task, item);
       }).then(() => nextSend());
     } else {
       console.log('Complete!');

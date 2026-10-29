@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { ProviderAbstract } from './povider-abstract';
-import { IntegrationJira, JiraItem } from '../interfase';
+import { ProviderAbstract } from './provider-abstract';
+import { IntegrationJira, JiraItem } from '../interface';
 import { Observable, of, throwError } from 'rxjs';
 import { Calc } from '../../board/models/calc';
 import { TimeService } from '../../board/services/time.service';
@@ -70,7 +70,7 @@ export class ProviderJira implements ProviderAbstract<IntegrationJira> {
     this.clipboard.copy(code);
 
     return this.snackBar
-      .open('Code copied! Past in console on jira Page.', 'OpenPage', {
+      .open('Code copied! Paste it into the console on the Jira page.', 'Open page', {
         duration: 30_000,
       })
       .onAction()

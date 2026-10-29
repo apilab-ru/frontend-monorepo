@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IntegrationData } from './interface';
-import { ProviderAbstract } from '../../services/povider-abstract';
+import { ProviderAbstract } from '../../services/provider-abstract';
 import { finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DestroyRef, inject } from '@angular/core';

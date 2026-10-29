@@ -1,4 +1,4 @@
-import { ProviderAbstract } from './povider-abstract';
+import { ProviderAbstract } from './provider-abstract';
 import {
   Observable,
   switchMap,
@@ -10,7 +10,7 @@ import {
   of,
   toArray,
 } from 'rxjs';
-import { ClockifyItem, IntegrationClockify } from '../interfase';
+import { ClockifyItem, IntegrationClockify } from '../interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { map } from 'rxjs/operators';
@@ -67,7 +67,7 @@ export class ProviderClockify implements ProviderAbstract<IntegrationClockify> {
 
   validate(form: Form): Observable<boolean> {
     if (!form.apiKey) {
-      return throwError(() => new Error('Fill ApiKey'));
+      return throwError(() => new Error('API key is required'));
     }
 
     return of(true);
@@ -136,7 +136,7 @@ export class ProviderClockify implements ProviderAbstract<IntegrationClockify> {
       const workspaceId = task?.workspaceId || project?.workspaceId;
 
       if (!workspaceId) {
-        throw new Error(`Cant math task ${item.task}`);
+        throw new Error(`Cannot match task ${item.task}`);
       }
 
       if (!record[workspaceId]) {

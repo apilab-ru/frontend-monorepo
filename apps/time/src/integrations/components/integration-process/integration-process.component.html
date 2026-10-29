@@ -1,7 +1,7 @@
 <div class="root">
    @if (!(ready())) {
    <div class="message">
-      <h2>Prepare export data</h2>
+      <h2>Preparing export data</h2>
       <mat-spinner />
    </div>
    } @if ((ready()) && !(processing())) {
@@ -19,7 +19,7 @@
    </div>
    } @if (processing()) {
    <div class="message">
-      <h2>Process export data</h2>
+      <h2>Processing export data</h2>
       <mat-spinner />
    </div>
    }

@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { Integration } from '../interfase';
+import { Integration } from '../interface';
 
 const STORE_KEY = 'timeIntegrations';
 

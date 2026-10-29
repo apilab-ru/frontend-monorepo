@@ -1,5 +1,5 @@
 import { Observable } from "rxjs";
-import { Integration } from "../interfase";
+import { Integration } from "../interface";
 import { Calc } from "../../board/models/calc";
 import { FormGroup } from "@angular/forms";
 

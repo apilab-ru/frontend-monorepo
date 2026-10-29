@@ -10,7 +10,7 @@ import {
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { INTEGRATION_MAP_CONFIG, IntegrationHelp, IntegrationType } from '../../const';
-import { Integration } from '../../interfase';
+import { Integration } from '../../interface';
 import { finalize, Observable, of, startWith } from 'rxjs';
 import { MatTabChangeEvent, MatTabGroup, MatTab } from '@angular/material/tabs';
 import { map } from 'rxjs/operators';
@@ -83,7 +83,7 @@ export class IntegrationEditComponent {
       )
       .subscribe({
         next: () => {
-          this.snackBar.open('Sucess', 'Hide', {
+          this.snackBar.open('Success', 'Hide', {
             duration: 15_000,
           });
           this.dialogRef.close({

@@ -6,7 +6,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DestroyRef, inject } from '@angular/core';
 import { filter, take } from 'rxjs/operators';
 import { Calc } from '../../../board/models/calc';
-import { Integration } from '../../interfase';
+import { Integration } from '../../interface';
 import { IntegrationProcessComponent } from '../integration-process/integration-process.component';
 import { IntegrationItemComponent } from '../integration-item/integration-item.component';
 import { MatButton } from '@angular/material/button';

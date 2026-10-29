@@ -2,16 +2,19 @@
   {
     "project": "json-editor",
     "output": "dist/apps/json-editor",
-    "environment": "json-editor-production"
+    "environment": "json-editor-production",
+    "ftp_target_dir": "/json.apilab.ru/current"
   },
   {
     "project": "time",
     "output": "dist/apps/time",
-    "environment": "time-production"
+    "environment": "time-production",
+    "ftp_target_dir": "/time.apilab.ru/current"
   },
   {
     "project": "check-list",
     "output": "dist/apps/check-list",
-    "environment": "check-list-production"
+    "environment": "check-list-production",
+    "ftp_target_dir": "/check-list.apilab.ru/current"
   }
 ]

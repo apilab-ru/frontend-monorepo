@@ -13,18 +13,32 @@ using the same lftp settings as the existing apilab-main workflow.
 
 ## GitHub setup
 
-In `apilab-ru/frontend-monorepo`, create the environment
-`json-editor-production` under Settings → Environments. Add these environment
-secrets (they are not automatically shared with the next-apps repository):
+In `apilab-ru/frontend-monorepo`, create the GitHub environments listed in
+`apps.json`: `json-editor-production`, `time-production`, and
+`check-list-production`.
 
-- `FTP_SERVER`: `ftp://92.53.119.95`.
-- `FTP_USERNAME`: `sites_deploy`.
-- `FTP_PASSWORD`: generated deployment account password.
-- `FTP_TARGET_DIR`: `/json.apilab.ru/current` (relative to the FTP jail).
+The shared workflow defaults to `ftp://92.53.119.95` with the `sites_deploy`
+account. Each app's dedicated `ftp_target_dir` is stored in `apps.json`.
+These public settings do not need to be duplicated as GitHub secrets.
 
-Use json-editor's actual directory, not apilab-main's directory. Deployment
-removes remote files absent from the build output. The target must already
-exist. The workflow checks this before uploading and rejects broad root paths.
+Add `FTP_PASSWORD` under **Settings → Secrets and variables → Actions** as a
+repository secret to share the deployment account across apps, or as a secret
+in each app's environment. Use the FTP account password from
+`/root/.config/apilab-deploy/ftp.json`, not the root SSH password. Secrets in
+other repositories are not automatically available here.
+
+Existing `FTP_SERVER`, `FTP_USERNAME`, and `FTP_TARGET_DIR` environment or
+repository secrets continue to work. They override Actions variables of the
+same names, which in turn override the workflow inputs and defaults. The
+environment's `FTP_PASSWORD` takes precedence over the repository secret.
+
+The workflow validates configuration before downloading artifacts or connecting
+to FTP. If a value is missing, it reports the variable name and selected
+environment without printing any credentials.
+
+Deploy only to the dedicated site's `current` directory: synchronization removes
+remote files absent from the build output. The target must already exist. The
+workflow checks this before uploading and rejects broad root paths.
 
 Commit/push the workflow to `master`, then select Actions → Deploy affected apps
 → Run workflow for the initial deployment. Later pushes deploy affected enabled
@@ -64,21 +78,18 @@ No Nginx changes or Apache installation are needed for this server.
 ## Time
 
 Time uses the `time-production` GitHub environment and outputs `dist/apps/time`.
-Configure the four FTP secrets listed above, with `FTP_TARGET_DIR` set to
-`/time.apilab.ru/current`. Production includes the production environment and
+The deployment matrix sets its FTP target to `/time.apilab.ru/current`.
+Configure `FTP_PASSWORD` as described above. Production includes the production environment and
 Angular service-worker files. The origin has HTTPS configured for time.apilab.ru.
 
 ## Checklist
 
 Checklist uses the `check-list-production` GitHub environment and outputs
 `dist/apps/check-list`. Create this environment in `apilab-ru/frontend-monorepo`
-and configure:
-
-- `FTP_SERVER`: `ftp://92.53.119.95`.
-- `FTP_USERNAME`: `sites_deploy`.
-- `FTP_PASSWORD`: the existing deployment account password from the server's
-  `/root/.config/apilab-deploy/ftp.json` file. Do not use the root SSH password.
-- `FTP_TARGET_DIR`: `/check-list.apilab.ru/current`.
+and configure `FTP_PASSWORD`, or use the shared repository secret. The workflow
+defaults to `ftp://92.53.119.95` and `sites_deploy`; the deployment matrix sets
+`ftp_target_dir` to `/check-list.apilab.ru/current`. Existing FTP settings in
+Actions secrets or variables can override these defaults.
 
 The existing Nginx virtual host serves `check-list.apilab.ru` from
 `/var/www/check-list.apilab.ru/current` with SPA fallback. The relative `current`

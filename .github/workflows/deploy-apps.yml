@@ -24,15 +24,15 @@ jobs:
       matrix: ${{ steps.apps.outputs.matrix }}
       has_apps: ${{ steps.apps.outputs.has_apps }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - uses: nrwl/nx-set-shas@v4
+      - uses: nrwl/nx-set-shas@v5
         with:
           main-branch-name: master
           workflow-id: deploy-apps.yml
@@ -54,3 +54,4 @@ jobs:
       project: ${{ matrix.project }}
       output: ${{ matrix.output }}
       environment: ${{ matrix.environment }}
+      ftp_target_dir: ${{ matrix.ftp_target_dir }}

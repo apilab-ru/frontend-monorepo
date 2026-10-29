@@ -41,5 +41,5 @@ reach `master`. It can also be run manually as **Deploy affected apps**.
 
 The app is registered in `tools/deploy/apps.json` with the
 `check-list-production` environment, build output `dist/apps/check-list`, and
-FTP target `/check-list.apilab.ru/current`. Configure its four FTP environment
-secrets as described in [the deployment guide](../../tools/deploy/README.md#checklist).
+FTP target `/check-list.apilab.ru/current`. Configure the `FTP_PASSWORD` repository or environment
+secret as described in [the deployment guide](../../tools/deploy/README.md#checklist).

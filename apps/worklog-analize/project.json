@@ -16,7 +16,7 @@
           "browser": ""
         },
         "index": "apps/worklog-analize/src/index.html",
-        "polyfills": ["zone.js"],
+        "polyfills": [],
         "tsConfig": "apps/worklog-analize/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [

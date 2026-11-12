@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Item } from '../chart/interface';
 import { Log } from '../../interfaces';
 
@@ -11,33 +12,23 @@ interface ViewItem extends Log {
 
 @Component({
   selector: 'app-details',
+  imports: [MatTooltipModule],
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
 })
-export class DetailsComponent implements OnInit {
-  items: ViewItem[];
+export class DetailsComponent {
+  data = inject<{ item: Item; total: number }>(MAT_DIALOG_DATA);
+  items = computed(() => this.data.item.deps
+    .map(this.calculateItem, this)
+    .sort((a, b) => b.time - a.time));
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA)
-    public data: {
-      item: Item;
-      total: number;
-    }
-  ) {}
-
-  ngOnInit(): void {
-    this.items = this.data.item.deps.map((it) => this.calcItem(it, this.data.total, this.data.item.time));
-    this.items.sort((a, b) => b.time - a.time);
-  }
-
-  private calcItem(item: Log, totalGlobal: number, totalLocal: number): ViewItem {
+  private calculateItem(item: Log): ViewItem {
     return {
       ...item,
-      percentLocal: Math.ceil((item.time / totalLocal) * 10000) / 100,
-      percentGlobal: Math.ceil((item.time / totalGlobal) * 10000) / 100,
-      hours: Math.ceil((item.time / 60) * 100) / 100,
+      percentLocal: this.data.item.time ? Math.ceil(item.time / this.data.item.time * 10000) / 100 : 0,
+      percentGlobal: this.data.total ? Math.ceil(item.time / this.data.total * 10000) / 100 : 0,
+      hours: Math.ceil(item.time / 60 * 100) / 100,
     };
   }
 }

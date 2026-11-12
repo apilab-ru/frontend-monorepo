@@ -4,9 +4,9 @@
    </div>
 
    <div class="legend">
-      <div>Total {{ total$ | async }} hours</div>
-      @for (item of (items$ | async); track item; let index = $index) {
-      <div class="item" (mouseover)="setActive(index)">
+      <div>Total {{ totalHours() }} hours</div>
+      @for (item of chartItems(); track item.key; let index = $index) {
+      <div class="item" (mouseover)="setActive(index)" (focus)="setActive(index)" tabindex="0">
          <span class="color" [style.backgroundColor]="item.color"></span>
          <span class="percent" [matTooltip]="item.hours + 'h'">{{ item.percent }}%</span>
          <span class="title">

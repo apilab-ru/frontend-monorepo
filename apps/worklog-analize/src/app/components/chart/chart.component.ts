@@ -1,135 +1,76 @@
 import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  Input,
-  OnChanges,
-  OnInit,
-  type SimpleChanges,
-  ViewChild,
+  afterRenderEffect, ChangeDetectionStrategy, Component, computed, inject, input, viewChild, ElementRef,
 } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialog } from '@angular/material/dialog';
 import Chart from 'chart.js/auto';
 import { LogDetail } from '../../interfaces';
-import { ReplaySubject } from 'rxjs';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { PREPARED_COLORS } from './const';
-import { MatDialog } from '@angular/material/dialog';
 import { DetailsComponent } from '../details/details.component';
 import { Item } from './interface';
 
-@UntilDestroy()
 @Component({
   selector: 'app-chart',
+  imports: [MatButtonModule, MatTooltipModule],
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
 })
-export class ChartComponent implements OnInit, OnChanges {
-  @Input() items: LogDetail[];
+export class ChartComponent {
+  items = input.required<LogDetail[]>();
 
-  items$ = new ReplaySubject<Item[]>(1);
-  total$ = new ReplaySubject<number>(1);
+  totalMinutes = computed(() => this.items().reduce((total, item) => total + item.time, 0));
+  totalHours = computed(() => Math.ceil(this.totalMinutes() / 60 * 100) / 100);
+  chartItems = computed(() => this.items().map(this.calculateItem, this));
 
+  private canvas = viewChild.required<ElementRef<HTMLCanvasElement>>('chart');
+  private dialog = inject(MatDialog);
   private chart: Chart<'pie', number[], string>;
-  private total: number;
-  @ViewChild('chart', { static: true }) private chartCanvas: ElementRef<HTMLCanvasElement>;
 
-  constructor(private dialog: MatDialog) {}
-
-  ngOnInit(): void {
-    this.chart = new Chart<'pie', number[], string>(this.chartCanvas.nativeElement, {
-      type: 'pie',
-      data: {
-        datasets: [
-          {
-            data: [],
-            backgroundColor: [],
-          },
-        ],
-
-        labels: [],
-      },
-      options: {
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          },
+  constructor() {
+    afterRenderEffect((onCleanup) => {
+      this.chart = new Chart(this.canvas().nativeElement, {
+        type: 'pie',
+        data: {
+          labels: this.chartItems().map((item) => item.name || item.key),
+          datasets: [{
+            data: this.chartItems().map((item) => item.hours),
+            backgroundColor: this.chartItems().map((item) => item.color),
+          }],
         },
-      },
+        options: { maintainAspectRatio: false, plugins: { legend: { display: false } } },
+      });
+      onCleanup(() => this.chart.destroy());
     });
-
-    this.initChartUpdate();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.items && this.items) {
-      this.total = this.items.reduce((prev, it) => prev + it.time, 0);
-      this.total$.next(Math.ceil((this.total / 60) * 100) / 100);
-      this.items$.next(this.items.map((item) => this.prepareItem(item, this.total)));
-    }
   }
 
   setActive(index: number): void {
-    this.chart.setActiveElements([{ datasetIndex: 0, index }]);
-    this.chart.tooltip!.setActiveElements([{ datasetIndex: 0, index }], {
-      x: 150,
-      y: 150,
-    });
-    this.chart.update();
+    this.chart?.setActiveElements([{ datasetIndex: 0, index }]);
+    this.chart?.tooltip?.setActiveElements([{ datasetIndex: 0, index }], { x: 150, y: 150 });
+    this.chart?.update();
   }
 
   openDetails(item: Item): void {
-    this.dialog.open(DetailsComponent, {
-      data: { item, total: this.total },
-    });
+    this.dialog.open(DetailsComponent, { data: { item, total: this.totalMinutes() } });
   }
 
-  private prepareItem(item: LogDetail, total: number): Item {
+  private calculateItem(item: LogDetail): Item {
     return {
       ...item,
       color: this.generateColor(item.key),
-      percent: Math.round((item.time / total) * 10000) / 100,
-      hours: Math.round((item.time / 60) * 100) / 100,
+      percent: this.totalMinutes() ? Math.round(item.time / this.totalMinutes() * 10000) / 100 : 0,
+      hours: Math.round(item.time / 60 * 100) / 100,
     };
   }
 
   private generateColor(key: string): string {
-    if (PREPARED_COLORS[key]) {
-      return PREPARED_COLORS[key];
+    // Keep category colors stable across recalculation.
+    let hash = 0;
+    for (const character of key) {
+      hash = ((hash << 5) - hash + character.charCodeAt(0)) | 0;
     }
 
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
-    const color = '#' + r.toString(16) + g.toString(16) + b.toString(16);
-
-    if (this.checkValidColor(color)) {
-      return color;
-    } else {
-      return this.generateColor(key);
-    }
-  }
-
-  private checkValidColor(color: string): boolean {
-    const s = new Option().style;
-    s.color = color;
-    return s.color !== '';
-  }
-
-  private initChartUpdate(): void {
-    this.items$.pipe(untilDestroyed(this)).subscribe((list) => {
-      this.chart.config.data.labels = [];
-      this.chart.config.data.datasets[0].data = [];
-      this.chart.config.data.datasets[0].backgroundColor = list.map((it) => it.color);
-
-      list.forEach((item) => {
-        this.chart.config.data.labels!.push(item.name || item.key);
-        this.chart.config.data.datasets[0].data.push(item.hours);
-      });
-
-      this.chart.update();
-    });
+    return PREPARED_COLORS[key] || `hsl(${Math.abs(hash) % 360}, 60%, 60%)`;
   }
 }

@@ -1,63 +1,40 @@
 /// <reference lib="webworker" />
-
-import { Observable, debounceTime, switchMap } from "rxjs";
-import { GroupConfig, Log, LogDetail, Rule } from "../interfaces";
-import _chunk from 'lodash-es/chunk';
+import { GroupConfig, Log, LogDetail, Rule } from '../interfaces';
 
 const CHUNK_SIZE = 500;
 
-interface Event {
-  list: Log[];
-  rules: Rule[];
-  groupConfig: GroupConfig;
-}
+type WorkerRequest =
+  | { id: number; cancel: true }
+  | { id: number; list: Log[]; rules: Rule[]; groupConfig: GroupConfig };
 
-const messages$ = new Observable<Event>(subject => {
-  addEventListener('message', ({ data }) => {
-    subject.next(data);
-  });
-})
+const pendingChunks = new Map<number, ReturnType<typeof setTimeout>>();
 
-messages$.pipe(
-  debounceTime(10),
-  switchMap(({ list, rules, groupConfig }) => groupLogsByChunks(list, rules, groupConfig))
-).subscribe(response => {
-  postMessage(response)
-})
+addEventListener('message', ({ data }: MessageEvent<WorkerRequest>) => {
+  const { id } = data;
 
-function groupLogsByChunks(list: Log[], rules: Rule[], groupConfig: GroupConfig): Observable<LogDetail[]> {
-  return new Observable<LogDetail[]>(subject => {
+  if ('cancel' in data) {
+    clearTimeout(pendingChunks.get(id));
+    pendingChunks.delete(id);
 
-    const chunks = _chunk(list, CHUNK_SIZE);
-    let mapLogs: Record<string, LogDetail> = {};
-    let canProcess = true;
-    let timer: number;
+    return;
+  }
 
-    const iterator = () => {
-      if (!canProcess) {
-        return;
-      }
+  const { list, rules, groupConfig } = data;
+  const groups: Record<string, LogDetail> = Object.create(null);
+  let offset = 0;
+  const processChunk = () => {
+    groupLogs(groups, list.slice(offset, offset + CHUNK_SIZE), rules, groupConfig);
+    offset += CHUNK_SIZE;
 
-      const items = chunks.shift();
-      mapLogs = groupLogs(mapLogs, items!, rules, groupConfig);
-
-      if (chunks.length) {
-        timer = setTimeout(() => iterator()) as unknown as number;
-      } else {
-        const result = Object.values(mapLogs) as LogDetail[];
-        result.sort((a, b) => b.time - a.time)
-        subject.next(result);
-      }
+    if (offset < list.length) {
+      pendingChunks.set(id, setTimeout(processChunk));
+    } else {
+      pendingChunks.delete(id);
+      postMessage({ id, logs: Object.values(groups).sort((a, b) => b.time - a.time) });
     }
-
-    iterator();
-
-    return () => {
-      canProcess = false;
-      clearTimeout(timer);
-    }
-  })
-}
+  };
+  processChunk();
+});
 
 function groupLogs(mapLogs: Record<string, LogDetail>, list: Log[], rules: Rule[], groupConfig: GroupConfig): Record<string, LogDetail> {
   list.forEach((item) => {
@@ -65,16 +42,13 @@ function groupLogs(mapLogs: Record<string, LogDetail>, list: Log[], rules: Rule[
     const finalKey = name || key;
     const prev = mapLogs[finalKey];
 
-    if (!mapLogs[finalKey]) {
-      mapLogs[finalKey] = {
-        ...item,
-        key: finalKey,
-        name
-      } as LogDetail
+    if (prev) {
+      prev.time += item.time;
+      prev.deps.push(item);
+    } else {
+      mapLogs[finalKey] = { ...item, key: finalKey, name, deps: [item] };
     }
 
-    mapLogs[finalKey].time = (prev ? prev.time : 0) + item.time;
-    mapLogs[finalKey].deps = (prev ? [...prev.deps, item] : [item])
   });
 
   return mapLogs;
@@ -92,13 +66,14 @@ function getKey(item: Log, rules: Rule[], groupConfig: GroupConfig): { key: stri
     key += comment;
   }
 
-  let name = undefined;
+  let name: string | undefined;
+
   if (groupConfig.groupByRules) {
-    for (const index in rules) {
-      const rule = rules[index];
+    for (const rule of rules) {
 
       // includes
       const field = rule.field === 'comment' ? comment : (item[rule.field] as string);
+
       if (rule.values.some(value => field.includes(value))) {
         key += rule.key;
         name = rule.name ? rule.name.trim() : undefined;

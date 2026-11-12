@@ -1,4 +1,4 @@
-<div class="controls" [formGroup]="formGroup">
+<div class="controls">
   <div class="control-item">
     <h2 class="title">
       Worklogs
@@ -7,28 +7,28 @@
         Format: [["Issue", "Comment", "Hours"]]
       </div>
     </h2>
-    <textarea class="work-logs-area" formControlName="logs" placeholder="Worklogs"></textarea>
+    <textarea aria-label="Worklogs" class="work-logs-area" [ngModel]="data().logs" (ngModelChange)="updateText('logs', $event)" placeholder="Worklogs"></textarea>
   </div>
 
-  <div class="control-item -middle" formGroupName="groupConfig">
+  <div class="control-item -middle">
     <h2>Group by</h2>
-    <label>
-      <mat-checkbox formControlName="groupByTask">
+    <div>
+      <mat-checkbox [checked]="data().groupConfig.groupByTask" (change)="updateGrouping('groupByTask', $event.checked)">
         Group by task-key
       </mat-checkbox>
-    </label>
+    </div>
 
-    <label>
-      <mat-checkbox formControlName="groupByComment">
+    <div>
+      <mat-checkbox [checked]="data().groupConfig.groupByComment" (change)="updateGrouping('groupByComment', $event.checked)">
         Group by comment
       </mat-checkbox>
-    </label>
+    </div>
 
-    <label>
-      <mat-checkbox formControlName="groupByRules">
+    <div>
+      <mat-checkbox [checked]="data().groupConfig.groupByRules" (change)="updateGrouping('groupByRules', $event.checked)">
         Group by rules
       </mat-checkbox>
-    </label>
+    </div>
   </div>
 
   <div class="control-item">
@@ -43,6 +43,6 @@
   includes|issue:ADULT-1818|Tolks topics
 </pre>
     </h2>
-    <textarea class="rules" formControlName="rules"></textarea>
+    <textarea aria-label="Grouping rules" class="rules" [ngModel]="data().rules" (ngModelChange)="updateText('rules', $event)"></textarea>
   </div>
 </div>

@@ -1,48 +1,26 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { UserDataService } from '../../services/user-data.service';
-import { LogsUserRawData } from '../../interfaces';
-import { debounceTime, combineLatest } from 'rxjs';
+import { ChangeDetectionStrategy, Component, model } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { GroupConfig, LogsUserRawData } from '../../interfaces';
 
-@UntilDestroy()
 @Component({
   selector: 'app-controls',
+  imports: [FormsModule, MatCheckboxModule],
   templateUrl: './controls.component.html',
   styleUrls: ['./controls.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
 })
-export class ControlsComponent implements OnInit {
-  formGroup = new FormGroup({
-    logs: new FormControl(),
-    rules: new FormControl(),
+export class ControlsComponent {
+  data = model.required<LogsUserRawData>();
 
-    groupConfig: new FormGroup({
-      groupByTask: new FormControl(true),
-      groupByComment: new FormControl(true),
-      groupByRules: new FormControl(false),
-    }),
-  });
+  updateText(field: 'logs' | 'rules', value: string): void {
+    this.data.update((data) => ({ ...data, [field]: value }));
+  }
 
-  constructor(private userDataService: UserDataService) {}
-
-  ngOnInit(): void {
-    combineLatest([
-      this.formGroup.controls.groupConfig.valueChanges,
-      this.formGroup.controls.logs.valueChanges,
-      this.formGroup.controls.rules.valueChanges.pipe(debounceTime(200)),
-    ])
-      .pipe(untilDestroyed(this))
-      .subscribe(([groupConfig, logs, rules]) => {
-        this.userDataService.saveData({
-          groupConfig,
-          logs,
-          rules,
-        } as LogsUserRawData);
-      });
-
-    const formData = this.userDataService.loadData();
-    this.formGroup.patchValue(formData, { emitEvent: true });
+  updateGrouping(field: keyof GroupConfig, value: boolean): void {
+    this.data.update((data) => ({
+      ...data,
+      groupConfig: { ...data.groupConfig, [field]: value },
+    }));
   }
 }

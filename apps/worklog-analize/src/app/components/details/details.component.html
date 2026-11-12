@@ -10,7 +10,7 @@
          <td>Comment</td>
       </tr>
 
-      @for (item of items; track item) {
+      @for (item of items(); track item) {
       <tr class="item">
          <td [matTooltip]="item.time + 'm'">{{ item.hours }}</td>
          <td>{{ item.percentLocal }}%</td>

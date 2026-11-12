@@ -1,57 +1,37 @@
-import { Injectable } from '@angular/core';
-import { GroupConfig, ImportLog, LogsUserRawData } from "../interfaces";
-
-import { Observable } from "rxjs";
-import { map, shareReplay } from 'rxjs/operators';
-import { DEFAULT_DATA } from "../const";
-import { makeStore, RecordSubject } from "@store";
+import { effect, Injectable, signal } from '@angular/core';
+import { DEFAULT_DATA } from '../const';
+import { LogsUserRawData } from '../interfaces';
 
 const STORAGE_KEY = 'workLogAnalyzeForm-v2';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class UserDataService {
-  private store: RecordSubject<LogsUserRawData>;
-
-  logs$: Observable<ImportLog[]>;
-  groupConfig$: Observable<GroupConfig>;
-  rules$: Observable<string[]>;
+  data = signal<LogsUserRawData>(this.loadData());
 
   constructor() {
-    this.store = makeStore(this.loadData());
-
-    this.logs$ = this.store.logs.asObservable().pipe(
-      map(logs => JSON.parse(logs)),
-      shareReplay({ refCount: true, bufferSize: 1 }),
-    );
-    this.groupConfig$ = this.store.groupConfig.asObservable();
-    this.rules$ = this.store.rules.asObservable().pipe(
-      map(rulesStr => this.decodeRules(rulesStr)),
-      shareReplay({ refCount: true, bufferSize: 1 }),
-    );
+    effect(() => {
+      const data = this.data();
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      } catch {
+        // Analysis still works when browser storage is unavailable.
+      }
+    });
   }
 
-  saveData(data: LogsUserRawData): void {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    this.store.update(data);
-  }
+  private loadData(): LogsUserRawData {
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
 
-  loadData(): LogsUserRawData {
-    const formData = localStorage.getItem(STORAGE_KEY);
-
-    if (formData) {
-      return JSON.parse(formData);
+      if (saved && typeof saved.logs === 'string' && typeof saved.rules === 'string' &&
+          ['groupByTask', 'groupByComment', 'groupByRules'].every(
+            (key) => typeof saved.groupConfig?.[key] === 'boolean')) {
+        return saved;
+      }
+    } catch {
+      // Ignore invalid or unavailable browser storage.
     }
 
     return DEFAULT_DATA;
-  }
-
-  private decodeRules(rules: string | null): string[] {
-    if (!rules) {
-      return [];
-    }
-
-    return rules.split('\n');
   }
 }

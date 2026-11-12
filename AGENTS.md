@@ -1,3 +1,9 @@
+# TypeScript rules
+
+These rules apply to TypeScript code throughout the repository.
+
+1. All methods must declare an explicit return type. Use `void` for methods that do not return a value.
+
 # Style rules
 
 These rules apply to styles throughout the repository.

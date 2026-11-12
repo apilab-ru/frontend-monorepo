@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { IconComponent } from './components/icon.component';
+import { ThemeService } from './services/theme.service';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { ROUTES } from './routes';
 
@@ -8,9 +9,10 @@ import { ROUTES } from './routes';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatButtonModule, RouterLink, RouterLinkActive, RouterOutlet],
+  imports: [IconComponent, RouterLink, RouterLinkActive, RouterOutlet],
 })
 export class AppComponent {
+  theme = inject(ThemeService);
   githubLink = 'https://github.com/apilab-ru/worklog-analize';
   menu = ROUTES;
 }

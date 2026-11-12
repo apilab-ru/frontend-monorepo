@@ -1,48 +1,52 @@
 <div class="controls">
-  <div class="control-item">
-    <h2 class="title">
-      Worklogs
+  <section class="panel" aria-labelledby="worklogs-title">
+    <div class="panel-heading"><app-icon name="file-text" /><h2 class="panel-title" id="worklogs-title">Worklogs</h2></div>
+    <p class="panel-description">Paste worklog rows in JSON format: [["Issue", "Comment", "Hours"], …]</p>
+    <textarea aria-label="Worklogs" class="text-editor" spellcheck="false" [ngModel]="data().logs" (ngModelChange)="updateText('logs', $event)" placeholder='[["Issue", "Comment", "Hours"]]'></textarea>
+    <div class="editor-footer">
+      <span class="row-count">Rows: {{ rowCount() }}</span>
+      <button class="action-button" type="button" (click)="loadExample()"><app-icon name="folder" />Load example</button>
+      <button class="action-button" type="button" (click)="clearLogs()"><app-icon name="clear-trash" />Clear</button>
+    </div>
+  </section>
 
-      <div class="help">
-        Format: [["Issue", "Comment", "Hours"]]
+  <section class="panel" aria-labelledby="grouping-title">
+    <div class="panel-heading">
+      <app-icon name="layers" />
+      <div><h2 class="panel-title" id="grouping-title">Grouping</h2><p class="panel-description">Choose how to group worklogs</p></div>
+    </div>
+    <div class="grouping-options">
+      @for (option of groupingOptions; track option.field) {
+        <div class="grouping-option">
+          <label class="checkbox-label">
+            <input #groupCheckbox class="grouping-checkbox" type="checkbox" [checked]="data().groupConfig[option.field]"
+              (change)="updateGrouping(option.field, groupCheckbox.checked)" />
+            {{ option.label }}
+          </label>
+          <span class="help-icon" [matTooltip]="option.help" tabindex="0" [attr.aria-label]="option.label + ' help'"><app-icon name="help-circle" /></span>
+        </div>
+      }
+    </div>
+    <div class="rules-heading panel-heading">
+      <app-icon name="code" />
+      <div><h2 class="panel-title">Grouping Rules</h2><p class="panel-description rule-hint">One rule per line: includes|issue or comment:value1,value2|optional name</p></div>
+    </div>
+    <textarea aria-label="Grouping rules" aria-describedby="rules-tip" class="text-editor rules-editor" spellcheck="false" [ngModel]="data().rules" (ngModelChange)="updateText('rules', $event)"></textarea>
+    <p class="rules-tip" id="rules-tip">Enable “Group by rules” above to apply these rules.</p>
+    <details class="rules-guide">
+      <summary class="rules-guide-toggle"><app-icon name="help-circle" />Rule tips and examples</summary>
+      <div class="rules-guide-content">
+        <p class="rules-guide-text">Write one rule per line. Match part of an issue or comment, then optionally name the group:</p>
+        <code class="rule-example">includes|comment:daily,meeting,1x1|Meetings</code>
+        <code class="rule-example">includes|issue:TECH-|Technical work</code>
+        <ul class="rules-tip-list">
+          <li>Separate alternative matches with commas, without spaces: <code>daily,meeting</code>. Any match is enough.</li>
+          <li>Comments are lowercased before matching. Use lowercase keywords for comments; issue keys are case-sensitive.</li>
+          <li>The first matching rule wins. Put specific rules before broader ones.</li>
+          <li>A group name is optional. Named rules combine matching entries into that group, even when grouping by task or comment is also enabled.</li>
+          <li>Unmatched entries follow the other enabled grouping options, or go into <code>develop</code> when none apply.</li>
+        </ul>
       </div>
-    </h2>
-    <textarea aria-label="Worklogs" class="work-logs-area" [ngModel]="data().logs" (ngModelChange)="updateText('logs', $event)" placeholder="Worklogs"></textarea>
-  </div>
-
-  <div class="control-item -middle">
-    <h2>Group by</h2>
-    <div>
-      <mat-checkbox [checked]="data().groupConfig.groupByTask" (change)="updateGrouping('groupByTask', $event.checked)">
-        Group by task-key
-      </mat-checkbox>
-    </div>
-
-    <div>
-      <mat-checkbox [checked]="data().groupConfig.groupByComment" (change)="updateGrouping('groupByComment', $event.checked)">
-        Group by comment
-      </mat-checkbox>
-    </div>
-
-    <div>
-      <mat-checkbox [checked]="data().groupConfig.groupByRules" (change)="updateGrouping('groupByRules', $event.checked)">
-        Group by rules
-      </mat-checkbox>
-    </div>
-  </div>
-
-  <div class="control-item">
-    <h2 class="title">
-      Grouping Rules
-
-<pre class="help">
-  includes|(issue or comment):string with ','|optional name
-
-  examples:
-  includes|comment:slack,chats,коммуникации,уточн,разыскивал|slack
-  includes|issue:ADULT-1818|Tolks topics
-</pre>
-    </h2>
-    <textarea aria-label="Grouping rules" class="rules" [ngModel]="data().rules" (ngModelChange)="updateText('rules', $event)"></textarea>
-  </div>
+    </details>
+  </section>
 </div>

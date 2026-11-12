@@ -1,7 +1,12 @@
 <div class="help">
-  <div class="row">
-    <h2>Import script</h2>
-    <textarea class="script-export">
+  <section class="row panel">
+    <div class="script-heading">
+      <h2 class="panel-title">Import script</h2>
+      <button class="action-button" type="button" (click)="copyScript(scriptEditor.value)">
+        <app-icon name="copy" />Copy script
+      </button>
+    </div>
+    <textarea #scriptEditor class="script-export text-editor" aria-label="Jira import script" spellcheck="false">
       let list = [];
       document.querySelector('iframe')
           .contentWindow.document.querySelector('#reportContent')
@@ -18,18 +23,16 @@
       ]))
       copy(clearedList);
       </textarea>
-  </div>
+  </section>
 
-  <div class="row">
-    <h2>Jira fields config</h2>
-    <p>
-      domain: <input [(ngModel)]="domain">
-    </p>
+  <section class="row panel">
+    <h2 class="panel-title">Jira fields config</h2>
+    <label class="domain-label">Jira domain <input class="domain-input" [ngModel]="domain()" (ngModelChange)="domain.set($event)"></label>
     <a
-      target="_blank"
+      class="calendar-link" rel="noopener noreferrer" target="_blank"
       href="https://{{ domain() }}/plugins/servlet/wtc-iframe?urlPath=workcalendar&decorator=atl.general&titleKey=wtc.common.labels.appName">
       Link to calendar
     </a>
     <img alt="Jira work calendar report field configuration" class="help-image" src="assets/jira-configuration.jpg">
-  </div>
+  </section>
 </div>

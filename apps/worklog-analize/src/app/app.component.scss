@@ -1,48 +1,116 @@
 :host {
   display: block;
-  height: 100vh;
-  width: 100%;
-  background: #fafafa;
-}
-
-.title {
-  margin: 0;
-  font-size: 16px;
-  line-height: 36px;
-  color: #fff;
-  font-weight: 500;
+  min-height: 100vh;
 }
 
 .menu {
-  background: #3f51b5;
-  box-shadow: 0 3px 5px -1px #0003, 0 6px 10px #00000024, 0 1px 18px #0000001f;
-  height: 56px;
-  box-sizing: border-box;
-  padding: 8px 16px;
   display: flex;
-}
-
-.navigation {
-  margin-left: 24px;
-  color: #fff;
-}
-
-.link {
-  margin-left: auto;
-  color: #fff;
-  display: inline-flex;
   align-items: center;
+  gap: 38px;
+  min-height: 80px;
+  padding: 10px 40px;
+  border-bottom: 1px solid var(--border);
+  background: var(--header);
 
-  &.-active {
-    background: #0003;
+  @media (max-width: 800px) {
+    padding: 12px 18px;
+    gap: 16px;
+    flex-wrap: wrap;
   }
 }
 
-.icon {
-  height: 26px;
-  margin: 0 4px 3px 0;
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--text);
+  font-size: 26px;
+  font-weight: 750;
+  text-decoration: none;
+  white-space: nowrap;
+
+  app-icon {
+    color: var(--accent);
+    width: 34px;
+    height: 34px;
+  }
+
+  @media (max-width: 800px) {
+    font-size: 21px;
+  }
+}
+
+.navigation {
+  display: flex;
+  gap: 12px;
+
+  @media (max-width: 600px) {
+    order: 3;
+    width: 100%;
+  }
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  border-radius: 11px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 18px;
+
+  &.-active {
+    color: var(--active-text);
+    background: var(--active);
+    font-weight: 600;
+  }
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  margin-left: auto;
+
+  @media (max-width: 800px) {
+    gap: 14px;
+  }
+}
+
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 18px;
+
+  @media (max-width: 600px) {
+    span {
+      display: none;
+    }
+  }
+}
+
+.theme-button {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--border-strong);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--accent);
+  cursor: pointer;
 }
 
 .content {
-  margin: 20px;
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 22px 20px 32px;
+
+  @media (max-width: 600px) {
+    padding: 16px 12px;
+  }
 }

@@ -4,6 +4,8 @@
 
 Worklog Analyze is a browser-based tool for importing, grouping, and summarizing Jira worklog data. It shows how recorded time is distributed across tasks or custom categories, and lets you inspect the individual entries behind each total.
 
+Mockup: ![dark-theme.png](specs/dark-theme.png) ![lite-theme.png](specs/lite-theme.png)
+
 ## Features
 
 ### Import worklogs
@@ -40,11 +42,20 @@ The action currently supported is `includes`. Matching is substring-based; comme
 
 ### View summaries and details
 
-- A pie chart and matching legend show each group’s share of total logged time.
+- A doughnut chart and matching legend show each group’s share of total logged time.
 - The summary shows the overall total and each category’s hours and percentage.
-- Hovering a legend row highlights the corresponding pie-chart slice.
-- Select **details** for a group to see the contributing worklog entries, sorted by time, with issue, comment, hours, and percentages of both the group and overall total.
+- Hovering or focusing a legend row highlights the corresponding chart segment. Selecting a row toggles its detail table.
+- Expand **Details** for a group to see the contributing worklog entries, sorted by time, with issue, comment, hours, and percentages of both the group and overall total.
 - Percentages and hours are rounded for display; the detailed row’s tooltip shows its original duration in minutes.
+
+### Interface and actions
+
+- Light and dark themes follow the mockups in `specs/`; the header toggle saves the selected theme in browser storage.
+- The responsive layout places worklog inputs and grouping controls beside the summary on desktop, and stacks them on smaller screens.
+- **Load example** restores the sample worklogs, rules, and grouping settings. **Clear** empties the worklogs while preserving the grouping configuration.
+- **Copy summary** copies the total, entry and group counts, and each group’s hours and percentage to the clipboard.
+- Summary cards show total hours, individual worklog count, and group count. Inline detail tables show each entry’s issue, comment, hours, group percentage, and overall percentage.
+- The interface uses the SVG assets in `src/assets/icons`.
 
 ### Save and restore your work
 

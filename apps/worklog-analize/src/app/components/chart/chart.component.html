@@ -1,19 +1,47 @@
-<div class="root">
-   <div class="chart">
-      <canvas #chart></canvas>
-   </div>
+<section class="panel summary-panel" aria-labelledby="summary-title">
+  <div class="summary-heading">
+    <div class="panel-heading">
+      <app-icon name="chart-bars" />
+      <div><h2 class="panel-title" id="summary-title">Summary</h2><p class="panel-description">Time distribution by groups and detailed worklog entries</p></div>
+    </div>
+    <button class="action-button" type="button" (click)="copySummary()"><app-icon name="copy" /><span role="status">{{ copyLabel() }}</span></button>
+  </div>
 
-   <div class="legend">
-      <div>Total {{ totalHours() }} hours</div>
+  <div class="stats">
+    <div class="stat"><app-icon name="clock" /><div><span class="stat-label">Total time</span><strong class="stat-value">{{ totalHours() | number:'1.1-2' }} h</strong></div></div>
+    <div class="stat"><app-icon name="list" /><div><span class="stat-label">Entries</span><strong class="stat-value">{{ entryCount() }}</strong></div></div>
+    <div class="stat"><app-icon name="layers" /><div><span class="stat-label">Groups</span><strong class="stat-value">{{ chartItems().length }}</strong></div></div>
+  </div>
+
+  <div class="chart-overview">
+    <div class="chart-wrap">
+      <canvas #chart role="img" aria-label="Worklog time distribution by group; values are listed alongside the chart"></canvas>
+      <div class="chart-total" aria-hidden="true"><strong class="chart-total-value">{{ totalHours() | number:'1.1-2' }} h</strong><span class="chart-total-label">Total</span></div>
+    </div>
+    <div class="legend">
       @for (item of chartItems(); track item.key; let index = $index) {
-      <div class="item" (mouseover)="setActive(index)" (focus)="setActive(index)" tabindex="0">
-         <span class="color" [style.backgroundColor]="item.color"></span>
-         <span class="percent" [matTooltip]="item.hours + 'h'">{{ item.percent }}%</span>
-         <span class="title">
-            {{ item.name || item.key }}
-         </span>
-         <button mat-button class="details" (click)="openDetails(item)">details</button>
-      </div>
+        <button class="legend-item" type="button" (mouseover)="setActive(index)" (focus)="setActive(index)" (click)="toggleDetails(index)" [attr.aria-controls]="'detail-' + index">
+          <span class="color" [style.backgroundColor]="item.color"></span>
+          <span class="group-name">{{ item.name || item.key }}</span>
+          <strong class="group-hours">{{ item.hours | number:'1.1-2' }} h</strong>
+          <span class="group-percent">{{ item.percent | number:'1.1-2' }}%</span>
+        </button>
+      } @empty {
+        <p class="empty-message">No worklogs to display. Paste your worklogs or load the example to get started.</p>
       }
-   </div>
-</div>
+    </div>
+  </div>
+
+  <div class="detail-list">
+    @for (item of chartItems(); track item.key; let index = $index) {
+      <details #detailGroup class="detail-group" [id]="'detail-' + index" [open]="index === 0">
+        <summary class="detail-summary">
+          <app-icon class="detail-chevron" name="chevron-right" />
+          <span class="detail-name">Details: {{ item.name || item.key }}</span>
+          <span class="detail-badge">{{ item.deps.length }} {{ item.deps.length === 1 ? 'entry' : 'entries' }} · {{ item.hours | number:'1.1-2' }} h ({{ item.percent | number:'1.1-2' }}%)</span>
+        </summary>
+        <app-details [data]="{ item, total: totalMinutes() }" />
+      </details>
+    }
+  </div>
+</section>

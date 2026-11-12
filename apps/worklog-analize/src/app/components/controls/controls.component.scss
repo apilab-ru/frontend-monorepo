@@ -1,44 +1,145 @@
-.title {
-  font-weight: 300;
-  margin: -18px -10px -10px -10px;
-  padding: 20px 8px 20px 20px;
-  font-size: 20px;
-  background: #3f51b5;
-  color: #fff;
-  border-radius: 2px;
-}
-
-.work-logs-area {
-  width: 600px;
-  height: 115px;
+:host {
+  display: block;
+  min-width: 0;
 }
 
 .controls {
+  display: grid;
+  gap: 20px;
+}
+
+.editor-footer {
   display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
 }
 
-.control-item {
+.row-count {
+  margin-right: auto;
+  color: var(--muted);
+}
+
+.grouping-options {
+  display: grid;
+  gap: 14px;
+  margin: 23px 0;
+}
+
+.grouping-option {
   display: flex;
-  flex-direction: column;
-  --mat-checkbox-state-layer-size: 24px;
+  align-items: center;
+  gap: 12px;
+}
 
-  & + & {
-    margin-left: 20px;
-  }
+.checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 17px;
+  cursor: pointer;
+}
 
-  &.-middle {
-    align-self: center;
+.grouping-checkbox {
+  appearance: none;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  background: var(--border-strong);
+  mask: url('../../../assets/icons/checkbox-empty.svg') center / contain no-repeat;
+  cursor: pointer;
+
+  &:checked {
+    background: var(--accent);
+    mask-image: none;
+    border-radius: 4px;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 7px;
+      height: 13px;
+      left: 8px;
+      top: 3px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
   }
 }
 
-.rules {
-  width: 600px;
-  height: 100px;
-  padding: 10px;
+.help-icon {
+  display: inline-flex;
+  color: var(--muted);
+
+  app-icon {
+    width: 18px;
+    height: 18px;
+  }
 }
 
-.help {
-  margin-top: 6px;
-  font-family: monospace;
+.rules-heading {
+  padding-top: 20px;
+  border-top: 1px solid var(--border-strong);
+  align-items: flex-start;
+}
+
+.rule-hint {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.rules-editor {
+  min-height: 170px;
+}
+
+.rules-tip {
+  margin: 10px 0 14px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.rules-guide {
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+}
+
+.rules-guide-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent);
+  cursor: pointer;
   font-size: 14px;
+}
+
+.rules-guide-content {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.rules-guide-text {
+  margin: 12px 0;
+}
+
+.rule-example {
+  display: block;
+  padding: 8px 10px;
+  margin-top: 6px;
+  border-radius: 6px;
+  background: var(--surface-soft);
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.rules-tip-list {
+  display: grid;
+  gap: 8px;
+  padding-left: 18px;
+  margin: 14px 0 0;
 }

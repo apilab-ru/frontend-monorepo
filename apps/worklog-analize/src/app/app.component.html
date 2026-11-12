@@ -1,26 +1,25 @@
-<div class="menu">
-   <h1 class="title">Worklog Analyze</h1>
-
-   <div class="navigation">
-      @for (item of menu; track item) {
-      <a
-         mat-button
-         class="link"
-         [routerLink]="item.path"
-         [routerLinkActiveOptions]="{ exact: true }"
-         [routerLinkActive]="'-active'"
-      >
-         {{ item.data?.name }}
+<header class="menu">
+  <a class="brand" routerLink="/" aria-label="Worklog Analyze home">
+    <app-icon name="logo" />
+    <span>Worklog Analyze</span>
+  </a>
+  <nav class="navigation" aria-label="Main navigation">
+    @for (item of menu; track item.path) {
+      <a class="nav-link" [routerLink]="item.path" routerLinkActive="-active"
+         [routerLinkActiveOptions]="{ exact: true }" ariaCurrentWhenActive="page">
+        <app-icon [name]="item.path === '' ? 'file-text' : 'book-open'" />
+        {{ item.data?.name }}
       </a>
-      }
-   </div>
-
-   <a mat-button class="link" target="_blank" [href]="githubLink">
-      <img alt="" class="icon" src="assets/github-circle-white-transparent.svg" />
-      GitHub
-   </a>
-</div>
-<div class="content">
-   <router-outlet></router-outlet>
-</div>
-<div class="footer"></div>
+    }
+  </nav>
+  <div class="header-actions">
+    <a class="github-link" target="_blank" rel="noopener noreferrer" [href]="githubLink">
+      <app-icon name="github" /><span>GitHub</span>
+    </a>
+    <button class="theme-button" type="button" (click)="theme.toggle()"
+      [attr.aria-pressed]="theme.dark()" aria-label="Toggle dark theme" title="Toggle light or dark theme">
+      <app-icon name="sun" />
+    </button>
+  </div>
+</header>
+<main class="content"><router-outlet /></main>

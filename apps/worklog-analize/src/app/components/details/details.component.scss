@@ -1,19 +1,47 @@
-.root {
-  max-height: calc(100vh - 100px);
-  overflow: auto;
-  padding: 10px;
+:host {
+  display: block;
 }
 
-.table {
+.table-scroll {
+  overflow-x: auto;
+  padding: 0 12px 8px;
+}
+
+.details-table {
+  width: 100%;
   border-collapse: collapse;
-  min-width: 500px;
+  font-size: 14px;
+}
 
-  td {
-    border: 1px solid #ccc;
-    padding: 3px 5px;
-  }
+.table-heading {
+  text-align: left;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--border-strong);
+  font-weight: 650;
+  white-space: nowrap;
+}
 
-  tr:nth-of-type(2n) td {
-    background: #e8eaf7;
-  }
+.table-cell {
+  padding: 9px 8px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.table-row:last-child .table-cell {
+  border-bottom: 0;
+}
+
+.numeric {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.hours-cell {
+  font-weight: 700;
+}
+
+.comment-cell {
+  min-width: 100px;
+  max-width: 300px;
+  overflow-wrap: anywhere;
 }

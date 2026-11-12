@@ -1,23 +1,14 @@
-<div class="root">
-   <h2 class="title">{{ data.item.name || data.item.key }} {{ data.item.hours }}h</h2>
-
-   <table class="table">
-      <tr>
-         <td>Hours</td>
-         <td>Local</td>
-         <td>Global</td>
-         <td>Issue</td>
-         <td>Comment</td>
-      </tr>
-
-      @for (item of items(); track item) {
-      <tr class="item">
-         <td [matTooltip]="item.time + 'm'">{{ item.hours }}</td>
-         <td>{{ item.percentLocal }}%</td>
-         <td>{{ item.percentGlobal }}%</td>
-         <td>{{ item.issue }}</td>
-         <td>{{ item.comment }}</td>
-      </tr>
+<div class="table-scroll" tabindex="0" role="region" [attr.aria-label]="'Worklog entries for ' + (data().item.name || data().item.key)">
+  <table class="details-table">
+    <thead><tr><th class="table-heading" scope="col">#</th><th class="table-heading" scope="col">Issue</th><th class="table-heading" scope="col">Comment</th><th class="table-heading numeric" scope="col">Hours</th><th class="table-heading numeric" scope="col">Group %</th><th class="table-heading numeric" scope="col">Total %</th></tr></thead>
+    <tbody>
+      @for (item of items(); track $index) {
+        <tr class="table-row">
+          <td class="table-cell">{{ $index + 1 }}</td><td class="table-cell">{{ item.issue || '—' }}</td><td class="table-cell comment-cell">{{ item.comment }}</td>
+          <td class="table-cell numeric hours-cell" [matTooltip]="item.time + 'm'">{{ item.hours | number:'1.1-2' }} h</td>
+          <td class="table-cell numeric">{{ item.percentLocal | number:'1.1-2' }}%</td><td class="table-cell numeric">{{ item.percentGlobal | number:'1.1-2' }}%</td>
+        </tr>
       }
-   </table>
+    </tbody>
+  </table>
 </div>

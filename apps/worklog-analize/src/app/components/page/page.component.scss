@@ -1,4 +1,19 @@
+:host {
+  display: block;
+}
+
+.root {
+  display: grid;
+  grid-template-columns: minmax(340px, 0.64fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 18px;
+
+  @media (max-width: 1050px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 .chart {
   display: block;
-  margin: 60px 20px 0;
+  min-width: 0;
 }

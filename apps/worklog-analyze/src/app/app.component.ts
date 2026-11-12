@@ -13,6 +13,6 @@ import { ROUTES } from './routes';
 })
 export class AppComponent {
   theme = inject(ThemeService);
-  githubLink = 'https://github.com/apilab-ru/worklog-analize';
+  githubLink = 'https://github.com/apilab-ru/frontend-monorepo/tree/master/apps/worklog-analyze';
   menu = ROUTES;
 }

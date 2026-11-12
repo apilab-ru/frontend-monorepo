@@ -75,12 +75,12 @@ Grouping runs in a Web Worker so the main interface remains responsive during la
 Run these commands from the monorepo root after installing workspace dependencies:
 
 ```sh
-npx nx serve worklog-analize
-npx nx build worklog-analize
-npx nx lint worklog-analize
+npx nx serve worklog-analyze
+npx nx build worklog-analyze
+npx nx lint worklog-analyze
 ```
 
-The development server is available at `http://localhost:4200/` by default. The production build is written to `dist/apps/worklog-analize`.
+The development server is available at `http://localhost:4200/` by default. The production build is written to `dist/apps/worklog-analyze`.
 
 ## Notes
 

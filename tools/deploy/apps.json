@@ -13,5 +13,10 @@
     "project": "check-list",
     "output": "dist/apps/check-list",
     "ftp_target_dir": "/check-list.apilab.ru/current"
+  },
+  {
+    "project": "worklog-analyze",
+    "output": "dist/apps/worklog-analyze",
+    "ftp_target_dir": "/worklog-analyze.apilab.ru/current"
   }
 ]

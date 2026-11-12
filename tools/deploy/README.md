@@ -6,7 +6,7 @@ and workspace configuration. The comparison starts at the last successful run
 of this workflow, so failed deployments are retried on subsequent pushes.
 Manual runs and deployment configuration changes select every enabled app.
 
-`json-editor`, `time`, and `check-list` are enabled in `apps.json`. To enable another static app, add
+`json-editor`, `time`, `check-list`, and `worklog-analyze` are enabled in `apps.json`. To enable another static app, add
 its Nx project name, production output directory, and FTP target directory there.
 The shared workflow builds each selected app and deploys its artifact via FTP,
 using the same lftp settings as the existing apilab-main workflow.
@@ -97,3 +97,15 @@ needed. The current virtual host listens on HTTP port 80.
 Push these changes to `master` to deploy affected apps, or run **Deploy affected
 apps** manually to deploy all enabled apps. The workflow builds on Ubuntu and
 verifies the uploaded `index.html` against the build artifact.
+
+## Worklog Analyze
+
+The Nx project `worklog-analyze` outputs `dist/apps/worklog-analyze` and uses the
+shared repository FTP credentials. Its configured FTP target is
+`/worklog-analyze.apilab.ru/current`.
+
+Before the first deployment, verify that `/var/www/worklog-analyze.apilab.ru/current`
+exists on the server, resolves inside the FTP jail, and is writable by `sites_deploy`.
+This target follows the existing site directory convention; its existence and
+permissions have not yet been verified over SSH. The site's web server must serve
+that directory and provide SPA fallback for the `/help` route.

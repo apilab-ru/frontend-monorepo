@@ -39,7 +39,7 @@ export const PROJECTS: Partial<Project>[] = [
         href: 'https://worklog-analyze.apilab.ru/',
       },
       {
-        href: 'https://github.com/apilab-ru/frontend-monorepo/tree/master/apps/worklog-analize',
+        href: 'https://github.com/apilab-ru/frontend-monorepo/tree/master/apps/worklog-analyze',
         name: 'GitHub Front',
         icon: 'github'
       },

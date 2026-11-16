@@ -3,7 +3,7 @@ import { IDbStoreService, makeStore } from '@store';
 import { DBStore, JsonData, JsonFile, Tab } from '../interface';
 import { DB_STORE_CONFIG } from '../const';
 import { from, map, Observable, shareReplay, switchMap, tap } from "rxjs";
-import { runInZone } from "@utils-monorep/angular-shared";
+import { runInZone } from "@angular-shared";
 
 const STORE = {
   files: [] as JsonFile[],
